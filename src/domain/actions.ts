@@ -1,6 +1,40 @@
 import { z } from "zod";
-import { deleteDraft, readEmailState, saveDraft, updateEmailState } from "../store/index.ts";
-import { defineAction } from "./action-definition.ts";
+import type { Db } from "../db/open-db.ts";
+import { deleteDraft, readEmailState, saveDraft, updateEmailState } from "../db/mailbox.ts";
+
+export type RiskClass = "reversible" | "external" | "irreversible" | "money";
+
+export type ActionContext = { db: Db; emailId: string; now: string };
+
+type ActionCommon<N extends string, S extends z.ZodObject> = {
+  name: N;
+  params: S;
+  // Sync because effects run inside a better-sqlite3 transaction, which rejects async callbacks.
+  execute(params: z.infer<S>, ctx: ActionContext): void;
+};
+
+type ReversibleAction<N extends string, S extends z.ZodObject> = ActionCommon<N, S> & {
+  riskClass: "reversible";
+  undo(params: z.infer<S>, ctx: ActionContext): void;
+};
+
+type OneWayAction<N extends string, S extends z.ZodObject> = ActionCommon<N, S> & {
+  riskClass: Exclude<RiskClass, "reversible">;
+};
+
+type ActionDefinition<N extends string = string, S extends z.ZodObject = z.ZodObject> =
+  | ReversibleAction<N, S>
+  | OneWayAction<N, S>;
+
+function defineAction<const N extends string, S extends z.ZodObject>(
+  definition: ReversibleAction<N, S>,
+): ReversibleAction<N, S>;
+function defineAction<const N extends string, S extends z.ZodObject>(
+  definition: OneWayAction<N, S>,
+): OneWayAction<N, S>;
+function defineAction(definition: ActionDefinition): ActionDefinition {
+  return definition;
+}
 
 const noParams = z.object({});
 const noEffect = () => {};
@@ -88,6 +122,26 @@ export const ACTIONS = [
 type RegisteredAction = (typeof ACTIONS)[number];
 export type ActionName = RegisteredAction["name"];
 
+export type Proposal = { action: ActionName; params: Record<string, unknown> };
+
+const proposalOptions = ACTIONS.map((action) =>
+  z.object({ action: z.literal(action.name), params: action.params }),
+);
+type ProposalOption = (typeof proposalOptions)[number];
+
+// `ACTIONS.map` loses the non-empty tuple type that z.discriminatedUnion requires.
+export const proposalSchema: z.ZodType<Proposal> = z.discriminatedUnion(
+  "action",
+  proposalOptions as [ProposalOption, ...ProposalOption[]],
+);
+
 export function actionFor<N extends ActionName>(name: N): Extract<RegisteredAction, { name: N }> {
   return ACTIONS.find((action) => action.name === name) as Extract<RegisteredAction, { name: N }>;
+}
+
+export function executeProposal(proposal: Proposal, ctx: ActionContext): void {
+  // Widening to ActionDefinition lets flat params through: execute is declared with method
+  // syntax, which TS checks bivariantly. Params were already validated by proposalSchema.
+  const action: ActionDefinition = actionFor(proposal.action);
+  action.execute(proposal.params, ctx);
 }

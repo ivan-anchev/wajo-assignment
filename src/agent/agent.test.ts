@@ -1,7 +1,7 @@
 import { MockLanguageModelV4 } from "ai/test";
 import { beforeEach, describe, expect, it } from "vitest";
-import { createAgent, type Agent } from "./create-agent.ts";
-import { openDb } from "./store/index.ts";
+import { createAgent, type Agent } from "./agent.ts";
+import { openDb } from "../db/open-db.ts";
 
 const FIXTURES = { inboxDir: "fixtures/inbox", contactsPath: "fixtures/contacts.json" };
 

@@ -1,4 +1,4 @@
-import type { Email, EmailState } from "../mail/index.ts";
+import type { Email, EmailState } from "../domain/types.ts";
 import type { Db } from "./open-db.ts";
 
 type EmailRow = Omit<Email, "headers"> & { headers: string };
@@ -41,4 +41,14 @@ export function updateEmailState(db: Db, id: string, patch: Partial<EmailState>)
     `UPDATE emails SET archived_at = @archivedAt, read_at = @readAt, snoozed_until = @snoozedUntil, labels = @labels
      WHERE id = @id`,
   ).run({ ...next, labels: JSON.stringify(next.labels), id });
+}
+
+export function saveDraft(db: Db, emailId: string, body: string): void {
+  db.prepare(
+    "INSERT INTO drafts (email_id, body) VALUES (?, ?) ON CONFLICT(email_id) DO UPDATE SET body = excluded.body",
+  ).run(emailId, body);
+}
+
+export function deleteDraft(db: Db, emailId: string): void {
+  db.prepare("DELETE FROM drafts WHERE email_id = ?").run(emailId);
 }

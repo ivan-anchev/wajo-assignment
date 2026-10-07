@@ -1,7 +1,7 @@
-import { executeProposal } from "../actions/index.ts";
-import type { ItemKind, Level } from "../policy/index.ts";
-import { insertExecution, insertItem, type Db } from "../store/index.ts";
-import type { Decision, Execution, Item } from "./records.model.ts";
+import { executeProposal } from "../domain/actions.ts";
+import { insertExecution, insertItem } from "../db/decision-log.ts";
+import type { Db } from "../db/open-db.ts";
+import type { Decision, Execution, Item, ItemKind, Level } from "../domain/types.ts";
 
 export function act(db: Db, decision: Decision): { item: Item | null; executions: Execution[] } {
   const item = decision.level === "silent" ? null : openItem(db, decision, decision.level);

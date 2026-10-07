@@ -1,4 +1,5 @@
-import type { Transcript } from "../create-agent.ts";
+import { ALLOWED_RESPONSES } from "../domain/policy.ts";
+import type { Transcript } from "../domain/types.ts";
 
 export function renderDecisionLine({ email, decision, item, executions }: Transcript): string {
   return [
@@ -31,7 +32,7 @@ export function renderTranscript({ email, decision, item, executions }: Transcri
 function describeOutcome(item: Transcript["item"], executions: Transcript["executions"]): string {
   const executed = executions.map((execution) => `executed ${execution.proposal.action}`);
   const opened = item
-    ? [`opened ${item.kind} item #${item.id} [${item.allowedResponses.join(", ")}]`]
+    ? [`opened ${item.kind} item #${item.id} [${ALLOWED_RESPONSES[item.kind].join(", ")}]`]
     : [];
   return [...executed, ...opened].join(", ");
 }

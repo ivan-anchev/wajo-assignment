@@ -1,5 +1,5 @@
 import { expect, it } from "vitest";
-import { openDb } from "./index.ts";
+import { openDb } from "./open-db.ts";
 
 it("creates every table and enforces foreign keys", () => {
   const db = openDb(":memory:");

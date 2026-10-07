@@ -1,6 +1,5 @@
 import type { LanguageModel } from "ai";
-import type { Email } from "../mail/index.ts";
-import type { InjectionVerdict } from "./records.model.ts";
+import type { Email, InjectionVerdict } from "../domain/types.ts";
 
 export function checkInjection(_llm: LanguageModel, _email: Email): Promise<InjectionVerdict> {
   return Promise.resolve({ suspected: false, evidence: [] });

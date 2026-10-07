@@ -1,12 +1,16 @@
 import { Command } from "commander";
-import { ACTIONS } from "../actions/index.ts";
-import { createAgent } from "../create-agent.ts";
-import { languageModelFrom } from "../llm/index.ts";
-import { openDb } from "../store/index.ts";
-import { readConfig } from "./config.ts";
+import { ACTIONS } from "../domain/actions.ts";
+import { createAgent } from "../agent/agent.ts";
+import { openDb } from "../db/open-db.ts";
+import { languageModelFrom } from "../llm/llm.ts";
 import { renderDecisionLine, renderTranscript } from "./render.ts";
 
-const config = readConfig(process.env);
+const config = {
+  dbPath: process.env.AGENT_DB ?? "agent.db",
+  inboxDir: process.env.INBOX_DIR ?? "fixtures/inbox",
+  contactsPath: process.env.CONTACTS ?? "fixtures/contacts.json",
+  model: process.env.MODEL ?? "anthropic:claude-opus-5-5",
+};
 const agent = createAgent(openDb(config.dbPath), languageModelFrom(config.model));
 
 const program = new Command("agent")

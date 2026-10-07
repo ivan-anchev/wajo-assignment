@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it } from "vitest";
-import { insertEmail, openDb, readEmailState, type Db } from "../store/index.ts";
-import { actionFor } from "./index.ts";
+import { actionFor } from "./actions.ts";
+import { insertEmail, readEmailState } from "../db/mailbox.ts";
+import { openDb, type Db } from "../db/open-db.ts";
 
 const NOW = "2026-10-07T09:00:00.000Z";
 let db: Db;

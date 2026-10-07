@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { readFileSync } from "node:fs";
-import { classifySender, type Contacts } from "./index.ts";
+import { classifySender, type Contacts } from "./inbox.ts";
 
 const contacts: Contacts = JSON.parse(readFileSync("fixtures/contacts.json", "utf8"));
 
