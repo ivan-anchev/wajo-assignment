@@ -47,3 +47,8 @@ TypeScript on Node 24 (run via tsx), pnpm, Vercel AI SDK (`generateObject` + Zod
 - Simplicity over production readiness: no crash recovery, no speculative edge cases, no defensive guards against states the types exclude.
 - LLM calls replay from `fixtures/llm/` by default; only `--live` hits the network and records. Tests never call a live model.
 - Each spec invariant (§6) is a unit test against the public surface.
+- No code comments unless they explain a non-obvious flow, invariant, or workaround that the code itself cannot make clear. Never write comments that record session decisions, task context, or what was just changed; that belongs in commit messages.
+
+## Commits
+
+Conventional Commits: `<type>: <imperative summary> (WAJ-n)`. Types: `feat`, `fix`, `refactor`, `test`, `docs`, `chore`. Subject under 72 characters, lowercase, no trailing period. One logical change per commit.
