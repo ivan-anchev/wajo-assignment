@@ -1,0 +1,10 @@
+{
+  "id": "001",
+  "threadId": "t-standup",
+  "from": "maya@wajo.dev",
+  "to": "ivan@wajo.dev",
+  "subject": "Standup moved to 10:30 tomorrow",
+  "body": "Heads up: tomorrow's standup is at 10:30 instead of 10:00. Same room.",
+  "headers": {},
+  "receivedAt": "2026-10-06T08:15:00.000Z"
+}

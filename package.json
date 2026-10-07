@@ -5,6 +5,7 @@
   "description": "Email agent that learns when to act, notify, ask, or escalate",
   "type": "module",
   "scripts": {
+    "agent": "tsx src/cli/main.ts",
     "typecheck": "tsc --noEmit",
     "lint": "oxlint",
     "fmt": "oxfmt",
