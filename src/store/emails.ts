@@ -1,6 +1,7 @@
 import type { Email, EmailState } from "../mail/index.ts";
 import type { Db } from "./open-db.ts";
 
+type EmailRow = Omit<Email, "headers"> & { headers: string };
 type EmailStateRow = Omit<EmailState, "labels"> & { labels: string };
 
 export function insertEmail(db: Db, email: Email): void {
@@ -8,6 +9,17 @@ export function insertEmail(db: Db, email: Email): void {
     `INSERT INTO emails (id, thread_id, from_address, to_address, subject, body, headers, received_at, sender_class)
      VALUES (@id, @threadId, @from, @to, @subject, @body, @headers, @receivedAt, @senderClass)`,
   ).run({ ...email, headers: JSON.stringify(email.headers) });
+}
+
+export function getEmail(db: Db, id: string): Email {
+  const row = db
+    .prepare<[string], EmailRow>(
+      `SELECT id, thread_id AS threadId, from_address AS "from", to_address AS "to", subject, body, headers,
+              received_at AS receivedAt, sender_class AS senderClass
+       FROM emails WHERE id = ?`,
+    )
+    .get(id)!;
+  return { ...row, headers: JSON.parse(row.headers) };
 }
 
 export function storedEmailIds(db: Db): Set<string> {
