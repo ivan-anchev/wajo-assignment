@@ -1,4 +1,4 @@
-import type { Transcript } from "../agent.ts";
+import type { Transcript } from "../create-agent.ts";
 
 export function renderDecisionLine({ email, decision, item, executions }: Transcript): string {
   return [

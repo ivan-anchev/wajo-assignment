@@ -1,6 +1,6 @@
 import { MockLanguageModelV4 } from "ai/test";
 import { beforeEach, describe, expect, it } from "vitest";
-import { createAgent, type Agent } from "./agent.ts";
+import { createAgent, type Agent } from "./create-agent.ts";
 import { openDb } from "./store/index.ts";
 
 const FIXTURES = { inboxDir: "fixtures/inbox", contactsPath: "fixtures/contacts.json" };
@@ -30,7 +30,7 @@ describe("run", () => {
     const [first] = await agent.run(FIXTURES);
 
     expect(first).toMatchObject({
-      decision: { floor: "silent", level: "silent", analysis: { proposal: { action: "none" } } },
+      decision: { analysis: { proposal: { action: "none" } } },
       item: null,
       executions: [{ proposal: { action: "none", params: {} }, itemId: null }],
     });

@@ -1,6 +1,6 @@
 import { Command } from "commander";
 import { ACTIONS } from "../actions/index.ts";
-import { createAgent } from "../agent.ts";
+import { createAgent } from "../create-agent.ts";
 import { languageModelFrom } from "../llm/index.ts";
 import { openDb } from "../store/index.ts";
 import { readConfig } from "./config.ts";

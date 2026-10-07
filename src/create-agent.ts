@@ -20,5 +20,4 @@ export function createAgent(db: Db, llm: LanguageModel) {
 }
 
 export type Agent = ReturnType<typeof createAgent>;
-export type { InboxSource } from "./mail/index.ts";
 export type { Transcript } from "./pipeline/index.ts";
