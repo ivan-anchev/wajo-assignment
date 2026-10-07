@@ -18,19 +18,17 @@ TypeScript on Node 24 (run via tsx), pnpm, Vercel AI SDK (`generateObject` + Zod
 
 ## Layout
 
-| Path            | Owns                                                                                           |
-| --------------- | ---------------------------------------------------------------------------------------------- |
-| `src/actions`   | Action registry: one array, one entry per action (name, risk class, Zod params, execute, undo) |
-| `src/policy`    | Floor, learner, pins: pure functions                                                           |
-| `src/pipeline`  | Per-event steps: intake, analyze, injection check, level, act, transcript                      |
-| `src/llm`       | Model provider from `MODEL` env, record/replay middleware                                      |
-| `src/mail`      | Simulated inbox and sender classification                                                      |
-| `src/store`     | SQLite schema and queries                                                                      |
-| `src/cli`       | Thin commander adapter over the service                                                        |
-| `src/shared`    | Generic helpers reused across folders                                                          |
-| `eval/`         | Harness: scripted oracle, episodes, metrics, writes `RESULTS.md` + `transcripts/`              |
-| `scenarios/`    | Eval scenario JSON (email, gold action/level, oracle answers)                                  |
-| `fixtures/llm/` | Recorded LLM responses, committed                                                              |
+| Path            | Owns                                                                                                 |
+| --------------- | ---------------------------------------------------------------------------------------------------- |
+| `src/agent`     | `createAgent` and the per-event flow: intake, analyze, injection check, level, act, transcript       |
+| `src/domain`    | `types.ts` (every domain record), `actions.ts` (registry), `policy.ts` (floor, level, learner, pins) |
+| `src/inbox`     | Simulated inbox reader and sender classification                                                     |
+| `src/llm`       | Model provider from `MODEL` env, record/replay middleware                                            |
+| `src/db`        | SQLite schema; `mailbox.ts` (emails, email state, drafts), `decision-log.ts` (decisions onward)      |
+| `src/cli`       | Thin commander adapter over the service                                                              |
+| `eval/`         | Harness: scripted oracle, episodes, metrics, writes `RESULTS.md` + `transcripts/`                    |
+| `scenarios/`    | Eval scenario JSON (email, gold action/level, oracle answers)                                        |
+| `fixtures/llm/` | Recorded LLM responses, committed                                                                    |
 
 ## Invariants (do not break)
 
@@ -48,7 +46,7 @@ TypeScript on Node 24 (run via tsx), pnpm, Vercel AI SDK (`generateObject` + Zod
 - Simplicity over production readiness: no crash recovery, no speculative edge cases, no defensive guards against states the types exclude.
 - LLM calls replay from `fixtures/llm/` by default; only `--live` hits the network and records. Tests never call a live model.
 - Each spec invariant (§6) is a unit test against the public surface.
-- File names show their role: `*.model.ts` holds only types, Zod schemas, and the const tuples that back them; any other file is one behavior named after its exported function (`read-inbox.ts` → `readInbox`). Each folder's `index.ts` is its public surface.
+- All code lives in a folder under `src/`, grouped by area; no loose files in `src/`. Inside a folder, one file per concept, named after the concept (`policy.ts`, `mailbox.ts`); split a file only when it outgrows about 150 lines. Domain records live in `domain/types.ts`; types derived from the registry stay in `domain/actions.ts`. No barrel `index.ts` files: import the file directly.
 - No code comments unless they explain a non-obvious flow, invariant, or workaround that the code itself cannot make clear. Never write comments that record session decisions, task context, or what was just changed; that belongs in commit messages.
 
 ## Commits
