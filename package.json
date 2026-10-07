@@ -1,0 +1,36 @@
+{
+  "name": "wajo-assignment",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Email agent that learns when to act, notify, ask, or escalate",
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "lint": "oxlint",
+    "fmt": "oxfmt",
+    "fmt:check": "oxfmt --check",
+    "test": "vitest run --passWithNoTests",
+    "check": "pnpm typecheck && pnpm lint && pnpm fmt:check && pnpm test"
+  },
+  "dependencies": {
+    "@ai-sdk/anthropic": "^4.0.72",
+    "@ai-sdk/openai": "^4.0.84",
+    "ai": "^7.0.128",
+    "better-sqlite3": "^13.0.3",
+    "commander": "^15.0.0",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^9.6.0",
+    "@types/node": "^24.19.1",
+    "oxfmt": "^0.72.0",
+    "oxlint": "^1.87.0",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.3"
+  },
+  "engines": {
+    "node": ">=24"
+  },
+  "packageManager": "pnpm@11.2.2"
+}
