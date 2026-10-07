@@ -48,7 +48,7 @@ TypeScript on Node 24 (run via tsx), pnpm, Vercel AI SDK (`generateObject` + Zod
 - Simplicity over production readiness: no crash recovery, no speculative edge cases, no defensive guards against states the types exclude.
 - LLM calls replay from `fixtures/llm/` by default; only `--live` hits the network and records. Tests never call a live model.
 - Each spec invariant (§6) is a unit test against the public surface.
-- File names show their role: `*.model.ts` holds only types and Zod schemas; any other file is one behavior named after its exported function (`read-inbox.ts` → `readInbox`). Each folder's `index.ts` is its public surface.
+- File names show their role: `*.model.ts` holds only types, Zod schemas, and the const tuples that back them; any other file is one behavior named after its exported function (`read-inbox.ts` → `readInbox`). Each folder's `index.ts` is its public surface.
 - No code comments unless they explain a non-obvious flow, invariant, or workaround that the code itself cannot make clear. Never write comments that record session decisions, task context, or what was just changed; that belongs in commit messages.
 
 ## Commits
