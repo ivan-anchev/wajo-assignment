@@ -27,6 +27,7 @@ TypeScript on Node 24 (run via tsx), pnpm, Vercel AI SDK (`generateObject` + Zod
 | `src/mail`      | Simulated inbox and sender classification                                                      |
 | `src/store`     | SQLite schema and queries                                                                      |
 | `src/cli`       | Thin commander adapter over the service                                                        |
+| `src/shared`    | Generic helpers reused across folders                                                          |
 | `eval/`         | Harness: scripted oracle, episodes, metrics, writes `RESULTS.md` + `transcripts/`              |
 | `scenarios/`    | Eval scenario JSON (email, gold action/level, oracle answers)                                  |
 | `fixtures/llm/` | Recorded LLM responses, committed                                                              |
@@ -47,6 +48,7 @@ TypeScript on Node 24 (run via tsx), pnpm, Vercel AI SDK (`generateObject` + Zod
 - Simplicity over production readiness: no crash recovery, no speculative edge cases, no defensive guards against states the types exclude.
 - LLM calls replay from `fixtures/llm/` by default; only `--live` hits the network and records. Tests never call a live model.
 - Each spec invariant (§6) is a unit test against the public surface.
+- File names show their role: `*.model.ts` holds only types and Zod schemas; any other file is one behavior named after its exported function (`read-inbox.ts` → `readInbox`). Each folder's `index.ts` is its public surface.
 - No code comments unless they explain a non-obvious flow, invariant, or workaround that the code itself cannot make clear. Never write comments that record session decisions, task context, or what was just changed; that belongs in commit messages.
 
 ## Commits
