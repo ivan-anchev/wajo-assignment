@@ -6,7 +6,9 @@
     "suspicious": "warn"
   },
   "rules": {
-    "curly": ["error", "all"]
+    "curly": ["error", "all"],
+    "vitest/padding-around-test-blocks": "error",
+    "import/newline-after-import": "error"
   },
   "env": {
     "builtin": true
