@@ -6,10 +6,16 @@ export function replayModel(): LanguageModel {
   return languageModelFrom(DEFAULT_MODEL, { live: false });
 }
 
-export function mockModel(outputs: Record<string, object>): MockLanguageModelV4 {
+// An Error output makes that call throw instead of answering.
+export function mockModel(outputs: Record<string, object | Error>): MockLanguageModelV4 {
   return new MockLanguageModelV4({
-    doGenerate: async ({ responseFormat }) =>
-      answer(JSON.stringify(outputs[(responseFormat as { name: string }).name])),
+    doGenerate: async ({ responseFormat }) => {
+      const output = outputs[(responseFormat as { name: string }).name];
+      if (output instanceof Error) {
+        throw output;
+      }
+      return answer(JSON.stringify(output));
+    },
   });
 }
 

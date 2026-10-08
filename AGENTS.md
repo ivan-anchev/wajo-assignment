@@ -14,7 +14,7 @@ pnpm fmt          # oxfmt, writes in place
 
 ## Stack
 
-TypeScript on Node 24 (run via tsx), pnpm, Vercel AI SDK (`generateObject` + Zod), better-sqlite3, commander, vitest, oxlint/oxfmt. No agent frameworks (Mastra, LangGraph), no ORM.
+TypeScript on Node 24 (run via tsx), pnpm, Vercel AI SDK (`generateText` + `Output.object` + Zod), better-sqlite3, commander, vitest, oxlint/oxfmt. No agent frameworks (Mastra, LangGraph), no ORM.
 
 ## Layout
 

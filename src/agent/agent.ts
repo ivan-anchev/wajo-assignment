@@ -42,8 +42,10 @@ function intake(db: Db, source: InboxSource): Event[] {
 // fully decided or absent.
 async function processEvent(db: Db, llm: LanguageModel, event: Event): Promise<Transcript> {
   const { email } = event;
-  const analysis = await analyze(llm, email);
-  const injection = await checkInjection(llm, email);
+  const [analysis, injection] = await Promise.all([
+    analyze(llm, email),
+    checkInjection(llm, email),
+  ]);
   const { floor, level } = levelFor(analysis.proposal, injection);
   return commit(db, email, { emailId: email.id, analysis, injection, floor, level });
 }

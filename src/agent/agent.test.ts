@@ -1,63 +1,134 @@
+import type { LanguageModel } from "ai";
 import { beforeEach, describe, expect, it } from "vitest";
-import { createAgent, type Agent } from "./agent.ts";
-import { openDb } from "../db/open-db.ts";
+import { createAgent } from "./agent.ts";
+import { readEmailState } from "../db/mailbox.ts";
+import { openDb, type Db } from "../db/open-db.ts";
 import { mockModel, replayModel } from "../llm/test-models.ts";
 
-const FIXTURES = { inboxDir: "fixtures/inbox", contactsPath: "fixtures/contacts.json" };
+const CONTACTS = "fixtures/contacts.json";
+const INBOX = { inboxDir: "fixtures/inbox", contactsPath: CONTACTS };
+const INJECTION_INBOX = { inboxDir: "fixtures/injection", contactsPath: CONTACTS };
 
-let agent: Agent;
+let db: Db;
 
 beforeEach(() => {
-  agent = createAgent(openDb(":memory:"), replayModel());
+  db = openDb(":memory:");
 });
 
-describe("run", () => {
-  it("decides each fixture email in arrival order", async () => {
-    const transcripts = await agent.run(FIXTURES);
+const agentWith = (llm: LanguageModel) => createAgent(db, llm);
 
-    expect(transcripts.map((t) => [t.email.id, t.email.senderClass])).toEqual([
-      ["001", "internal"],
-      ["002", "newsletter"],
-      ["003", "first_contact"],
-    ]);
+describe("run", () => {
+  it("decides each demo email from its recorded analysis, in arrival order", async () => {
+    const transcripts = await agentWith(replayModel()).run(INBOX);
+
+    expect(
+      transcripts.map((t) => [
+        t.email.id,
+        t.decision.analysis.proposal.action,
+        t.decision.injection.suspected,
+        t.decision.level,
+      ]),
+    ).toMatchInlineSnapshot(`
+      [
+        [
+          "001",
+          "none",
+          false,
+          "silent",
+        ],
+        [
+          "002",
+          "none",
+          false,
+          "silent",
+        ],
+        [
+          "003",
+          "draft_reply",
+          false,
+          "silent",
+        ],
+      ]
+    `);
   });
 
-  it("executes a silent proposal at the floor without opening an item", async () => {
+  it("escalates every injection email and executes nothing", async () => {
+    const transcripts = await agentWith(replayModel()).run(INJECTION_INBOX);
+
+    expect(
+      transcripts.map((t) => ({
+        suspected: t.decision.injection.suspected,
+        level: t.decision.level,
+        item: t.item?.kind,
+        executions: t.executions,
+      })),
+    ).toEqual(
+      Array.from({ length: 6 }, () => ({
+        suspected: true,
+        level: "escalate",
+        item: "escalate",
+        executions: [],
+      })),
+    );
+  });
+
+  it("executes a silent reversible proposal and changes the email's state", async () => {
     const llm = mockModel({
       analysis: {
         summary: "s",
         intent: "fyi",
-        proposal: { action: "none", params: {} },
-        confidence: 1,
+        proposal: { action: "archive", params: {} },
+        confidence: 0.9,
       },
       injection_verdict: { suspected: false, evidence: [] },
     });
 
-    const [first] = await createAgent(openDb(":memory:"), llm).run(FIXTURES);
+    const [first] = await agentWith(llm).run(INBOX);
 
-    expect(first!.decision.floor).toBe("silent");
-    expect(first!.decision.level).toBe(first!.decision.floor);
     expect(first).toMatchObject({
+      decision: { level: "silent" },
       item: null,
-      executions: [{ proposal: { action: "none", params: {} }, itemId: null }],
+      executions: [{ proposal: { action: "archive", params: {} }, itemId: null }],
     });
+    expect(readEmailState(db, first!.email.id).archivedAt).toBe(first!.executions[0]!.executedAt);
+  });
+
+  it("writes nothing when the judge fails, so the email is retried next run", async () => {
+    const judgeDown = mockModel({
+      analysis: {
+        summary: "s",
+        intent: "fyi",
+        proposal: { action: "archive", params: {} },
+        confidence: 0.9,
+      },
+      injection_verdict: new Error("judge unavailable"),
+    });
+    const failing = agentWith(judgeDown);
+
+    await expect(failing.run(INBOX)).rejects.toThrow("judge unavailable");
+    expect(failing.transcript("001")).toBeNull();
+
+    const retried = await agentWith(replayModel()).run(INBOX);
+    expect(retried.map((t) => t.email.id)).toEqual(["001", "002", "003"]);
   });
 
   it("processes nothing on a second run", async () => {
-    await agent.run(FIXTURES);
+    const agent = agentWith(replayModel());
+    await agent.run(INBOX);
 
-    expect(await agent.run(FIXTURES)).toEqual([]);
+    expect(await agent.run(INBOX)).toEqual([]);
   });
 });
 
 describe("transcript", () => {
   it("returns the same transcripts run produced", async () => {
-    const transcripts = await agent.run(FIXTURES);
+    const agent = agentWith(replayModel());
+    const transcripts = await agent.run(INBOX);
 
     expect(transcripts.map((t) => agent.transcript(t.email.id))).toEqual(transcripts);
   });
 
   it("returns null for an unknown email id", () => {
-    expect(agent.transcript("does-not-exist")).toBeNull();
+    expect(agentWith(replayModel()).transcript("does-not-exist")).toBeNull();
   });
 });
