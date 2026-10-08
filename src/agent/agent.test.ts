@@ -1,46 +1,45 @@
-import { MockLanguageModelV4 } from "ai/test";
 import { beforeEach, describe, expect, it } from "vitest";
 import { createAgent, type Agent } from "./agent.ts";
 import { openDb } from "../db/open-db.ts";
+import { mockModel, replayModel } from "../llm/test-models.ts";
 
 const FIXTURES = { inboxDir: "fixtures/inbox", contactsPath: "fixtures/contacts.json" };
 
 let agent: Agent;
-let llm: MockLanguageModelV4;
 
 beforeEach(() => {
-  llm = new MockLanguageModelV4();
-  agent = createAgent(openDb(":memory:"), llm);
+  agent = createAgent(openDb(":memory:"), replayModel());
 });
 
 describe("run", () => {
-  it("decides each fixture email at the floor, in arrival order", async () => {
+  it("decides each fixture email in arrival order", async () => {
     const transcripts = await agent.run(FIXTURES);
 
-    expect(
-      transcripts.map((t) => [t.email.id, t.email.senderClass, t.decision.floor, t.decision.level]),
-    ).toEqual([
-      ["001", "internal", "silent", "silent"],
-      ["002", "newsletter", "silent", "silent"],
-      ["003", "first_contact", "silent", "silent"],
+    expect(transcripts.map((t) => [t.email.id, t.email.senderClass])).toEqual([
+      ["001", "internal"],
+      ["002", "newsletter"],
+      ["003", "first_contact"],
     ]);
   });
 
-  it("executes the silent none proposal without opening an item", async () => {
-    const [first] = await agent.run(FIXTURES);
+  it("executes a silent proposal at the floor without opening an item", async () => {
+    const llm = mockModel({
+      analysis: {
+        summary: "s",
+        intent: "fyi",
+        proposal: { action: "none", params: {} },
+        confidence: 1,
+      },
+    });
 
+    const [first] = await createAgent(openDb(":memory:"), llm).run(FIXTURES);
+
+    expect(first!.decision.floor).toBe("silent");
+    expect(first!.decision.level).toBe(first!.decision.floor);
     expect(first).toMatchObject({
-      decision: { analysis: { proposal: { action: "none" } } },
       item: null,
       executions: [{ proposal: { action: "none", params: {} }, itemId: null }],
     });
-  });
-
-  it("never calls the language model while the analyzer is a stub", async () => {
-    await agent.run(FIXTURES);
-
-    expect(llm.doGenerateCalls).toEqual([]);
-    expect(llm.doStreamCalls).toEqual([]);
   });
 
   it("processes nothing on a second run", async () => {
