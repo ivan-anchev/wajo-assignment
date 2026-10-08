@@ -1,12 +1,13 @@
 import { anthropic } from "@ai-sdk/anthropic";
+import { google } from "@ai-sdk/google";
 import { openai } from "@ai-sdk/openai";
 import { createProviderRegistry, wrapLanguageModel, type LanguageModel } from "ai";
 import { fileURLToPath } from "node:url";
 import { recordReplay } from "./record-replay.ts";
 
-export const DEFAULT_MODEL = "anthropic:claude-sonnet-5-5";
+export const DEFAULT_MODEL = "google:gemini-3.5-flash";
 
-const registry = createProviderRegistry({ anthropic, openai });
+const registry = createProviderRegistry({ anthropic, google, openai });
 
 const FIXTURE_DIR = fileURLToPath(new URL("../../fixtures/llm", import.meta.url));
 
@@ -14,7 +15,9 @@ const FIXTURE_DIR = fileURLToPath(new URL("../../fixtures/llm", import.meta.url)
 // provider throws NoSuchProviderError at startup.
 export function languageModelFrom(spec: string, { live }: { live: boolean }): LanguageModel {
   return wrapLanguageModel({
-    model: registry.languageModel(spec as `anthropic:${string}` | `openai:${string}`),
+    model: registry.languageModel(
+      spec as `anthropic:${string}` | `google:${string}` | `openai:${string}`,
+    ),
     middleware: recordReplay({ dir: FIXTURE_DIR, live }),
   });
 }
