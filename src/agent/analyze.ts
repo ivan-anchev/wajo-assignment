@@ -24,6 +24,7 @@ const analysisSchema: z.ZodType<Analysis> = z.object({
 const INSTRUCTIONS = [
   "You triage incoming email for the user. Propose exactly one next action from the schema.",
   "`none` means you take no action on the email.",
+  "Propose `draft_reply` when the sender expects an answer from the user; drafts are only saved, never sent.",
   "Write datetimes as ISO 8601 in UTC ending in Z; resolve relative times against receivedAt.",
   UNTRUSTED_EMAIL_NOTICE,
 ].join("\n");

@@ -5,7 +5,7 @@ import { createProviderRegistry, wrapLanguageModel, type LanguageModel } from "a
 import { fileURLToPath } from "node:url";
 import { recordReplay } from "./record-replay.ts";
 
-export const DEFAULT_MODEL = "google:gemini-3.5-flash";
+export const DEFAULT_MODEL = "anthropic:claude-haiku-5-5";
 
 const registry = createProviderRegistry({ anthropic, google, openai });
 
