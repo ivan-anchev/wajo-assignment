@@ -30,6 +30,7 @@ describe("run", () => {
         proposal: { action: "none", params: {} },
         confidence: 1,
       },
+      injection_verdict: { suspected: false, evidence: [] },
     });
 
     const [first] = await createAgent(openDb(":memory:"), llm).run(FIXTURES);
