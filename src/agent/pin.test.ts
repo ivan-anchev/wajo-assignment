@@ -1,10 +1,11 @@
 import { beforeEach, describe, expect, it } from "vitest";
 import { openDb, type Db } from "../db/open-db.ts";
+import { findPin } from "../db/pins.ts";
 import type { ActionName } from "../domain/actions.ts";
 import type { Level, SenderClass } from "../domain/types.ts";
 import { replayModel } from "../llm/test-models.ts";
 import { createAgent, Refusal, type Agent } from "./agent.ts";
-import { ARCHIVE, feedbackCount, newsletterInbox } from "./test-agents.ts";
+import { ARCHIVE, MARK_READ, feedbackCount, newsletterInbox } from "./test-agents.ts";
 
 let db: Db;
 let deliver: ReturnType<typeof newsletterInbox>;
@@ -72,8 +73,7 @@ describe("pins (§7.3)", () => {
 
   it("accepts a pin at the floor, and pin and unpin write no feedback", () => {
     expect(agent.pin("send_reply", "known", "ask")).toMatchObject({ level: "ask" });
-    agent.unpin("send_reply", "known");
-
+    expect(agent.unpin("send_reply", "known")).toMatchObject({ pin: null, level: "ask" });
     expect(feedbackCount(db)).toBe(0);
   });
 
@@ -84,6 +84,15 @@ describe("pins (§7.3)", () => {
   ])("refuses to pin %s/%s below the floor at %s (invariant 4)", (action, senderClass, level) => {
     expect(() => agent.pin(action, senderClass, level)).toThrow(Refusal);
     expect(() => agent.pin(action, senderClass, level)).toThrow(/a pin can only raise it/);
+    expect(findPin(db, action, senderClass)).toBeNull();
+  });
+
+  it("holds only its own action and sender class", async () => {
+    agent.pin("archive", "newsletter", "ask");
+
+    expect(agent.unpin("archive", "known")).toMatchObject({ pin: null });
+    expect((await deliver(MARK_READ)).decision).toMatchObject({ pin: null });
+    expect((await deliver(ARCHIVE)).decision).toMatchObject({ pin: "ask" });
   });
 
   it("treats unpinning an unpinned bucket as a no-op", () => {
