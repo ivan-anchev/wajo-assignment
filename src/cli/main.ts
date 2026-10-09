@@ -1,11 +1,11 @@
 import { Command, InvalidArgumentError } from "commander";
 import { existsSync } from "node:fs";
 import { ACTIONS } from "../domain/actions.ts";
-import type { ProposalEdit, Transcript } from "../domain/types.ts";
+import type { ProposalEdit, ResponseResult } from "../domain/types.ts";
 import { createAgent, InvalidResponseError, type Agent } from "../agent/agent.ts";
 import { openDb } from "../db/open-db.ts";
 import { DEFAULT_MODEL, languageModelFrom } from "../llm/llm.ts";
-import { renderDecisionLine, renderInboxLine, renderTranscript } from "./render.ts";
+import { renderDecisionLine, renderInboxLine, renderResponse, renderTranscript } from "./render.ts";
 
 if (existsSync(".env")) {
   process.loadEnvFile();
@@ -84,12 +84,10 @@ itemCommand("dismiss", "Mark a notification or escalation as reviewed", (agent, 
   agent.dismiss(id),
 );
 
-// Prints the updated decision line, or the refusal on stderr with exit code 1.
-// Anything other than InvalidResponseError is a bug and still crashes with a stack trace.
 function itemCommand(
   name: string,
   description: string,
-  respond: (agent: Agent, itemId: number, options: { set: ProposalEdit }) => Transcript,
+  respond: (agent: Agent, itemId: number, options: { set: ProposalEdit }) => ResponseResult,
 ): Command {
   return program
     .command(name)
@@ -97,7 +95,7 @@ function itemCommand(
     .argument("<itemId>", "item id from `agent inbox`", parseItemId)
     .action((itemId: number, options: { set: ProposalEdit }) => {
       try {
-        console.log(renderDecisionLine(respond(openAgent({ live: false }), itemId, options)));
+        console.log(renderResponse(respond(openAgent({ live: false }), itemId, options)));
       } catch (error) {
         if (!(error instanceof InvalidResponseError)) {
           throw error;
@@ -120,7 +118,6 @@ function describeAction({ name, riskClass, params }: (typeof ACTIONS)[number]): 
   return [name, `(${riskClass})`, keys].filter(Boolean).join(" ");
 }
 
-// Repeatable --set; splits at the first "=". No default, so requiredOption rejects an empty edit.
 function collectPair(pair: string, edit: ProposalEdit = {}): ProposalEdit {
   const at = pair.indexOf("=");
   if (at < 1) {

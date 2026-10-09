@@ -1,4 +1,4 @@
-import { actionFor, type RiskClass } from "./actions.ts";
+import { actionFor, type ActionName, type RiskClass } from "./actions.ts";
 import {
   LEVELS,
   type Analysis,
@@ -63,6 +63,20 @@ export function levelFor(
   };
 }
 
+export function promotion(
+  action: ActionName,
+  history: readonly ItemResponse[],
+  response: ItemResponse,
+): Level | null {
+  const from = standingLevel(action, history);
+  const to = standingLevel(action, [...history, response]);
+  return rank(to) < rank(from) ? from : null;
+}
+
+function standingLevel(action: ActionName, history: readonly ItemResponse[]): Level {
+  return maxLevel(floor(actionFor(action).riskClass, false), learnedLevel(history));
+}
+
 function learnedLevel(history: readonly ItemResponse[]): LearnedLevel {
   return history.reduce(climb, { rung: COLD_START, streak: 0 }).rung;
 }
@@ -80,7 +94,9 @@ function climb({ rung, streak }: Standing, response: ItemResponse): Standing {
 }
 
 function maxLevel(...levels: [Level, ...Level[]]): Level {
-  return levels.reduce((strictest, level) =>
-    LEVELS.indexOf(level) > LEVELS.indexOf(strictest) ? level : strictest,
-  );
+  return levels.reduce((strictest, level) => (rank(level) > rank(strictest) ? level : strictest));
+}
+
+function rank(level: Level): number {
+  return LEVELS.indexOf(level);
 }

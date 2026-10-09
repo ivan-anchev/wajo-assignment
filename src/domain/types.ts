@@ -82,3 +82,5 @@ export type Transcript = {
   executions: Execution[];
   feedback: Feedback | null;
 };
+
+export type ResponseResult = { transcript: Transcript; promotion: string | null };

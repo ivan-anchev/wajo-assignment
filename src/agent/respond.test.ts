@@ -23,7 +23,7 @@ describe("approve", () => {
   it("executes the proposal once, closes the item, records positive feedback", async () => {
     const agent = await agentProposing(db, SEND_REPLY);
 
-    const transcript = agent.approve(1);
+    const { transcript } = agent.approve(1);
 
     expect(transcript.item).toMatchObject({ status: "approved", resolvedAt: expect.any(String) });
     expect(transcript.executions).toMatchObject([{ itemId: 1, proposal: SEND_REPLY }]);
@@ -64,7 +64,7 @@ describe("edit", () => {
     const agent = await agentProposing(db, SEND_REPLY);
     const edited = { action: "send_reply", params: { body: "Thanks!" } };
 
-    const transcript = agent.edit(1, { body: "Thanks!" });
+    const { transcript } = agent.edit(1, { body: "Thanks!" });
 
     expect(transcript.item!.proposal).toEqual(edited);
     expect(transcript.executions[0]!.proposal).toEqual(edited);
@@ -75,13 +75,13 @@ describe("edit", () => {
   it("overlays a same-action edit on the current params", async () => {
     const agent = await agentProposing(db, SEND_REPLY);
 
-    expect(agent.edit(1, {}).executions[0]!.proposal).toEqual(SEND_REPLY);
+    expect(agent.edit(1, {}).transcript.executions[0]!.proposal).toEqual(SEND_REPLY);
   });
 
   it("buckets an action switch under the proposed action", async () => {
     const agent = await agentProposing(db, SEND_REPLY);
 
-    const transcript = agent.edit(1, { action: "forward", to: "dana@northwind.io" });
+    const { transcript } = agent.edit(1, { action: "forward", to: "dana@northwind.io" });
 
     expect(transcript.executions[0]!.proposal).toEqual({
       action: "forward",
@@ -102,7 +102,7 @@ describe("edit", () => {
     expect(before!.executions).toEqual([]);
     expect(feedbackCount(db)).toBe(0);
 
-    expect(agent.reject(1).feedback).toMatchObject({ kind: "reject" });
+    expect(agent.reject(1).transcript.feedback).toMatchObject({ kind: "reject" });
   });
 
   it.each([
@@ -124,7 +124,7 @@ describe("reject", () => {
   it("closes the ask without executing and records negative feedback", async () => {
     const agent = await agentProposing(db, SEND_REPLY);
 
-    const transcript = agent.reject(1);
+    const { transcript } = agent.reject(1);
 
     expect(transcript.item!.status).toBe("rejected");
     expect(transcript.executions).toEqual([]);
@@ -137,16 +137,22 @@ describe("dismiss", () => {
     const agent = createAgent(db, replayModel());
     await agent.run(INJECTION_INBOX);
 
-    const transcripts = [1, 2, 3, 4, 5, 6].map((id) => agent.dismiss(id));
+    const results = [1, 2, 3, 4, 5, 6].map((id) => agent.dismiss(id));
 
     expect(
-      transcripts.map(({ item, executions, feedback }) => ({
+      results.map(({ transcript: { item, executions, feedback }, promotion }) => ({
         status: item!.status,
         executions,
         feedback,
+        promotion,
       })),
     ).toEqual(
-      Array.from({ length: 6 }, () => ({ status: "dismissed", executions: [], feedback: null })),
+      Array.from({ length: 6 }, () => ({
+        status: "dismissed",
+        executions: [],
+        feedback: null,
+        promotion: null,
+      })),
     );
     expect(feedbackCount(db)).toBe(0);
   });
@@ -155,7 +161,7 @@ describe("dismiss", () => {
     const agent = await agentProposing(db, PAY_INVOICE);
 
     expect(agent.transcript("001")!.item!.kind).toBe("escalate");
-    expect(agent.dismiss(1).item!.status).toBe("dismissed");
+    expect(agent.dismiss(1).transcript.item!.status).toBe("dismissed");
     expect(feedbackCount(db)).toBe(0);
     expect(() => agent.dismiss(1)).toThrow(/already dismissed/);
   });
@@ -187,7 +193,7 @@ describe("notify items", () => {
   it("dismiss closes a notify item, keeps the action, records positive feedback", async () => {
     const { agent, notified } = await notifiedArchive();
 
-    const transcript = agent.dismiss(notified.item!.id);
+    const { transcript } = agent.dismiss(notified.item!.id);
 
     expect(transcript.item!.status).toBe("dismissed");
     expect(transcript.executions).toMatchObject([{ undoneAt: null }]);
@@ -204,7 +210,7 @@ describe("notify items", () => {
   it("undo reverts a notified action and records negative feedback", async () => {
     const { agent, notified } = await notifiedArchive();
 
-    const transcript = agent.undo(notified.item!.id);
+    const { transcript } = agent.undo(notified.item!.id);
 
     expect(transcript.item!.status).toBe("undone");
     expect(transcript.executions).toMatchObject([{ undoneAt: expect.any(String) }]);
@@ -219,7 +225,7 @@ describe("notify items", () => {
 
     expect(() => agent.undo(notified.item!.id)).toThrow(/already undone/);
     expect(agent.transcript(notified.email.id)!.executions).toMatchObject([
-      { undoneAt: undone.executions[0]!.undoneAt },
+      { undoneAt: undone.transcript.executions[0]!.undoneAt },
     ]);
     expect(feedbackCount(db)).toBe(feedbackBefore);
   });

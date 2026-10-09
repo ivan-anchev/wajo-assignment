@@ -1,5 +1,5 @@
 import type { Proposal } from "../domain/actions.ts";
-import type { Execution, Feedback, Item, Transcript } from "../domain/types.ts";
+import type { Execution, Feedback, Item, ResponseResult, Transcript } from "../domain/types.ts";
 
 export function renderDecisionLine({ email, decision, item, executions }: Transcript): string {
   return [
@@ -10,6 +10,10 @@ export function renderDecisionLine({ email, decision, item, executions }: Transc
     `level=${decision.level}`.padEnd(15),
     describeOutcome(item, executions),
   ].join(" ");
+}
+
+export function renderResponse({ transcript, promotion }: ResponseResult): string {
+  return [renderDecisionLine(transcript), ...(promotion ? [promotion] : [])].join("\n");
 }
 
 export function renderInboxLine({ email, decision, item }: Transcript): string {

@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { ACTIONS, type ActionName } from "./actions.ts";
-import { floor, levelFor } from "./policy.ts";
+import { floor, levelFor, promotion } from "./policy.ts";
 import { LEVELS, type Analysis, type ItemResponse, type Level } from "./types.ts";
 
 // Keyed by action, not risk class, so a misclassified action fails here.
@@ -118,6 +118,22 @@ describe("levelFor", () => {
       }
     }
     expect(violations).toEqual([]);
+  });
+});
+
+describe("promotion (§7.2)", () => {
+  it("fires only on the response that crosses the threshold", () => {
+    expect(promotion("archive", ["approve"], "approve")).toBeNull();
+    expect(promotion("archive", ["approve", "approve"], "approve")).toBe("ask");
+    expect(promotion("archive", thrice("approve"), "approve")).toBeNull();
+  });
+
+  it("is not announced when the floor hides it", () => {
+    expect(promotion("send_reply", ["approve", "approve"], "approve")).toBeNull();
+  });
+
+  it("is never a demotion", () => {
+    expect(promotion("archive", [...thrice("approve"), ...thrice("dismiss")], "undo")).toBeNull();
   });
 });
 

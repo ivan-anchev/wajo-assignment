@@ -8,14 +8,14 @@ import type {
   ItemResponse,
   ItemStatus,
   ProposalEdit,
-  Transcript,
+  ResponseResult,
 } from "../domain/types.ts";
 import { findExecutionByItem, getDecision, markUndone, transcriptOf } from "../db/decision-log.ts";
-import { insertFeedback } from "../db/feedback.ts";
 import { findItem, resolveItem } from "../db/items.ts";
 import { getEmail } from "../db/mailbox.ts";
 import type { Db } from "../db/open-db.ts";
 import { execute } from "./act.ts";
+import { learn } from "./learn.ts";
 
 // The one failure a caller is expected to handle. Anything else thrown here is a bug.
 export class InvalidResponseError extends Error {}
@@ -28,23 +28,23 @@ type ResponseContext = {
   response: ItemResponse;
 };
 
-export function approve(db: Db, itemId: number): Transcript {
+export function approve(db: Db, itemId: number): ResponseResult {
   return respond(db, itemId, "approve", (r) => approveProposal(r, r.item.proposal));
 }
 
-export function edit(db: Db, itemId: number, changes: ProposalEdit): Transcript {
+export function edit(db: Db, itemId: number, changes: ProposalEdit): ResponseResult {
   return respond(db, itemId, "edit", (r) => approveProposal(r, editedProposal(r.item, changes)));
 }
 
-export function reject(db: Db, itemId: number): Transcript {
+export function reject(db: Db, itemId: number): ResponseResult {
   return respond(db, itemId, "reject", (r) => resolve(r, "rejected"));
 }
 
-export function dismiss(db: Db, itemId: number): Transcript {
+export function dismiss(db: Db, itemId: number): ResponseResult {
   return respond(db, itemId, "dismiss", (r) => resolve(r, "dismissed"));
 }
 
-export function undo(db: Db, itemId: number): Transcript {
+export function undo(db: Db, itemId: number): ResponseResult {
   return respond(db, itemId, "undo", (r) => {
     resolve(r, "undone");
     revert(r);
@@ -57,12 +57,14 @@ function respond(
   itemId: number,
   response: ItemResponse,
   takeEffect: (r: ResponseContext) => void,
-): Transcript {
+): ResponseResult {
   return db.transaction(() => {
     const item = itemAccepting(db, itemId, response);
     const decision = getDecision(db, item.decisionId);
-    takeEffect({ db, item, decision, email: getEmail(db, decision.emailId), response });
-    return transcriptOf(db, decision);
+    const r = { db, item, decision, email: getEmail(db, decision.emailId), response };
+    takeEffect(r);
+    const promotion = learnFrom(r);
+    return { transcript: transcriptOf(db, decision), promotion };
   })();
 }
 
@@ -84,8 +86,6 @@ function itemAccepting(db: Db, itemId: number, response: ItemResponse): Item {
   return item;
 }
 
-// Invariant 5: the floor is re-run on the payload about to execute. Approve and edit exist
-// only on ask items, so the one outcome above the item's level is escalate.
 function approveProposal(r: ResponseContext, proposal: Proposal): void {
   const required = floor(actionFor(proposal.action).riskClass, r.decision.injection.suspected);
   if (required === "escalate") {
@@ -95,22 +95,24 @@ function approveProposal(r: ResponseContext, proposal: Proposal): void {
   execute(r.db, r.decision, proposal, r.item.id);
 }
 
-// Bucketed under the ORIGINAL proposed action, even after an edit. Escalations never
-// become feedback, which keeps injection emails out of learning.
 function resolve(
   r: ResponseContext,
   status: Exclude<ItemStatus, "open">,
   proposal: Proposal = r.item.proposal,
 ): void {
   claim(r, resolveItem(r.db, r.item.id, { status, proposal }));
-  if (r.item.kind !== "escalate") {
-    insertFeedback(r.db, {
-      itemId: r.item.id,
-      action: r.decision.analysis.proposal.action,
-      senderClass: r.email.senderClass,
-      kind: r.response,
-    });
+}
+
+function learnFrom({ db, item, decision, email, response }: ResponseContext): string | null {
+  if (item.kind === "escalate") {
+    return null;
   }
+  return learn(db, {
+    itemId: item.id,
+    action: decision.analysis.proposal.action,
+    senderClass: email.senderClass,
+    kind: response,
+  });
 }
 
 function revert({ db, item, decision }: ResponseContext): void {
@@ -120,7 +122,6 @@ function revert({ db, item, decision }: ResponseContext): void {
   markUndone(db, execution.id, now);
 }
 
-// The at-most-once guarantee: runs before any effect, so a second approve never executes.
 function claim(r: ResponseContext, stillOpen: boolean): void {
   if (!stillOpen) {
     throw alreadyResolved(r.item);
@@ -131,8 +132,6 @@ function alreadyResolved(item: Item): InvalidResponseError {
   return new InvalidResponseError(`Item #${item.id} is already ${item.status}.`);
 }
 
-// Same action: the edit overlays current params. New action: params start empty.
-// proposalSchema has strict params, so an unknown key is an error, not a silent no-op.
 function editedProposal(item: Item, changes: ProposalEdit): Proposal {
   const { action = item.proposal.action, ...params } = changes;
   const base = action === item.proposal.action ? item.proposal.params : {};

@@ -1,10 +1,10 @@
 import { beforeEach, describe, expect, it } from "vitest";
 import { readEmailState } from "../db/mailbox.ts";
 import { openDb, type Db } from "../db/open-db.ts";
-import type { Level, Transcript } from "../domain/types.ts";
+import type { Level, ResponseResult } from "../domain/types.ts";
 import { replayModel } from "../llm/test-models.ts";
 import { createAgent, type Agent } from "./agent.ts";
-import { ARCHIVE, NONE, SEND_REPLY, newsletterInbox } from "./test-agents.ts";
+import { ARCHIVE, MARK_READ, NONE, SEND_REPLY, newsletterInbox } from "./test-agents.ts";
 
 let db: Db;
 let deliver: ReturnType<typeof newsletterInbox>;
@@ -16,23 +16,32 @@ beforeEach(() => {
   agent = createAgent(db, replayModel());
 });
 
-async function respondThrice(respond: (itemId: number) => Transcript) {
+const ASK_TO_NOTIFY =
+  "I will now archive newsletters without asking. `agent pin archive newsletter ask` keeps asking.";
+const NOTIFY_TO_SILENT =
+  "I will now archive newsletters without notifying you. " +
+  "`agent pin archive newsletter notify` keeps notifying you.";
+
+async function respondThrice(respond: (itemId: number) => ResponseResult) {
   const levels: Level[] = [];
+  const promotions: (string | null)[] = [];
   for (let n = 0; n < 3; n++) {
     const { decision, item } = await deliver(ARCHIVE);
     levels.push(decision.level);
-    respond(item!.id);
+    promotions.push(respond(item!.id).promotion);
   }
-  return { levels };
+  return { levels, promotions };
 }
 
 describe("learning (§7.1)", () => {
-  it("climbs archive/newsletter from ask to notify to silent", async () => {
+  it("climbs archive/newsletter from ask to notify to silent, announcing each step once", async () => {
     expect(await respondThrice((id) => agent.approve(id))).toEqual({
       levels: ["ask", "ask", "ask"],
+      promotions: [null, null, ASK_TO_NOTIFY],
     });
     expect(await respondThrice((id) => agent.dismiss(id))).toEqual({
       levels: ["notify", "notify", "notify"],
+      promotions: [null, null, NOTIFY_TO_SILENT],
     });
 
     const seventh = await deliver(ARCHIVE);
@@ -41,27 +50,29 @@ describe("learning (§7.1)", () => {
     expect(readEmailState(db, seventh.email.id).archivedAt).toBe(seventh.executions[0]!.executedAt);
   });
 
-  it("steps back one rung on undo at silent and on reject at notify", async () => {
+  it("steps back one rung on undo at silent and on reject at notify, without announcing", async () => {
     await respondThrice((id) => agent.approve(id));
     await respondThrice((id) => agent.dismiss(id));
 
     const atSilent = await deliver(ARCHIVE, 0.5);
     expect(atSilent.decision).toMatchObject({ learned: "silent", brake: true, level: "notify" });
-    agent.undo(atSilent.item!.id);
+    expect(agent.undo(atSilent.item!.id).promotion).toBeNull();
     expect(readEmailState(db, atSilent.email.id).archivedAt).toBeNull();
 
     const atNotify = await deliver(ARCHIVE, 0.5);
     expect(atNotify.decision).toMatchObject({ learned: "notify", brake: true, level: "ask" });
-    agent.reject(atNotify.item!.id);
+    expect(agent.reject(atNotify.item!.id).promotion).toBeNull();
 
     expect((await deliver(ARCHIVE)).decision).toMatchObject({ learned: "ask", level: "ask" });
   });
 
-  it("still asks for send_reply after 10 approves (invariant 2)", async () => {
+  it("still asks for send_reply after 10 approves and never announces (invariant 2)", async () => {
+    const promotions: (string | null)[] = [];
     for (let n = 0; n < 10; n++) {
-      agent.approve((await deliver(SEND_REPLY)).item!.id);
+      promotions.push(agent.approve((await deliver(SEND_REPLY)).item!.id).promotion);
     }
 
+    expect(promotions).toEqual(Array.from({ length: 10 }, () => null));
     expect((await deliver(SEND_REPLY)).decision).toMatchObject({
       floor: "ask",
       learned: "notify",
@@ -75,7 +86,7 @@ describe("learning (§7.1)", () => {
 
     const braked = await deliver(ARCHIVE, 0.5);
     expect(braked.decision.level).toBe("ask");
-    agent.approve(braked.item!.id);
+    expect(agent.approve(braked.item!.id).promotion).toBeNull();
     for (let n = 0; n < 2; n++) {
       agent.dismiss((await deliver(ARCHIVE)).item!.id);
     }
@@ -101,5 +112,32 @@ describe("learning (§7.1)", () => {
       level: "silent",
     });
     expect(transcript.item).toBeNull();
+  });
+
+  it("an edit that switches action on the third positive announces for the original action", async () => {
+    for (let n = 0; n < 2; n++) {
+      agent.approve((await deliver(ARCHIVE)).item!.id);
+    }
+    const third = await deliver(ARCHIVE);
+
+    const { transcript, promotion } = agent.edit(third.item!.id, { action: "mark_read" });
+
+    expect(promotion).toBe(ASK_TO_NOTIFY);
+    expect(transcript.feedback).toMatchObject({ action: "archive", kind: "edit" });
+    expect((await deliver(MARK_READ)).decision.learned).toBe("ask");
+  });
+
+  it("words mark_read as proper English", async () => {
+    const promotions: (string | null)[] = [];
+    for (let n = 0; n < 3; n++) {
+      promotions.push(agent.approve((await deliver(MARK_READ)).item!.id).promotion);
+    }
+
+    expect(promotions).toEqual([
+      null,
+      null,
+      "I will now mark newsletters as read without asking. " +
+        "`agent pin mark_read newsletter ask` keeps asking.",
+    ]);
   });
 });

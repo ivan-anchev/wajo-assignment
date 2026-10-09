@@ -14,6 +14,7 @@ export const INJECTION_INBOX = { inboxDir: "fixtures/injection", contactsPath: C
 
 export const SEND_REPLY: Proposal = { action: "send_reply", params: { body: "Sounds good." } };
 export const ARCHIVE: Proposal = { action: "archive", params: {} };
+export const MARK_READ: Proposal = { action: "mark_read", params: {} };
 export const NONE: Proposal = { action: "none", params: {} };
 export const PAY_INVOICE: Proposal = {
   action: "pay_invoice",

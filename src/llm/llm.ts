@@ -11,8 +11,6 @@ const registry = createProviderRegistry({ anthropic, google, openai });
 
 const FIXTURE_DIR = fileURLToPath(new URL("../../fixtures/llm", import.meta.url));
 
-// The cast narrows the env string to the registry's id type; an unknown
-// provider throws NoSuchProviderError at startup.
 export function languageModelFrom(spec: string, { live }: { live: boolean }): LanguageModel {
   return wrapLanguageModel({
     model: registry.languageModel(

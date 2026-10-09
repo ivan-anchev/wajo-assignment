@@ -14,7 +14,14 @@ import { act } from "./act.ts";
 import { analyze } from "./analyze.ts";
 import { checkInjection } from "./check-injection.ts";
 import * as respond from "./respond.ts";
-import type { Decision, Email, Event, ProposalEdit, Transcript } from "../domain/types.ts";
+import type {
+  Decision,
+  Email,
+  Event,
+  ProposalEdit,
+  ResponseResult,
+  Transcript,
+} from "../domain/types.ts";
 
 export { InvalidResponseError } from "./respond.ts";
 
@@ -36,23 +43,23 @@ export function createAgent(db: Db, llm: LanguageModel) {
       return openTranscripts(db);
     },
 
-    approve(itemId: number): Transcript {
+    approve(itemId: number): ResponseResult {
       return respond.approve(db, itemId);
     },
 
-    edit(itemId: number, changes: ProposalEdit): Transcript {
+    edit(itemId: number, changes: ProposalEdit): ResponseResult {
       return respond.edit(db, itemId, changes);
     },
 
-    reject(itemId: number): Transcript {
+    reject(itemId: number): ResponseResult {
       return respond.reject(db, itemId);
     },
 
-    undo(itemId: number): Transcript {
+    undo(itemId: number): ResponseResult {
       return respond.undo(db, itemId);
     },
 
-    dismiss(itemId: number): Transcript {
+    dismiss(itemId: number): ResponseResult {
       return respond.dismiss(db, itemId);
     },
   };
