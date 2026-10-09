@@ -1,11 +1,24 @@
-import { Command, InvalidArgumentError } from "commander";
+import { Argument, Command, InvalidArgumentError } from "commander";
 import { existsSync } from "node:fs";
-import { ACTIONS } from "../domain/actions.ts";
-import type { ProposalEdit, ResponseResult } from "../domain/types.ts";
+import { ACTIONS, type ActionName } from "../domain/actions.ts";
+import {
+  LEVELS,
+  SENDER_CLASSES,
+  type Level,
+  type ProposalEdit,
+  type ResponseResult,
+  type SenderClass,
+} from "../domain/types.ts";
 import { createAgent, Refusal, type Agent } from "../agent/agent.ts";
 import { openDb } from "../db/open-db.ts";
 import { DEFAULT_MODEL, languageModelFrom } from "../llm/llm.ts";
-import { renderDecisionLine, renderInboxLine, renderResponse, renderTranscript } from "./render.ts";
+import {
+  renderDecisionLine,
+  renderInboxLine,
+  renderResponse,
+  renderStanding,
+  renderTranscript,
+} from "./render.ts";
 
 if (existsSync(".env")) {
   process.loadEnvFile();
@@ -84,6 +97,29 @@ itemCommand("dismiss", "Mark a notification or escalation as reviewed", (agent, 
   agent.dismiss(id),
 );
 
+const actionArg = new Argument("<action>").choices(ACTIONS.map((a) => a.name));
+const senderClassArg = new Argument("<senderClass>").choices(SENDER_CLASSES);
+const levelArg = new Argument("<level>").choices(LEVELS);
+
+program
+  .command("pin")
+  .description("Hold an action/sender-class bucket at a level or stricter")
+  .addArgument(actionArg)
+  .addArgument(senderClassArg)
+  .addArgument(levelArg)
+  .action((action: ActionName, senderClass: SenderClass, level: Level) => {
+    console.log(renderStanding(openAgent({ live: false }).pin(action, senderClass, level)));
+  });
+
+program
+  .command("unpin")
+  .description("Remove a bucket's pin and report the level it falls back to")
+  .addArgument(actionArg)
+  .addArgument(senderClassArg)
+  .action((action: ActionName, senderClass: SenderClass) => {
+    console.log(renderStanding(openAgent({ live: false }).unpin(action, senderClass)));
+  });
+
 function itemCommand(
   name: string,
   description: string,
@@ -94,15 +130,7 @@ function itemCommand(
     .description(description)
     .argument("<itemId>", "item id from `agent inbox`", parseItemId)
     .action((itemId: number, options: { set: ProposalEdit }) => {
-      try {
-        console.log(renderResponse(respond(openAgent({ live: false }), itemId, options)));
-      } catch (error) {
-        if (!(error instanceof Refusal)) {
-          throw error;
-        }
-        console.error(error.message);
-        process.exitCode = 1;
-      }
+      console.log(renderResponse(respond(openAgent({ live: false }), itemId, options)));
     });
 }
 
@@ -126,4 +154,12 @@ function collectPair(pair: string, edit: ProposalEdit = {}): ProposalEdit {
   return { ...edit, [pair.slice(0, at)]: pair.slice(at + 1) };
 }
 
-await program.parseAsync();
+try {
+  await program.parseAsync();
+} catch (error) {
+  if (!(error instanceof Refusal)) {
+    throw error;
+  }
+  console.error(error.message);
+  process.exitCode = 1;
+}

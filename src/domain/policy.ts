@@ -84,7 +84,7 @@ export function isBelow(level: Level, other: Level): boolean {
   return rank(level) < rank(other);
 }
 
-function standingLevel(
+export function standingLevel(
   action: ActionName,
   history: readonly ItemResponse[],
   pin: Level | null,

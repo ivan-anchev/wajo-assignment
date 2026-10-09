@@ -1,7 +1,8 @@
 import type { ActionName, Proposal } from "./actions.ts";
 import type { EmailFile } from "../inbox/inbox.ts";
 
-export type SenderClass = "internal" | "known" | "newsletter" | "first_contact";
+export const SENDER_CLASSES = ["internal", "known", "newsletter", "first_contact"] as const;
+export type SenderClass = (typeof SENDER_CLASSES)[number];
 
 export type Email = EmailFile & { senderClass: SenderClass };
 
@@ -85,3 +86,10 @@ export type Transcript = {
 };
 
 export type ResponseResult = { transcript: Transcript; promotion: string | null };
+
+export type BucketStanding = {
+  action: ActionName;
+  senderClass: SenderClass;
+  pin: Level | null;
+  level: Level;
+};

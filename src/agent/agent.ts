@@ -14,13 +14,18 @@ import { levelFor } from "../domain/policy.ts";
 import { act } from "./act.ts";
 import { analyze } from "./analyze.ts";
 import { checkInjection } from "./check-injection.ts";
+import * as pinning from "./pin.ts";
 import * as respond from "./respond.ts";
+import type { ActionName } from "../domain/actions.ts";
 import type {
+  BucketStanding,
   Decision,
   Email,
   Event,
+  Level,
   ProposalEdit,
   ResponseResult,
+  SenderClass,
   Transcript,
 } from "../domain/types.ts";
 
@@ -62,6 +67,14 @@ export function createAgent(db: Db, llm: LanguageModel) {
 
     dismiss(itemId: number): ResponseResult {
       return respond.dismiss(db, itemId);
+    },
+
+    pin(action: ActionName, senderClass: SenderClass, level: Level): BucketStanding {
+      return pinning.pin(db, action, senderClass, level);
+    },
+
+    unpin(action: ActionName, senderClass: SenderClass): BucketStanding {
+      return pinning.unpin(db, action, senderClass);
     },
   };
 }

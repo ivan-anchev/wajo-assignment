@@ -1,5 +1,12 @@
 import type { Proposal } from "../domain/actions.ts";
-import type { Execution, Feedback, Item, ResponseResult, Transcript } from "../domain/types.ts";
+import type {
+  BucketStanding,
+  Execution,
+  Feedback,
+  Item,
+  ResponseResult,
+  Transcript,
+} from "../domain/types.ts";
 
 export function renderDecisionLine({ email, decision, item, executions }: Transcript): string {
   return [
@@ -14,6 +21,12 @@ export function renderDecisionLine({ email, decision, item, executions }: Transc
 
 export function renderResponse({ transcript, promotion }: ResponseResult): string {
   return [renderDecisionLine(transcript), ...(promotion ? [promotion] : [])].join("\n");
+}
+
+export function renderStanding({ action, senderClass, pin, level }: BucketStanding): string {
+  const bucket = `${action}/${senderClass}`;
+  const change = pin ? `Pinned ${bucket} at ${pin}` : `Unpinned ${bucket}`;
+  return `${change}; the level is now ${level}.`;
 }
 
 export function renderInboxLine({ email, decision, item }: Transcript): string {
