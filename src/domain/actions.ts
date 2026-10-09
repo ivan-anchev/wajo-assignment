@@ -36,7 +36,7 @@ function defineAction(definition: ActionDefinition): ActionDefinition {
   return definition;
 }
 
-const noParams = z.object({});
+const noParams = z.strictObject({});
 const noEffect = () => {};
 
 // Simulator: reversible actions change local email state; the rest never leave the process.
@@ -65,14 +65,14 @@ export const ACTIONS = [
   defineAction({
     name: "snooze",
     riskClass: "reversible",
-    params: z.object({ until: z.iso.datetime() }),
+    params: z.strictObject({ until: z.iso.datetime() }),
     execute: ({ until }, { db, emailId }) => updateEmailState(db, emailId, { snoozedUntil: until }),
     undo: (_, { db, emailId }) => updateEmailState(db, emailId, { snoozedUntil: null }),
   }),
   defineAction({
     name: "label",
     riskClass: "reversible",
-    params: z.object({ label: z.string() }),
+    params: z.strictObject({ label: z.string() }),
     execute: ({ label }, { db, emailId }) =>
       updateEmailState(db, emailId, { labels: [...readEmailState(db, emailId).labels, label] }),
     undo: ({ label }, { db, emailId }) =>
@@ -83,20 +83,20 @@ export const ACTIONS = [
   defineAction({
     name: "draft_reply",
     riskClass: "reversible",
-    params: z.object({ body: z.string() }),
+    params: z.strictObject({ body: z.string() }),
     execute: ({ body }, { db, emailId }) => saveDraft(db, emailId, body),
     undo: (_, { db, emailId }) => deleteDraft(db, emailId),
   }),
   defineAction({
     name: "send_reply",
     riskClass: "external",
-    params: z.object({ body: z.string() }),
+    params: z.strictObject({ body: z.string() }),
     execute: noEffect,
   }),
   defineAction({
     name: "forward",
     riskClass: "external",
-    params: z.object({ to: z.email() }),
+    params: z.strictObject({ to: z.email() }),
     execute: noEffect,
   }),
   defineAction({
@@ -114,7 +114,11 @@ export const ACTIONS = [
   defineAction({
     name: "pay_invoice",
     riskClass: "money",
-    params: z.object({ amount: z.number().positive(), currency: z.string(), payee: z.string() }),
+    params: z.strictObject({
+      amount: z.number().positive(),
+      currency: z.string(),
+      payee: z.string(),
+    }),
     execute: noEffect,
   }),
 ] as const;
@@ -144,4 +148,13 @@ export function executeProposal(proposal: Proposal, ctx: ActionContext): void {
   // syntax, which TS checks bivariantly. Params were already validated by proposalSchema.
   const action: ActionDefinition = actionFor(proposal.action);
   action.execute(proposal.params, ctx);
+}
+
+// Only notify items are undone and notify is below the ask floor, so the throw is the narrowing.
+export function undoProposal(proposal: Proposal, ctx: ActionContext): void {
+  const action: ActionDefinition = actionFor(proposal.action);
+  if (action.riskClass !== "reversible") {
+    throw new Error(`${proposal.action} is ${action.riskClass} and cannot be undone`);
+  }
+  action.undo(proposal.params, ctx);
 }

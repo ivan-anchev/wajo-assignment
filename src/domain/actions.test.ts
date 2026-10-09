@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it } from "vitest";
-import { actionFor } from "./actions.ts";
+import { actionFor, executeProposal, proposalSchema, undoProposal } from "./actions.ts";
 import { insertEmail, readEmailState } from "../db/mailbox.ts";
 import { openDb, type Db } from "../db/open-db.ts";
 
@@ -22,6 +22,9 @@ beforeEach(() => {
 });
 
 const ctx = () => ({ db, emailId: "e1", now: NOW });
+const label = (name: string) => ({ action: "label" as const, params: { label: name } });
+const draftCount = () =>
+  db.prepare("SELECT count(*) FROM drafts WHERE email_id = ?").pluck().get("e1");
 
 describe("archive", () => {
   it("sets archivedAt on execute and clears it on undo", () => {
@@ -39,5 +42,36 @@ describe("none", () => {
     actionFor("none").execute({}, ctx());
     actionFor("none").undo({}, ctx());
     expect(readEmailState(db, "e1")).toEqual(before);
+  });
+});
+
+describe("undoProposal", () => {
+  it("removes exactly the label it added", () => {
+    executeProposal(label("a"), ctx());
+    executeProposal(label("b"), ctx());
+
+    undoProposal(label("a"), ctx());
+    expect(readEmailState(db, "e1").labels).toEqual(["b"]);
+  });
+
+  it("deletes the draft that draft_reply saved", () => {
+    const draftReply = { action: "draft_reply" as const, params: { body: "Thanks!" } };
+    executeProposal(draftReply, ctx());
+    expect(draftCount()).toBe(1);
+
+    undoProposal(draftReply, ctx());
+    expect(draftCount()).toBe(0);
+  });
+});
+
+describe("proposalSchema", () => {
+  it("rejects a param key the action does not declare", () => {
+    const result = proposalSchema.safeParse({
+      action: "send_reply",
+      params: { body: "x", bdy: "y" },
+    });
+    expect(result.error?.issues).toEqual([
+      expect.objectContaining({ code: "unrecognized_keys", keys: ["bdy"] }),
+    ]);
   });
 });
