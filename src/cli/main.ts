@@ -1,4 +1,4 @@
-import { Argument, Command, InvalidArgumentError } from "commander";
+import { Argument, Command, InvalidArgumentError, Option } from "commander";
 import { existsSync } from "node:fs";
 import { ACTIONS, type ActionName } from "../domain/actions.ts";
 import {
@@ -35,6 +35,13 @@ function openAgent({ live }: { live: boolean }) {
   return createAgent(openDb(config.dbPath), languageModelFrom(config.model, { live }));
 }
 
+function liveOption(): Option {
+  return new Option(
+    "--live",
+    "call the real model for requests with no recorded fixture, and record them",
+  ).default(false);
+}
+
 const program = new Command("agent")
   .description("Inbox agent: learns when to act, notify, ask, or escalate")
   .addHelpText("after", `\nActions:\n${ACTIONS.map((a) => `  ${describeAction(a)}`).join("\n")}`);
@@ -42,11 +49,7 @@ const program = new Command("agent")
 program
   .command("run")
   .description("Process every new email in the inbox and print one decision per email")
-  .option(
-    "--live",
-    "call the real model for requests with no recorded fixture, and record them",
-    false,
-  )
+  .addOption(liveOption())
   .action(async ({ live }: { live: boolean }) => {
     const transcripts = await openAgent({ live }).run({
       inboxDir: config.inboxDir,
@@ -86,16 +89,31 @@ itemCommand("approve", "Execute an ask's proposal (the floor is re-checked first
 );
 itemCommand("edit", "Change an ask's proposal, then approve it", (agent, id, { set }) =>
   agent.edit(id, set),
-).requiredOption(
-  "--set <key=value>",
-  "param to change, repeatable; action=<name> switches the action",
-  collectPair,
-);
-itemCommand("reject", "Close an ask without executing it", (agent, id) => agent.reject(id));
+)
+  .requiredOption(
+    "--set <key=value>",
+    "param to change, repeatable; action=<name> switches the action",
+    collectPair,
+  )
+  .addOption(liveOption());
+itemCommand(
+  "reject",
+  "Close an ask without executing it; a reason may teach the agent a preference",
+  (agent, id, { reason }) => agent.reject(id, reason),
+)
+  .option("--reason <text>", "why you rejected it; one preference line may be learned from it")
+  .addOption(liveOption());
 itemCommand("undo", "Revert a notified action", (agent, id) => agent.undo(id));
 itemCommand("dismiss", "Mark a notification or escalation as reviewed", (agent, id) =>
   agent.dismiss(id),
 );
+
+program
+  .command("prefs")
+  .description("Print the preference lines learned from edits and reject reasons")
+  .action(() => {
+    console.log(openAgent({ live: false }).prefs() || "No preferences learned yet.");
+  });
 
 const actionArg = new Argument("<action>").choices(ACTIONS.map((a) => a.name));
 const senderClassArg = new Argument("<senderClass>").choices(SENDER_CLASSES);
@@ -120,21 +138,24 @@ program
     console.log(renderStanding(openAgent({ live: false }).unpin(action, senderClass)));
   });
 
+type ItemOptions = { set: ProposalEdit; reason?: string; live?: boolean };
+
 function itemCommand(
   name: string,
   description: string,
   respond: (
     agent: Agent,
     itemId: number,
-    options: { set: ProposalEdit },
+    options: ItemOptions,
   ) => ResponseResult | Promise<ResponseResult>,
 ): Command {
   return program
     .command(name)
     .description(description)
     .argument("<itemId>", "item id from `agent inbox`", parseItemId)
-    .action(async (itemId: number, options: { set: ProposalEdit }) => {
-      console.log(renderResponse(await respond(openAgent({ live: false }), itemId, options)));
+    .action(async (itemId: number, options: ItemOptions) => {
+      const agent = openAgent({ live: options.live ?? false });
+      console.log(renderResponse(await respond(agent, itemId, options)));
     });
 }
 

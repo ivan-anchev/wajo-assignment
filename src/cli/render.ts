@@ -19,8 +19,12 @@ export function renderDecisionLine({ email, decision, item, executions }: Transc
   ].join(" ");
 }
 
-export function renderResponse({ transcript, promotion }: ResponseResult): string {
-  return [renderDecisionLine(transcript), ...(promotion ? [promotion] : [])].join("\n");
+export function renderResponse({ transcript, promotion, preference }: ResponseResult): string {
+  return [
+    renderDecisionLine(transcript),
+    ...(promotion ? [promotion] : []),
+    ...(preference ? [`Noted preference: ${preference}`] : []),
+  ].join("\n");
 }
 
 export function renderStanding({ action, senderClass, pin, level }: BucketStanding): string {
