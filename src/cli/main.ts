@@ -123,14 +123,18 @@ program
 function itemCommand(
   name: string,
   description: string,
-  respond: (agent: Agent, itemId: number, options: { set: ProposalEdit }) => ResponseResult,
+  respond: (
+    agent: Agent,
+    itemId: number,
+    options: { set: ProposalEdit },
+  ) => ResponseResult | Promise<ResponseResult>,
 ): Command {
   return program
     .command(name)
     .description(description)
     .argument("<itemId>", "item id from `agent inbox`", parseItemId)
-    .action((itemId: number, options: { set: ProposalEdit }) => {
-      console.log(renderResponse(respond(openAgent({ live: false }), itemId, options)));
+    .action(async (itemId: number, options: { set: ProposalEdit }) => {
+      console.log(renderResponse(await respond(openAgent({ live: false }), itemId, options)));
     });
 }
 

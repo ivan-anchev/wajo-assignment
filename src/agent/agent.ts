@@ -9,12 +9,13 @@ import { bucketHistory } from "../db/feedback.ts";
 import { insertEmail, storedEmailIds } from "../db/mailbox.ts";
 import type { Db } from "../db/open-db.ts";
 import { findPin } from "../db/pins.ts";
-import { readPreferences } from "../db/preferences.ts";
+import { appendPreference, readPreferences } from "../db/preferences.ts";
 import { readInbox, type InboxSource } from "../inbox/inbox.ts";
 import { levelFor } from "../domain/policy.ts";
 import { act } from "./act.ts";
 import { analyze } from "./analyze.ts";
 import { checkInjection } from "./check-injection.ts";
+import { preferenceFromEdit, preferenceFromReason } from "./extract-preference.ts";
 import * as pinning from "./pin.ts";
 import * as respond from "./respond.ts";
 import type { ActionName } from "../domain/actions.ts";
@@ -54,12 +55,14 @@ export function createAgent(db: Db, llm: LanguageModel) {
       return respond.approve(db, itemId);
     },
 
-    edit(itemId: number, changes: ProposalEdit): ResponseResult {
-      return respond.edit(db, itemId, changes);
+    async edit(itemId: number, changes: ProposalEdit): Promise<ResponseResult> {
+      const preference = await preferenceFromEdit(db, llm, itemId, changes);
+      return respondAndNote(db, preference, () => respond.edit(db, itemId, changes));
     },
 
-    reject(itemId: number): ResponseResult {
-      return respond.reject(db, itemId);
+    async reject(itemId: number, reason?: string): Promise<ResponseResult> {
+      const preference = reason ? await preferenceFromReason(db, llm, itemId, reason) : null;
+      return respondAndNote(db, preference, () => respond.reject(db, itemId));
     },
 
     undo(itemId: number): ResponseResult {
@@ -117,5 +120,21 @@ function commit(db: Db, email: Email, decided: Omit<Decision, "id" | "createdAt"
     const decision = insertDecision(db, decided);
     act(db, decision);
     return transcriptOf(db, decision);
+  })();
+}
+
+// The LLM call has already run, so a failed extraction wrote nothing. The response and its
+// preference line commit together.
+function respondAndNote(
+  db: Db,
+  preference: string | null,
+  response: () => ResponseResult,
+): ResponseResult {
+  return db.transaction(() => {
+    const result = response();
+    if (preference) {
+      appendPreference(db, preference);
+    }
+    return { ...result, preference };
   })();
 }

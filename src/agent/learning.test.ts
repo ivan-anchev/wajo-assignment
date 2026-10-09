@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it } from "vitest";
 import { readEmailState } from "../db/mailbox.ts";
 import { openDb, type Db } from "../db/open-db.ts";
 import type { Level, ResponseResult } from "../domain/types.ts";
-import { replayModel } from "../llm/test-models.ts";
+import { mockModel, replayModel } from "../llm/test-models.ts";
 import { createAgent, type Agent } from "./agent.ts";
 import { ARCHIVE, MARK_READ, NONE, SEND_REPLY, newsletterInbox } from "./test-agents.ts";
 
@@ -61,7 +61,7 @@ describe("learning (§7.1)", () => {
 
     const atNotify = await deliver(ARCHIVE, 0.5);
     expect(atNotify.decision).toMatchObject({ learned: "notify", brake: true, level: "ask" });
-    expect(agent.reject(atNotify.item!.id).promotion).toBeNull();
+    expect((await agent.reject(atNotify.item!.id)).promotion).toBeNull();
 
     expect((await deliver(ARCHIVE)).decision).toMatchObject({ learned: "ask", level: "ask" });
   });
@@ -120,7 +120,10 @@ describe("learning (§7.1)", () => {
     }
     const third = await deliver(ARCHIVE);
 
-    const { transcript, promotion } = agent.edit(third.item!.id, { action: "mark_read" });
+    const responder = createAgent(db, mockModel({ preference: { sentence: null } }));
+    const { transcript, promotion } = await responder.edit(third.item!.id, {
+      action: "mark_read",
+    });
 
     expect(promotion).toBe(ASK_TO_NOTIFY);
     expect(transcript.feedback).toMatchObject({ action: "archive", kind: "edit" });

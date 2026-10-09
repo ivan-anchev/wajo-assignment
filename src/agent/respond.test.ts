@@ -10,6 +10,7 @@ import {
   INJECTION_INBOX,
   newsletterInbox,
   PAY_INVOICE,
+  PAY_INVOICE_EDIT,
   SEND_REPLY,
 } from "./test-agents.ts";
 
@@ -41,17 +42,15 @@ describe("approve", () => {
 
     expect(() => agent.approve(1)).toThrow(Refusal);
     expect(() => agent.approve(1)).toThrow(/already approved/);
-    expect(() => agent.edit(1, { bdy: "Thanks!" })).toThrow(/already approved/);
-    expect(() =>
-      agent.edit(1, { action: "pay_invoice", amount: 120, currency: "EUR", payee: "Acme" }),
-    ).toThrow(/already approved/);
+    await expect(agent.edit(1, { bdy: "Thanks!" })).rejects.toThrow(/already approved/);
+    await expect(agent.edit(1, PAY_INVOICE_EDIT)).rejects.toThrow(/already approved/);
     expect(agent.transcript("001")!.executions).toHaveLength(1);
     expect(feedbackCount(db)).toBe(1);
   });
 
   it("is refused after reject and executes nothing", async () => {
     const agent = await agentProposing(db, SEND_REPLY);
-    agent.reject(1);
+    await agent.reject(1);
 
     expect(() => agent.approve(1)).toThrow(/already rejected/);
     expect(agent.transcript("001")!.executions).toEqual([]);
@@ -64,7 +63,7 @@ describe("edit", () => {
     const agent = await agentProposing(db, SEND_REPLY);
     const edited = { action: "send_reply", params: { body: "Thanks!" } };
 
-    const { transcript } = agent.edit(1, { body: "Thanks!" });
+    const { transcript } = await agent.edit(1, { body: "Thanks!" });
 
     expect(transcript.item!.proposal).toEqual(edited);
     expect(transcript.executions[0]!.proposal).toEqual(edited);
@@ -75,13 +74,13 @@ describe("edit", () => {
   it("overlays a same-action edit on the current params", async () => {
     const agent = await agentProposing(db, SEND_REPLY);
 
-    expect(agent.edit(1, {}).transcript.executions[0]!.proposal).toEqual(SEND_REPLY);
+    expect((await agent.edit(1, {})).transcript.executions[0]!.proposal).toEqual(SEND_REPLY);
   });
 
   it("buckets an action switch under the proposed action", async () => {
     const agent = await agentProposing(db, SEND_REPLY);
 
-    const { transcript } = agent.edit(1, { action: "forward", to: "dana@northwind.io" });
+    const { transcript } = await agent.edit(1, { action: "forward", to: "dana@northwind.io" });
 
     expect(transcript.executions[0]!.proposal).toEqual({
       action: "forward",
@@ -94,15 +93,13 @@ describe("edit", () => {
     const agent = await agentProposing(db, SEND_REPLY);
     const before = agent.transcript("001");
 
-    expect(() =>
-      agent.edit(1, { action: "pay_invoice", amount: 120, currency: "EUR", payee: "Acme" }),
-    ).toThrow(/pay_invoice must be escalated/);
+    await expect(agent.edit(1, PAY_INVOICE_EDIT)).rejects.toThrow(/pay_invoice must be escalated/);
     expect(agent.transcript("001")).toEqual(before);
     expect(before!.item).toMatchObject({ status: "open", proposal: SEND_REPLY });
     expect(before!.executions).toEqual([]);
     expect(feedbackCount(db)).toBe(0);
 
-    expect(agent.reject(1).transcript.feedback).toMatchObject({ kind: "reject" });
+    expect((await agent.reject(1)).transcript.feedback).toMatchObject({ kind: "reject" });
   });
 
   it.each([
@@ -114,7 +111,7 @@ describe("edit", () => {
     const agent = await agentProposing(db, SEND_REPLY);
     const before = agent.transcript("001");
 
-    expect(() => agent.edit(1, changes)).toThrow(/Invalid edit for item #1/);
+    await expect(agent.edit(1, changes)).rejects.toThrow(/Invalid edit for item #1/);
     expect(agent.transcript("001")).toEqual(before);
     expect(feedbackCount(db)).toBe(0);
   });
@@ -124,7 +121,7 @@ describe("reject", () => {
   it("closes the ask without executing and records negative feedback", async () => {
     const agent = await agentProposing(db, SEND_REPLY);
 
-    const { transcript } = agent.reject(1);
+    const { transcript } = await agent.reject(1);
 
     expect(transcript.item!.status).toBe("rejected");
     expect(transcript.executions).toEqual([]);
@@ -183,7 +180,7 @@ describe("refusals", () => {
     const agent = await agentProposing(db, proposal);
     const before = agent.transcript("001");
 
-    expect(() => respond(agent)).toThrow(/takes .*, not/);
+    await expect((async () => respond(agent))()).rejects.toThrow(/takes .*, not/);
     expect(agent.transcript("001")).toEqual(before);
     expect(feedbackCount(db)).toBe(0);
   });

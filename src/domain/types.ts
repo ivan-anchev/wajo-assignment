@@ -85,7 +85,11 @@ export type Transcript = {
   feedback: Feedback | null;
 };
 
-export type ResponseResult = { transcript: Transcript; promotion: string | null };
+export type ResponseResult = {
+  transcript: Transcript;
+  promotion: string | null;
+  preference: string | null;
+};
 
 export type BucketStanding = {
   action: ActionName;

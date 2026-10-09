@@ -62,7 +62,7 @@ function respond(
     const r = { db, item, decision, email: getEmail(db, decision.emailId), response };
     takeEffect(r);
     const promotion = learnFrom(r);
-    return { transcript: transcriptOf(db, decision), promotion };
+    return { transcript: transcriptOf(db, decision), promotion, preference: null };
   })();
 }
 

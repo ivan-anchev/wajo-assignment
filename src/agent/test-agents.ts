@@ -2,9 +2,10 @@ import { mkdtempSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import type { Proposal } from "../domain/actions.ts";
-import type { Transcript } from "../domain/types.ts";
+import type { ProposalEdit, Transcript } from "../domain/types.ts";
 import type { Db } from "../db/open-db.ts";
-import { readInbox } from "../inbox/inbox.ts";
+import { readInbox, type InboxSource } from "../inbox/inbox.ts";
+import type { MockLanguageModelV4 } from "ai/test";
 import { mockModel } from "../llm/test-models.ts";
 import { createAgent } from "./agent.ts";
 
@@ -19,6 +20,12 @@ export const NONE: Proposal = { action: "none", params: {} };
 export const PAY_INVOICE: Proposal = {
   action: "pay_invoice",
   params: { amount: 120, currency: "EUR", payee: "Acme" },
+};
+export const PAY_INVOICE_EDIT: ProposalEdit = {
+  action: "pay_invoice",
+  amount: 120,
+  currency: "EUR",
+  payee: "Acme",
 };
 
 export async function agentProposing(db: Db, proposal: Proposal) {
@@ -48,12 +55,34 @@ export function feedbackCount(db: Db): number {
   return db.prepare<[], { n: number }>("SELECT count(*) AS n FROM feedback").get()!.n;
 }
 
+export function modelProposing(
+  proposal: Proposal,
+  {
+    confidence = 0.9,
+    preference = null,
+  }: { confidence?: number; preference?: string | null | Error } = {},
+): MockLanguageModelV4 {
+  return mockModel({
+    analysis: { summary: "s", intent: "reply", proposal, confidence },
+    injection_verdict: { suspected: false, evidence: [] },
+    preference: preference instanceof Error ? preference : { sentence: preference },
+  });
+}
+
+export function inboxOf(...ids: string[]): InboxSource {
+  const inboxDir = mkdtempSync(join(tmpdir(), "inbox-"));
+  for (const email of readInbox(INBOX).filter(({ id }) => ids.includes(id))) {
+    writeFileSync(join(inboxDir, `${email.id}.json`), JSON.stringify(email));
+  }
+  return { inboxDir, contactsPath: CONTACTS };
+}
+
+export function requestsNamed(llm: MockLanguageModelV4, name: string): string[] {
+  return llm.doGenerateCalls
+    .filter(({ responseFormat }) => (responseFormat as { name: string }).name === name)
+    .map(({ prompt }) => JSON.stringify(prompt));
+}
+
 function agentAnalyzing(db: Db, proposal: Proposal, confidence: number) {
-  return createAgent(
-    db,
-    mockModel({
-      analysis: { summary: "s", intent: "reply", proposal, confidence },
-      injection_verdict: { suspected: false, evidence: [] },
-    }),
-  );
+  return createAgent(db, modelProposing(proposal, { confidence }));
 }
