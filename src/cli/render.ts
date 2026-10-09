@@ -1,5 +1,5 @@
-import { ALLOWED_RESPONSES } from "../domain/policy.ts";
-import type { Transcript } from "../domain/types.ts";
+import type { Proposal } from "../domain/actions.ts";
+import type { Execution, Feedback, Item, Transcript } from "../domain/types.ts";
 
 export function renderDecisionLine({ email, decision, item, executions }: Transcript): string {
   return [
@@ -12,7 +12,26 @@ export function renderDecisionLine({ email, decision, item, executions }: Transc
   ].join(" ");
 }
 
-export function renderTranscript({ email, decision, item, executions }: Transcript): string {
+export function renderInboxLine({ email, decision, item }: Transcript): string {
+  const open = item!;
+  return [
+    `#${open.id}`.padEnd(5),
+    open.kind.padEnd(9),
+    email.from.padEnd(28),
+    `"${email.subject}"`,
+    `-> ${describeProposal(open.proposal)}`,
+    ...(decision.injection.suspected ? ["(injection suspected)"] : []),
+    `[${open.allowedResponses.join(", ")}]`,
+  ].join("  ");
+}
+
+export function renderTranscript({
+  email,
+  decision,
+  item,
+  executions,
+  feedback,
+}: Transcript): string {
   const { analysis, injection } = decision;
   return [
     `Email ${email.id}: "${email.subject}"`,
@@ -21,18 +40,35 @@ export function renderTranscript({ email, decision, item, executions }: Transcri
     `1 intake     sender class: ${email.senderClass}`,
     `2 analyze    intent: ${analysis.intent}  confidence: ${analysis.confidence}`,
     `             summary: ${analysis.summary}`,
-    `             proposal: ${analysis.proposal.action} ${JSON.stringify(analysis.proposal.params)}`,
+    `             proposal: ${describeProposal(analysis.proposal)}`,
     `3 injection  ${injection.suspected ? `SUSPECTED (${injection.evidence.join("; ")})` : "not suspected"}`,
     `4 floor      ${decision.floor}`,
     `5 level      ${decision.level}`,
     `6 act        ${describeOutcome(item, executions)}`,
+    ...(item && item.status !== "open" ? [`7 response   ${describeResponse(item, feedback)}`] : []),
   ].join("\n");
 }
 
-function describeOutcome(item: Transcript["item"], executions: Transcript["executions"]): string {
-  const executed = executions.map((execution) => `executed ${execution.proposal.action}`);
-  const opened = item
-    ? [`opened ${item.kind} item #${item.id} [${ALLOWED_RESPONSES[item.kind].join(", ")}]`]
-    : [];
-  return [...executed, ...opened].join(", ");
+function describeOutcome(item: Item | null, executions: Execution[]): string {
+  const executed = executions.map(
+    (execution) => `executed ${execution.proposal.action}${execution.undoneAt ? " (undone)" : ""}`,
+  );
+  return [...executed, ...(item ? [describeItem(item)] : [])].join(", ");
+}
+
+function describeItem(item: Item): string {
+  return item.status === "open"
+    ? `opened ${item.kind} item #${item.id} [${item.allowedResponses.join(", ")}]`
+    : `${item.kind} item #${item.id} ${item.status}`;
+}
+
+function describeResponse(item: Item, feedback: Feedback | null): string {
+  const learned = feedback
+    ? `feedback ${feedback.kind} for ${feedback.action}/${feedback.senderClass}`
+    : "no feedback (escalation)";
+  return `${item.status} ${describeProposal(item.proposal)}; ${learned}`;
+}
+
+function describeProposal({ action, params }: Proposal): string {
+  return `${action} ${JSON.stringify(params)}`;
 }

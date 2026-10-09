@@ -1,10 +1,11 @@
-import { Command } from "commander";
+import { Command, InvalidArgumentError } from "commander";
 import { existsSync } from "node:fs";
 import { ACTIONS } from "../domain/actions.ts";
-import { createAgent } from "../agent/agent.ts";
+import type { ProposalEdit, Transcript } from "../domain/types.ts";
+import { createAgent, InvalidResponseError, type Agent } from "../agent/agent.ts";
 import { openDb } from "../db/open-db.ts";
 import { DEFAULT_MODEL, languageModelFrom } from "../llm/llm.ts";
-import { renderDecisionLine, renderTranscript } from "./render.ts";
+import { renderDecisionLine, renderInboxLine, renderTranscript } from "./render.ts";
 
 if (existsSync(".env")) {
   process.loadEnvFile();
@@ -23,10 +24,7 @@ function openAgent({ live }: { live: boolean }) {
 
 const program = new Command("agent")
   .description("Inbox agent: learns when to act, notify, ask, or escalate")
-  .addHelpText(
-    "after",
-    `\nActions:\n${ACTIONS.map((a) => `  ${a.name} (${a.riskClass})`).join("\n")}`,
-  );
+  .addHelpText("after", `\nActions:\n${ACTIONS.map((a) => `  ${describeAction(a)}`).join("\n")}`);
 
 program
   .command("run")
@@ -59,5 +57,76 @@ program
     }
     console.log(renderTranscript(transcript));
   });
+
+program
+  .command("inbox")
+  .description("List open asks, notifications, and escalations with the responses each takes")
+  .action(() => {
+    const transcripts = openAgent({ live: false }).inbox();
+    console.log(
+      transcripts.length ? transcripts.map(renderInboxLine).join("\n") : "Inbox is empty.",
+    );
+  });
+
+itemCommand("approve", "Execute an ask's proposal (the floor is re-checked first)", (agent, id) =>
+  agent.approve(id),
+);
+itemCommand("edit", "Change an ask's proposal, then approve it", (agent, id, { set }) =>
+  agent.edit(id, set),
+).requiredOption(
+  "--set <key=value>",
+  "param to change, repeatable; action=<name> switches the action",
+  collectPair,
+);
+itemCommand("reject", "Close an ask without executing it", (agent, id) => agent.reject(id));
+itemCommand("undo", "Revert a notified action", (agent, id) => agent.undo(id));
+itemCommand("dismiss", "Mark a notification or escalation as reviewed", (agent, id) =>
+  agent.dismiss(id),
+);
+
+// Prints the updated decision line, or the refusal on stderr with exit code 1.
+// Anything other than InvalidResponseError is a bug and still crashes with a stack trace.
+function itemCommand(
+  name: string,
+  description: string,
+  respond: (agent: Agent, itemId: number, options: { set: ProposalEdit }) => Transcript,
+): Command {
+  return program
+    .command(name)
+    .description(description)
+    .argument("<itemId>", "item id from `agent inbox`", parseItemId)
+    .action((itemId: number, options: { set: ProposalEdit }) => {
+      try {
+        console.log(renderDecisionLine(respond(openAgent({ live: false }), itemId, options)));
+      } catch (error) {
+        if (!(error instanceof InvalidResponseError)) {
+          throw error;
+        }
+        console.error(error.message);
+        process.exitCode = 1;
+      }
+    });
+}
+
+function parseItemId(value: string): number {
+  if (!/^\d+$/.test(value)) {
+    throw new InvalidArgumentError("expected an item id such as 3");
+  }
+  return Number(value);
+}
+
+function describeAction({ name, riskClass, params }: (typeof ACTIONS)[number]): string {
+  const keys = Object.keys(params.shape).join(", ");
+  return [name, `(${riskClass})`, keys].filter(Boolean).join(" ");
+}
+
+// Repeatable --set; splits at the first "=". No default, so requiredOption rejects an empty edit.
+function collectPair(pair: string, edit: ProposalEdit = {}): ProposalEdit {
+  const at = pair.indexOf("=");
+  if (at < 1) {
+    throw new InvalidArgumentError(`expected key=value, got "${pair}"`);
+  }
+  return { ...edit, [pair.slice(0, at)]: pair.slice(at + 1) };
+}
 
 await program.parseAsync();
