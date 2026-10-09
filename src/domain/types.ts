@@ -36,6 +36,7 @@ export type Decision = {
   floor: Level;
   learned: LearnedLevel;
   brake: boolean;
+  pin: Level | null;
   level: Level;
   createdAt: string;
 };

@@ -47,11 +47,17 @@ export function levelFor(
   { proposal, confidence }: Analysis,
   injection: InjectionVerdict,
   history: readonly ItemResponse[],
+  pin: Level | null,
 ): Pick<Decision, "floor" | "learned" | "brake" | "level"> {
   const action = actionFor(proposal.action);
   const floorLevel = floor(action.riskClass, injection.suspected);
   if (action.inert) {
-    return { floor: floorLevel, learned: "silent", brake: false, level: floorLevel };
+    return {
+      floor: floorLevel,
+      learned: "silent",
+      brake: false,
+      level: maxLevel(floorLevel, pin ?? "silent"),
+    };
   }
   const learned = learnedLevel(history);
   const brake = confidence < BRAKE_BELOW;
@@ -59,7 +65,7 @@ export function levelFor(
     floor: floorLevel,
     learned,
     brake,
-    level: maxLevel(floorLevel, brake ? LADDER[learned].up : learned),
+    level: maxLevel(floorLevel, pin ?? "silent", brake ? LADDER[learned].up : learned),
   };
 }
 
@@ -67,14 +73,27 @@ export function promotion(
   action: ActionName,
   history: readonly ItemResponse[],
   response: ItemResponse,
+  pin: Level | null,
 ): Level | null {
-  const from = standingLevel(action, history);
-  const to = standingLevel(action, [...history, response]);
-  return rank(to) < rank(from) ? from : null;
+  const from = standingLevel(action, history, pin);
+  const to = standingLevel(action, [...history, response], pin);
+  return isBelow(to, from) ? from : null;
 }
 
-function standingLevel(action: ActionName, history: readonly ItemResponse[]): Level {
-  return maxLevel(floor(actionFor(action).riskClass, false), learnedLevel(history));
+export function isBelow(level: Level, other: Level): boolean {
+  return rank(level) < rank(other);
+}
+
+function standingLevel(
+  action: ActionName,
+  history: readonly ItemResponse[],
+  pin: Level | null,
+): Level {
+  return maxLevel(
+    floor(actionFor(action).riskClass, false),
+    pin ?? "silent",
+    learnedLevel(history),
+  );
 }
 
 function learnedLevel(history: readonly ItemResponse[]): LearnedLevel {

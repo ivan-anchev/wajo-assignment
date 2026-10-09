@@ -1,5 +1,6 @@
 import { bucketHistory, insertFeedback } from "../db/feedback.ts";
 import type { Db } from "../db/open-db.ts";
+import { findPin } from "../db/pins.ts";
 import type { ActionName } from "../domain/actions.ts";
 import { promotion } from "../domain/policy.ts";
 import type { Feedback, Level, SenderClass } from "../domain/types.ts";
@@ -18,8 +19,9 @@ const WORDING: Partial<Record<ActionName, (senders: string) => string>> = {
 
 export function learn(db: Db, feedback: Omit<Feedback, "id" | "createdAt">): string | null {
   const history = bucketHistory(db, feedback.action, feedback.senderClass);
+  const pin = findPin(db, feedback.action, feedback.senderClass);
   insertFeedback(db, feedback);
-  const from = promotion(feedback.action, history, feedback.kind);
+  const from = promotion(feedback.action, history, feedback.kind, pin);
   return from && announce(feedback, from);
 }
 

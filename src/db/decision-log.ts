@@ -13,15 +13,15 @@ type DecisionRow = Omit<Decision, "analysis" | "injection" | "brake"> & {
 type ExecutionRow = Omit<Execution, "proposal"> & { action: ActionName; params: string };
 
 const DECISION_COLUMNS =
-  "id, email_id AS emailId, analysis, injection, floor, learned, brake, level, created_at AS createdAt";
+  "id, email_id AS emailId, analysis, injection, floor, learned, brake, pin, level, created_at AS createdAt";
 const EXECUTION_COLUMNS =
   "id, decision_id AS decisionId, item_id AS itemId, action, params, executed_at AS executedAt, undone_at AS undoneAt";
 
 export function insertDecision(db: Db, decision: Omit<Decision, "id" | "createdAt">): Decision {
   const row = db
     .prepare<[object], DecisionRow>(
-      `INSERT INTO decisions (email_id, analysis, injection, floor, learned, brake, level)
-       VALUES (@emailId, @analysis, @injection, @floor, @learned, @brake, @level) RETURNING ${DECISION_COLUMNS}`,
+      `INSERT INTO decisions (email_id, analysis, injection, floor, learned, brake, pin, level)
+       VALUES (@emailId, @analysis, @injection, @floor, @learned, @brake, @pin, @level) RETURNING ${DECISION_COLUMNS}`,
     )
     .get({
       ...decision,

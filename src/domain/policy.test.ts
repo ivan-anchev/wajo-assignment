@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { ACTIONS, type ActionName } from "./actions.ts";
-import { floor, levelFor, promotion } from "./policy.ts";
+import { floor, isBelow, levelFor, promotion } from "./policy.ts";
 import { LEVELS, type Analysis, type ItemResponse, type Level } from "./types.ts";
 
 // Keyed by action, not risk class, so a misclassified action fails here.
@@ -32,7 +32,7 @@ const CLEAN = { suspected: false, evidence: [] };
 const RESPONSES: ItemResponse[] = ["approve", "edit", "reject", "dismiss", "undo"];
 
 const learned = (...history: ItemResponse[]) =>
-  levelFor(analysisOf("archive"), CLEAN, history).learned;
+  levelFor(analysisOf("archive"), CLEAN, history, null).learned;
 const thrice = (response: ItemResponse) => [response, response, response];
 
 describe("learned level (§7.1)", () => {
@@ -77,7 +77,7 @@ describe("learned level (§7.1)", () => {
 
 describe("levelFor", () => {
   it("brakes below 0.6 by one rung", () => {
-    expect(levelFor(analysisOf("archive", 0.59), CLEAN, thrice("approve"))).toEqual({
+    expect(levelFor(analysisOf("archive", 0.59), CLEAN, thrice("approve"), null)).toEqual({
       floor: "silent",
       learned: "notify",
       brake: true,
@@ -86,32 +86,45 @@ describe("levelFor", () => {
   });
 
   it("does not brake at exactly 0.6", () => {
-    expect(levelFor(analysisOf("archive", 0.6), CLEAN, thrice("approve")).brake).toBe(false);
+    expect(levelFor(analysisOf("archive", 0.6), CLEAN, thrice("approve"), null).brake).toBe(false);
   });
 
   it("caps the brake at ask", () => {
-    expect(levelFor(analysisOf("archive", 0.1), CLEAN, []).level).toBe("ask");
+    expect(levelFor(analysisOf("archive", 0.1), CLEAN, [], null).level).toBe("ask");
   });
 
   it("never learns or brakes an inert action", () => {
-    expect(levelFor(analysisOf("none", 0.1), CLEAN, ["reject"])).toEqual({
+    expect(levelFor(analysisOf("none", 0.1), CLEAN, ["reject"], null)).toEqual({
       floor: "silent",
       learned: "silent",
       brake: false,
       level: "silent",
     });
+    expect(levelFor(analysisOf("none", 0.1), CLEAN, ["reject"], "ask").level).toBe("ask");
   });
 
-  it("never decides below the floor, for any feedback history (invariant 1)", () => {
+  it.each<[Level | null, number, Level]>([
+    ["silent", 0.9, "notify"],
+    ["escalate", 0.5, "escalate"],
+    [null, 0.9, "notify"],
+  ])("joins pin %s with learned and brake", (pin, confidence, level) => {
+    expect(
+      levelFor(analysisOf("archive", confidence), CLEAN, thrice("approve"), pin),
+    ).toMatchObject({ learned: "notify", level });
+  });
+
+  it("never decides below the floor, for any feedback history or pin (invariants 1 and 4)", () => {
     const violations = [];
-    for (const history of historiesUpTo(4)) {
-      for (const { name } of ACTIONS) {
-        for (const confidence of [0.3, 0.9]) {
-          for (const suspected of [false, true]) {
-            const injection = { suspected, evidence: [] };
-            const decided = levelFor(analysisOf(name, confidence), injection, history);
-            if (rank(decided.level) < rank(decided.floor)) {
-              violations.push({ name, confidence, suspected, history });
+    for (const pin of [null, ...LEVELS]) {
+      for (const history of historiesUpTo(4)) {
+        for (const { name } of ACTIONS) {
+          for (const confidence of [0.3, 0.9]) {
+            for (const suspected of [false, true]) {
+              const injection = { suspected, evidence: [] };
+              const decided = levelFor(analysisOf(name, confidence), injection, history, pin);
+              if (isBelow(decided.level, decided.floor)) {
+                violations.push({ name, confidence, suspected, history, pin });
+              }
             }
           }
         }
@@ -123,17 +136,24 @@ describe("levelFor", () => {
 
 describe("promotion (§7.2)", () => {
   it("fires only on the response that crosses the threshold", () => {
-    expect(promotion("archive", ["approve"], "approve")).toBeNull();
-    expect(promotion("archive", ["approve", "approve"], "approve")).toBe("ask");
-    expect(promotion("archive", thrice("approve"), "approve")).toBeNull();
+    expect(promotion("archive", ["approve"], "approve", null)).toBeNull();
+    expect(promotion("archive", ["approve", "approve"], "approve", null)).toBe("ask");
+    expect(promotion("archive", thrice("approve"), "approve", null)).toBeNull();
   });
 
   it("is not announced when the floor hides it", () => {
-    expect(promotion("send_reply", ["approve", "approve"], "approve")).toBeNull();
+    expect(promotion("send_reply", ["approve", "approve"], "approve", null)).toBeNull();
   });
 
   it("is never a demotion", () => {
-    expect(promotion("archive", [...thrice("approve"), ...thrice("dismiss")], "undo")).toBeNull();
+    expect(
+      promotion("archive", [...thrice("approve"), ...thrice("dismiss")], "undo", null),
+    ).toBeNull();
+  });
+
+  it("is not announced while a pin holds the bucket at or above the old level", () => {
+    expect(promotion("archive", ["approve", "approve"], "approve", "ask")).toBeNull();
+    expect(promotion("archive", ["approve", "approve"], "approve", "notify")).toBe("ask");
   });
 });
 
@@ -154,8 +174,4 @@ function historiesUpTo(maxLength: number): ItemResponse[][] {
     all.push(...layer);
   }
   return all;
-}
-
-function rank(level: Level): number {
-  return LEVELS.indexOf(level);
 }
