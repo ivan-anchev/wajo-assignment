@@ -1,4 +1,4 @@
-import type { Proposal } from "./actions.ts";
+import type { ActionName, Proposal } from "./actions.ts";
 import type { EmailFile } from "../inbox/inbox.ts";
 
 export type SenderClass = "internal" | "known" | "newsletter" | "first_contact";
@@ -46,6 +46,8 @@ export type Item = {
   proposal: Proposal;
   createdAt: string;
   resolvedAt: string | null;
+  // Derived from `kind` when read, never stored. `status` says whether it is still open.
+  allowedResponses: readonly ItemResponse[];
 };
 
 export type Execution = {
@@ -57,9 +59,23 @@ export type Execution = {
   undoneAt: string | null;
 };
 
+// (action, senderClass) is the learner's bucket; `action` is the originally proposed action.
+export type Feedback = {
+  id: number;
+  itemId: number;
+  action: ActionName;
+  senderClass: SenderClass;
+  kind: ItemResponse;
+  createdAt: string;
+};
+
+// The key `action` switches the action.
+export type ProposalEdit = Record<string, unknown>;
+
 export type Transcript = {
   email: Email;
   decision: Decision;
   item: Item | null;
   executions: Execution[];
+  feedback: Feedback | null;
 };

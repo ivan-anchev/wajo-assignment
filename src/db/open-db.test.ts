@@ -9,6 +9,6 @@ it("creates every table and enforces foreign keys", () => {
     )
     .pluck()
     .all();
-  expect(tables).toEqual(["decisions", "drafts", "emails", "executions", "items"]);
+  expect(tables).toEqual(["decisions", "drafts", "emails", "executions", "feedback", "items"]);
   expect(db.pragma("foreign_keys", { simple: true })).toBe(1);
 });

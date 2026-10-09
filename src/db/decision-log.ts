@@ -1,5 +1,7 @@
 import type { ActionName } from "../domain/actions.ts";
-import type { Decision, Execution, Item, Transcript } from "../domain/types.ts";
+import type { Decision, Execution, Transcript } from "../domain/types.ts";
+import { findFeedbackByItem } from "./feedback.ts";
+import { findItemByDecision } from "./items.ts";
 import { getEmail } from "./mailbox.ts";
 import type { Db } from "./open-db.ts";
 
@@ -7,13 +9,10 @@ type DecisionRow = Omit<Decision, "analysis" | "injection"> & {
   analysis: string;
   injection: string;
 };
-type ItemRow = Omit<Item, "proposal"> & { proposal: string };
 type ExecutionRow = Omit<Execution, "proposal"> & { action: ActionName; params: string };
 
 const DECISION_COLUMNS =
   "id, email_id AS emailId, analysis, injection, floor, level, created_at AS createdAt";
-const ITEM_COLUMNS =
-  "id, decision_id AS decisionId, kind, status, proposal, created_at AS createdAt, resolved_at AS resolvedAt";
 const EXECUTION_COLUMNS =
   "id, decision_id AS decisionId, item_id AS itemId, action, params, executed_at AS executedAt, undone_at AS undoneAt";
 
@@ -31,16 +30,13 @@ export function insertDecision(db: Db, decision: Omit<Decision, "id" | "createdA
   return toDecision(row);
 }
 
-export function insertItem(db: Db, item: Pick<Item, "decisionId" | "kind" | "proposal">): Item {
+export function getDecision(db: Db, id: number): Decision {
   const row = db
-    .prepare<[object], ItemRow>(
-      `INSERT INTO items (decision_id, kind, proposal) VALUES (@decisionId, @kind, @proposal) RETURNING ${ITEM_COLUMNS}`,
-    )
-    .get({ ...item, proposal: JSON.stringify(item.proposal) })!;
-  return toItem(row);
+    .prepare<[number], DecisionRow>(`SELECT ${DECISION_COLUMNS} FROM decisions WHERE id = ?`)
+    .get(id)!;
+  return toDecision(row);
 }
 
-// executedAt comes from the caller: the same `now` the action wrote with.
 export function insertExecution(
   db: Db,
   execution: Pick<Execution, "decisionId" | "itemId" | "proposal" | "executedAt">,
@@ -60,17 +56,43 @@ export function insertExecution(
   return toExecution(row);
 }
 
-// Starts from the decision: an email row exists only alongside its decision.
+export function findExecutionByItem(db: Db, itemId: number): Execution {
+  const row = db
+    .prepare<[number], ExecutionRow>(
+      `SELECT ${EXECUTION_COLUMNS} FROM executions WHERE item_id = ?`,
+    )
+    .get(itemId)!;
+  return toExecution(row);
+}
+
+export function markUndone(db: Db, executionId: number, undoneAt: string): void {
+  db.prepare("UPDATE executions SET undone_at = ? WHERE id = ?").run(undoneAt, executionId);
+}
+
 export function findTranscript(db: Db, emailId: string): Transcript | null {
   const decision = findDecisionByEmail(db, emailId);
-  if (!decision) {
-    return null;
-  }
+  return decision ? transcriptOf(db, decision) : null;
+}
+
+export function openTranscripts(db: Db): Transcript[] {
+  return db
+    .prepare<[], DecisionRow>(
+      `SELECT ${DECISION_COLUMNS} FROM decisions
+       WHERE id IN (SELECT decision_id FROM items WHERE status = 'open')
+       ORDER BY id`,
+    )
+    .all()
+    .map((row) => transcriptOf(db, toDecision(row)));
+}
+
+export function transcriptOf(db: Db, decision: Decision): Transcript {
+  const item = findItemByDecision(db, decision.id);
   return {
-    email: getEmail(db, emailId),
+    email: getEmail(db, decision.emailId),
     decision,
-    item: findItemByDecision(db, decision.id),
+    item,
     executions: listExecutionsByDecision(db, decision.id),
+    feedback: item ? findFeedbackByItem(db, item.id) : null,
   };
 }
 
@@ -79,13 +101,6 @@ function findDecisionByEmail(db: Db, emailId: string): Decision | null {
     .prepare<[string], DecisionRow>(`SELECT ${DECISION_COLUMNS} FROM decisions WHERE email_id = ?`)
     .get(emailId);
   return row ? toDecision(row) : null;
-}
-
-function findItemByDecision(db: Db, decisionId: number): Item | null {
-  const row = db
-    .prepare<[number], ItemRow>(`SELECT ${ITEM_COLUMNS} FROM items WHERE decision_id = ?`)
-    .get(decisionId);
-  return row ? toItem(row) : null;
 }
 
 function listExecutionsByDecision(db: Db, decisionId: number): Execution[] {
@@ -99,10 +114,6 @@ function listExecutionsByDecision(db: Db, decisionId: number): Execution[] {
 
 function toDecision(row: DecisionRow): Decision {
   return { ...row, analysis: JSON.parse(row.analysis), injection: JSON.parse(row.injection) };
-}
-
-function toItem(row: ItemRow): Item {
-  return { ...row, proposal: JSON.parse(row.proposal) };
 }
 
 function toExecution({ action, params, ...row }: ExecutionRow): Execution {

@@ -60,14 +60,18 @@ describe("run", () => {
         suspected: t.decision.injection.suspected,
         level: t.decision.level,
         item: t.item?.kind,
+        allowedResponses: t.item?.allowedResponses,
         executions: t.executions,
+        feedback: t.feedback,
       })),
     ).toEqual(
       Array.from({ length: 6 }, () => ({
         suspected: true,
         level: "escalate",
         item: "escalate",
+        allowedResponses: ["dismiss"],
         executions: [],
+        feedback: null,
       })),
     );
   });
@@ -89,6 +93,7 @@ describe("run", () => {
       decision: { level: "silent" },
       item: null,
       executions: [{ proposal: { action: "archive", params: {} }, itemId: null }],
+      feedback: null,
     });
     expect(readEmailState(db, first!.email.id).archivedAt).toBe(first!.executions[0]!.executedAt);
   });
@@ -125,7 +130,7 @@ describe("transcript", () => {
     const agent = agentWith(replayModel());
     const transcripts = await agent.run(INBOX);
 
-    expect(transcripts.map((t) => agent.transcript(t.email.id))).toEqual(transcripts);
+    expect(transcripts.map((t) => agent.transcript(t.email.id))).toStrictEqual(transcripts);
   });
 
   it("returns null for an unknown email id", () => {

@@ -1,5 +1,5 @@
 import type { LanguageModel } from "ai";
-import { findTranscript, insertDecision } from "../db/decision-log.ts";
+import { findTranscript, insertDecision, transcriptOf } from "../db/decision-log.ts";
 import { insertEmail, storedEmailIds } from "../db/mailbox.ts";
 import type { Db } from "../db/open-db.ts";
 import { readInbox, type InboxSource } from "../inbox/inbox.ts";
@@ -54,6 +54,7 @@ function commit(db: Db, email: Email, decided: Omit<Decision, "id" | "createdAt"
   return db.transaction(() => {
     insertEmail(db, email);
     const decision = insertDecision(db, decided);
-    return { email, decision, ...act(db, decision) };
+    act(db, decision);
+    return transcriptOf(db, decision);
   })();
 }

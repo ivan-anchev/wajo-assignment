@@ -55,3 +55,13 @@ CREATE TABLE IF NOT EXISTS drafts (
   body        TEXT NOT NULL,
   created_at  TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))
 );
+
+-- item_id is UNIQUE: one item yields at most one feedback row.
+CREATE TABLE IF NOT EXISTS feedback (
+  id            INTEGER PRIMARY KEY AUTOINCREMENT,
+  item_id       INTEGER NOT NULL UNIQUE REFERENCES items(id),
+  action        TEXT NOT NULL,
+  sender_class  TEXT NOT NULL,
+  kind          TEXT NOT NULL,
+  created_at    TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))
+);
