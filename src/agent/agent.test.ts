@@ -4,10 +4,7 @@ import { createAgent } from "./agent.ts";
 import { readEmailState } from "../db/mailbox.ts";
 import { openDb, type Db } from "../db/open-db.ts";
 import { mockModel, replayModel } from "../llm/test-models.ts";
-
-const CONTACTS = "fixtures/contacts.json";
-const INBOX = { inboxDir: "fixtures/inbox", contactsPath: CONTACTS };
-const INJECTION_INBOX = { inboxDir: "fixtures/injection", contactsPath: CONTACTS };
+import { feedbackCount, INBOX, INJECTION_INBOX } from "./test-agents.ts";
 
 let db: Db;
 
@@ -122,6 +119,14 @@ describe("run", () => {
     await agent.run(INBOX);
 
     expect(await agent.run(INBOX)).toEqual([]);
+  });
+
+  it("never writes feedback, whatever it decides", async () => {
+    const agent = agentWith(replayModel());
+    await agent.run(INBOX);
+    await agent.run(INJECTION_INBOX);
+
+    expect(feedbackCount(db)).toBe(0);
   });
 });
 

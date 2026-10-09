@@ -42,6 +42,18 @@ export function createAgent(db: Db, llm: LanguageModel) {
     edit(itemId: number, changes: ProposalEdit): Transcript {
       return respond.edit(db, itemId, changes);
     },
+
+    reject(itemId: number): Transcript {
+      return respond.reject(db, itemId);
+    },
+
+    undo(itemId: number): Transcript {
+      return respond.undo(db, itemId);
+    },
+
+    dismiss(itemId: number): Transcript {
+      return respond.dismiss(db, itemId);
+    },
   };
 }
 

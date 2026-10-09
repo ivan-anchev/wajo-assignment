@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { actionFor, proposalSchema, type Proposal } from "../domain/actions.ts";
+import { actionFor, proposalSchema, undoProposal, type Proposal } from "../domain/actions.ts";
 import { floor } from "../domain/policy.ts";
 import type {
   Decision,
@@ -10,7 +10,7 @@ import type {
   ProposalEdit,
   Transcript,
 } from "../domain/types.ts";
-import { getDecision, transcriptOf } from "../db/decision-log.ts";
+import { findExecutionByItem, getDecision, markUndone, transcriptOf } from "../db/decision-log.ts";
 import { insertFeedback } from "../db/feedback.ts";
 import { findItem, resolveItem } from "../db/items.ts";
 import { getEmail } from "../db/mailbox.ts";
@@ -34,6 +34,21 @@ export function approve(db: Db, itemId: number): Transcript {
 
 export function edit(db: Db, itemId: number, changes: ProposalEdit): Transcript {
   return respond(db, itemId, "edit", (r) => approveProposal(r, editedProposal(r.item, changes)));
+}
+
+export function reject(db: Db, itemId: number): Transcript {
+  return respond(db, itemId, "reject", (r) => resolve(r, "rejected"));
+}
+
+export function dismiss(db: Db, itemId: number): Transcript {
+  return respond(db, itemId, "dismiss", (r) => resolve(r, "dismissed"));
+}
+
+export function undo(db: Db, itemId: number): Transcript {
+  return respond(db, itemId, "undo", (r) => {
+    resolve(r, "undone");
+    revert(r);
+  });
 }
 
 // One transaction: a refusal throws and rolls everything back.
@@ -96,6 +111,13 @@ function resolve(
       kind: r.response,
     });
   }
+}
+
+function revert({ db, item, decision }: ResponseContext): void {
+  const execution = findExecutionByItem(db, item.id);
+  const now = new Date().toISOString();
+  undoProposal(execution.proposal, { db, emailId: decision.emailId, now });
+  markUndone(db, execution.id, now);
 }
 
 // The at-most-once guarantee: runs before any effect, so a second approve never executes.

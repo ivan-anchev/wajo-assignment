@@ -1,14 +1,14 @@
 import { beforeEach, describe, expect, it } from "vitest";
-import type { Proposal } from "../domain/actions.ts";
 import { openDb, type Db } from "../db/open-db.ts";
-import { mockModel, replayModel } from "../llm/test-models.ts";
-import { createAgent, InvalidResponseError } from "./agent.ts";
-
-const CONTACTS = "fixtures/contacts.json";
-const INBOX = { inboxDir: "fixtures/inbox", contactsPath: CONTACTS };
-const INJECTION_INBOX = { inboxDir: "fixtures/injection", contactsPath: CONTACTS };
-
-const SEND_REPLY: Proposal = { action: "send_reply", params: { body: "Sounds good." } };
+import { replayModel } from "../llm/test-models.ts";
+import { createAgent, InvalidResponseError, type Agent } from "./agent.ts";
+import {
+  agentProposing,
+  feedbackCount,
+  INJECTION_INBOX,
+  PAY_INVOICE,
+  SEND_REPLY,
+} from "./test-agents.ts";
 
 let db: Db;
 
@@ -16,78 +16,9 @@ beforeEach(() => {
   db = openDb(":memory:");
 });
 
-// Opens ask items #1..#3 for emails 001..003; 001 is from an internal sender.
-async function agentAsking(proposal: Proposal) {
-  const agent = createAgent(
-    db,
-    mockModel({
-      analysis: { summary: "s", intent: "reply", proposal, confidence: 0.9 },
-      injection_verdict: { suspected: false, evidence: [] },
-    }),
-  );
-  await agent.run(INBOX);
-  return agent;
-}
-
-function feedbackCount(): number {
-  return db.prepare<[], { n: number }>("SELECT count(*) AS n FROM feedback").get()!.n;
-}
-
-describe("inbox", () => {
-  it("lists every open ask with the responses its kind allows, oldest first", async () => {
-    const agent = await agentAsking(SEND_REPLY);
-
-    const inbox = agent.inbox();
-
-    expect(inbox.map((t) => t.email.id)).toEqual(["001", "002", "003"]);
-    expect(inbox.map((t) => t.item)).toMatchObject(
-      [1, 2, 3].map((id) => ({
-        id,
-        kind: "ask",
-        status: "open",
-        allowedResponses: ["approve", "edit", "reject"],
-      })),
-    );
-  });
-
-  it("lists escalations with dismiss as the only response", async () => {
-    const agent = createAgent(db, replayModel());
-    await agent.run(INJECTION_INBOX);
-
-    expect(
-      agent.inbox().map((t) => ({
-        kind: t.item?.kind,
-        allowedResponses: t.item?.allowedResponses,
-        suspected: t.decision.injection.suspected,
-      })),
-    ).toEqual(
-      Array.from({ length: 6 }, () => ({
-        kind: "escalate",
-        allowedResponses: ["dismiss"],
-        suspected: true,
-      })),
-    );
-  });
-
-  it("drops an item once it is resolved", async () => {
-    const agent = await agentAsking(SEND_REPLY);
-
-    agent.approve(1);
-
-    expect(agent.inbox().map((t) => t.item!.id)).toEqual([2, 3]);
-  });
-
-  it("is empty when every decision was silent", async () => {
-    const agent = createAgent(db, replayModel());
-    await agent.run(INBOX);
-
-    expect(agent.inbox()).toEqual([]);
-  });
-});
-
 describe("approve", () => {
   it("executes the proposal once, closes the item, records positive feedback", async () => {
-    const agent = await agentAsking(SEND_REPLY);
+    const agent = await agentProposing(db, SEND_REPLY);
 
     const transcript = agent.approve(1);
 
@@ -102,7 +33,7 @@ describe("approve", () => {
   });
 
   it("executes once when approved twice", async () => {
-    const agent = await agentAsking(SEND_REPLY);
+    const agent = await agentProposing(db, SEND_REPLY);
     agent.approve(1);
 
     expect(() => agent.approve(1)).toThrow(InvalidResponseError);
@@ -112,19 +43,22 @@ describe("approve", () => {
       agent.edit(1, { action: "pay_invoice", amount: 120, currency: "EUR", payee: "Acme" }),
     ).toThrow(/already approved/);
     expect(agent.transcript("001")!.executions).toHaveLength(1);
-    expect(feedbackCount()).toBe(1);
+    expect(feedbackCount(db)).toBe(1);
   });
 
-  it("refuses an unknown item id", async () => {
-    const agent = await agentAsking(SEND_REPLY);
+  it("is refused after reject and executes nothing", async () => {
+    const agent = await agentProposing(db, SEND_REPLY);
+    agent.reject(1);
 
-    expect(() => agent.approve(999)).toThrow(/There is no item #999/);
+    expect(() => agent.approve(1)).toThrow(/already rejected/);
+    expect(agent.transcript("001")!.executions).toEqual([]);
+    expect(agent.transcript("001")!.feedback!.kind).toBe("reject");
   });
 });
 
 describe("edit", () => {
   it("executes the edited payload under the original bucket", async () => {
-    const agent = await agentAsking(SEND_REPLY);
+    const agent = await agentProposing(db, SEND_REPLY);
     const edited = { action: "send_reply", params: { body: "Thanks!" } };
 
     const transcript = agent.edit(1, { body: "Thanks!" });
@@ -136,13 +70,13 @@ describe("edit", () => {
   });
 
   it("overlays a same-action edit on the current params", async () => {
-    const agent = await agentAsking(SEND_REPLY);
+    const agent = await agentProposing(db, SEND_REPLY);
 
     expect(agent.edit(1, {}).executions[0]!.proposal).toEqual(SEND_REPLY);
   });
 
   it("buckets an action switch under the proposed action", async () => {
-    const agent = await agentAsking(SEND_REPLY);
+    const agent = await agentProposing(db, SEND_REPLY);
 
     const transcript = agent.edit(1, { action: "forward", to: "dana@northwind.io" });
 
@@ -153,8 +87,8 @@ describe("edit", () => {
     expect(transcript.feedback!.action).toBe("send_reply");
   });
 
-  it("re-runs the floor and refuses an edit into a money action (invariant 5)", async () => {
-    const agent = await agentAsking(SEND_REPLY);
+  it("re-runs the floor, refuses an edit into a money action and leaves the ask usable (invariant 5)", async () => {
+    const agent = await agentProposing(db, SEND_REPLY);
     const before = agent.transcript("001");
 
     expect(() =>
@@ -163,7 +97,9 @@ describe("edit", () => {
     expect(agent.transcript("001")).toEqual(before);
     expect(before!.item).toMatchObject({ status: "open", proposal: SEND_REPLY });
     expect(before!.executions).toEqual([]);
-    expect(feedbackCount()).toBe(0);
+    expect(feedbackCount(db)).toBe(0);
+
+    expect(agent.reject(1).feedback).toMatchObject({ kind: "reject" });
   });
 
   it.each([
@@ -172,21 +108,74 @@ describe("edit", () => {
     ["an ill-typed param", { action: "forward", to: "not-an-email" }],
     ["an unknown key", { bdy: "Thanks!" }],
   ])("refuses %s and leaves the item untouched", async (_, changes) => {
-    const agent = await agentAsking(SEND_REPLY);
+    const agent = await agentProposing(db, SEND_REPLY);
     const before = agent.transcript("001");
 
     expect(() => agent.edit(1, changes)).toThrow(/Invalid edit for item #1/);
     expect(agent.transcript("001")).toEqual(before);
-    expect(feedbackCount()).toBe(0);
+    expect(feedbackCount(db)).toBe(0);
   });
 });
 
-describe("run", () => {
-  it("never writes feedback, whatever it decides", async () => {
+describe("reject", () => {
+  it("closes the ask without executing and records negative feedback", async () => {
+    const agent = await agentProposing(db, SEND_REPLY);
+
+    const transcript = agent.reject(1);
+
+    expect(transcript.item!.status).toBe("rejected");
+    expect(transcript.executions).toEqual([]);
+    expect(transcript.feedback).toMatchObject({ kind: "reject", action: "send_reply" });
+  });
+});
+
+describe("dismiss", () => {
+  it("closes every injection escalation without feedback (invariant 3)", async () => {
     const agent = createAgent(db, replayModel());
-    await agent.run(INBOX);
     await agent.run(INJECTION_INBOX);
 
-    expect(feedbackCount()).toBe(0);
+    const transcripts = [1, 2, 3, 4, 5, 6].map((id) => agent.dismiss(id));
+
+    expect(
+      transcripts.map(({ item, executions, feedback }) => ({
+        status: item!.status,
+        executions,
+        feedback,
+      })),
+    ).toEqual(
+      Array.from({ length: 6 }, () => ({ status: "dismissed", executions: [], feedback: null })),
+    );
+    expect(feedbackCount(db)).toBe(0);
+  });
+
+  it("never turns a money escalation into feedback", async () => {
+    const agent = await agentProposing(db, PAY_INVOICE);
+
+    expect(agent.transcript("001")!.item!.kind).toBe("escalate");
+    expect(agent.dismiss(1).item!.status).toBe("dismissed");
+    expect(feedbackCount(db)).toBe(0);
+    expect(() => agent.dismiss(1)).toThrow(/already dismissed/);
+  });
+});
+
+describe("refusals", () => {
+  it("refuses an unknown item id", async () => {
+    const agent = await agentProposing(db, SEND_REPLY);
+
+    expect(() => agent.approve(999)).toThrow(/There is no item #999/);
+  });
+
+  it.each([
+    ["undo on an ask", SEND_REPLY, (agent: Agent) => agent.undo(1)],
+    ["dismiss on an ask", SEND_REPLY, (agent: Agent) => agent.dismiss(1)],
+    ["reject on an escalation", PAY_INVOICE, (agent: Agent) => agent.reject(1)],
+    ["edit on an escalation", PAY_INVOICE, (agent: Agent) => agent.edit(1, {})],
+  ])("refuses %s without side effects", async (_, proposal, respond) => {
+    const agent = await agentProposing(db, proposal);
+    const before = agent.transcript("001");
+
+    expect(() => respond(agent)).toThrow(/takes .*, not/);
+    expect(agent.transcript("001")).toEqual(before);
+    expect(feedbackCount(db)).toBe(0);
   });
 });
