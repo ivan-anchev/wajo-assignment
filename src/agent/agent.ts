@@ -1,5 +1,10 @@
 import type { LanguageModel } from "ai";
-import { findTranscript, insertDecision, transcriptOf } from "../db/decision-log.ts";
+import {
+  findTranscript,
+  insertDecision,
+  openTranscripts,
+  transcriptOf,
+} from "../db/decision-log.ts";
 import { insertEmail, storedEmailIds } from "../db/mailbox.ts";
 import type { Db } from "../db/open-db.ts";
 import { readInbox, type InboxSource } from "../inbox/inbox.ts";
@@ -7,7 +12,10 @@ import { levelFor } from "../domain/policy.ts";
 import { act } from "./act.ts";
 import { analyze } from "./analyze.ts";
 import { checkInjection } from "./check-injection.ts";
-import type { Decision, Email, Event, Transcript } from "../domain/types.ts";
+import * as respond from "./respond.ts";
+import type { Decision, Email, Event, ProposalEdit, Transcript } from "../domain/types.ts";
+
+export { InvalidResponseError } from "./respond.ts";
 
 export function createAgent(db: Db, llm: LanguageModel) {
   return {
@@ -21,6 +29,18 @@ export function createAgent(db: Db, llm: LanguageModel) {
 
     transcript(emailId: string): Transcript | null {
       return findTranscript(db, emailId);
+    },
+
+    inbox(): Transcript[] {
+      return openTranscripts(db);
+    },
+
+    approve(itemId: number): Transcript {
+      return respond.approve(db, itemId);
+    },
+
+    edit(itemId: number, changes: ProposalEdit): Transcript {
+      return respond.edit(db, itemId, changes);
     },
   };
 }
