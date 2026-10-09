@@ -24,7 +24,7 @@ import type {
   Transcript,
 } from "../domain/types.ts";
 
-export { InvalidResponseError } from "./respond.ts";
+export { Refusal } from "./refusal.ts";
 
 export function createAgent(db: Db, llm: LanguageModel) {
   return {

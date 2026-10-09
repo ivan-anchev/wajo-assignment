@@ -2,7 +2,7 @@ import { Command, InvalidArgumentError } from "commander";
 import { existsSync } from "node:fs";
 import { ACTIONS } from "../domain/actions.ts";
 import type { ProposalEdit, ResponseResult } from "../domain/types.ts";
-import { createAgent, InvalidResponseError, type Agent } from "../agent/agent.ts";
+import { createAgent, Refusal, type Agent } from "../agent/agent.ts";
 import { openDb } from "../db/open-db.ts";
 import { DEFAULT_MODEL, languageModelFrom } from "../llm/llm.ts";
 import { renderDecisionLine, renderInboxLine, renderResponse, renderTranscript } from "./render.ts";
@@ -97,7 +97,7 @@ function itemCommand(
       try {
         console.log(renderResponse(respond(openAgent({ live: false }), itemId, options)));
       } catch (error) {
-        if (!(error instanceof InvalidResponseError)) {
+        if (!(error instanceof Refusal)) {
           throw error;
         }
         console.error(error.message);

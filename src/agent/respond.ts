@@ -16,9 +16,7 @@ import { getEmail } from "../db/mailbox.ts";
 import type { Db } from "../db/open-db.ts";
 import { execute } from "./act.ts";
 import { learn } from "./learn.ts";
-
-// The one failure a caller is expected to handle. Anything else thrown here is a bug.
-export class InvalidResponseError extends Error {}
+import { Refusal } from "./refusal.ts";
 
 type ResponseContext = {
   db: Db;
@@ -73,13 +71,13 @@ function respond(
 function itemAccepting(db: Db, itemId: number, response: ItemResponse): Item {
   const item = findItem(db, itemId);
   if (!item) {
-    throw new InvalidResponseError(`There is no item #${itemId}.`);
+    throw new Refusal(`There is no item #${itemId}.`);
   }
   if (item.status !== "open") {
     throw alreadyResolved(item);
   }
   if (!item.allowedResponses.includes(response)) {
-    throw new InvalidResponseError(
+    throw new Refusal(
       `${item.kind} item #${itemId} takes ${item.allowedResponses.join(", ")}, not ${response}.`,
     );
   }
@@ -89,7 +87,7 @@ function itemAccepting(db: Db, itemId: number, response: ItemResponse): Item {
 function approveProposal(r: ResponseContext, proposal: Proposal): void {
   const required = floor(actionFor(proposal.action).riskClass, r.decision.injection.suspected);
   if (required === "escalate") {
-    throw new InvalidResponseError(`${proposal.action} must be escalated; nothing was executed.`);
+    throw new Refusal(`${proposal.action} must be escalated; nothing was executed.`);
   }
   resolve(r, "approved", proposal);
   execute(r.db, r.decision, proposal, r.item.id);
@@ -128,8 +126,8 @@ function claim(r: ResponseContext, stillOpen: boolean): void {
   }
 }
 
-function alreadyResolved(item: Item): InvalidResponseError {
-  return new InvalidResponseError(`Item #${item.id} is already ${item.status}.`);
+function alreadyResolved(item: Item): Refusal {
+  return new Refusal(`Item #${item.id} is already ${item.status}.`);
 }
 
 function editedProposal(item: Item, changes: ProposalEdit): Proposal {
@@ -137,9 +135,7 @@ function editedProposal(item: Item, changes: ProposalEdit): Proposal {
   const base = action === item.proposal.action ? item.proposal.params : {};
   const parsed = proposalSchema.safeParse({ action, params: { ...base, ...params } });
   if (!parsed.success) {
-    throw new InvalidResponseError(
-      `Invalid edit for item #${item.id}: ${z.prettifyError(parsed.error)}`,
-    );
+    throw new Refusal(`Invalid edit for item #${item.id}: ${z.prettifyError(parsed.error)}`);
   }
   return parsed.data;
 }

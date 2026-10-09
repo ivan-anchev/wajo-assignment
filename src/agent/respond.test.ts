@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it } from "vitest";
 import { readEmailState } from "../db/mailbox.ts";
 import { openDb, type Db } from "../db/open-db.ts";
 import { replayModel } from "../llm/test-models.ts";
-import { createAgent, InvalidResponseError, type Agent } from "./agent.ts";
+import { createAgent, Refusal, type Agent } from "./agent.ts";
 import {
   agentProposing,
   ARCHIVE,
@@ -39,7 +39,7 @@ describe("approve", () => {
     const agent = await agentProposing(db, SEND_REPLY);
     agent.approve(1);
 
-    expect(() => agent.approve(1)).toThrow(InvalidResponseError);
+    expect(() => agent.approve(1)).toThrow(Refusal);
     expect(() => agent.approve(1)).toThrow(/already approved/);
     expect(() => agent.edit(1, { bdy: "Thanks!" })).toThrow(/already approved/);
     expect(() =>
