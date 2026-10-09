@@ -5,27 +5,29 @@ import { findItemByDecision } from "./items.ts";
 import { getEmail } from "./mailbox.ts";
 import type { Db } from "./open-db.ts";
 
-type DecisionRow = Omit<Decision, "analysis" | "injection"> & {
+type DecisionRow = Omit<Decision, "analysis" | "injection" | "brake"> & {
   analysis: string;
   injection: string;
+  brake: 0 | 1;
 };
 type ExecutionRow = Omit<Execution, "proposal"> & { action: ActionName; params: string };
 
 const DECISION_COLUMNS =
-  "id, email_id AS emailId, analysis, injection, floor, level, created_at AS createdAt";
+  "id, email_id AS emailId, analysis, injection, floor, learned, brake, level, created_at AS createdAt";
 const EXECUTION_COLUMNS =
   "id, decision_id AS decisionId, item_id AS itemId, action, params, executed_at AS executedAt, undone_at AS undoneAt";
 
 export function insertDecision(db: Db, decision: Omit<Decision, "id" | "createdAt">): Decision {
   const row = db
     .prepare<[object], DecisionRow>(
-      `INSERT INTO decisions (email_id, analysis, injection, floor, level)
-       VALUES (@emailId, @analysis, @injection, @floor, @level) RETURNING ${DECISION_COLUMNS}`,
+      `INSERT INTO decisions (email_id, analysis, injection, floor, learned, brake, level)
+       VALUES (@emailId, @analysis, @injection, @floor, @learned, @brake, @level) RETURNING ${DECISION_COLUMNS}`,
     )
     .get({
       ...decision,
       analysis: JSON.stringify(decision.analysis),
       injection: JSON.stringify(decision.injection),
+      brake: decision.brake ? 1 : 0,
     })!;
   return toDecision(row);
 }
@@ -113,7 +115,12 @@ function listExecutionsByDecision(db: Db, decisionId: number): Execution[] {
 }
 
 function toDecision(row: DecisionRow): Decision {
-  return { ...row, analysis: JSON.parse(row.analysis), injection: JSON.parse(row.injection) };
+  return {
+    ...row,
+    analysis: JSON.parse(row.analysis),
+    injection: JSON.parse(row.injection),
+    brake: row.brake === 1,
+  };
 }
 
 function toExecution({ action, params, ...row }: ExecutionRow): Execution {

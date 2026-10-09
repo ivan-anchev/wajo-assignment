@@ -5,6 +5,7 @@ import {
   openTranscripts,
   transcriptOf,
 } from "../db/decision-log.ts";
+import { bucketHistory } from "../db/feedback.ts";
 import { insertEmail, storedEmailIds } from "../db/mailbox.ts";
 import type { Db } from "../db/open-db.ts";
 import { readInbox, type InboxSource } from "../inbox/inbox.ts";
@@ -78,8 +79,13 @@ async function processEvent(db: Db, llm: LanguageModel, event: Event): Promise<T
     analyze(llm, email),
     checkInjection(llm, email),
   ]);
-  const { floor, level } = levelFor(analysis.proposal, injection);
-  return commit(db, email, { emailId: email.id, analysis, injection, floor, level });
+  const history = bucketHistory(db, analysis.proposal.action, email.senderClass);
+  return commit(db, email, {
+    emailId: email.id,
+    analysis,
+    injection,
+    ...levelFor(analysis, injection, history),
+  });
 }
 
 function commit(db: Db, email: Email, decided: Omit<Decision, "id" | "createdAt">): Transcript {

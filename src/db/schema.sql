@@ -23,6 +23,8 @@ CREATE TABLE IF NOT EXISTS decisions (
   analysis    TEXT NOT NULL,
   injection   TEXT NOT NULL,
   floor       TEXT NOT NULL,
+  learned     TEXT NOT NULL,
+  brake       INTEGER NOT NULL,
   level       TEXT NOT NULL,
   created_at  TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))
 );

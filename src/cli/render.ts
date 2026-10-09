@@ -43,9 +43,11 @@ export function renderTranscript({
     `             proposal: ${describeProposal(analysis.proposal)}`,
     `3 injection  ${injection.suspected ? `SUSPECTED (${injection.evidence.join("; ")})` : "not suspected"}`,
     `4 floor      ${decision.floor}`,
-    `5 level      ${decision.level}`,
-    `6 act        ${describeOutcome(item, executions)}`,
-    ...(item && item.status !== "open" ? [`7 response   ${describeResponse(item, feedback)}`] : []),
+    `5 learned    ${decision.learned} for ${analysis.proposal.action}/${email.senderClass}`,
+    `6 brake      ${decision.brake ? "fired: low confidence, one rung up (capped at ask)" : "not fired"}`,
+    `7 level      ${decision.level}`,
+    `8 act        ${describeOutcome(item, executions)}`,
+    ...(item && item.status !== "open" ? [`9 response   ${describeResponse(item, feedback)}`] : []),
   ].join("\n");
 }
 

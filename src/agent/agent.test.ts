@@ -4,7 +4,7 @@ import { createAgent } from "./agent.ts";
 import { readEmailState } from "../db/mailbox.ts";
 import { openDb, type Db } from "../db/open-db.ts";
 import { mockModel, replayModel } from "../llm/test-models.ts";
-import { feedbackCount, INBOX, INJECTION_INBOX } from "./test-agents.ts";
+import { ARCHIVE, feedbackCount, INBOX, INJECTION_INBOX } from "./test-agents.ts";
 
 let db: Db;
 
@@ -23,6 +23,7 @@ describe("run", () => {
         t.email.id,
         t.decision.analysis.proposal.action,
         t.decision.injection.suspected,
+        t.decision.learned,
         t.decision.level,
       ]),
     ).toMatchInlineSnapshot(`
@@ -32,18 +33,21 @@ describe("run", () => {
           "none",
           false,
           "silent",
+          "silent",
         ],
         [
           "002",
           "none",
           false,
           "silent",
+          "silent",
         ],
         [
           "003",
           "draft_reply",
           false,
-          "silent",
+          "ask",
+          "ask",
         ],
       ]
     `);
@@ -73,26 +77,20 @@ describe("run", () => {
     );
   });
 
-  it("executes a silent reversible proposal and changes the email's state", async () => {
-    const llm = mockModel({
-      analysis: {
-        summary: "s",
-        intent: "fyi",
-        proposal: { action: "archive", params: {} },
-        confidence: 0.9,
-      },
-      injection_verdict: { suspected: false, evidence: [] },
-    });
-
-    const [first] = await agentWith(llm).run(INBOX);
+  it("asks before a reversible proposal while its bucket is cold", async () => {
+    const [first] = await agentWith(
+      mockModel({
+        analysis: { summary: "s", intent: "fyi", proposal: ARCHIVE, confidence: 0.9 },
+        injection_verdict: { suspected: false, evidence: [] },
+      }),
+    ).run(INBOX);
 
     expect(first).toMatchObject({
-      decision: { level: "silent" },
-      item: null,
-      executions: [{ proposal: { action: "archive", params: {} }, itemId: null }],
-      feedback: null,
+      decision: { level: "ask" },
+      item: { kind: "ask", status: "open" },
+      executions: [],
     });
-    expect(readEmailState(db, first!.email.id).archivedAt).toBe(first!.executions[0]!.executedAt);
+    expect(readEmailState(db, first!.email.id).archivedAt).toBeNull();
   });
 
   it("writes nothing when the judge fails, so the email is retried next run", async () => {

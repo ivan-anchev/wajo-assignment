@@ -1,4 +1,5 @@
-import type { Feedback } from "../domain/types.ts";
+import type { ActionName } from "../domain/actions.ts";
+import type { Feedback, ItemResponse, SenderClass } from "../domain/types.ts";
 import type { Db } from "./open-db.ts";
 
 const FEEDBACK_COLUMNS =
@@ -17,4 +18,17 @@ export function findFeedbackByItem(db: Db, itemId: number): Feedback | null {
       .prepare<[number], Feedback>(`SELECT ${FEEDBACK_COLUMNS} FROM feedback WHERE item_id = ?`)
       .get(itemId) ?? null
   );
+}
+
+export function bucketHistory(
+  db: Db,
+  action: ActionName,
+  senderClass: SenderClass,
+): ItemResponse[] {
+  return db
+    .prepare<[string, string], ItemResponse>(
+      "SELECT kind FROM feedback WHERE action = ? AND sender_class = ? ORDER BY id",
+    )
+    .pluck()
+    .all(action, senderClass);
 }

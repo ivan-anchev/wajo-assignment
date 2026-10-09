@@ -9,6 +9,8 @@ export type ActionContext = { db: Db; emailId: string; now: string };
 type ActionCommon<N extends string, S extends z.ZodObject> = {
   name: N;
   params: S;
+  // Executes nothing, so policy never learns or brakes it.
+  inert?: true;
   // Sync because effects run inside a better-sqlite3 transaction, which rejects async callbacks.
   execute(params: z.infer<S>, ctx: ActionContext): void;
 };
@@ -44,6 +46,7 @@ export const ACTIONS = [
   defineAction({
     name: "none",
     riskClass: "reversible",
+    inert: true,
     params: noParams,
     execute: noEffect,
     undo: noEffect,

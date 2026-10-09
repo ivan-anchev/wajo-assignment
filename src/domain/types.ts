@@ -18,6 +18,7 @@ export type Event = { kind: "incoming_email"; email: Email };
 
 export const LEVELS = ["silent", "notify", "ask", "escalate"] as const;
 export type Level = (typeof LEVELS)[number];
+export type LearnedLevel = Exclude<Level, "escalate">;
 
 export type ItemKind = Exclude<Level, "silent">;
 export type ItemStatus = "open" | "approved" | "rejected" | "dismissed" | "undone";
@@ -33,6 +34,8 @@ export type Decision = {
   analysis: Analysis;
   injection: InjectionVerdict;
   floor: Level;
+  learned: LearnedLevel;
+  brake: boolean;
   level: Level;
   createdAt: string;
 };

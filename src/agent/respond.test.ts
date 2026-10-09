@@ -1,11 +1,14 @@
 import { beforeEach, describe, expect, it } from "vitest";
+import { readEmailState } from "../db/mailbox.ts";
 import { openDb, type Db } from "../db/open-db.ts";
 import { replayModel } from "../llm/test-models.ts";
 import { createAgent, InvalidResponseError, type Agent } from "./agent.ts";
 import {
   agentProposing,
+  ARCHIVE,
   feedbackCount,
   INJECTION_INBOX,
+  newsletterInbox,
   PAY_INVOICE,
   SEND_REPLY,
 } from "./test-agents.ts";
@@ -179,3 +182,61 @@ describe("refusals", () => {
     expect(feedbackCount(db)).toBe(0);
   });
 });
+
+describe("notify items", () => {
+  it("dismiss closes a notify item, keeps the action, records positive feedback", async () => {
+    const { agent, notified } = await notifiedArchive();
+
+    const transcript = agent.dismiss(notified.item!.id);
+
+    expect(transcript.item!.status).toBe("dismissed");
+    expect(transcript.executions).toMatchObject([{ undoneAt: null }]);
+    expect(readEmailState(db, notified.email.id).archivedAt).toBe(
+      notified.executions[0]!.executedAt,
+    );
+    expect(transcript.feedback).toMatchObject({
+      action: "archive",
+      senderClass: "newsletter",
+      kind: "dismiss",
+    });
+  });
+
+  it("undo reverts a notified action and records negative feedback", async () => {
+    const { agent, notified } = await notifiedArchive();
+
+    const transcript = agent.undo(notified.item!.id);
+
+    expect(transcript.item!.status).toBe("undone");
+    expect(transcript.executions).toMatchObject([{ undoneAt: expect.any(String) }]);
+    expect(readEmailState(db, notified.email.id).archivedAt).toBeNull();
+    expect(transcript.feedback).toMatchObject({ kind: "undo" });
+  });
+
+  it("undo twice reverts once", async () => {
+    const { agent, notified } = await notifiedArchive();
+    const undone = agent.undo(notified.item!.id);
+    const feedbackBefore = feedbackCount(db);
+
+    expect(() => agent.undo(notified.item!.id)).toThrow(/already undone/);
+    expect(agent.transcript(notified.email.id)!.executions).toMatchObject([
+      { undoneAt: undone.executions[0]!.undoneAt },
+    ]);
+    expect(feedbackCount(db)).toBe(feedbackBefore);
+  });
+});
+
+// Three approved archives move archive/newsletter to notify, so the fourth is executed and notified.
+async function notifiedArchive() {
+  const deliver = newsletterInbox(db);
+  const agent = createAgent(db, replayModel());
+  for (let n = 0; n < 3; n++) {
+    agent.approve((await deliver(ARCHIVE)).item!.id);
+  }
+  const notified = await deliver(ARCHIVE);
+  expect(notified).toMatchObject({
+    decision: { level: "notify" },
+    item: { kind: "notify", status: "open" },
+    executions: [{ undoneAt: null }],
+  });
+  return { agent, notified };
+}

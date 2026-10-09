@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it } from "vitest";
 import { openDb, type Db } from "../db/open-db.ts";
 import { replayModel } from "../llm/test-models.ts";
 import { createAgent } from "./agent.ts";
-import { agentProposing, INBOX, INJECTION_INBOX, SEND_REPLY } from "./test-agents.ts";
+import { agentProposing, INJECTION_INBOX, NONE, SEND_REPLY } from "./test-agents.ts";
 
 let db: Db;
 
@@ -55,8 +55,7 @@ describe("inbox", () => {
   });
 
   it("is empty when every decision was silent", async () => {
-    const agent = createAgent(db, replayModel());
-    await agent.run(INBOX);
+    const agent = await agentProposing(db, NONE);
 
     expect(agent.inbox()).toEqual([]);
   });
