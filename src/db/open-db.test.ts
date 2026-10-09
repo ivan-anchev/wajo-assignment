@@ -17,6 +17,7 @@ it("creates every table and enforces foreign keys", () => {
     "feedback",
     "items",
     "pins",
+    "preferences",
   ]);
   expect(db.pragma("foreign_keys", { simple: true })).toBe(1);
 });

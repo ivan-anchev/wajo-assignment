@@ -9,6 +9,7 @@ import { bucketHistory } from "../db/feedback.ts";
 import { insertEmail, storedEmailIds } from "../db/mailbox.ts";
 import type { Db } from "../db/open-db.ts";
 import { findPin } from "../db/pins.ts";
+import { readPreferences } from "../db/preferences.ts";
 import { readInbox, type InboxSource } from "../inbox/inbox.ts";
 import { levelFor } from "../domain/policy.ts";
 import { act } from "./act.ts";
@@ -76,6 +77,10 @@ export function createAgent(db: Db, llm: LanguageModel) {
     unpin(action: ActionName, senderClass: SenderClass): BucketStanding {
       return pinning.unpin(db, action, senderClass);
     },
+
+    prefs(): string {
+      return readPreferences(db);
+    },
   };
 }
 
@@ -91,7 +96,7 @@ function intake(db: Db, source: InboxSource): Event[] {
 async function processEvent(db: Db, llm: LanguageModel, event: Event): Promise<Transcript> {
   const { email } = event;
   const [analysis, injection] = await Promise.all([
-    analyze(llm, email),
+    analyze(llm, email, readPreferences(db)),
     checkInjection(llm, email),
   ]);
   const { action } = analysis.proposal;

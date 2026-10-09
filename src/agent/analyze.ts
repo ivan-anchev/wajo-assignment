@@ -29,12 +29,23 @@ const INSTRUCTIONS = [
   UNTRUSTED_EMAIL_NOTICE,
 ].join("\n");
 
-export async function analyze(llm: LanguageModel, email: Email): Promise<Analysis> {
+const PREFERENCES_HEADER =
+  "The user's standing preferences, learned from their corrections. Follow each one that applies to this email:";
+
+export async function analyze(
+  llm: LanguageModel,
+  email: Email,
+  preferences: string,
+): Promise<Analysis> {
   const { output } = await generateText({
     model: llm,
-    instructions: INSTRUCTIONS,
+    instructions: instructionsWith(preferences),
     prompt: `Sender class (computed by the system): ${email.senderClass}\n\n${untrustedEmail(email)}`,
     output: Output.object({ schema: analysisSchema, name: "analysis" }),
   });
   return output;
+}
+
+function instructionsWith(preferences: string): string {
+  return preferences ? `${INSTRUCTIONS}\n\n${PREFERENCES_HEADER}\n${preferences}` : INSTRUCTIONS;
 }

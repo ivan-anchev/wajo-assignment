@@ -75,3 +75,10 @@ CREATE TABLE IF NOT EXISTS pins (
   level         TEXT NOT NULL,
   PRIMARY KEY (action, sender_class)
 );
+
+CREATE TABLE IF NOT EXISTS preferences (
+  id    INTEGER PRIMARY KEY CHECK (id = 1),
+  text  TEXT NOT NULL
+);
+
+INSERT OR IGNORE INTO preferences (id, text) VALUES (1, '');
