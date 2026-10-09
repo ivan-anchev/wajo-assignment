@@ -18,17 +18,17 @@ TypeScript on Node 24 (run via tsx), pnpm, Vercel AI SDK (`generateText` + `Outp
 
 ## Layout
 
-| Path            | Owns                                                                                                 |
-| --------------- | ---------------------------------------------------------------------------------------------------- |
-| `src/agent`     | `createAgent` and the per-event flow: intake, analyze, injection check, level, act, transcript       |
-| `src/domain`    | `types.ts` (every domain record), `actions.ts` (registry), `policy.ts` (floor, level, learner, pins) |
-| `src/inbox`     | Simulated inbox reader and sender classification                                                     |
-| `src/llm`       | Model provider from `MODEL` env, record/replay middleware                                            |
-| `src/db`        | SQLite schema; `mailbox.ts` (emails, email state, drafts), `decision-log.ts` (decisions onward)      |
-| `src/cli`       | Thin commander adapter over the service                                                              |
-| `eval/`         | Harness: scripted oracle, episodes, metrics, writes `RESULTS.md` + `transcripts/`                    |
-| `scenarios/`    | Eval scenario JSON (email, gold action/level, oracle answers)                                        |
-| `fixtures/llm/` | Recorded LLM responses, committed                                                                    |
+| Path            | Owns                                                                                                                                                                 |
+| --------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `src/agent`     | `createAgent`, the per-event flow (intake, analyze, injection check, level, act, transcript), and user responses (`respond.ts`)                                      |
+| `src/domain`    | `types.ts` (every domain record), `actions.ts` (registry), `policy.ts` (floor, level, learner, pins)                                                                 |
+| `src/inbox`     | Simulated inbox reader and sender classification                                                                                                                     |
+| `src/llm`       | Model provider from `MODEL` env, record/replay middleware                                                                                                            |
+| `src/db`        | SQLite schema; `mailbox.ts` (emails, email state, drafts), `items.ts` (items), `feedback.ts` (feedback rows), `decision-log.ts` (decisions, executions, transcripts) |
+| `src/cli`       | Thin commander adapter over the service                                                                                                                              |
+| `eval/`         | Harness: scripted oracle, episodes, metrics, writes `RESULTS.md` + `transcripts/`                                                                                    |
+| `scenarios/`    | Eval scenario JSON (email, gold action/level, oracle answers)                                                                                                        |
+| `fixtures/llm/` | Recorded LLM responses, committed                                                                                                                                    |
 
 ## Invariants (do not break)
 
