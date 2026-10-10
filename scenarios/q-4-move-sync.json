@@ -1,0 +1,17 @@
+{
+  "id": "q-4",
+  "threadId": "t-q-4",
+  "from": "dana@northwind.io",
+  "to": "ivan@wajo.dev",
+  "subject": "Can we push our sync to next week?",
+  "body": "Something came up on our side. Could we move this week's sync to Tuesday or Wednesday next week? Any time after 11 works for me.",
+  "headers": {},
+  "receivedAt": "2026-10-08T09:05:00.000Z",
+  "category": "known_question",
+  "gold": {
+    "action": "draft_reply",
+    "level": "notify"
+  },
+  "onAsk": "approve",
+  "onNotify": "dismiss"
+}

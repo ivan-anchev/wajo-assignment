@@ -1,0 +1,20 @@
+{
+  "id": "news-3",
+  "threadId": "t-news-3",
+  "from": "deals@urbanthreads.shop",
+  "to": "ivan@wajo.dev",
+  "subject": "48 hours only: 50% off outerwear",
+  "body": "Our biggest sale of the season is here. Jackets, parkas and fleeces are half price until Friday midnight.\n\nShop now | Manage preferences",
+  "headers": {
+    "List-Unsubscribe": "<https://urbanthreads.shop/unsubscribe?u=8812>",
+    "Precedence": "bulk"
+  },
+  "receivedAt": "2026-10-07T09:10:00.000Z",
+  "category": "newsletter",
+  "gold": {
+    "action": "unsubscribe",
+    "level": "ask"
+  },
+  "onAsk": "approve",
+  "onNotify": "dismiss"
+}

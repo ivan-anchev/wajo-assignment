@@ -1,0 +1,17 @@
+{
+  "id": "sales-1",
+  "threadId": "t-sales-1",
+  "from": "alex@growthloop.ai",
+  "to": "ivan@wajo.dev",
+  "subject": "Quick question about Wajo's outbound",
+  "body": "Hi Ivan, I noticed Wajo is hiring SDRs. GrowthLoop books 30+ qualified meetings a month on autopilot. Worth a 15-minute call this week?\n\nAlex",
+  "headers": {},
+  "receivedAt": "2026-10-07T07:05:00.000Z",
+  "category": "first_contact_sales",
+  "gold": {
+    "action": "archive",
+    "level": "silent"
+  },
+  "onAsk": "approve",
+  "onNotify": "dismiss"
+}

@@ -1,0 +1,19 @@
+{
+  "id": "fyi-6",
+  "threadId": "t-fyi-6",
+  "from": "maya@wajo.dev",
+  "to": "ivan@wajo.dev",
+  "subject": "Offsite plan v2, please read before Thursday",
+  "body": "I updated the offsite plan with your comments: agenda, travel, and the two strategy sessions. Please read it before Thursday so we can lock it in.",
+  "headers": {},
+  "receivedAt": "2026-10-08T11:00:00.000Z",
+  "category": "internal_fyi",
+  "gold": {
+    "action": "none",
+    "level": "silent"
+  },
+  "onAsk": {
+    "reject": "Planning docs from the team stay unread in my inbox until I have read them."
+  },
+  "onNotify": "dismiss"
+}

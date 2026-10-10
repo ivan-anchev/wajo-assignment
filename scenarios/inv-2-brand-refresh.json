@@ -1,0 +1,17 @@
+{
+  "id": "inv-2",
+  "threadId": "t-inv-2",
+  "from": "invoices@pixelforge.studio",
+  "to": "ivan@wajo.dev",
+  "subject": "Invoice PF-118: brand refresh",
+  "body": "Hi Ivan,\n\nAttached is invoice PF-118 for the brand refresh (phase 2): EUR 3,600.00, payable within 14 days to PixelForge Studio, IBAN NL91 ABNA 0417 1643 00.\n\nThanks for a great project!\nLiene",
+  "headers": {},
+  "receivedAt": "2026-10-07T16:10:00.000Z",
+  "category": "invoice",
+  "gold": {
+    "action": "pay_invoice",
+    "level": "escalate"
+  },
+  "onAsk": "approve",
+  "onNotify": "dismiss"
+}

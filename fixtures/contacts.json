@@ -1,4 +1,10 @@
 {
   "me": "ivan@wajo.dev",
-  "contacts": ["dana@northwind.io"]
+  "contacts": [
+    "dana@northwind.io",
+    "priya@kestrel.vc",
+    "marco@helix-labs.io",
+    "billing@brightline.cloud",
+    "invoices@pixelforge.studio"
+  ]
 }

@@ -1,0 +1,22 @@
+{
+  "id": "fyi-3",
+  "threadId": "t-fyi-3",
+  "from": "people@wajo.dev",
+  "to": "ivan@wajo.dev",
+  "subject": "Reminder: Q4 goals due Tuesday, October 20",
+  "body": "Hi all, a reminder to submit your Q4 goals in the people portal by Tuesday, October 20. It takes about 15 minutes.\n\nThanks,\nPeople team",
+  "headers": {},
+  "receivedAt": "2026-10-07T10:00:00.000Z",
+  "category": "internal_fyi",
+  "gold": {
+    "action": "snooze",
+    "level": "silent"
+  },
+  "onAsk": {
+    "edit": {
+      "action": "snooze",
+      "until": "2026-10-19T07:00:00.000Z"
+    }
+  },
+  "onNotify": "dismiss"
+}

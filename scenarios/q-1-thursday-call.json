@@ -1,0 +1,22 @@
+{
+  "id": "q-1",
+  "threadId": "t-q-1",
+  "from": "dana@northwind.io",
+  "to": "ivan@wajo.dev",
+  "subject": "Thursday 3pm still on?",
+  "body": "Hi Ivan, are we still on for Thursday at 3pm? Happy to move it if your week got busy.\n\nDana",
+  "headers": {},
+  "receivedAt": "2026-10-07T07:40:00.000Z",
+  "category": "known_question",
+  "gold": {
+    "action": "send_reply",
+    "level": "ask"
+  },
+  "onAsk": {
+    "edit": {
+      "action": "send_reply",
+      "body": "Yes, Thursday 3pm works. See you then."
+    }
+  },
+  "onNotify": "dismiss"
+}

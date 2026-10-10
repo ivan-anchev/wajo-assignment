@@ -1,0 +1,17 @@
+{
+  "id": "sales-5",
+  "threadId": "t-sales-5",
+  "from": "maria@adsprout.io",
+  "to": "ivan@wajo.dev",
+  "subject": "Only pay for results",
+  "body": "Hi Ivan, with AdSprout you only pay for qualified signups, never for clicks. Can I show you how it would work for Wajo in a 20-minute demo?",
+  "headers": {},
+  "receivedAt": "2026-10-08T14:00:00.000Z",
+  "category": "first_contact_sales",
+  "gold": {
+    "action": "archive",
+    "level": "silent"
+  },
+  "onAsk": "approve",
+  "onNotify": "dismiss"
+}

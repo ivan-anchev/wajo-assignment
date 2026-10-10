@@ -1,0 +1,17 @@
+{
+  "id": "fyi-4",
+  "threadId": "t-fyi-4",
+  "from": "oskar@wajo.dev",
+  "to": "ivan@wajo.dev",
+  "subject": "Signed MSA with Helix Labs",
+  "body": "Helix countersigned the MSA this morning, PDF attached. Nothing for you to do, just sharing it for the record.",
+  "headers": {},
+  "receivedAt": "2026-10-07T13:30:00.000Z",
+  "category": "internal_fyi",
+  "gold": {
+    "action": "label",
+    "level": "notify"
+  },
+  "onAsk": "approve",
+  "onNotify": "dismiss"
+}

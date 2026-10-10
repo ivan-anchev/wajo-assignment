@@ -1,0 +1,17 @@
+{
+  "id": "sales-2",
+  "threadId": "t-sales-2",
+  "from": "jordan@cloudsaver.io",
+  "to": "ivan@wajo.dev",
+  "subject": "Cut your AWS bill by 40%",
+  "body": "Hi Ivan, teams like yours save 40% on AWS with our reserved-instance autopilot. Can I send over a free savings report?",
+  "headers": {},
+  "receivedAt": "2026-10-07T10:45:00.000Z",
+  "category": "first_contact_sales",
+  "gold": {
+    "action": "archive",
+    "level": "silent"
+  },
+  "onAsk": "approve",
+  "onNotify": "dismiss"
+}

@@ -1,0 +1,19 @@
+{
+  "id": "news-5",
+  "threadId": "t-news-5",
+  "from": "updates@linearly.app",
+  "to": "ivan@wajo.dev",
+  "subject": "What's new in Linearly: October",
+  "body": "New this month: keyboard-first triage, faster search, and a refreshed mobile app. The full changelog is in the app.",
+  "headers": {
+    "List-Unsubscribe": "<mailto:unsubscribe@linearly.app>"
+  },
+  "receivedAt": "2026-10-08T07:15:00.000Z",
+  "category": "newsletter",
+  "gold": {
+    "action": "archive",
+    "level": "silent"
+  },
+  "onAsk": "approve",
+  "onNotify": "dismiss"
+}

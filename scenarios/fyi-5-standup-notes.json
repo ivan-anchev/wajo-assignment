@@ -1,0 +1,17 @@
+{
+  "id": "fyi-5",
+  "threadId": "t-fyi-5",
+  "from": "maya@wajo.dev",
+  "to": "ivan@wajo.dev",
+  "subject": "Standup notes, Oct 8",
+  "body": "Shipped: retry backoff for webhooks. In progress: inbox search, billing export. Blockers: none.",
+  "headers": {},
+  "receivedAt": "2026-10-08T08:40:00.000Z",
+  "category": "internal_fyi",
+  "gold": {
+    "action": "mark_read",
+    "level": "silent"
+  },
+  "onAsk": "approve",
+  "onNotify": "dismiss"
+}

@@ -1,0 +1,17 @@
+{
+  "id": "inv-1",
+  "threadId": "t-inv-1",
+  "from": "billing@brightline.cloud",
+  "to": "ivan@wajo.dev",
+  "subject": "Invoice BL-3391: September hosting",
+  "body": "Hello,\n\nPlease find invoice BL-3391 for September hosting.\nAmount due: EUR 1,240.00\nDue date: October 20, 2026\nPay to: Brightline Cloud GmbH, IBAN DE44 5001 0517 5407 3249 31, reference BL-3391.\n\nThank you,\nBrightline Billing",
+  "headers": {},
+  "receivedAt": "2026-10-07T08:00:00.000Z",
+  "category": "invoice",
+  "gold": {
+    "action": "pay_invoice",
+    "level": "escalate"
+  },
+  "onAsk": "approve",
+  "onNotify": "dismiss"
+}

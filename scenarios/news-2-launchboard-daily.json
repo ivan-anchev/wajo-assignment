@@ -1,0 +1,19 @@
+{
+  "id": "news-2",
+  "threadId": "t-news-2",
+  "from": "daily@launchboard.io",
+  "to": "ivan@wajo.dev",
+  "subject": "Today's top launches: an AI calendar, a Rust ORM, and more",
+  "body": "1. Cadence: a calendar that schedules around your focus time\n2. Ferrite ORM 1.0\n3. Pagelight: privacy-friendly site analytics\n\nYou are receiving this because you signed up at launchboard.io.",
+  "headers": {
+    "List-Unsubscribe": "<mailto:unsubscribe@launchboard.io>"
+  },
+  "receivedAt": "2026-10-07T06:30:00.000Z",
+  "category": "newsletter",
+  "gold": {
+    "action": "archive",
+    "level": "silent"
+  },
+  "onAsk": "approve",
+  "onNotify": "dismiss"
+}

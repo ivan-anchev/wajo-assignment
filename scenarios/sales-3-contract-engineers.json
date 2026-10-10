@@ -1,0 +1,17 @@
+{
+  "id": "sales-3",
+  "threadId": "t-sales-3",
+  "from": "nina@talentbridge.co",
+  "to": "ivan@wajo.dev",
+  "subject": "Senior engineers ready to start next week",
+  "body": "Hi Ivan, we have three senior TypeScript engineers available from next week at a fraction of local rates. Shall I share their profiles?",
+  "headers": {},
+  "receivedAt": "2026-10-07T15:30:00.000Z",
+  "category": "first_contact_sales",
+  "gold": {
+    "action": "archive",
+    "level": "silent"
+  },
+  "onAsk": "approve",
+  "onNotify": "dismiss"
+}

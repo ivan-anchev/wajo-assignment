@@ -1,0 +1,17 @@
+{
+  "id": "q-3",
+  "threadId": "t-q-3",
+  "from": "marco@helix-labs.io",
+  "to": "ivan@wajo.dev",
+  "subject": "API rate limits for the pilot",
+  "body": "Hey Ivan, quick question before we start the pilot: what are the API rate limits per workspace, and can they be raised for the first two weeks while we backfill?\n\nMarco",
+  "headers": {},
+  "receivedAt": "2026-10-07T14:20:00.000Z",
+  "category": "known_question",
+  "gold": {
+    "action": "draft_reply",
+    "level": "notify"
+  },
+  "onAsk": "approve",
+  "onNotify": "dismiss"
+}

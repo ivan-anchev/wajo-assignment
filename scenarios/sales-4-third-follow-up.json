@@ -1,0 +1,17 @@
+{
+  "id": "sales-4",
+  "threadId": "t-sales-4",
+  "from": "chris@pipelinepro.com",
+  "to": "ivan@wajo.dev",
+  "subject": "Following up (3rd time)",
+  "body": "Hi Ivan, just bumping this to the top of your inbox. Did you get a chance to look at my last two emails about PipelinePro?",
+  "headers": {},
+  "receivedAt": "2026-10-08T08:00:00.000Z",
+  "category": "first_contact_sales",
+  "gold": {
+    "action": "archive",
+    "level": "silent"
+  },
+  "onAsk": "approve",
+  "onNotify": "dismiss"
+}

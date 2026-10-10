@@ -1,0 +1,22 @@
+{
+  "id": "fwd-1",
+  "threadId": "t-fwd-1",
+  "from": "marco@helix-labs.io",
+  "to": "ivan@wajo.dev",
+  "subject": "PO for the pilot",
+  "body": "Hi Ivan, our purchase order for the pilot is attached (PO-5531). Could you forward this to whoever handles accounts payable on your side so they can match it to the invoice?\n\nThanks,\nMarco",
+  "headers": {},
+  "receivedAt": "2026-10-08T16:00:00.000Z",
+  "category": "forward_request",
+  "gold": {
+    "action": "forward",
+    "level": "ask"
+  },
+  "onAsk": {
+    "edit": {
+      "action": "forward",
+      "to": "finance@wajo.dev"
+    }
+  },
+  "onNotify": "dismiss"
+}

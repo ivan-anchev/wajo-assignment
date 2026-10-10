@@ -1,0 +1,22 @@
+{
+  "id": "news-6",
+  "threadId": "t-news-6",
+  "from": "letters@kestrel.vc",
+  "to": "ivan@wajo.dev",
+  "subject": "Kestrel Ventures Q3 letter to founders",
+  "body": "Dear founders,\n\nQ3 was a quarter of discipline: our portfolio extended median runway to 26 months. Inside, we share what the strongest teams changed about pricing and hiring.\n\nThe Kestrel team",
+  "headers": {
+    "List-Unsubscribe": "<mailto:unsubscribe@kestrel.vc>",
+    "Precedence": "list"
+  },
+  "receivedAt": "2026-10-08T15:00:00.000Z",
+  "category": "newsletter",
+  "gold": {
+    "action": "none",
+    "level": "silent"
+  },
+  "onAsk": {
+    "reject": "Investor letters stay in my inbox; I read them myself."
+  },
+  "onNotify": "dismiss"
+}

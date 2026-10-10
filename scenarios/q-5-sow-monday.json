@@ -1,0 +1,17 @@
+{
+  "id": "q-5",
+  "threadId": "t-q-5",
+  "from": "marco@helix-labs.io",
+  "to": "ivan@wajo.dev",
+  "subject": "SOW coming Monday",
+  "body": "Quick update: legal is finishing the SOW and we will send the signed copy on Monday. Nothing needed from you until then.",
+  "headers": {},
+  "receivedAt": "2026-10-08T10:30:00.000Z",
+  "category": "known_question",
+  "gold": {
+    "action": "snooze",
+    "level": "ask"
+  },
+  "onAsk": "approve",
+  "onNotify": "undo"
+}

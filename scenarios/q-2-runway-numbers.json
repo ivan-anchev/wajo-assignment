@@ -1,0 +1,17 @@
+{
+  "id": "q-2",
+  "threadId": "t-q-2",
+  "from": "priya@kestrel.vc",
+  "to": "ivan@wajo.dev",
+  "subject": "Updated runway numbers?",
+  "body": "Hi Ivan, could you send me the updated runway numbers before our partner meeting on Monday? A rough figure is fine.\n\nThanks,\nPriya",
+  "headers": {},
+  "receivedAt": "2026-10-07T11:15:00.000Z",
+  "category": "known_question",
+  "gold": {
+    "action": "draft_reply",
+    "level": "notify"
+  },
+  "onAsk": "approve",
+  "onNotify": "dismiss"
+}

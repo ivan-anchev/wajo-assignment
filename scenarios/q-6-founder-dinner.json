@@ -1,0 +1,17 @@
+{
+  "id": "q-6",
+  "threadId": "t-q-6",
+  "from": "priya@kestrel.vc",
+  "to": "ivan@wajo.dev",
+  "subject": "Founder dinner on the 15th?",
+  "body": "We are hosting a small founder dinner on October 15 in Berlin. Would you like to join? Just let me know yes or no by Friday.",
+  "headers": {},
+  "receivedAt": "2026-10-08T13:10:00.000Z",
+  "category": "known_question",
+  "gold": {
+    "action": "send_reply",
+    "level": "ask"
+  },
+  "onAsk": "approve",
+  "onNotify": "dismiss"
+}

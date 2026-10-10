@@ -1,0 +1,17 @@
+{
+  "id": "fyi-1",
+  "threadId": "t-fyi-1",
+  "from": "maya@wajo.dev",
+  "to": "ivan@wajo.dev",
+  "subject": "Retro moved to Atlas",
+  "body": "Please ignore my previous email about the room: today's retro is in Atlas, same time (16:00).",
+  "headers": {},
+  "receivedAt": "2026-10-07T08:20:00.000Z",
+  "category": "internal_fyi",
+  "gold": {
+    "action": "mark_read",
+    "level": "silent"
+  },
+  "onAsk": "approve",
+  "onNotify": "dismiss"
+}

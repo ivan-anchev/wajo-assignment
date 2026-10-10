@@ -1,0 +1,20 @@
+{
+  "id": "news-1",
+  "threadId": "t-news-1",
+  "from": "digest@typescript-weekly.dev",
+  "to": "ivan@wajo.dev",
+  "subject": "This Week in TypeScript #42",
+  "body": "Top stories: the native compiler reaches beta, a deep dive on satisfies, and five tsconfig flags worth turning on today.\n\nRead online | Unsubscribe",
+  "headers": {
+    "List-Unsubscribe": "<mailto:unsubscribe@typescript-weekly.dev>",
+    "Precedence": "bulk"
+  },
+  "receivedAt": "2026-10-07T06:05:00.000Z",
+  "category": "newsletter",
+  "gold": {
+    "action": "archive",
+    "level": "silent"
+  },
+  "onAsk": "approve",
+  "onNotify": "dismiss"
+}

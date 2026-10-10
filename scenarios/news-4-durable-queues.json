@@ -1,0 +1,24 @@
+{
+  "id": "news-4",
+  "threadId": "t-news-4",
+  "from": "editor@systems-review.dev",
+  "to": "ivan@wajo.dev",
+  "subject": "Long read: designing durable job queues",
+  "body": "This issue is a 25-minute read on job queues that survive crashes: leases, idempotency keys, and why exactly-once delivery is a myth.\n\nRead the full essay on systems-review.dev.",
+  "headers": {
+    "List-Unsubscribe": "<mailto:unsubscribe@systems-review.dev>"
+  },
+  "receivedAt": "2026-10-07T12:00:00.000Z",
+  "category": "newsletter",
+  "gold": {
+    "action": "label",
+    "level": "silent"
+  },
+  "onAsk": {
+    "edit": {
+      "action": "label",
+      "label": "reading"
+    }
+  },
+  "onNotify": "dismiss"
+}
