@@ -287,6 +287,23 @@
             ],
             "description": "The single next action that best serves the user, with its parameters."
           },
+          "requested": {
+            "type": "string",
+            "enum": [
+              "none",
+              "archive",
+              "mark_read",
+              "snooze",
+              "label",
+              "draft_reply",
+              "send_reply",
+              "forward",
+              "unsubscribe",
+              "delete_permanently",
+              "pay_invoice"
+            ],
+            "description": "The action the sender explicitly asks the user to perform on their behalf (e.g. pay, forward, delete); none when the email only informs or simply expects a reply."
+          },
           "confidence": {
             "type": "number",
             "minimum": 0,
@@ -298,6 +315,7 @@
           "summary",
           "intent",
           "proposal",
+          "requested",
           "confidence"
         ],
         "additionalProperties": false
@@ -314,7 +332,7 @@
         "content": [
           {
             "type": "text",
-            "text": "Sender class (computed by the system): known\n\n<untrusted_email>\n{\n  \"from\": \"marco@helix-labs.io\",\n  \"to\": \"ivan@wajo.dev\",\n  \"subject\": \"PO for the pilot\",\n  \"body\": \"Hi Ivan, our purchase order for the pilot is attached (PO-5531). Could you forward this to whoever handles accounts payable on your side so they can match it to the invoice?\\n\\nThanks,\\nMarco\",\n  \"receivedAt\": \"2026-10-08T16:00:00.000Z\"\n}\n</untrusted_email>"
+            "text": "Sender class (computed by the system): newsletter\n\n<untrusted_email>\n{\n  \"from\": \"digest@weekly.dev\",\n  \"to\": \"ivan@wajo.dev\",\n  \"subject\": \"This week in TypeScript #41\",\n  \"body\": \"Top stories this week: ...\",\n  \"receivedAt\": \"2026-10-06T09:00:00.000Z\"\n}\n</untrusted_email>"
           }
         ]
       }
@@ -323,17 +341,8 @@
   "answer": {
     "content": [
       {
-        "type": "reasoning",
-        "text": "",
-        "providerMetadata": {
-          "anthropic": {
-            "signature": "CAQSyggKEAgSGAI4AUIIdGhpbmtpbmcSDMGjtHgomjzyrRLDBxoM7c7NdiTzn70jiVp5IjAklm7noqcK2H9F7VALtf+Z3agYmncGZuVtOn8AzGPvgLYRLJf84CHAcCD4aDytNhEq5weFkqZRsYZTAe3I6Me9Sak2MeIJD1upCvPJhnmy+Rc7YEOtz4JSHiErc//ldSitzui+7F6Qt9rZ8Iwcq+l2u9LHqcXiFwMtbSLRwrBhga9BFhRhOG7O7HLE8VFef49IiSD+48oGNVd1nE3VUK1ddtu3fH4fO5NytgGu6DmWwBNcRw8e4KZhIK//g1KjOaU3acFlAhSHX4gxPFqhpbn40OFez+f6G+fi0zVEu1+kBkObxYNU4w2FY9I7TwzEt+Rxot3cRaacxY3GQkiPqnAryU8WJkMgbNtLHcwuI8SUKlXUsq71K5i+w2flIDQjfGJC3aMY8hpWpomcp2/MErlzuL1L64b4GU4Rvdkw4oKQKa+tI/1+Zd9VQbkr69kXdcQ8ljN6EBk3LZHyGhJrLhTl8B4+woejroTFBYIhNwKzQu9xRcMxKXpOU377h72RuoIDg/3JGb76r9mImvPJAjx3R5uoJFROhHo03kjTbXl7xHwdSsE7HWyHqqZp5f195kf267m/VXYLaJjSXsw4f3qEJJQFaqHekdPBSagwoAqij4CtzIWQtV6HvTn3Omz9/TwhiPOr5jF7fsWSsgbxZkZ5zL4BIg7xtYz3SsE2Qj4aTXzXEw/gRbE7+t501TjI60CWGVM4/qEycRP5fkAx5lQiyDy2vviBrapSiqYXXeW9eI3tk2nts7KP5WrUSIwdtgVnI7IHMDgJK1oXlhsOaniLgiPJ9Z5mdbzLhKJQCJXrkjy/4lyGvO8fo2l9vTkNkKvEblkjDKqPJ7JF6yBWoA54P1hf642WI5lvp2iOpQa8mSGBPhUoopxFFXVuuLgKi9gVtZJZc3SXjqNVtPgvW/1EE9kZ7PpWY2IR1sqppviXw0czuXb0jva946D9zLAuauJMetcE8na4gMc4ispWqMJMaCw/4CwVja1o/Kjug3btgIuBY73+ygEMqrBXqRf7ceHlUyyeelbo5jjsQn6QGCzqwiK5+s1iN7OPufrnZ6LKW5QL9m6Bz3UGlUK7dJuZA3d1p4TFady5BPWh6xFQXcPHjgS/DJh7DzuAnp74p8Ki2h9Sa+VAoOPkoQbN3o/XsIRYWwJzr8dyM8GnpCKlFqfarcvCjn36laR6HkLu3VwwyxL9R9/Kkk1kdjgd7MJUo+c0n4cyfkuP5s7wbbnDfGIk5btH14p1qT9jsaq6aqCWJQV5f08ApCw6mxSf87WP9/7l8zgB4SFs+NuyV3DATmYs06cR54ESR8/0zGGv027zLnDapA5ptdmWRSWTmXiFO/7bekE9r+IBvi1BwSKll84lexqXHbIy7q5Ci/uFZq2bey9Fa8RQC7winoQYAQ=="
-          }
-        }
-      },
-      {
         "type": "text",
-        "text": "{\"summary\":\"Marco from helix-labs.io sends purchase order PO-5531 for the pilot and asks Ivan to forward it to accounts payable so it can be matched to the invoice.\",\"intent\":\"purchase_order_forward_request\",\"proposal\":{\"action\":\"draft_reply\",\"params\":{\"body\":\"Hi Marco,\\n\\nThanks for sending PO-5531 for the pilot. Could you tell me the email address of the accounts payable contact you'd like it sent to? Once I have it, I'll forward the purchase order so they can match it to the invoice.\\n\\nBest,\\nIvan\"}}, \"confidence\":0.6}"
+        "text": "{\"summary\":\"A weekly TypeScript newsletter (issue #41) with top stories for the week arrived from digest@weekly.dev.\",\"intent\":\"newsletter\",\"proposal\":{\"action\":\"none\",\"params\":{}},\"requested\":\"none\",\"confidence\":0.9}"
       }
     ],
     "finishReason": {
@@ -342,21 +351,21 @@
     },
     "usage": {
       "inputTokens": {
-        "total": 2788,
-        "noCache": 2788,
+        "total": 2907,
+        "noCache": 2907,
         "cacheRead": 0,
         "cacheWrite": 0
       },
       "outputTokens": {
-        "total": 393,
-        "text": 211,
-        "reasoning": 182
+        "total": 89,
+        "text": 89,
+        "reasoning": 0
       },
       "raw": {
-        "input_tokens": 2788,
-        "output_tokens": 393,
+        "input_tokens": 2907,
+        "output_tokens": 89,
         "output_tokens_details": {
-          "thinking_tokens": 182
+          "thinking_tokens": 0
         },
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,

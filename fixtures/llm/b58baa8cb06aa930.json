@@ -287,6 +287,23 @@
             ],
             "description": "The single next action that best serves the user, with its parameters."
           },
+          "requested": {
+            "type": "string",
+            "enum": [
+              "none",
+              "archive",
+              "mark_read",
+              "snooze",
+              "label",
+              "draft_reply",
+              "send_reply",
+              "forward",
+              "unsubscribe",
+              "delete_permanently",
+              "pay_invoice"
+            ],
+            "description": "The action the sender explicitly asks the user to perform on their behalf (e.g. pay, forward, delete); none when the email only informs or simply expects a reply."
+          },
           "confidence": {
             "type": "number",
             "minimum": 0,
@@ -298,6 +315,7 @@
           "summary",
           "intent",
           "proposal",
+          "requested",
           "confidence"
         ],
         "additionalProperties": false
@@ -314,7 +332,7 @@
         "content": [
           {
             "type": "text",
-            "text": "Sender class (computed by the system): newsletter\n\n<untrusted_email>\n{\n  \"from\": \"updates@linearly.app\",\n  \"to\": \"ivan@wajo.dev\",\n  \"subject\": \"What's new in Linearly: October\",\n  \"body\": \"New this month: keyboard-first triage, faster search, and a refreshed mobile app. The full changelog is in the app.\",\n  \"receivedAt\": \"2026-10-08T07:15:00.000Z\"\n}\n</untrusted_email>"
+            "text": "Sender class (computed by the system): first_contact\n\n<untrusted_email>\n{\n  \"from\": \"sam@lumen-startup.io\",\n  \"to\": \"ivan@wajo.dev\",\n  \"subject\": \"Quick intro?\",\n  \"body\": \"Hi Ivan, Dana suggested I reach out about your inbox agent. Do you have 20 minutes next week?\",\n  \"receivedAt\": \"2026-10-06T10:42:00.000Z\"\n}\n</untrusted_email>"
           }
         ]
       }
@@ -323,8 +341,17 @@
   "answer": {
     "content": [
       {
+        "type": "reasoning",
+        "text": "",
+        "providerMetadata": {
+          "anthropic": {
+            "signature": "CAQSywcKEAgSGAI4AUIIdGhpbmtpbmcSDFegJfASLmMA7DQgGxoMwWX9lIEGjKWHz80qIjDeTKT3EXRhf32Eo9foY0RJJ00uniN9DMl99mN/4iSvNIuE+Zgx0teuudH6HmMxQXAq6AYVcaYnK8ZgoFquy5yrAgUF+mbaIUUZepyVF6s5nhyp6H4Y1Y9rI8wYmP21/j3E6Ben8BUGuLyJI2oWIBvwbss85MSwKXeF2h7u3h2UR1xS+VRenbCraiXmW/iPgUyDgQdqGI95eCUXmMIOKKcFJQSh7pOicwWKpvyBNL2TH+4uVOVp1NwN/kQ/x93IMWBfg8Ca9N4DoPBJi1NPPP43oDBXkpzFppJHSDl12xvsjmU1iNc/Cj73x3qI3qr/qE2ACsqcnxBjw+iYK5S87kCfNkkFG7y6Vy5xkFPP1ccgn2Rcj+qlqsw7ekAOk9sA11fvOO1BPgSO1i10k4MDAX9sWFMVzJGFpaVIV8LTAtnWNl+yaq/2Rg14G6lqQXH5j8+RDydmRqbRp0aCjE6a10QillkT/Av0Vm18pUX2Atrx6v7Uxrhuj1Oz+MQXUQiiucBoG009Mw48s3hGEaM+0J0PuO+vO7TGCogJCXE+iOJO7Z79r1kIFJuVeElM9EZF4e407pTDKH3Wxy0ln7XP747IN76tELD7+zMVIKif84vg+xU25+X3EypRZWc5IqbKzhwhfFlIBnzMyxhoHgW1fv2q5k5P2lj7oRBSf8TpyivErwkc52ghCLj+v0RkYtKLUjEJ5LeVkDUMF6FWZeM/9Td2XRCO+P+xbOSrv9JX2cROhLfivKbmh4b/1eeR/CAWJKmnC4cGOFley4DUVaw31ZnTGXrBEYJNu7G+aHG+Del5iGi9U5XKKE/LKxKzwdLqrXXZ6PYRkiPkX29uXgeFgdFq9xmYCakxpnpkShSuhkXZvhQSsNMfYZntLKNzFXSfEeYKEITC00fHI5YLHKukT9DWupM7XQ8mMnMndrO9OB8jY8VF0UZNRN+JSDLpyCpOVpOIpQQzccSg0Owu5dt2yjmdBGfO6UjTat8UV0IdgwiSSjcigNfix5Vbp2kPiw+Wk4kMySDb3JULdwrVcLTR84htsmuaeDeXWicODsNiR18YeOvDNg3y9v/jWD2VO9miqa+VfX5TYoHNm/sBBuVjU8JCjXujC85kvIvahZI3NRXByraM1gadWOUtcmsEaWEYNrQG0CclCyfv55guifXovPqi4/+nLMx6UbgWrlFFgRtQi5eyqaJw3vECZWVnfeEwvkrdTiVenyBPMcVP2hgB"
+          }
+        }
+      },
+      {
         "type": "text",
-        "text": "{\"summary\":\"Linearly's October newsletter announces keyboard-first triage, faster search, and a refreshed mobile app, with the full changelog available in the app.\",\"intent\":\"newsletter\",\"proposal\":{\"action\":\"archive\",\"params\":{}},\"confidence\":0.8}"
+        "text": "{\"summary\":\"Sam from Lumen Startup, referred by Dana, asks Ivan for 20 minutes next week to talk about his inbox agent.\",\"intent\":\"meeting_request\",\"proposal\":{\"action\":\"draft_reply\",\"params\":{\"body\":\"Hi Sam,\\n\\nThanks for reaching out, and thanks for the intro via Dana. I'd be happy to chat about the inbox agent. Next week could work; could you share a few times that suit you, and I'll confirm one that fits my schedule?\\n\\nBest,\\nIvan\"}}, \"requested\":\"none\",\"confidence\":0.6}"
       }
     ],
     "finishReason": {
@@ -333,21 +360,21 @@
     },
     "usage": {
       "inputTokens": {
-        "total": 2758,
-        "noCache": 2758,
+        "total": 2935,
+        "noCache": 2935,
         "cacheRead": 0,
         "cacheWrite": 0
       },
       "outputTokens": {
-        "total": 91,
-        "text": 91,
-        "reasoning": 0
+        "total": 329,
+        "text": 200,
+        "reasoning": 129
       },
       "raw": {
-        "input_tokens": 2758,
-        "output_tokens": 91,
+        "input_tokens": 2935,
+        "output_tokens": 329,
         "output_tokens_details": {
-          "thinking_tokens": 0
+          "thinking_tokens": 129
         },
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,
