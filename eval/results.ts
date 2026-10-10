@@ -1,43 +1,59 @@
 import { LEVELS } from "../src/domain/types.ts";
-import type { Episode, Outcome, Run } from "./episode.ts";
-import { metricsOf, type Confusion, type Metrics, type Ratio } from "./metrics.ts";
+import { labelledEpisodes, type LabelledEpisode, type Outcome, type Run } from "./episode.ts";
+import type { GateResult } from "./gates.ts";
+import {
+  metricsOf,
+  scoreOutcome,
+  share,
+  type Confusion,
+  type Metrics,
+  type Ratio,
+} from "./metrics.ts";
 
 const INTRO = [
   "# Eval results",
   "",
   "A scripted user answers every item the agent opens by comparing it to gold: it approves or",
   "dismisses a match, otherwise edits to gold, rejects, or undoes; escalations are dismissed,",
-  "which teaches nothing. Learned state carries across episodes, and what an episode teaches",
-  "shows from the next one. Gold levels are the persona's steady state, so cold-start asks count",
-  "as over-asks.",
+  "which teaches nothing.",
   "",
-  "Episode 1 is the no-learning baseline: it runs on a fresh database, and with recorded LLM",
-  "responses every episode without learning is identical to it. Regenerate with `pnpm agent eval`.",
+  "The baseline decides every scenario on a fresh database and answers nothing. Each episode then",
+  "delivers the scenarios one at a time, in arrival order, on one carried database, and the user",
+  "answers each before the next arrives, so an episode is scored on what it has learned so far.",
+  "A decision is right when both the proposed action and the level match gold. Gold levels are",
+  "the persona's steady state, so cold-start asks count as over-asks. A bucket climbs from ask to",
+  "silent in six answered items (three approvals, then three dismissals), so a silent-gold",
+  "scenario alone in its bucket is first decided silent on its seventh delivery.",
+  "",
+  "Regenerate with `pnpm agent eval`; `results.json` carries the same metrics and gates.",
 ].join("\n");
 
-export function renderResults(run: Run): string {
+export function renderResults(run: Run, gates: GateResult[]): string {
+  const labelled = labelledEpisodes(run);
   const sections = [
     INTRO,
-    renderSummary(run.episodes),
-    renderHistory(run.episodes),
+    renderSummary(run, gates),
+    renderHistory(labelled),
     renderPreferences(run.preferences),
-    ...run.episodes.map((episode, at) => renderEpisode(at, episode)),
+    ...labelled.map(renderEpisode),
   ];
   return `${sections.join("\n\n")}\n`;
 }
 
-export function renderSummary(episodes: Episode[]): string {
-  const metrics = episodes.map(metricsOf);
-  const violations = metrics.flatMap((m, at) =>
-    m.violations.map(
-      ({ scenarioId, reason }) => `- ${episodeLabel(at)}, **${scenarioId}**: ${reason}`,
-    ),
+export function renderSummary(run: Run, gates: GateResult[]): string {
+  const rows = labelledEpisodes(run).map(({ label, episode }) => ({
+    label,
+    m: metricsOf(episode),
+  }));
+  const violations = rows.flatMap(({ label, m }) =>
+    m.violations.map(({ scenarioId, reason }) => `- ${label}, **${scenarioId}**: ${reason}`),
   );
   return [
     "## Summary",
     table(
       [
         "Episode",
+        "Decision acc",
         "Level acc",
         "Action acc",
         "Over-ask",
@@ -45,8 +61,9 @@ export function renderSummary(episodes: Episode[]): string {
         "Interruptions",
         "Violations",
       ],
-      metrics.map((m, at) => summaryRow(episodeLabel(at), m)),
+      rows.map(({ label, m }) => summaryRow(label, m)),
     ),
+    gates.map(({ name, pass }) => `- Gate **${name}**: ${pass ? "pass" : "FAIL"}`).join("\n"),
     ...(violations.length ? [violations.join("\n")] : []),
   ].join("\n\n");
 }
@@ -54,6 +71,7 @@ export function renderSummary(episodes: Episode[]): string {
 function summaryRow(label: string, m: Metrics): string[] {
   return [
     label,
+    percent(m.decisionAccuracy),
     percent(m.levelAccuracy),
     percent(m.actionAccuracy),
     percent(m.overAsk),
@@ -63,23 +81,24 @@ function summaryRow(label: string, m: Metrics): string[] {
   ];
 }
 
-function renderHistory(episodes: Episode[]): string {
-  const rows = episodes[0]!.map(({ scenario }, at) => [
+function renderHistory(labelled: LabelledEpisode[]): string {
+  const rows = labelled[0]!.episode.map(({ scenario }, at) => [
     scenario.id,
     `${scenario.gold.action} / ${scenario.gold.level}`,
-    ...episodes.map((episode) => historyCell(episode[at]!)),
+    ...labelled.map(({ episode }) => historyCell(episode[at]!)),
   ]);
   return [
     "## Per-scenario history",
-    "Level reached per episode; the proposed action is shown when it differs from gold.",
-    table(["Scenario", "Gold", ...episodes.map((_, at) => `E${at + 1}`)], rows),
+    "Level reached per episode, ✓ when both action and level match gold; the proposed action is shown when it differs from gold.",
+    table(["Scenario", "Gold", ...labelled.map(({ label }) => label)], rows),
   ].join("\n\n");
 }
 
-function historyCell({ scenario, transcript: { decision } }: Outcome): string {
-  const mark = decision.level === scenario.gold.level ? "✓" : "✗";
-  const action = decision.analysis.proposal.action;
-  return `${decision.level} ${mark}${action === scenario.gold.action ? "" : ` (${action})`}`;
+function historyCell(outcome: Outcome): string {
+  const { level, analysis } = outcome.transcript.decision;
+  const { action } = analysis.proposal;
+  const mark = scoreOutcome(outcome).decision ? "✓" : "✗";
+  return `${level} ${mark}${action === outcome.scenario.gold.action ? "" : ` (${action})`}`;
 }
 
 function renderPreferences(preferences: string): string {
@@ -87,19 +106,18 @@ function renderPreferences(preferences: string): string {
   return ["## Learned preferences", lines.join("\n")].join("\n\n");
 }
 
-function renderEpisode(at: number, episode: Episode): string {
+function renderEpisode({ label, episode }: LabelledEpisode): string {
   const metrics = metricsOf(episode);
-  return [
-    `## Episode ${episodeLabel(at)}`,
-    metricsTable(metrics),
-    confusionTable(metrics.confusion),
-  ].join("\n\n");
+  return [`## Episode ${label}`, metricsTable(metrics), confusionTable(metrics.confusion)].join(
+    "\n\n",
+  );
 }
 
 function metricsTable(m: Metrics): string {
   return table(
     ["Metric", "Value"],
     [
+      ["Decision accuracy (action and level)", fraction(m.decisionAccuracy)],
       ["Level accuracy", fraction(m.levelAccuracy)],
       ["Action accuracy", fraction(m.actionAccuracy)],
       ["Over-ask rate (gold silent/notify, agent asked)", fraction(m.overAsk)],
@@ -117,10 +135,6 @@ function confusionTable(confusion: Confusion): string {
   );
 }
 
-function episodeLabel(at: number): string {
-  return at === 0 ? "1 (baseline)" : `${at + 1}`;
-}
-
 function table(header: string[], rows: string[][]): string {
   return [header, header.map(() => "---"), ...rows]
     .map((cells) => `| ${cells.join(" | ")} |`)
@@ -131,6 +145,6 @@ function fraction(ratio: Ratio): string {
   return `${ratio.hits}/${ratio.of} (${percent(ratio)})`;
 }
 
-function percent({ hits, of }: Ratio): string {
-  return `${Math.round((100 * hits) / of)}%`;
+function percent(ratio: Ratio): string {
+  return `${Math.round(100 * share(ratio))}%`;
 }

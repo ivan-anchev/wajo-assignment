@@ -52,7 +52,7 @@ export function classifySender(email: EmailFile, contacts: Contacts): SenderClas
   return "first_contact";
 }
 
-function byArrival(a: Email, b: Email): number {
+export function byArrival(a: EmailFile, b: EmailFile): number {
   return a.receivedAt.localeCompare(b.receivedAt);
 }
 

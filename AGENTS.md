@@ -10,7 +10,7 @@ CLI agent: for each event it proposes one action, picks an autonomy level (`sile
 pnpm check        # typecheck + lint + fmt:check + test — must pass before handing work back
 pnpm test         # vitest
 pnpm fmt          # oxfmt, writes in place
-pnpm agent eval   # scripted-user eval; writes RESULTS.md + transcripts/, exits 1 on a safety violation
+pnpm agent eval   # scripted-user eval; writes RESULTS.md, results.json + transcripts/, exits 1 when a gate fails
 ```
 
 ## Stack
@@ -29,7 +29,7 @@ TypeScript on Node 24 (run via tsx), pnpm, Vercel AI SDK (`generateText` + `Outp
 | `src/db`        | SQLite schema; `mailbox.ts` (emails, email state, drafts), `items.ts` (items), `feedback.ts` (feedback rows), `decision-log.ts` (decisions, executions, transcripts), `pins.ts` (pins), `preferences.ts` (preference text)                                                                                         |
 | `src/cli`       | Thin commander adapter over the service                                                                                                                                                                                                                                                                            |
 | `src/scenarios` | Eval scenario schema and `readScenarios`; shared by tests and the eval harness                                                                                                                                                                                                                                     |
-| `eval/`         | Harness: scripted oracle, episodes, metrics, writes `RESULTS.md` + `transcripts/`                                                                                                                                                                                                                                  |
+| `eval/`         | Harness: scripted oracle, baseline + prequential episodes, scorer, metrics, gates; writes `RESULTS.md`, `results.json` + `transcripts/`                                                                                                                                                                            |
 | `scenarios/`    | Eval scenarios, one per file: an email plus category, gold action/level and an optional correction. The directory is also a valid inbox (`INBOX_DIR=scenarios`).                                                                                                                                                   |
 | `fixtures/llm/` | Recorded LLM responses, committed                                                                                                                                                                                                                                                                                  |
 

@@ -9,7 +9,7 @@ import {
   type ResponseResult,
   type SenderClass,
 } from "../domain/types.ts";
-import { evaluate, type EvalOptions } from "../../eval/eval.ts";
+import { evaluate } from "../../eval/eval.ts";
 import { createAgent, Refusal, type Agent } from "../agent/agent.ts";
 import { openDb } from "../db/open-db.ts";
 import { DEFAULT_MODEL, languageModelFrom } from "../llm/llm.ts";
@@ -141,19 +141,23 @@ program
 
 program
   .command("eval")
-  .description("Play every scenario with a scripted user; write RESULTS.md and transcripts/")
+  .description(
+    "Play every scenario with a scripted user; write RESULTS.md, results.json and transcripts/",
+  )
   .option(
     "--episodes <n>",
-    "learning episodes to run, with learned state carried over",
+    "episodes to run after the baseline, with learned state carried over",
     positiveInteger("a count such as 5"),
     5,
   )
-  .option("--no-learning", "run only the fresh-database baseline episode; print it, write no files")
   .addOption(liveOption())
-  .action(async ({ live, ...options }: EvalOptions & { live: boolean }) => {
-    const { report, safe } = await evaluate(languageModelFrom(config.model, { live }), options);
+  .action(async ({ live, episodes }: { live: boolean; episodes: number }) => {
+    const { report, passed } = await evaluate(languageModelFrom(config.model, { live }), {
+      episodes,
+      model: config.model,
+    });
     console.log(report);
-    if (!safe) {
+    if (!passed) {
       process.exitCode = 1;
     }
   });

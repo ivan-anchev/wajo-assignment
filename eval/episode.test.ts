@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { ARCHIVE, modelProposing, requestsNamed } from "../src/agent/test-agents.ts";
 import { readScenarios } from "../src/scenarios/scenarios.ts";
-import { runEpisodes, type Episode } from "./episode.ts";
+import { labelledEpisodes, runEpisodes, type Episode } from "./episode.ts";
 
 const scenarios = readScenarios();
 const sales = scenarios.filter(({ category }) => category === "first_contact_sales");
@@ -13,34 +13,70 @@ function levels(episode: Episode) {
 }
 
 describe("runEpisodes", () => {
-  it("carries feedback across episodes so the bucket climbs ask -> notify -> silent", async () => {
-    const { episodes } = await runEpisodes(modelProposing(ARCHIVE), sales, 3);
+  it("answers each email before the next arrives, so one episode's feedback moves its own levels", async () => {
+    const { episodes } = await runEpisodes(modelProposing(ARCHIVE), sales, 2);
 
-    expect(episodes.map(levels)).toEqual(
-      ["ask", "notify", "silent"].map((level) => sales.map(() => level)),
-    );
-  });
-
-  it("pairs every outcome with its scenario, in scenario order, under an episode email id", async () => {
-    const { episodes } = await runEpisodes(modelProposing(ARCHIVE), arrivingOutOfOrder, 2);
-
-    expect(
-      episodes[1]!.map(({ scenario, transcript }) => [scenario.id, transcript.email.id]),
-    ).toEqual([
-      ["fyi-1", "fyi-1@e2"],
-      ["news-1", "news-1@e2"],
+    expect(sales).toHaveLength(5);
+    expect(episodes.map(levels)).toEqual([
+      ["ask", "ask", "ask", "notify", "notify"],
+      ["notify", "silent", "silent", "silent", "silent"],
     ]);
   });
 
-  it("carries preference text into the next episode's analysis", async () => {
+  it("decides every baseline email at cold start, answers nothing, and writes no feedback", async () => {
+    const { baseline } = await runEpisodes(modelProposing(ARCHIVE), sales, 1);
+
+    expect(levels(baseline)).toEqual(sales.map(() => "ask"));
+    expect(baseline.map(({ transcript }) => transcript.item!.status)).toEqual(
+      sales.map(() => "open"),
+    );
+    expect(baseline.map(({ transcript }) => transcript.feedback)).toEqual(sales.map(() => null));
+  });
+
+  it("pairs every outcome with its scenario, in scenario order, under a labelled email id", async () => {
+    const run = await runEpisodes(modelProposing(ARCHIVE), arrivingOutOfOrder, 2);
+
+    expect(
+      labelledEpisodes(run).map(({ label, episode }) => [
+        label,
+        episode.map(({ scenario, transcript }) => [scenario.id, transcript.email.id]),
+      ]),
+    ).toEqual([
+      [
+        "baseline",
+        [
+          ["fyi-1", "fyi-1@baseline"],
+          ["news-1", "news-1@baseline"],
+        ],
+      ],
+      [
+        "1",
+        [
+          ["fyi-1", "fyi-1@e1"],
+          ["news-1", "news-1@e1"],
+        ],
+      ],
+      [
+        "2",
+        [
+          ["fyi-1", "fyi-1@e2"],
+          ["news-1", "news-1@e2"],
+        ],
+      ],
+    ]);
+  });
+
+  it("carries preference text into the next episode's analysis, never into the baseline", async () => {
     const llm = modelProposing(ARCHIVE, { preference: "Investor letters stay in my inbox." });
 
     const { preferences } = await runEpisodes(llm, news6, 2);
 
     expect(preferences).toContain("Investor letters stay in my inbox.");
     const analyses = requestsNamed(llm, "analysis");
-    expect(analyses).toHaveLength(2);
-    expect(analyses[0]).not.toContain("Investor letters stay");
-    expect(analyses[1]).toContain("Investor letters stay");
+    expect(analyses).toHaveLength(3);
+    const [baseline, first, second] = analyses;
+    expect(baseline).not.toContain("Investor letters stay");
+    expect(first).not.toContain("Investor letters stay");
+    expect(second).toContain("Investor letters stay");
   });
 });
