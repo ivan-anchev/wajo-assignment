@@ -1,25 +1,14 @@
-import { Argument, Command, InvalidArgumentError, Option } from "commander";
+import { Command } from "commander";
 import { existsSync } from "node:fs";
-import { ACTIONS, type ActionName } from "../domain/actions.ts";
-import {
-  LEVELS,
-  SENDER_CLASSES,
-  type Level,
-  type ProposalEdit,
-  type ResponseResult,
-  type SenderClass,
-} from "../domain/types.ts";
+import { ACTIONS } from "../domain/actions.ts";
 import { evaluate } from "../../eval/eval.ts";
-import { createAgent, Refusal, type Agent } from "../agent/agent.ts";
+import { createAgent, Refusal } from "../agent/agent.ts";
 import { openDb } from "../db/open-db.ts";
 import { DEFAULT_MODEL, languageModelFrom } from "../llm/llm.ts";
-import {
-  renderDecisionLine,
-  renderInboxLine,
-  renderResponse,
-  renderStanding,
-  renderTranscript,
-} from "./render.ts";
+import { addItemCommands } from "./items.ts";
+import { liveOption, positiveInteger, type OpenAgent } from "./options.ts";
+import { addPinCommands } from "./pins.ts";
+import { renderDecisionLine, renderInboxLine, renderTranscript } from "./render.ts";
 
 if (existsSync(".env")) {
   process.loadEnvFile();
@@ -32,16 +21,8 @@ const config = {
   model: process.env.MODEL ?? DEFAULT_MODEL,
 };
 
-function openAgent({ live }: { live: boolean }) {
-  return createAgent(openDb(config.dbPath), languageModelFrom(config.model, { live }));
-}
-
-function liveOption(): Option {
-  return new Option(
-    "--live",
-    "call the real model for requests with no recorded fixture, and record them",
-  ).default(false);
-}
+const openAgent: OpenAgent = ({ live }) =>
+  createAgent(openDb(config.dbPath), languageModelFrom(config.model, { live }));
 
 const program = new Command("agent")
   .description("Inbox agent: learns when to act, notify, ask, or escalate")
@@ -85,29 +66,7 @@ program
     );
   });
 
-itemCommand("approve", "Execute an ask's proposal (the floor is re-checked first)", (agent, id) =>
-  agent.approve(id),
-);
-itemCommand("edit", "Change an ask's proposal, then approve it", (agent, id, { set }) =>
-  agent.edit(id, set),
-)
-  .requiredOption(
-    "--set <key=value>",
-    "param to change, repeatable; action=<name> switches the action",
-    collectPair,
-  )
-  .addOption(liveOption());
-itemCommand(
-  "reject",
-  "Close an ask without executing it; a reason may teach the agent a preference",
-  (agent, id, { reason }) => agent.reject(id, reason),
-)
-  .option("--reason <text>", "why you rejected it; one preference line may be learned from it")
-  .addOption(liveOption());
-itemCommand("undo", "Revert a notified action", (agent, id) => agent.undo(id));
-itemCommand("dismiss", "Mark a notification or escalation as reviewed", (agent, id) =>
-  agent.dismiss(id),
-);
+addItemCommands(program, openAgent);
 
 program
   .command("log")
@@ -121,46 +80,13 @@ program
   });
 
 program
-  .command("revert")
-  .argument(
-    "<decisionId>",
-    "decision id from `agent log`",
-    positiveInteger("a decision id such as 7"),
-  )
-  .description("Revert a silent action and step its bucket back to notify")
-  .action((decisionId: number) => {
-    console.log(renderResponse(openAgent({ live: false }).revert(decisionId)));
-  });
-
-program
   .command("prefs")
   .description("Print the preference lines learned from edits and reject reasons")
   .action(() => {
     console.log(openAgent({ live: false }).prefs() || "No preferences learned yet.");
   });
 
-const actionArg = new Argument("<action>").choices(ACTIONS.map((a) => a.name));
-const senderClassArg = new Argument("<senderClass>").choices(SENDER_CLASSES);
-const levelArg = new Argument("<level>").choices(LEVELS);
-
-program
-  .command("pin")
-  .description("Hold an action/sender-class bucket at a level or stricter")
-  .addArgument(actionArg)
-  .addArgument(senderClassArg)
-  .addArgument(levelArg)
-  .action((action: ActionName, senderClass: SenderClass, level: Level) => {
-    console.log(renderStanding(openAgent({ live: false }).pin(action, senderClass, level)));
-  });
-
-program
-  .command("unpin")
-  .description("Remove a bucket's pin and report the level it falls back to")
-  .addArgument(actionArg)
-  .addArgument(senderClassArg)
-  .action((action: ActionName, senderClass: SenderClass) => {
-    console.log(renderStanding(openAgent({ live: false }).unpin(action, senderClass)));
-  });
+addPinCommands(program, openAgent);
 
 program
   .command("eval")
@@ -185,47 +111,9 @@ program
     }
   });
 
-type ItemOptions = { set: ProposalEdit; reason?: string; live?: boolean };
-
-function itemCommand(
-  name: string,
-  description: string,
-  respond: (
-    agent: Agent,
-    itemId: number,
-    options: ItemOptions,
-  ) => ResponseResult | Promise<ResponseResult>,
-): Command {
-  return program
-    .command(name)
-    .description(description)
-    .argument("<itemId>", "item id from `agent inbox`", positiveInteger("an item id such as 3"))
-    .action(async (itemId: number, options: ItemOptions) => {
-      const agent = openAgent({ live: options.live ?? false });
-      console.log(renderResponse(await respond(agent, itemId, options)));
-    });
-}
-
-function positiveInteger(example: string): (value: string) => number {
-  return (value) => {
-    if (!/^[1-9]\d*$/.test(value)) {
-      throw new InvalidArgumentError(`expected ${example}`);
-    }
-    return Number(value);
-  };
-}
-
 function describeAction({ name, riskClass, params }: (typeof ACTIONS)[number]): string {
   const keys = Object.keys(params.shape).join(", ");
   return [name, `(${riskClass})`, keys].filter(Boolean).join(" ");
-}
-
-function collectPair(pair: string, edit: ProposalEdit = {}): ProposalEdit {
-  const at = pair.indexOf("=");
-  if (at < 1) {
-    throw new InvalidArgumentError(`expected key=value, got "${pair}"`);
-  }
-  return { ...edit, [pair.slice(0, at)]: pair.slice(at + 1) };
 }
 
 try {
