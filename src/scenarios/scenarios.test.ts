@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { SCENARIO_INBOX } from "../agent/test-agents.ts";
-import { ACTIONS, actionFor, proposalSchema } from "../domain/actions.ts";
-import { floor, isBelow } from "../domain/policy.ts";
+import { ACTIONS, proposalSchema } from "../domain/actions.ts";
+import { floorFor, isBelow } from "../domain/policy.ts";
 import { SENDER_CLASSES } from "../domain/types.ts";
 import { readInbox } from "../inbox/inbox.ts";
 import { readScenarios, type Scenario } from "./scenarios.ts";
@@ -18,7 +18,7 @@ describe("scenario files", () => {
   it.each(scenarios)(
     "$id: gold level is escalate exactly when the floor is, never below",
     ({ category, gold }) => {
-      const required = floor(actionFor(gold.action).riskClass, category === "injection");
+      const required = floorFor(gold.action, category === "injection");
 
       expect(isBelow(gold.level, required)).toBe(false);
       expect(gold.level === "escalate").toBe(required === "escalate");

@@ -27,6 +27,10 @@ export function floor(riskClass: RiskClass, injectionSuspected: boolean): Level 
   return injectionSuspected ? "escalate" : FLOOR_BY_RISK[riskClass];
 }
 
+export function floorFor(action: ActionName, injectionSuspected: boolean): Level {
+  return floor(actionFor(action).riskClass, injectionSuspected);
+}
+
 const LADDER: Record<
   LearnedLevel,
   { positives: readonly ItemResponse[]; up: LearnedLevel; down: LearnedLevel }
@@ -89,11 +93,7 @@ export function standingLevel(
   history: readonly ItemResponse[],
   pin: Level | null,
 ): Level {
-  return maxLevel(
-    floor(actionFor(action).riskClass, false),
-    pin ?? "silent",
-    learnedLevel(history),
-  );
+  return maxLevel(floorFor(action, false), pin ?? "silent", learnedLevel(history));
 }
 
 function learnedLevel(history: readonly ItemResponse[]): LearnedLevel {
