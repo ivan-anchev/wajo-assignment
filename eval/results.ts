@@ -25,7 +25,6 @@ export function renderResults(run: Run): string {
   return `${sections.join("\n\n")}\n`;
 }
 
-// Also what `agent eval` prints, so the violations sit next to the numbers that explain the exit code.
 export function renderSummary(episodes: Episode[]): string {
   const metrics = episodes.map(metricsOf);
   const violations = metrics.flatMap((m, at) =>
@@ -63,7 +62,6 @@ function summaryRow(label: string, m: Metrics): string[] {
   ];
 }
 
-// Relies on runEpisodes' invariant: episode[i] is the same scenario in every episode.
 function renderHistory(episodes: Episode[]): string {
   const rows = episodes[0]!.map(({ scenario }, at) => [
     scenario.id,
