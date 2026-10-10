@@ -356,13 +356,13 @@
         "text": "",
         "providerMetadata": {
           "anthropic": {
-            "signature": "CAQSjQkKEAgSGAI4AUIIdGhpbmtpbmcSDCQNCe4q6u1xWtH14RoMj1JwnABqPA9u9YNJIjDIRzx3aNHK6XHFlI9t0yO5RJ9YODWhx0nF8vb6AAeAvEIOATLLrV7MCp84+nAGLCgqqgjxbNY9sCIgDwL0K0ewDvHhZ530XjoDY9e5YVsnE/AXjMEEGLE8KDwXSnpEJ+YGEUklo46d5tuSBxFhVMaZk8oHGGyXkO711J5ir4ZwQBkPP01HNqA4WhN/9GwPMLFvFqp1YYtlcfAJP2gM8cYGvy8r4iWQO8/I0DIGabTmtCWB++elYCtstnkXL6kaVMtnWWrB9Fa8bUfhLwCQhU01tUyDNrLW2l5tLgufkgmpu7OLQD2zrFPbqerW67L3AH6EH4I0pPiDT/259qDpT0F4/Q7LocAsJylaJushWcav92NTOeEox0eo7LC8GOLlTQiy4Q/wThbU15TzPJcsv2MeBSdxU3Euw+yXbOW6CVA/08gn4FSEdMHZCujbncVJyIG+1ov9R2vAUnSi5FlP7fvgsA8NQ0IvsUrP1uBdLRFoKM+weYTs5MgbvB6ToetyscOzP/KX6dUS6imeijLxPaSfyABDPbX49mQkrdCrZ2pVz19DdCOh3pTgHKESZkIb/OElFJhGa9rZEXaT7Xk8iw+kzTeQwQsjEono1cupu7nT/dzIS0sEr0syLcmVpE8mZ7cIQ86YfJ3DHcnXsdmuUl3FML1WKvj2HYz7BH8e/26ZvwGW80sjzjN042E/kYzcPKaSdbG3l29O1KRyKCf0fM3QPWw6Nq56rZ1p+LsDsXKzytQv9srYD0KtdDD4cguaVtqiVQCb1z2ouNwYNpBrUEhTpZkocS5IaWcfjvmHgjeapAbfQG64Og0ggyPH0eD+lS9EkonJdxarS1mPYOt0YsbXTNIE6BmNKdnVR4So1Dpx8kkPBujvYOUbMlp+U1v9IjOiJbJpwK5GH8q6gPhBTbRyxmHKqkZ3rcI0TdTQJLforoSKvvVgQGVy47yK9hlCj4fwle7ai22jUi/baoMNnEc0CdVxjhhaL463xtynlQj+NQz3S1joqt18NCxA1d5J3wOAnYzHgCiUcz17geAQEgsi7j3NHye56SWGp7KkFBL1FmnN7/58ydRjqaOAc3amMGbhroAJzy5vDzc4V8ttz/w0f8nBNdoZF0rZj35Xo/oo2mmFFnwOQN4pkDPbiNsKohOMF2UlBpFkBW8mo+DUPO9wcTl1O0gM5D14D5rHIV9TCkctCFKwrXo2JjVsROgQj/ItJggkDkwusyxQ/B+WHgvy93qul7Ao0PXN9KrNHioBk3tzSU9rL2vU//a5nAdmWDC1ANDOgmppKKvdvfd0Ixb2jA8K2mc//1B603oPxviBarxBPMOkTHichyO+wr+0hsvZkkkYOix5KkiGiX3zYiiJQydsrdOJCUGd/QH1OTQLF2xG+8bpuzY1jxcy12ZAcxG3jlfL90v2uY67wInA0LNyiRCcscWqZVQgMPe0vZ05Hvt5JkdGe4rptUP5hngmyFAos9aVO+rR2KCw5bOhGAE="
+            "signature": "CAQS6QoKEAgSGAI4AUIIdGhpbmtpbmcSDFJm2QFLVjb3ujayBRoMDy55weLlwh25qPhxIjAnJoVULYl/Pa2Rxm5KPbbGNEGYDSQzw7QFeyJIfmX1AC1lev6NvOd823ySMZ4F6psqhgoB6Gzpix6gPm1CcUv3TSDl2lWWyQVAZCwGlKjsn5H5E1FytjBgeAiD3hw9acdz7YALaPgh5B639rEGvfJuk8ItrchDFJHP2FOU3yQWzb7EObfsrgwOWZKVlceJP9GiOGa7vO0ta7T82hPtWInK1YoWQwo/v53qYKrpOPPRCj0uSEitgLDV2SZyOO3ICCLHsj9QF7kxgF/2oM47pyqQt1rxAnLDbKNS5LmERZHLWW8xKDskAbzE4YzD/D3aWxz53bPK+g1C9p5MonCVMYOouM640R8fgIzhO06j4bTLwaKGwkB3LSz/64Nk9MO87FTHDJ/K5P2z+RCsILM474ZjHJY7vKhh3O5Vn0eeeEM8ASF/SGvmJGaYR0AQdGPrKk5Gu94e2FY6YD2JV7KubUAJSIWGXRFkwuE8hl/CWl11XRLaLuhpuzy0pCYN/BTnJLHqlyxM/xUcbo4zxi0lbvKQ8H25A8eRyOT+f6ZxigYx6cQZu/M89bRBIoVt4Z5YX+j5p0FFDYzdfAFfd6kWPHTjtAPQ72ORgdGRfG3dEYdJHYq80ja4IHqebfHd5x0au2SYLN5FXST1+TE/6ud6b3loONp0pOmQFZJyaPluGG5FC2/QCdM8YFtw49s4Cez7Xi8adpfPJY7cSyNiwx5GMxFVHNJLu4c4hAqX3ucywMxRK5P/1BxJp+tWDlDsi0zriv5wZH0ubS4YCPJAPSAa8LD6NkRMuLdystHaQAW8gOCjQECPlRzvP1Wre8APIkkxw5lzOkev4a84if6tjlrQw5TXEJDpXbpnl7ac4JOD/8Fz+RGe0zj5fzIdSaTbsrUPsOvuJuYv7Y/k9ArHfwGzbhSWmCvpa7n0iROtTHPdfKH7iGqT0zVQ8ONbvgZ592BVSQuVd1O6r4gvGvK3IfB7EUQCsdR/W5oBPQumDFzE/JgyWnHmbMI/QjTXfJ99mh5AqCZU9euebe8svhKsG3PWuDtTArZJ/MViAGAa39hbAePrUEICu0QT1u9m0c/taE5vYmjJKqX8HOx4DZCOmMOvr6BLMrNcYZa3bNSy2ove+shgmX6dvkvGEg6ToWpXe03+PFb2FxfUJS3mdi5uXRzhGGGbbVw/049yGM1l/j2dICzi1jfaL6R22ya5haeLGJdQfbRU/H0xuMYthD2fVWuVefkS+SaEMwdqlrQSeo74ki3tBLJ6faKHmy5kzwVuRjGaBEVRggxFPba9OjZD1PA0w3NrmyCtA4hICKEoc8EDFA+IlIs52KNKUZ2kUaUSBjY9G1fS2wEHbe08kJnz96SpqkulsUnFKVjBAsrunqTGSqxL9SZNFcaOPeHvtUWSM4E5TG0L4bl7OQYqBgWOf7YskKWSfZquARnb3cT21KgZQ2LhxgYkWzuvwVIIlyiDsG/TqRUAC5lUDFNF5TyIghr2my+So5fUyaFGQJjzS+1uDsP8Je6c1RtzdnBKbj3jZ/U1je9O6z1qhPkpL6k52P0Yl+dD/Vfpf8nt/iQENDdWUB2ZUg2YpoV222uN48Q5wPbhTghwm/hIygGb7yxhQgREWVV0LL2zGNHw6ys3RgrUnJLBADy1wMQfDR7rB7iz4nRGovePuUhlqntaowG2350BTq+ajkUEuqpjzEJkuCDxVJSDdsPyX7RSApaUSFQHKEDsLJ2g7rNcahWnE+QI+6tPd02RfS+TIhVr+eAgT+pYDjsRucYHMBPFi+tOGBgB"
           }
         }
       },
       {
         "type": "text",
-        "text": "{\"summary\":\"Sam from Lumen Startup, introduced by Dana, asks Ivan for 20 minutes next week to discuss his inbox agent.\",\"intent\":\"meeting_request\",\"proposal\":{\"action\":\"draft_reply\",\"params\":{\"body\":\"Hi Sam,\\n\\nThanks for reaching out, and good to hear from Dana. I'd be happy to chat about the inbox agent. Could you share a few times next week that work for you? I'll confirm one.\\n\\nBest,\\nIvan\"}},\"requested\":\"none\",\"confidence\":0.6}"
+        "text": "{\"summary\":\"Sam, a first-time contact referred by Dana, asks Ivan for a 20-minute intro call next week about his inbox agent.\",\"intent\":\"meeting_request\",\"proposal\":{\"action\":\"draft_reply\",\"params\":{\"body\":\"Hi Sam,\\n\\nThanks for reaching out, and for the intro via Dana. I'd be glad to chat briefly about the inbox agent. Could you send a few times next week that work for you? I'll confirm one.\\n\\nBest,\\nIvan\"}},\"requested\":\"none\",\"confidence\":0.6}"
       }
     ],
     "finishReason": {
@@ -377,15 +377,15 @@
         "cacheWrite": 0
       },
       "outputTokens": {
-        "total": 392,
+        "total": 461,
         "text": 186,
-        "reasoning": 206
+        "reasoning": 275
       },
       "raw": {
         "input_tokens": 3128,
-        "output_tokens": 392,
+        "output_tokens": 461,
         "output_tokens_details": {
-          "thinking_tokens": 206
+          "thinking_tokens": 275
         },
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,

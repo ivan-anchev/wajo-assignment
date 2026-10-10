@@ -352,17 +352,8 @@
   "answer": {
     "content": [
       {
-        "type": "reasoning",
-        "text": "",
-        "providerMetadata": {
-          "anthropic": {
-            "signature": "CAQSvwYKEAgSGAI4AUIIdGhpbmtpbmcSDNmwq7PS6rxEibHxkxoMvX+b4q6KqNdPvJenIjDf0Fmv3gNhZSbl0loKo01VBYHZgaSEvbV9l7qETHGoa0h4/T4E0ZhjvJ+JnL/PsF8q3AUYzrPP8SwgYj7OL2GQewXIsAhEn3lQbx0JYRa3sA1rAy4C+GHw443UNClUZ1n+y0YFc/xl7FVmUDBGL85fm+jF8kvCtBN3JbcPpCXJr7Eg0DtbskRXwsRXhJc7lSYPkPLRZUQwU3+d/ahnDC6ZBsOF7gDf4y6j66O6BlmkhFTf/NkFpo3XX3BRRyf/W94FDAA/SfqxP/QP40t49ROMi6nSo4XZvpYcOCPVp18FsMl06gqJGxtDWifd5HVk9UzpO5+Grg27UGnYMgQIpamctC8mbB8xk9Gpb1k+OAPv7j0STQdrmlCTRshg5W6R5U5bkvivzhXG/GIxnGCiw6O23RnmILGUQ+8CN9Y0kjP/09W8ECrSxE7v1TsYex2Fv72NxuRkvE8vLC8cj9KAacQCw1YR4BtnbxRq2fbeKvLi0GIRflQ1a25KAMusTEUweTbZPlURy1JVwKcfmIgLgtuj71qWAC1GzWKdOo/btSHHqJUcCZQYucVtpVm1oOXEc7wC1m0UfwpmUJyq6+FPfcQOScikXEyrsIKQ3QEawtCEsL5ZWxY7dI3/0cGcwcwEpBs/cfB5pWwh9wBwJkIWiWN9WkSG+lTtycPv+K8EFaN6E95B3fjkvRVO3UiCbiXQsi4k2Z5EqJn9IfEGwTCFz/ekjRk6Dok6CeB63A9f40jrppJucvH3PiSacSJ1ARrWLdMQtwtBvCt7VK9ZcIBBPC8is1jlPRAUSbyPv2aHaWqYOonHJmMJll5Vk4V/duHwQLccIObioMQCdtWqO1YgA82HULcYKgMNb5gEbFqtFdJcRkyc67j4A92/mxod/bymwW0QtfceCIV8JKhkLV7pZVnic1F/tKQQWcUpWfUdvQzgLmY+bneszKkh7btiA4f59FWAtWf0mTemhWoisqZ4xaaREK/eC/cF3sMFBDzzN95YxEmNqxKa1kUTmSXw50ZJDDibAt+pc4ZdBrFkH37e5kkYAQ=="
-          }
-        }
-      },
-      {
         "type": "text",
-        "text": "{\"summary\":\"Maya tells Ivan that tomorrow's standup is moved from 10:00 to 10:30 in the same room.\",\"intent\":\"fyi\",\"proposal\":{\"action\":\"none\",\"params\":{}},\"requested\":\"none\",\"confidence\":0.7}"
+        "text": "{\"summary\":\"Maya informs Ivan that tomorrow's standup has moved from 10:00 to 10:30 in the same room.\",\"intent\":\"fyi\",\"proposal\":{\"action\":\"none\",\"params\":{}},\"requested\":\"none\",\"confidence\":0.8}"
       }
     ],
     "finishReason": {
@@ -377,15 +368,15 @@
         "cacheWrite": 0
       },
       "outputTokens": {
-        "total": 178,
+        "total": 86,
         "text": 86,
-        "reasoning": 92
+        "reasoning": 0
       },
       "raw": {
         "input_tokens": 3127,
-        "output_tokens": 178,
+        "output_tokens": 86,
         "output_tokens_details": {
-          "thinking_tokens": 92
+          "thinking_tokens": 0
         },
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,
