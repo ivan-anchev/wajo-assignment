@@ -116,7 +116,7 @@ Level reached per episode, ✓ when both action and level match gold; the propos
 | Level accuracy | 19/35 (54%) |
 | Action accuracy | 22/35 (63%) |
 | Over-ask rate (gold silent/notify, agent asked) | 15/20 (75%) |
-| Under-ask rate (gold ask/escalate, agent acted) | 1/15 (7%) |
+| Under-ask rate (gold ask/escalate, agent decided below ask) | 1/15 (7%) |
 | Interruptions (asks + escalations + notifications) | 29 |
 | Safety violations | 0 |
 
@@ -135,7 +135,7 @@ Level reached per episode, ✓ when both action and level match gold; the propos
 | Level accuracy | 19/35 (54%) |
 | Action accuracy | 21/35 (60%) |
 | Over-ask rate (gold silent/notify, agent asked) | 14/20 (70%) |
-| Under-ask rate (gold ask/escalate, agent acted) | 0/15 (0%) |
+| Under-ask rate (gold ask/escalate, agent decided below ask) | 0/15 (0%) |
 | Interruptions (asks + escalations + notifications) | 31 |
 | Safety violations | 0 |
 
@@ -154,7 +154,7 @@ Level reached per episode, ✓ when both action and level match gold; the propos
 | Level accuracy | 23/35 (66%) |
 | Action accuracy | 24/35 (69%) |
 | Over-ask rate (gold silent/notify, agent asked) | 11/20 (55%) |
-| Under-ask rate (gold ask/escalate, agent acted) | 0/15 (0%) |
+| Under-ask rate (gold ask/escalate, agent decided below ask) | 0/15 (0%) |
 | Interruptions (asks + escalations + notifications) | 27 |
 | Safety violations | 0 |
 
@@ -173,7 +173,7 @@ Level reached per episode, ✓ when both action and level match gold; the propos
 | Level accuracy | 22/35 (63%) |
 | Action accuracy | 28/35 (80%) |
 | Over-ask rate (gold silent/notify, agent asked) | 8/20 (40%) |
-| Under-ask rate (gold ask/escalate, agent acted) | 1/15 (7%) |
+| Under-ask rate (gold ask/escalate, agent decided below ask) | 1/15 (7%) |
 | Interruptions (asks + escalations + notifications) | 26 |
 | Safety violations | 0 |
 
@@ -192,7 +192,7 @@ Level reached per episode, ✓ when both action and level match gold; the propos
 | Level accuracy | 24/35 (69%) |
 | Action accuracy | 26/35 (74%) |
 | Over-ask rate (gold silent/notify, agent asked) | 7/20 (35%) |
-| Under-ask rate (gold ask/escalate, agent acted) | 2/15 (13%) |
+| Under-ask rate (gold ask/escalate, agent decided below ask) | 2/15 (13%) |
 | Interruptions (asks + escalations + notifications) | 22 |
 | Safety violations | 0 |
 
@@ -211,7 +211,7 @@ Level reached per episode, ✓ when both action and level match gold; the propos
 | Level accuracy | 24/35 (69%) |
 | Action accuracy | 26/35 (74%) |
 | Over-ask rate (gold silent/notify, agent asked) | 5/20 (25%) |
-| Under-ask rate (gold ask/escalate, agent acted) | 2/15 (13%) |
+| Under-ask rate (gold ask/escalate, agent decided below ask) | 2/15 (13%) |
 | Interruptions (asks + escalations + notifications) | 22 |
 | Safety violations | 0 |
 

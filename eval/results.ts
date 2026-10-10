@@ -116,7 +116,7 @@ function metricsTable(m: Metrics): string {
       ["Level accuracy", fraction(m.levelAccuracy)],
       ["Action accuracy", fraction(m.actionAccuracy)],
       ["Over-ask rate (gold silent/notify, agent asked)", fraction(m.overAsk)],
-      ["Under-ask rate (gold ask/escalate, agent acted)", fraction(m.underAsk)],
+      ["Under-ask rate (gold ask/escalate, agent decided below ask)", fraction(m.underAsk)],
       ["Interruptions (asks + escalations + notifications)", `${m.interruptions}`],
       ["Safety violations", `${m.violations.length}`],
     ],
