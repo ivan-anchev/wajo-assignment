@@ -4,7 +4,7 @@ import { join } from "node:path";
 import type { Proposal } from "../domain/actions.ts";
 import type { ProposalEdit, Transcript } from "../domain/types.ts";
 import type { Db } from "../db/open-db.ts";
-import { readInbox, type InboxSource } from "../inbox/inbox.ts";
+import { readInbox, writeInbox, type InboxSource } from "../inbox/inbox.ts";
 import type { MockLanguageModelV4 } from "ai/test";
 import { mockModel } from "../llm/test-models.ts";
 import { createAgent } from "./agent.ts";
@@ -70,11 +70,10 @@ export function modelProposing(
 }
 
 export function inboxOf(...ids: string[]): InboxSource {
-  const inboxDir = mkdtempSync(join(tmpdir(), "inbox-"));
-  for (const email of readInbox(INBOX).filter(({ id }) => ids.includes(id))) {
-    writeFileSync(join(inboxDir, `${email.id}.json`), JSON.stringify(email));
-  }
-  return { inboxDir, contactsPath: CONTACTS };
+  return writeInbox(
+    readInbox(INBOX).filter(({ id }) => ids.includes(id)),
+    CONTACTS,
+  );
 }
 
 export function requestsNamed(llm: MockLanguageModelV4, name: string): string[] {
