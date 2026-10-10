@@ -31,7 +31,7 @@ export function addItemCommands(program: Command, openAgent: OpenAgent): void {
   )
     .requiredOption(
       "--set <key=value>",
-      "param to change, repeatable; action=<name> switches the action",
+      "param to change, repeatable; action=<name> switches the action. Values parse as JSON when they can; quote to keep text, e.g. label='\"2024\"'",
       collectPair,
     )
     .addOption(liveOption());
@@ -65,5 +65,14 @@ function collectPair(pair: string, edit: ProposalEdit = {}): ProposalEdit {
   if (at < 1) {
     throw new InvalidArgumentError(`expected key=value, got "${pair}"`);
   }
-  return { ...edit, [pair.slice(0, at)]: pair.slice(at + 1) };
+  return { ...edit, [pair.slice(0, at)]: parsedValue(pair.slice(at + 1)) };
+}
+
+// `amount=120` must reach the registry schema as a number; `to=a@b.dev` stays text.
+function parsedValue(text: string): unknown {
+  try {
+    return JSON.parse(text);
+  } catch {
+    return text;
+  }
 }
