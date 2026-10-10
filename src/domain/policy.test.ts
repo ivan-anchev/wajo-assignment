@@ -46,7 +46,7 @@ describe("learned level (§7.1)", () => {
     ["starts at ask", [], "ask"],
     ["needs three consecutive positives", ["approve", "approve"], "ask"],
     ["moves to notify after three approves", thrice("approve"), "notify"],
-    ["counts edit as an approve", ["approve", "edit", "approve"], "notify"],
+    ["resets the streak on edit", ["approve", "edit", "approve", "approve"], "ask"],
     ["resets the streak on reject", ["approve", "approve", "reject", "approve"], "ask"],
     ["keeps ask on a reject at cold start", ["reject"], "ask"],
     [
@@ -71,6 +71,7 @@ describe("learned level (§7.1)", () => {
       "silent",
     ],
     ["steps notify back to ask on reject", [...thrice("approve"), "reject"], "ask"],
+    ["steps notify back to ask on edit", [...thrice("approve"), "edit"], "ask"],
     [
       "needs a fresh streak after a step back",
       [...thrice("approve"), "reject", "approve", "approve"],

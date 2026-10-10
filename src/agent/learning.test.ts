@@ -114,7 +114,7 @@ describe("learning (§7.1)", () => {
     expect(transcript.item).toBeNull();
   });
 
-  it("an edit that switches action on the third positive announces for the original action", async () => {
+  it("an edit that switches action on the third response announces no promotion", async () => {
     for (let n = 0; n < 2; n++) {
       agent.approve((await deliver(ARCHIVE)).item!.id);
     }
@@ -125,7 +125,7 @@ describe("learning (§7.1)", () => {
       action: "mark_read",
     });
 
-    expect(promotion).toBe(ASK_TO_NOTIFY);
+    expect(promotion).toBeNull();
     expect(transcript.feedback).toMatchObject({ action: "archive", kind: "edit" });
     expect((await deliver(MARK_READ)).decision.learned).toBe("ask");
   });

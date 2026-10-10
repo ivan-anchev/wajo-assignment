@@ -42,11 +42,11 @@ const LADDER: Record<
 > = {
   silent: { positives: [], up: "notify", down: "silent" },
   notify: { positives: ["dismiss"], up: "ask", down: "silent" },
-  ask: { positives: ["approve", "edit"], up: "ask", down: "notify" },
+  ask: { positives: ["approve"], up: "ask", down: "notify" },
 };
 
 const COLD_START: LearnedLevel = "ask";
-const NEGATIVES: readonly ItemResponse[] = ["reject", "undo"];
+const NEGATIVES: readonly ItemResponse[] = ["reject", "undo", "edit"];
 const STREAK_TO_PROMOTE = 3;
 const BRAKE_BELOW = 0.6;
 
