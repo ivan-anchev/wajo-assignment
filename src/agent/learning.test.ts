@@ -120,7 +120,7 @@ describe("learning (§7.1)", () => {
     }
     const third = await deliver(ARCHIVE);
 
-    const responder = createAgent(db, mockModel({ preference: { sentence: null } }));
+    const responder = createAgent(db, mockModel({ preferences: { preferences: [] } }));
     const { transcript, promotion } = await responder.edit(third.item!.id, {
       action: "mark_read",
     });

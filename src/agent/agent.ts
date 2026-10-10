@@ -9,13 +9,14 @@ import { bucketHistory } from "../db/feedback.ts";
 import { insertEmail, storedEmailIds } from "../db/mailbox.ts";
 import type { Db } from "../db/open-db.ts";
 import { findPin } from "../db/pins.ts";
-import { appendPreference, readPreferences } from "../db/preferences.ts";
+import { readPreferences } from "../db/preferences.ts";
 import { readInbox, type InboxSource } from "../inbox/inbox.ts";
 import { levelFor } from "../domain/policy.ts";
 import { act } from "./act.ts";
 import { analyze } from "./analyze.ts";
 import { checkInjection } from "./check-injection.ts";
-import { preferenceFromEdit, preferenceFromReason } from "./extract-preference.ts";
+import { preferencesAfterEdit, preferencesAfterReason } from "./extract-preference.ts";
+import { notePreferences } from "./note-preferences.ts";
 import * as pinning from "./pin.ts";
 import * as respond from "./respond.ts";
 import type { ActionName } from "../domain/actions.ts";
@@ -56,13 +57,13 @@ export function createAgent(db: Db, llm: LanguageModel) {
     },
 
     async edit(itemId: number, changes: ProposalEdit): Promise<ResponseResult> {
-      const preference = await preferenceFromEdit(db, llm, itemId, changes);
-      return respondAndNote(db, preference, () => respond.edit(db, itemId, changes));
+      const preferences = await preferencesAfterEdit(db, llm, itemId, changes);
+      return respondAndNote(db, preferences, () => respond.edit(db, itemId, changes));
     },
 
     async reject(itemId: number, reason?: string): Promise<ResponseResult> {
-      const preference = reason ? await preferenceFromReason(db, llm, itemId, reason) : null;
-      return respondAndNote(db, preference, () => respond.reject(db, itemId));
+      const preferences = reason ? await preferencesAfterReason(db, llm, itemId, reason) : null;
+      return respondAndNote(db, preferences, () => respond.reject(db, itemId));
     },
 
     undo(itemId: number): ResponseResult {
@@ -123,18 +124,16 @@ function commit(db: Db, email: Email, decided: Omit<Decision, "id" | "createdAt"
   })();
 }
 
-// The LLM call has already run, so a failed extraction wrote nothing. The response and its
-// preference line commit together.
+// The LLM call has already run, so a failed extraction wrote nothing. The response and the
+// updated preference list commit together.
 function respondAndNote(
   db: Db,
-  preference: string | null,
+  preferences: string[] | null,
   response: () => ResponseResult,
 ): ResponseResult {
   return db.transaction(() => {
     const result = response();
-    if (preference) {
-      appendPreference(db, preference);
-    }
+    const preference = preferences && notePreferences(db, preferences);
     return { ...result, preference };
   })();
 }

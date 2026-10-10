@@ -103,7 +103,7 @@ describe("oracle on an ask", () => {
       extractions: 0,
     },
   ])("$name", async ({ scenario, status, feedback, executed, extractions }) => {
-    const llm = modelProposing(SEND_REPLY, { preference: "Keep it short." });
+    const llm = modelProposing(SEND_REPLY, { preferences: ["Keep it short."] });
     const agent = createAgent(db, llm);
     await agent.run(INBOX);
 
@@ -114,7 +114,7 @@ describe("oracle on an ask", () => {
     expect(transcript.executions.map(({ proposal }) => proposal)).toEqual(
       executed ? [executed] : [],
     );
-    expect(requestsNamed(llm, "preference")).toHaveLength(extractions);
+    expect(requestsNamed(llm, "preferences")).toHaveLength(extractions);
     expect(agent.prefs()).toBe(extractions ? "Keep it short." : "");
   });
 });

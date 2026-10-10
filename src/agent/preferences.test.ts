@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it } from "vitest";
 import { openDb, type Db } from "../db/open-db.ts";
+import { writePreferences } from "../db/preferences.ts";
 import { createAgent } from "./agent.ts";
 import {
   feedbackCount,
@@ -11,6 +12,8 @@ import {
 } from "./test-agents.ts";
 
 const IGOR = "Replies to Igor are informal, no sign-off.";
+const IGOR_FORMAL = "Replies to Igor are formal, signed with my full name.";
+const NEWSLETTERS = "Newsletters from Northwind stay in the inbox.";
 
 let db: Db;
 
@@ -18,8 +21,8 @@ beforeEach(() => {
   db = openDb(":memory:");
 });
 
-async function askedToReply(preference: string | null | Error = IGOR) {
-  const llm = modelProposing(SEND_REPLY, { preference });
+async function askedToReply(preferences: string[] | Error = [IGOR]) {
+  const llm = modelProposing(SEND_REPLY, { preferences });
   const agent = createAgent(db, llm);
   await agent.run(inboxOf("001"));
   return { llm, agent };
@@ -46,7 +49,7 @@ describe("preferences (§7.4)", () => {
     const [firstAnalysis, secondAnalysis] = requestsNamed(llm, "analysis");
     expect(firstAnalysis).not.toContain(IGOR);
     expect(secondAnalysis).toContain(IGOR);
-    const [, secondExtraction] = requestsNamed(llm, "preference");
+    const [, secondExtraction] = requestsNamed(llm, "preferences");
     expect(secondExtraction).toContain(`<preferences>\\n${IGOR}\\n</preferences>`);
   });
 
@@ -61,11 +64,54 @@ describe("preferences (§7.4)", () => {
     expect(agent.prefs()).toBe("");
   });
 
-  it("appends nothing when the extractor finds nothing reusable", async () => {
-    const { agent } = await askedToReply(null);
+  it("keeps an unchanged list and reports no preference", async () => {
+    writePreferences(db, [IGOR]);
+    const { agent } = await askedToReply([IGOR]);
 
     expect((await agent.edit(1, { body: "Thanks!" })).preference).toBeNull();
-    expect(agent.prefs()).toBe("");
+    expect(agent.prefs()).toBe(IGOR);
+  });
+
+  it("replaces a superseded line in place and reports it", async () => {
+    writePreferences(db, [IGOR, NEWSLETTERS]);
+    const { agent } = await askedToReply([IGOR_FORMAL, NEWSLETTERS]);
+
+    const { preference } = await agent.reject(1, "Igor wants formal replies after all");
+
+    expect(preference).toBe(IGOR_FORMAL);
+    expect(agent.prefs()).toBe(`${IGOR_FORMAL}\n${NEWSLETTERS}`);
+  });
+
+  it("stores a two-line change but names no single preference", async () => {
+    writePreferences(db, [IGOR]);
+    const { agent } = await askedToReply([IGOR_FORMAL, NEWSLETTERS]);
+
+    const { preference } = await agent.reject(1, "Igor wants formal replies after all");
+
+    expect(preference).toBeNull();
+    expect(agent.prefs()).toBe(`${IGOR_FORMAL}\n${NEWSLETTERS}`);
+  });
+
+  it("discards an answer longer than 30 lines and still commits the response", async () => {
+    writePreferences(db, [IGOR]);
+    const { agent } = await askedToReply([IGOR, ...numbered(30)]);
+
+    const { transcript, preference } = await agent.reject(1, "too formal");
+
+    expect(preference).toBeNull();
+    expect(transcript.item!.status).toBe("rejected");
+    expect(agent.prefs()).toBe(IGOR);
+  });
+
+  it("discards an answer that drops two current lines and still commits the response", async () => {
+    writePreferences(db, [IGOR, NEWSLETTERS, "Invoices from Acme are paid by Dana."]);
+    const { agent } = await askedToReply([IGOR_FORMAL]);
+
+    const { transcript, preference } = await agent.reject(1, "Igor wants formal replies after all");
+
+    expect(preference).toBeNull();
+    expect(transcript.item!.status).toBe("rejected");
+    expect(agent.prefs()).toBe(`${IGOR}\n${NEWSLETTERS}\nInvoices from Acme are paid by Dana.`);
   });
 
   it("shows the extractor the edit but never the email body or subject", async () => {
@@ -73,14 +119,14 @@ describe("preferences (§7.4)", () => {
 
     await agent.edit(1, { body: "hey, sounds good" });
 
-    const [request] = requestsNamed(llm, "preference");
+    const [request] = requestsNamed(llm, "preferences");
     expect(request).toContain("hey, sounds good");
     expect(request).toContain("<untrusted_context>");
     expect(request).not.toContain("Standup moved");
     expect(request).not.toContain("Same room");
   });
 
-  it("appends nothing for a refused edit", async () => {
+  it("writes no preference for a refused edit", async () => {
     const { agent } = await askedToReply();
 
     await expect(agent.edit(1, PAY_INVOICE_EDIT)).rejects.toThrow(/must be escalated/);
@@ -99,3 +145,7 @@ describe("preferences (§7.4)", () => {
     expect(agent.prefs()).toBe("");
   });
 });
+
+function numbered(count: number): string[] {
+  return Array.from({ length: count }, (_, n) => `Preference ${n + 1}.`);
+}

@@ -33,7 +33,7 @@ export const PAY_INVOICE_EDIT: ProposalEdit = {
 type AnalysisOptions = {
   confidence?: number;
   requested?: ActionName;
-  preference?: string | null | Error;
+  preferences?: string[] | Error;
 };
 
 export async function agentProposing(db: Db, proposal: Proposal, requested: ActionName = "none") {
@@ -65,12 +65,12 @@ export function feedbackCount(db: Db): number {
 
 export function modelProposing(
   proposal: Proposal,
-  { confidence = 0.9, requested = "none", preference = null }: AnalysisOptions = {},
+  { confidence = 0.9, requested = "none", preferences = [] }: AnalysisOptions = {},
 ): MockLanguageModelV4 {
   return mockModel({
     analysis: { summary: "s", intent: "reply", proposal, requested, confidence },
     injection_verdict: { suspected: false, evidence: [] },
-    preference: preference instanceof Error ? preference : { sentence: preference },
+    preferences: preferences instanceof Error ? preferences : { preferences },
   });
 }
 

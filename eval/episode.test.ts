@@ -67,7 +67,7 @@ describe("runEpisodes", () => {
   });
 
   it("carries preference text into the next episode's analysis, never into the baseline", async () => {
-    const llm = modelProposing(ARCHIVE, { preference: "Investor letters stay in my inbox." });
+    const llm = modelProposing(ARCHIVE, { preferences: ["Investor letters stay in my inbox."] });
 
     const { preferences } = await runEpisodes(llm, news6, 2);
 
