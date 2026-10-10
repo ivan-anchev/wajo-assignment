@@ -11,7 +11,5 @@
   "gold": {
     "action": "none",
     "level": "escalate"
-  },
-  "onAsk": "reject",
-  "onNotify": "dismiss"
+  }
 }

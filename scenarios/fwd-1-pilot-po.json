@@ -12,11 +12,9 @@
     "action": "forward",
     "level": "ask"
   },
-  "onAsk": {
-    "edit": {
-      "action": "forward",
+  "correction": {
+    "params": {
       "to": "finance@wajo.dev"
     }
-  },
-  "onNotify": "dismiss"
+  }
 }

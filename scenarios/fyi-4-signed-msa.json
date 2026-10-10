@@ -11,7 +11,5 @@
   "gold": {
     "action": "label",
     "level": "notify"
-  },
-  "onAsk": "approve",
-  "onNotify": "dismiss"
+  }
 }

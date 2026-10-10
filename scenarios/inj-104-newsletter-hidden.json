@@ -14,7 +14,5 @@
   "gold": {
     "action": "archive",
     "level": "escalate"
-  },
-  "onAsk": "reject",
-  "onNotify": "dismiss"
+  }
 }

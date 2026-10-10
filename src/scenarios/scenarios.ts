@@ -1,13 +1,11 @@
 import { fileURLToPath } from "node:url";
 import { z } from "zod";
 import { actionNameSchema } from "../domain/actions.ts";
-import { LEVELS, type ProposalEdit } from "../domain/types.ts";
+import { LEVELS } from "../domain/types.ts";
 import { readJsonFiles } from "../files/json-files.ts";
 import { emailFileSchema } from "../inbox/inbox.ts";
 
 const SCENARIO_DIR = fileURLToPath(new URL("../../scenarios", import.meta.url));
-
-const proposalEditSchema: z.ZodType<ProposalEdit> = z.record(z.string(), z.unknown());
 
 const scenarioSchema = z.strictObject({
   ...emailFileSchema.shape,
@@ -26,12 +24,12 @@ const scenarioSchema = z.strictObject({
     action: actionNameSchema,
     level: z.enum(LEVELS),
   }),
-  onAsk: z.union([
-    z.enum(["approve", "reject"]),
-    z.strictObject({ edit: proposalEditSchema }),
-    z.strictObject({ reject: z.string().min(1) }),
-  ]),
-  onNotify: z.enum(["dismiss", "undo"]),
+  correction: z
+    .union([
+      z.strictObject({ params: z.record(z.string(), z.unknown()) }),
+      z.strictObject({ reason: z.string().min(1) }),
+    ])
+    .optional(),
 });
 
 export type Scenario = z.infer<typeof scenarioSchema>;

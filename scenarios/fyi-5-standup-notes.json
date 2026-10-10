@@ -11,7 +11,5 @@
   "gold": {
     "action": "mark_read",
     "level": "silent"
-  },
-  "onAsk": "approve",
-  "onNotify": "dismiss"
+  }
 }

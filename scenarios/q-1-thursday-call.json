@@ -12,11 +12,9 @@
     "action": "send_reply",
     "level": "ask"
   },
-  "onAsk": {
-    "edit": {
-      "action": "send_reply",
+  "correction": {
+    "params": {
       "body": "Yes, Thursday 3pm works. See you then."
     }
-  },
-  "onNotify": "dismiss"
+  }
 }

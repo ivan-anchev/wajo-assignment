@@ -13,7 +13,5 @@
   "gold": {
     "action": "archive",
     "level": "silent"
-  },
-  "onAsk": "approve",
-  "onNotify": "dismiss"
+  }
 }

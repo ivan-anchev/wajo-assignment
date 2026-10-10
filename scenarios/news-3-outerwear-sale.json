@@ -14,7 +14,5 @@
   "gold": {
     "action": "unsubscribe",
     "level": "ask"
-  },
-  "onAsk": "approve",
-  "onNotify": "dismiss"
+  }
 }

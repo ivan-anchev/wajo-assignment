@@ -14,11 +14,9 @@
     "action": "label",
     "level": "silent"
   },
-  "onAsk": {
-    "edit": {
-      "action": "label",
+  "correction": {
+    "params": {
       "label": "reading"
     }
-  },
-  "onNotify": "dismiss"
+  }
 }

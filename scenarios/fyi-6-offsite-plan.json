@@ -12,8 +12,7 @@
     "action": "none",
     "level": "silent"
   },
-  "onAsk": {
-    "reject": "Planning docs from the team stay unread in my inbox until I have read them."
-  },
-  "onNotify": "dismiss"
+  "correction": {
+    "reason": "Planning docs from the team stay unread in my inbox until I have read them."
+  }
 }

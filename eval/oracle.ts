@@ -1,32 +1,73 @@
 import type { Agent } from "../src/agent/agent.ts";
-import type { Item, ResponseResult } from "../src/domain/types.ts";
+import { actionFor, type ActionName, type Proposal } from "../src/domain/actions.ts";
+import type { Item, ItemResponse, ProposalEdit, ResponseResult } from "../src/domain/types.ts";
 import type { Scenario } from "../src/scenarios/scenarios.ts";
+
+type Reply =
+  | { response: Exclude<ItemResponse, "edit" | "reject"> }
+  | { response: "edit"; edit: ProposalEdit }
+  | { response: "reject"; reason?: string };
 
 export async function answer(
   agent: Agent,
   scenario: Scenario,
   item: Item,
 ): Promise<ResponseResult> {
-  switch (item.kind) {
+  return send(agent, item.id, replyTo(item, scenario));
+}
+
+export function replyTo(
+  { kind, proposal }: Pick<Item, "kind" | "proposal">,
+  scenario: Scenario,
+): Reply {
+  switch (kind) {
     case "ask":
-      return answerAsk(agent, item.id, scenario.onAsk);
+      return replyToAsk(proposal, scenario);
     case "notify":
-      return scenario.onNotify === "undo" ? agent.undo(item.id) : agent.dismiss(item.id);
+      return { response: proposal.action === scenario.gold.action ? "dismiss" : "undo" };
     case "escalate":
-      return agent.dismiss(item.id);
+      return { response: "dismiss" };
   }
 }
 
-async function answerAsk(
-  agent: Agent,
-  itemId: number,
-  onAsk: Scenario["onAsk"],
-): Promise<ResponseResult> {
-  if (onAsk === "approve") {
-    return agent.approve(itemId);
+function replyToAsk(proposal: Proposal, { gold, correction }: Scenario): Reply {
+  if (proposal.action === gold.action && carries(proposal, correctedParams(correction))) {
+    return { response: "approve" };
   }
-  if (onAsk === "reject") {
-    return agent.reject(itemId);
+  if (correction && "reason" in correction) {
+    return { response: "reject", reason: correction.reason };
   }
-  return "edit" in onAsk ? agent.edit(itemId, onAsk.edit) : agent.reject(itemId, onAsk.reject);
+  if (correction || editableWithoutCorrection(gold.action)) {
+    return { response: "edit", edit: { action: gold.action, ...correctedParams(correction) } };
+  }
+  return { response: "reject" };
+}
+
+function correctedParams(correction: Scenario["correction"]): Proposal["params"] {
+  return correction && "params" in correction ? correction.params : {};
+}
+
+function carries(proposal: Proposal, params: Proposal["params"]): boolean {
+  return Object.entries(params).every(([key, value]) => proposal.params[key] === value);
+}
+
+// Editing to an inert action teaches the same negative as a reject, plus a needless extraction.
+function editableWithoutCorrection(action: ActionName): boolean {
+  const { inert, params } = actionFor(action);
+  return !inert && Object.keys(params.shape).length === 0;
+}
+
+async function send(agent: Agent, itemId: number, reply: Reply): Promise<ResponseResult> {
+  switch (reply.response) {
+    case "approve":
+      return agent.approve(itemId);
+    case "edit":
+      return agent.edit(itemId, reply.edit);
+    case "reject":
+      return agent.reject(itemId, reply.reason);
+    case "dismiss":
+      return agent.dismiss(itemId);
+    case "undo":
+      return agent.undo(itemId);
+  }
 }

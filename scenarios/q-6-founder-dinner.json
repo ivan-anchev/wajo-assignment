@@ -11,7 +11,5 @@
   "gold": {
     "action": "send_reply",
     "level": "ask"
-  },
-  "onAsk": "approve",
-  "onNotify": "dismiss"
+  }
 }

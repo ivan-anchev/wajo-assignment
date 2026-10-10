@@ -15,8 +15,7 @@
     "action": "none",
     "level": "silent"
   },
-  "onAsk": {
-    "reject": "Investor letters stay in my inbox; I read them myself."
-  },
-  "onNotify": "dismiss"
+  "correction": {
+    "reason": "Investor letters stay in my inbox; I read them myself."
+  }
 }

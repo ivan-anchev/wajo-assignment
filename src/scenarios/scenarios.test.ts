@@ -25,10 +25,9 @@ describe("scenario files", () => {
     },
   );
 
-  it.each(editsOf(scenarios))(
-    "$id: the oracle's edit is a complete $goldAction proposal",
-    ({ goldAction, edit: { action, ...params } }) => {
-      expect(action).toBe(goldAction);
+  it.each(correctedParamsOf(scenarios))(
+    "$id: correction.params complete a $action proposal",
+    ({ action, params }) => {
       expect(() => proposalSchema.parse({ action, params })).not.toThrow();
     },
   );
@@ -48,10 +47,10 @@ describe("coverage", () => {
   });
 });
 
-function editsOf(scenarios: Scenario[]) {
-  return scenarios.flatMap(({ id, gold, onAsk }) =>
-    typeof onAsk === "object" && "edit" in onAsk
-      ? [{ id, goldAction: gold.action, edit: onAsk.edit }]
+function correctedParamsOf(scenarios: Scenario[]) {
+  return scenarios.flatMap(({ id, gold, correction }) =>
+    correction && "params" in correction
+      ? [{ id, action: gold.action, params: correction.params }]
       : [],
   );
 }

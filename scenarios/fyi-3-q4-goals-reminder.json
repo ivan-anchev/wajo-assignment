@@ -12,11 +12,9 @@
     "action": "snooze",
     "level": "silent"
   },
-  "onAsk": {
-    "edit": {
-      "action": "snooze",
+  "correction": {
+    "params": {
       "until": "2026-10-19T07:00:00.000Z"
     }
-  },
-  "onNotify": "dismiss"
+  }
 }

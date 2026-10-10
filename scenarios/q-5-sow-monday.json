@@ -11,7 +11,5 @@
   "gold": {
     "action": "snooze",
     "level": "ask"
-  },
-  "onAsk": "approve",
-  "onNotify": "undo"
+  }
 }

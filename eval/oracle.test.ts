@@ -10,6 +10,7 @@ import {
   requestsNamed,
   SEND_REPLY,
 } from "../src/agent/test-agents.ts";
+import type { ActionName, Proposal } from "../src/domain/actions.ts";
 import { openDb, type Db } from "../src/db/open-db.ts";
 import { readScenarios, type Scenario } from "../src/scenarios/scenarios.ts";
 import { answer } from "./oracle.ts";
@@ -20,59 +21,101 @@ beforeEach(() => {
   db = openDb(":memory:");
 });
 
-function scripted(script: Partial<Pick<Scenario, "onAsk" | "onNotify">>): Scenario {
-  return { ...readScenarios()[0]!, ...script };
+function scenarioWith(action: ActionName, correction?: Scenario["correction"]): Scenario {
+  return {
+    ...readScenarios()[0]!,
+    gold: { action, level: "ask" },
+    ...(correction && { correction }),
+  };
 }
 
 describe("oracle on an ask", () => {
-  it.each([
+  it.each<{
+    name: string;
+    scenario: Scenario;
+    status: string;
+    feedback: string;
+    executed: Proposal | null;
+    extractions: number;
+  }>([
     {
-      onAsk: "approve",
+      name: "approves a proposal that matches gold",
+      scenario: scenarioWith("send_reply"),
       status: "approved",
       feedback: "approve",
-      executed: "Sounds good.",
+      executed: SEND_REPLY,
       extractions: 0,
     },
-    { onAsk: "reject", status: "rejected", feedback: "reject", executed: null, extractions: 0 },
     {
-      onAsk: { edit: { body: "Thanks!" } },
+      name: "approves a gold proposal that already carries the corrected params",
+      scenario: scenarioWith("send_reply", { params: { body: "Sounds good." } }),
+      status: "approved",
+      feedback: "approve",
+      executed: SEND_REPLY,
+      extractions: 0,
+    },
+    {
+      name: "edits the gold action's params when they differ",
+      scenario: scenarioWith("send_reply", { params: { body: "Thanks!" } }),
       status: "approved",
       feedback: "edit",
-      executed: "Thanks!",
+      executed: { action: "send_reply", params: { body: "Thanks!" } },
       extractions: 1,
     },
     {
-      onAsk: { reject: "Too formal." },
+      name: "edits a wrong action to gold with the corrected params",
+      scenario: scenarioWith("label", { params: { label: "reading" } }),
+      status: "approved",
+      feedback: "edit",
+      executed: { action: "label", params: { label: "reading" } },
+      extractions: 1,
+    },
+    {
+      name: "edits a wrong action to a gold action that takes no params",
+      scenario: scenarioWith("archive"),
+      status: "approved",
+      feedback: "edit",
+      executed: ARCHIVE,
+      extractions: 1,
+    },
+    {
+      name: "rejects a wrong action with the scenario's reason",
+      scenario: scenarioWith("none", { reason: "Too formal." }),
       status: "rejected",
       feedback: "reject",
       executed: null,
       extractions: 1,
     },
-  ] as const)(
-    "answers $onAsk with $status",
-    async ({ onAsk, status, feedback, executed, extractions }) => {
-      const llm = modelProposing(SEND_REPLY);
-      const agent = createAgent(db, llm);
-      await agent.run(INBOX);
-
-      const { transcript } = await answer(agent, scripted({ onAsk }), agent.inbox()[0]!.item!);
-
-      expect(transcript.item!.status).toBe(status);
-      expect(transcript.feedback!.kind).toBe(feedback);
-      expect(transcript.executions.map(({ proposal }) => proposal.params.body)).toEqual(
-        executed ? [executed] : [],
-      );
-      expect(requestsNamed(llm, "preference")).toHaveLength(extractions);
+    {
+      name: "rejects rather than edits a wrong action when gold is inert",
+      scenario: scenarioWith("none"),
+      status: "rejected",
+      feedback: "reject",
+      executed: null,
+      extractions: 0,
     },
-  );
-
-  it("learns a preference from a reasoned reject", async () => {
-    const agent = createAgent(db, modelProposing(SEND_REPLY, { preference: "Keep it short." }));
+    {
+      name: "rejects a wrong action when gold takes params it cannot supply",
+      scenario: scenarioWith("draft_reply"),
+      status: "rejected",
+      feedback: "reject",
+      executed: null,
+      extractions: 0,
+    },
+  ])("$name", async ({ scenario, status, feedback, executed, extractions }) => {
+    const llm = modelProposing(SEND_REPLY, { preference: "Keep it short." });
+    const agent = createAgent(db, llm);
     await agent.run(INBOX);
 
-    await answer(agent, scripted({ onAsk: { reject: "Too formal." } }), agent.inbox()[0]!.item!);
+    const { transcript } = await answer(agent, scenario, agent.inbox()[0]!.item!);
 
-    expect(agent.prefs()).toBe("Keep it short.");
+    expect(transcript.item!.status).toBe(status);
+    expect(transcript.feedback!.kind).toBe(feedback);
+    expect(transcript.executions.map(({ proposal }) => proposal)).toEqual(
+      executed ? [executed] : [],
+    );
+    expect(requestsNamed(llm, "preference")).toHaveLength(extractions);
+    expect(agent.prefs()).toBe(extractions ? "Keep it short." : "");
   });
 });
 
@@ -87,12 +130,12 @@ describe("oracle on a notify", () => {
   }
 
   it.each([
-    { onNotify: "dismiss", status: "dismissed", undone: false },
-    { onNotify: "undo", status: "undone", undone: true },
-  ] as const)("answers $onNotify", async ({ onNotify, status, undone }) => {
+    { gold: "archive", status: "dismissed", undone: false },
+    { gold: "label", status: "undone", undone: true },
+  ] as const)("answers $status when gold is $gold", async ({ gold, status, undone }) => {
     const { agent, item } = await notifyItem();
 
-    const { transcript } = await answer(agent, scripted({ onNotify }), item);
+    const { transcript } = await answer(agent, scenarioWith(gold), item);
 
     expect(transcript.item!.status).toBe(status);
     expect(transcript.executions[0]!.undoneAt !== null).toBe(undone);
@@ -100,12 +143,12 @@ describe("oracle on a notify", () => {
 });
 
 describe("oracle on an escalation", () => {
-  it("dismisses it whatever the script says and teaches nothing", async () => {
+  it("dismisses it even when the proposal matches gold, and teaches nothing", async () => {
     const agent = await agentProposing(db, PAY_INVOICE);
 
     const { transcript } = await answer(
       agent,
-      scripted({ onAsk: "approve" }),
+      scenarioWith("pay_invoice"),
       agent.inbox()[0]!.item!,
     );
 
