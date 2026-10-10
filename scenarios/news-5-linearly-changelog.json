@@ -10,6 +10,7 @@
   },
   "receivedAt": "2026-10-08T07:15:00.000Z",
   "category": "newsletter",
+  "split": "train",
   "gold": {
     "action": "archive",
     "level": "silent"

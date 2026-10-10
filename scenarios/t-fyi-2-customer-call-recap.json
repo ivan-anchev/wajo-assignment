@@ -1,0 +1,16 @@
+{
+  "id": "t-fyi-2",
+  "threadId": "t-t-fyi-2",
+  "from": "nadia@wajo.dev",
+  "to": "ivan@wajo.dev",
+  "subject": "Recap: Northwind check-in call",
+  "body": "Quick recap of today's check-in with Northwind: they are happy with the pilot, want SSO in Q1, and Dana will send the renewal paperwork next month. Nothing needed from you.\n\nNadia",
+  "headers": {},
+  "receivedAt": "2026-10-09T09:00:00.000Z",
+  "category": "internal_fyi",
+  "split": "test",
+  "gold": {
+    "action": "mark_read",
+    "level": "silent"
+  }
+}

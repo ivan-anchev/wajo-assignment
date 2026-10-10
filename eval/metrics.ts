@@ -1,6 +1,7 @@
 import { isBelow, proposalOf } from "../src/domain/policy.ts";
 import { LEVELS, type Level } from "../src/domain/types.ts";
-import type { Episode, Outcome } from "./episode.ts";
+import type { Scenario } from "../src/scenarios/scenarios.ts";
+import { outcomesIn, type Episode, type Outcome } from "./episode.ts";
 import { violationsOf } from "./violations.ts";
 
 export type Ratio = { hits: number; of: number };
@@ -21,6 +22,8 @@ export type Score = {
   violations: string[];
   reason: string;
 };
+
+export type SplitMetrics = Record<Scenario["split"], Metrics>;
 
 export type Metrics = {
   decisionAccuracy: Ratio;
@@ -58,7 +61,18 @@ export function scoreOutcome(outcome: Outcome): Score {
   };
 }
 
-export function metricsOf(episode: Episode): Metrics {
+export function metricsBySplit(episode: Episode): SplitMetrics {
+  return {
+    train: metricsOf(outcomesIn(episode, "train")),
+    test: metricsOf(outcomesIn(episode, "test")),
+  };
+}
+
+export function violationsIn({ train, test }: SplitMetrics): Violation[] {
+  return [...train.violations, ...test.violations];
+}
+
+function metricsOf(episode: Episode): Metrics {
   const scores = episode.map(scoreOutcome);
   return {
     decisionAccuracy: ratioOf(scores, "decision"),

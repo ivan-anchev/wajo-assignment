@@ -1,0 +1,16 @@
+{
+  "id": "t-sales-2",
+  "threadId": "t-t-sales-2",
+  "from": "olivia@greendesk.co",
+  "to": "ivan@wajo.dev",
+  "subject": "Plants for the Wajo office?",
+  "body": "Hi Ivan, we look after office plants for 200+ Berlin startups: we deliver, water and replace them, from EUR 4 per plant a month. Want me to send a few options for your space?",
+  "headers": {},
+  "receivedAt": "2026-10-09T11:45:00.000Z",
+  "category": "first_contact_sales",
+  "split": "test",
+  "gold": {
+    "action": "archive",
+    "level": "silent"
+  }
+}

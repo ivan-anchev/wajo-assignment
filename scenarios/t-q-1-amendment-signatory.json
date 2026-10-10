@@ -1,0 +1,21 @@
+{
+  "id": "t-q-1",
+  "threadId": "t-t-q-1",
+  "from": "tomas@ardent-legal.eu",
+  "to": "ivan@wajo.dev",
+  "subject": "Who signs the Helix amendment?",
+  "body": "Hi Ivan, who should sign the MSA amendment on Wajo's side, you or Oskar? I will set up the e-signature envelope once I know.\n\nBest,\nTomas",
+  "headers": {},
+  "receivedAt": "2026-10-09T09:40:00.000Z",
+  "category": "known_question",
+  "split": "test",
+  "gold": {
+    "action": "send_reply",
+    "level": "ask"
+  },
+  "correction": {
+    "params": {
+      "body": "Hi Tomas, I will sign it myself. Please send the envelope to ivan@wajo.dev."
+    }
+  }
+}

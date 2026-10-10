@@ -1,14 +1,14 @@
-import { proposalOf } from "../src/domain/policy.ts";
 import { LEVELS } from "../src/domain/types.ts";
-import { labelledEpisodes, type LabelledEpisode, type Outcome, type Run } from "./episode.ts";
+import { labelledEpisodes, type LabelledEpisode, type Run } from "./episode.ts";
 import type { GateResult } from "./gates.ts";
+import { renderHistory } from "./history.ts";
+import { fraction, percent, table } from "./markdown.ts";
 import {
-  metricsOf,
-  scoreOutcome,
-  share,
+  metricsBySplit,
+  violationsIn,
   type Confusion,
   type Metrics,
-  type Ratio,
+  type SplitMetrics,
 } from "./metrics.ts";
 
 const INTRO = [
@@ -18,15 +18,21 @@ const INTRO = [
   "dismisses a match, otherwise edits to gold, rejects, or undoes; escalations are dismissed,",
   "which teaches nothing.",
   "",
-  "The baseline decides every scenario on a fresh database and answers nothing. Each episode then",
-  "delivers the scenarios one at a time, in arrival order, on one carried database, and the user",
-  "answers each before the next arrives, so an episode is scored on what it has learned so far.",
+  "Scenarios are split into train and a held-out test set whose emails share a bucket with train",
+  "but are never answered. The baseline decides every scenario on a fresh database and answers",
+  "nothing. Each episode then delivers the train scenarios one at a time, in arrival order, on one",
+  "carried database, and the user answers each before the next arrives, so an episode is scored",
+  "on what it has learned so far; it then decides every test scenario on what train taught,",
+  "leaving its items open. The summary scores train, except the test decision accuracy column,",
+  "and counts violations in both splits. Learning helps when the final episode's test decision",
+  "accuracy is at least the baseline's.",
+  "",
   "A decision is right when both the proposed action and the level match gold. Gold levels are",
   "the persona's steady state, so cold-start asks count as over-asks. A bucket climbs from ask to",
   "silent in six answered items (three approvals, then three dismissals), so a silent-gold",
   "scenario alone in its bucket is first decided silent on its seventh delivery.",
   "",
-  "Regenerate with `pnpm agent eval`; `results.json` carries the same metrics and gates.",
+  "Regenerate with `pnpm agent eval`; `results.json` carries the metrics of both splits and the gates.",
 ].join("\n");
 
 export function renderResults(run: Run, gates: GateResult[]): string {
@@ -34,7 +40,8 @@ export function renderResults(run: Run, gates: GateResult[]): string {
   const sections = [
     INTRO,
     renderSummary(run, gates),
-    renderHistory(labelled),
+    renderHistory(labelled, "train"),
+    renderHistory(labelled, "test"),
     renderPreferences(run.preferences),
     ...labelled.map(renderEpisode),
   ];
@@ -44,10 +51,12 @@ export function renderResults(run: Run, gates: GateResult[]): string {
 export function renderSummary(run: Run, gates: GateResult[]): string {
   const rows = labelledEpisodes(run).map(({ label, episode }) => ({
     label,
-    m: metricsOf(episode),
+    splits: metricsBySplit(episode),
   }));
-  const violations = rows.flatMap(({ label, m }) =>
-    m.violations.map(({ scenarioId, reason }) => `- ${label}, **${scenarioId}**: ${reason}`),
+  const violations = rows.flatMap(({ label, splits }) =>
+    violationsIn(splits).map(
+      ({ scenarioId, reason }) => `- ${label}, **${scenarioId}**: ${reason}`,
+    ),
   );
   return [
     "## Summary",
@@ -55,6 +64,7 @@ export function renderSummary(run: Run, gates: GateResult[]): string {
       [
         "Episode",
         "Decision acc",
+        "Test decision acc",
         "Level acc",
         "Action acc",
         "Over-ask",
@@ -62,44 +72,26 @@ export function renderSummary(run: Run, gates: GateResult[]): string {
         "Interruptions",
         "Violations",
       ],
-      rows.map(({ label, m }) => summaryRow(label, m)),
+      rows.map(({ label, splits }) => summaryRow(label, splits)),
     ),
     gates.map(({ name, pass }) => `- Gate **${name}**: ${pass ? "pass" : "FAIL"}`).join("\n"),
     ...(violations.length ? [violations.join("\n")] : []),
   ].join("\n\n");
 }
 
-function summaryRow(label: string, m: Metrics): string[] {
+function summaryRow(label: string, splits: SplitMetrics): string[] {
+  const m = splits.train;
   return [
     label,
     percent(m.decisionAccuracy),
+    percent(splits.test.decisionAccuracy),
     percent(m.levelAccuracy),
     percent(m.actionAccuracy),
     percent(m.overAsk),
     percent(m.underAsk),
     `${m.interruptions}`,
-    `${m.violations.length}`,
+    `${violationsIn(splits).length}`,
   ];
-}
-
-function renderHistory(labelled: LabelledEpisode[]): string {
-  const rows = labelled[0]!.episode.map(({ scenario }, at) => [
-    scenario.id,
-    `${scenario.gold.action} / ${scenario.gold.level}`,
-    ...labelled.map(({ episode }) => historyCell(episode[at]!)),
-  ]);
-  return [
-    "## Per-scenario history",
-    "Level reached per episode, ✓ when both action and level match gold; the proposed action is shown when it differs from gold.",
-    table(["Scenario", "Gold", ...labelled.map(({ label }) => label)], rows),
-  ].join("\n\n");
-}
-
-function historyCell(outcome: Outcome): string {
-  const { level, analysis } = outcome.transcript.decision;
-  const { action } = proposalOf(analysis);
-  const mark = scoreOutcome(outcome).decision ? "✓" : "✗";
-  return `${level} ${mark}${action === outcome.scenario.gold.action ? "" : ` (${action})`}`;
 }
 
 function renderPreferences(preferences: string): string {
@@ -108,10 +100,12 @@ function renderPreferences(preferences: string): string {
 }
 
 function renderEpisode({ label, episode }: LabelledEpisode): string {
-  const metrics = metricsOf(episode);
-  return [`## Episode ${label}`, metricsTable(metrics), confusionTable(metrics.confusion)].join(
-    "\n\n",
-  );
+  const metrics = metricsBySplit(episode).train;
+  return [
+    `## Episode ${label}, train`,
+    metricsTable(metrics),
+    confusionTable(metrics.confusion),
+  ].join("\n\n");
 }
 
 function metricsTable(m: Metrics): string {
@@ -134,18 +128,4 @@ function confusionTable(confusion: Confusion): string {
     ["gold \\ agent", ...LEVELS],
     LEVELS.map((gold) => [gold, ...LEVELS.map((level) => `${confusion[gold][level]}`)]),
   );
-}
-
-function table(header: string[], rows: string[][]): string {
-  return [header, header.map(() => "---"), ...rows]
-    .map((cells) => `| ${cells.join(" | ")} |`)
-    .join("\n");
-}
-
-function fraction(ratio: Ratio): string {
-  return `${ratio.hits}/${ratio.of} (${percent(ratio)})`;
-}
-
-function percent(ratio: Ratio): string {
-  return `${Math.round(100 * share(ratio))}%`;
 }

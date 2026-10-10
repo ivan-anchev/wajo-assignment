@@ -1,11 +1,14 @@
 import { describe, expect, it } from "vitest";
 import { ARCHIVE, modelProposing, requestsNamed } from "../src/agent/test-agents.ts";
 import { readScenarios } from "../src/scenarios/scenarios.ts";
-import { labelledEpisodes, runEpisodes, type Episode } from "./episode.ts";
+import { labelledEpisodes, outcomesIn, runEpisodes, type Episode } from "./episode.ts";
 
 const scenarios = readScenarios();
-const sales = scenarios.filter(({ category }) => category === "first_contact_sales");
+const sales = scenarios.filter(
+  ({ category, split }) => category === "first_contact_sales" && split === "train",
+);
 const news6 = scenarios.filter(({ id }) => id === "news-6");
+const salesBucket = scenarios.filter(({ id }) => id === "sales-1" || id === "t-sales-1");
 const arrivingOutOfOrder = scenarios.filter(({ id }) => id === "fyi-1" || id === "news-1");
 
 function levels(episode: Episode) {
@@ -31,6 +34,26 @@ describe("runEpisodes", () => {
       sales.map(() => "open"),
     );
     expect(baseline.map(({ transcript }) => transcript.feedback)).toEqual(sales.map(() => null));
+  });
+
+  it("decides a held-out email at the level its bucket learned on train, and never answers it", async () => {
+    const { baseline, episodes } = await runEpisodes(modelProposing(ARCHIVE), salesBucket, 4);
+
+    expect(levels(outcomesIn(baseline, "test"))).toEqual(["ask"]);
+    expect(episodes.map((episode) => levels(outcomesIn(episode, "test")))).toEqual([
+      ["ask"],
+      ["ask"],
+      ["notify"],
+      ["notify"],
+    ]);
+    expect(
+      episodes.flatMap((episode) =>
+        outcomesIn(episode, "test").map(({ transcript }) => [
+          transcript.item!.status,
+          transcript.feedback,
+        ]),
+      ),
+    ).toEqual(Array.from({ length: 4 }, () => ["open", null]));
   });
 
   it("pairs every outcome with its scenario, in scenario order, under a labelled email id", async () => {

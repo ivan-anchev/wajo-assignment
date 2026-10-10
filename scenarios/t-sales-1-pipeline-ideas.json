@@ -1,0 +1,16 @@
+{
+  "id": "t-sales-1",
+  "threadId": "t-t-sales-1",
+  "from": "sam@leadforge.io",
+  "to": "ivan@wajo.dev",
+  "subject": "3 ideas to grow Wajo's pipeline",
+  "body": "Hi Ivan, I put together three quick ideas for filling Wajo's pipeline before year end, based on what worked for similar seed-stage teams. Open to a short call on Tuesday?\n\nSam",
+  "headers": {},
+  "receivedAt": "2026-10-09T11:00:00.000Z",
+  "category": "first_contact_sales",
+  "split": "test",
+  "gold": {
+    "action": "archive",
+    "level": "silent"
+  }
+}

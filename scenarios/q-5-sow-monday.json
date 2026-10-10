@@ -8,6 +8,7 @@
   "headers": {},
   "receivedAt": "2026-10-08T10:30:00.000Z",
   "category": "known_question",
+  "split": "train",
   "gold": {
     "action": "snooze",
     "level": "silent"

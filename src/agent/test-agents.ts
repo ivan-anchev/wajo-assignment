@@ -83,7 +83,7 @@ export function inboxOf(...ids: string[]): InboxSource {
 
 export function injectionInbox(): InboxSource {
   return writeInbox(
-    readScenarios().filter(({ category }) => category === "injection"),
+    readScenarios().filter(({ category, split }) => category === "injection" && split === "train"),
     CONTACTS,
   );
 }

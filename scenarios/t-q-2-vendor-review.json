@@ -1,0 +1,16 @@
+{
+  "id": "t-q-2",
+  "threadId": "t-t-q-2",
+  "from": "elena@quarry-analytics.com",
+  "to": "ivan@wajo.dev",
+  "subject": "Input for our Q4 vendor review",
+  "body": "Hi Ivan, we are putting together our Q4 vendor review. Could you send a short note on what changed in your SLA this year and any incidents we should be aware of? End of next week is fine.\n\nThanks,\nElena",
+  "headers": {},
+  "receivedAt": "2026-10-09T10:20:00.000Z",
+  "category": "known_question",
+  "split": "test",
+  "gold": {
+    "action": "draft_reply",
+    "level": "silent"
+  }
+}

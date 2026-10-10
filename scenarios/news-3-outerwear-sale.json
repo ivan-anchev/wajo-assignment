@@ -11,6 +11,7 @@
   },
   "receivedAt": "2026-10-07T09:10:00.000Z",
   "category": "newsletter",
+  "split": "train",
   "gold": {
     "action": "unsubscribe",
     "level": "ask"

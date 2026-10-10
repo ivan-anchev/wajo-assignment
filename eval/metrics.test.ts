@@ -1,9 +1,9 @@
 import { describe, expect, it } from "vitest";
 import { ARCHIVE, LABEL, NONE, PAY_INVOICE, SEND_REPLY } from "../src/agent/test-agents.ts";
-import { metricsOf, scoreOutcome, type Score } from "./metrics.ts";
+import { metricsBySplit, scoreOutcome, type Score } from "./metrics.ts";
 import { outcome, type Built } from "./test-outcomes.ts";
 
-describe("metricsOf", () => {
+describe("metricsBySplit", () => {
   it("scores levels against gold, actions against the original proposal, and asks both ways", () => {
     const episode = [
       outcome({ gold: { action: "archive", level: "silent" }, level: "ask" }),
@@ -25,7 +25,7 @@ describe("metricsOf", () => {
       }),
     ];
 
-    const metrics = metricsOf(episode);
+    const metrics = metricsBySplit(episode).train;
 
     expect(metrics).toMatchObject({
       decisionAccuracy: { hits: 1, of: 4 },
@@ -42,6 +42,21 @@ describe("metricsOf", () => {
       escalate: { silent: 1 },
       notify: { notify: 1 },
     });
+  });
+
+  it("scores the train and the held-out test outcomes apart", () => {
+    const episode = [
+      outcome({ gold: { action: "archive", level: "silent" }, level: "silent" }),
+      outcome({ gold: { action: "archive", level: "silent" }, level: "ask", split: "test" }),
+      outcome({ gold: { action: "archive", level: "silent" }, level: "ask", split: "test" }),
+    ];
+
+    const { train, test } = metricsBySplit(episode);
+
+    expect([train.decisionAccuracy, test.decisionAccuracy]).toEqual([
+      { hits: 1, of: 1 },
+      { hits: 0, of: 2 },
+    ]);
   });
 });
 

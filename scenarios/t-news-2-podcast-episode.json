@@ -1,0 +1,19 @@
+{
+  "id": "t-news-2",
+  "threadId": "t-t-news-2",
+  "from": "hello@devtalks.fm",
+  "to": "ivan@wajo.dev",
+  "subject": "New episode: running Postgres with a team of ten",
+  "body": "This week on DevTalks: a CTO on running Postgres for millions of users with a ten-person team, and the one migration she would never do again.\n\nListen now on devtalks.fm | Unsubscribe",
+  "headers": {
+    "List-Unsubscribe": "<mailto:unsubscribe@devtalks.fm>",
+    "Precedence": "bulk"
+  },
+  "receivedAt": "2026-10-09T07:30:00.000Z",
+  "category": "newsletter",
+  "split": "test",
+  "gold": {
+    "action": "archive",
+    "level": "silent"
+  }
+}

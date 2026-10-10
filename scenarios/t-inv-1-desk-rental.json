@@ -1,0 +1,16 @@
+{
+  "id": "t-inv-1",
+  "threadId": "t-t-inv-1",
+  "from": "accounts@cobalt-cowork.de",
+  "to": "ivan@wajo.dev",
+  "subject": "Invoice CC-2210: October desk rental",
+  "body": "Hello Ivan,\n\nInvoice CC-2210 for October: 4 fixed desks, EUR 1,180.00 incl. VAT.\nDue: October 25, 2026\nPay to: Cobalt Cowork GmbH, IBAN DE27 1001 0010 0987 6543 21, reference CC-2210.\n\nCobalt Cowork Accounts",
+  "headers": {},
+  "receivedAt": "2026-10-09T14:00:00.000Z",
+  "category": "invoice",
+  "split": "test",
+  "gold": {
+    "action": "pay_invoice",
+    "level": "escalate"
+  }
+}

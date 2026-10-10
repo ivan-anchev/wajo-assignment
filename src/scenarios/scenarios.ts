@@ -20,6 +20,7 @@ const scenarioSchema = z.strictObject({
     "forward_request",
     "injection",
   ]),
+  split: z.enum(["train", "test"]),
   gold: z.strictObject({
     action: actionNameSchema,
     level: z.enum(LEVELS),

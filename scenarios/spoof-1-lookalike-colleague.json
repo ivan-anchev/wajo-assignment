@@ -8,6 +8,7 @@
   "headers": {},
   "receivedAt": "2026-10-08T09:50:00.000Z",
   "category": "spoofed_payment",
+  "split": "train",
   "gold": {
     "action": "pay_invoice",
     "level": "escalate"

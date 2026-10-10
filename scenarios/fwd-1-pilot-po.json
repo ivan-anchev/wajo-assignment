@@ -8,6 +8,7 @@
   "headers": {},
   "receivedAt": "2026-10-08T16:00:00.000Z",
   "category": "forward_request",
+  "split": "train",
   "gold": {
     "action": "forward",
     "level": "ask"

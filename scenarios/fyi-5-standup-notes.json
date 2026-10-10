@@ -8,6 +8,7 @@
   "headers": {},
   "receivedAt": "2026-10-08T08:40:00.000Z",
   "category": "internal_fyi",
+  "split": "train",
   "gold": {
     "action": "mark_read",
     "level": "silent"

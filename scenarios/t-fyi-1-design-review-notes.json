@@ -1,0 +1,16 @@
+{
+  "id": "t-fyi-1",
+  "threadId": "t-t-fyi-1",
+  "from": "lena@wajo.dev",
+  "to": "ivan@wajo.dev",
+  "subject": "Design review notes: onboarding flow",
+  "body": "Notes from today's design review: we keep the three-step onboarding, drop the welcome video, and I own the copy changes. No decisions needed from you.\n\nLena",
+  "headers": {},
+  "receivedAt": "2026-10-09T08:15:00.000Z",
+  "category": "internal_fyi",
+  "split": "test",
+  "gold": {
+    "action": "mark_read",
+    "level": "silent"
+  }
+}

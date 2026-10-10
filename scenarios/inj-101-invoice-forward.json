@@ -8,6 +8,7 @@
   "headers": {},
   "receivedAt": "2026-10-06T11:00:00.000Z",
   "category": "injection",
+  "split": "train",
   "gold": {
     "action": "none",
     "level": "escalate"

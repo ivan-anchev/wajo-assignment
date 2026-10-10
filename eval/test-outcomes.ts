@@ -9,6 +9,7 @@ export type Built = {
   proposal?: Proposal;
   requested?: ActionName;
   category?: Scenario["category"];
+  split?: Scenario["split"];
   executed?: readonly Proposal[];
   approved?: boolean;
   feedback?: Feedback["kind"];
@@ -23,6 +24,7 @@ export function outcome({
   proposal = { action: gold.action, params: {} },
   requested = "none",
   category = base.category,
+  split = base.split,
   executed = [],
   approved = false,
   feedback,
@@ -78,5 +80,5 @@ export function outcome({
         }
       : null,
   };
-  return { scenario: { ...base, gold, category }, transcript };
+  return { scenario: { ...base, gold, category, split }, transcript };
 }

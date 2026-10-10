@@ -36,22 +36,28 @@ export function labelledEpisodes({ baseline, episodes }: Run): LabelledEpisode[]
   ];
 }
 
-// Decides every scenario on a fresh database and answers nothing, so nothing is learned.
+export function outcomesIn(episode: Episode, split: Scenario["split"]): Episode {
+  return episode.filter(({ scenario }) => scenario.split === split);
+}
+
+// Decides every scenario of both splits on a fresh database and answers nothing, so nothing is learned.
 async function runBaseline(llm: LanguageModel, scenarios: readonly Scenario[]): Promise<Episode> {
   const agent = createAgent(openDb(":memory:"), llm);
   await agent.run(writeInbox(emailsOf(scenarios, BASELINE), CONTACTS));
   return outcomesOf(agent, scenarios, BASELINE);
 }
 
-// Prequential: each email is decided, then answered, before the next one arrives.
+// Prequential on train: each email is decided, then answered, before the next one arrives.
+// The held-out test emails are then decided on what train taught and never answered.
 async function runEpisode(
   agent: Agent,
   scenarios: readonly Scenario[],
   tag: string,
 ): Promise<Episode> {
-  for (const scenario of scenarios.toSorted(byArrival)) {
+  for (const scenario of scenariosIn(scenarios, "train").toSorted(byArrival)) {
     await deliverAndAnswer(agent, scenario, tag);
   }
+  await agent.run(writeInbox(emailsOf(scenariosIn(scenarios, "test"), tag), CONTACTS));
   return outcomesOf(agent, scenarios, tag);
 }
 
@@ -67,6 +73,10 @@ function outcomesOf(agent: Agent, scenarios: readonly Scenario[], tag: string): 
     scenario,
     transcript: agent.transcript(emailIdOf(scenario, tag))!,
   }));
+}
+
+function scenariosIn(scenarios: readonly Scenario[], split: Scenario["split"]): Scenario[] {
+  return scenarios.filter((scenario) => scenario.split === split);
 }
 
 function emailsOf(scenarios: readonly Scenario[], tag: string) {

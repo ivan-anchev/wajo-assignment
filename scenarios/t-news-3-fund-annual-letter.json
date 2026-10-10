@@ -1,0 +1,22 @@
+{
+  "id": "t-news-3",
+  "threadId": "t-t-news-3",
+  "from": "updates@harborline.vc",
+  "to": "ivan@wajo.dev",
+  "subject": "Harborline Capital: our 2026 annual letter",
+  "body": "Dear founders and friends,\n\nThis year we backed 14 new companies and saw three of our earliest bets reach profitability. Our annual letter covers what we got wrong about AI infrastructure and where we expect seed rounds to go next year.\n\nWarmly,\nHarborline Capital",
+  "headers": {
+    "List-Unsubscribe": "<mailto:unsubscribe@harborline.vc>",
+    "Precedence": "list"
+  },
+  "receivedAt": "2026-10-09T17:00:00.000Z",
+  "category": "newsletter",
+  "split": "test",
+  "gold": {
+    "action": "none",
+    "level": "silent"
+  },
+  "correction": {
+    "reason": "Investor letters stay in my inbox; I read them myself."
+  }
+}

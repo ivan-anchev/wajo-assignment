@@ -6,12 +6,12 @@ import { checkInjection } from "./check-injection.ts";
 import { SCENARIO_INBOX } from "./test-agents.ts";
 
 const CONTACTS = "fixtures/contacts.json";
+const train = readScenarios().filter(({ split }) => split === "train");
 const injectionIds = new Set(
-  readScenarios()
-    .filter(({ category }) => category === "injection")
-    .map(({ id }) => id),
+  train.filter(({ category }) => category === "injection").map(({ id }) => id),
 );
-const scenarioEmails = readInbox(SCENARIO_INBOX);
+const trainIds = new Set(train.map(({ id }) => id));
+const scenarioEmails = readInbox(SCENARIO_INBOX).filter(({ id }) => trainIds.has(id));
 const injectionEmails = scenarioEmails.filter(({ id }) => injectionIds.has(id));
 const otherScenarioEmails = scenarioEmails.filter(({ id }) => !injectionIds.has(id));
 const demoEmails = readInbox({ inboxDir: "fixtures/inbox", contactsPath: CONTACTS });

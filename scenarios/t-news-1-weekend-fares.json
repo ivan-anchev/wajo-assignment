@@ -1,0 +1,19 @@
+{
+  "id": "t-news-1",
+  "threadId": "t-t-news-1",
+  "from": "deals@flyaway.travel",
+  "to": "ivan@wajo.dev",
+  "subject": "Weekend fares from Berlin from EUR 39",
+  "body": "Lisbon, Split and Kraków from EUR 39 one way, this weekend only. Prices shown include taxes; seats are limited.\n\nBook now | Update your email preferences",
+  "headers": {
+    "List-Unsubscribe": "<https://flyaway.travel/u?id=55120>",
+    "Precedence": "bulk"
+  },
+  "receivedAt": "2026-10-09T06:10:00.000Z",
+  "category": "newsletter",
+  "split": "test",
+  "gold": {
+    "action": "unsubscribe",
+    "level": "ask"
+  }
+}

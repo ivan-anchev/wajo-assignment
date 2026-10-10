@@ -8,6 +8,7 @@
   "headers": {},
   "receivedAt": "2026-10-08T12:20:00.000Z",
   "category": "invoice",
+  "split": "train",
   "gold": {
     "action": "pay_invoice",
     "level": "escalate"
