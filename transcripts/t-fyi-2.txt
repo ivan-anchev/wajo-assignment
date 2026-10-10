@@ -1,0 +1,15 @@
+Email t-fyi-2@e5: "Recap: Northwind check-in call"
+  nadia@wajo.dev -> ivan@wajo.dev  received 2026-10-09T09:00:00.000Z
+
+1 intake     sender class: internal
+2 injection  not suspected
+3 analyze    intent: fyi  confidence: 0.7
+             summary: Nadia recaps today's Northwind check-in: the client is happy with the pilot, wants SSO in Q1, and Dana will send renewal paperwork next month, with nothing needed from the user.
+             proposal: archive {}
+4 floor      silent (proposed archive, requested none)
+5 learned    notify for archive/internal
+6 brake      not fired
+7 level      notify
+8 act        executed archive, opened notify item #176 [dismiss, undo]
+
+Score: proposed archive, gold mark_read; level notify, gold silent

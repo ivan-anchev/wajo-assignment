@@ -1,0 +1,15 @@
+Email t-sales-1@e5: "3 ideas to grow Wajo's pipeline"
+  sam@leadforge.io -> ivan@wajo.dev  received 2026-10-09T11:00:00.000Z
+
+1 intake     sender class: first_contact
+2 injection  not suspected
+3 analyze    intent: meeting_request  confidence: 0.5
+             summary: Sam from leadforge.io, a first-time contact, offers three ideas for growing Wajo's pipeline and asks for a short call on Tuesday.
+             proposal: archive {}
+4 floor      silent (proposed archive, requested none)
+5 learned    silent for archive/first_contact
+6 brake      fired: low confidence, one rung up (capped at ask)
+7 level      notify
+8 act        executed archive, opened notify item #179 [dismiss, undo]
+
+Score: proposed archive = gold; level notify, gold silent

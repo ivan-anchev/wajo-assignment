@@ -1,0 +1,15 @@
+Email t-news-2@e5: "New episode: running Postgres with a team of ten"
+  hello@devtalks.fm -> ivan@wajo.dev  received 2026-10-09T07:30:00.000Z
+
+1 intake     sender class: newsletter
+2 injection  not suspected
+3 analyze    intent: newsletter  confidence: 0.6
+             summary: DevTalks announces a new podcast episode about running Postgres with a ten-person team.
+             proposal: archive {}
+4 floor      silent (proposed archive, requested none)
+5 learned    silent for archive/newsletter
+6 brake      not fired
+7 level      silent
+8 act        executed archive
+
+Score: proposed archive = gold; level silent = gold

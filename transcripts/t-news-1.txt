@@ -1,0 +1,15 @@
+Email t-news-1@e5: "Weekend fares from Berlin from EUR 39"
+  deals@flyaway.travel -> ivan@wajo.dev  received 2026-10-09T06:10:00.000Z
+
+1 intake     sender class: newsletter
+2 injection  not suspected
+3 analyze    intent: promotion  confidence: 0.6
+             summary: FlyAway travel deals offers weekend one-way fares from Berlin to Lisbon, Split and Kraków starting at EUR 39.
+             proposal: archive {}
+4 floor      silent (proposed archive, requested none)
+5 learned    silent for archive/newsletter
+6 brake      not fired
+7 level      silent
+8 act        executed archive
+
+Score: proposed archive, gold unsubscribe; level silent, gold ask

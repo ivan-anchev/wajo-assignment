@@ -2,13 +2,14 @@ Email sales-3@e5: "Senior engineers ready to start next week"
   nina@talentbridge.co -> ivan@wajo.dev  received 2026-10-07T15:30:00.000Z
 
 1 intake     sender class: first_contact
-2 analyze    intent: sales_outreach  confidence: 0.4
-             summary: Nina from TalentBridge offers three senior TypeScript engineers available next week at reduced rates and asks whether to share their profiles.
-             proposal: draft_reply {"body":"Hi Nina,\n\nThanks for reaching out. Please share the profiles for the three engineers, along with their availability and rates.\n\nBest,\nIvan"}
-3 injection  not suspected
-4 floor      silent (proposed draft_reply, requested none)
-5 learned    notify for draft_reply/first_contact
-6 brake      fired: low confidence, one rung up (capped at ask)
-7 level      ask
-8 act        executed draft_reply, ask item #96 approved
-9 response   approved draft_reply {"body":"Hi Nina,\n\nThanks for reaching out. Please share the profiles for the three engineers, along with their availability and rates.\n\nBest,\nIvan"}; feedback approve for draft_reply/first_contact
+2 injection  not suspected
+3 analyze    intent: solicitation  confidence: 0.6
+             summary: Nina from TalentBridge offers three senior TypeScript engineers available next week at lower-than-local rates and asks whether to share their profiles.
+             proposal: archive {}
+4 floor      silent (proposed archive, requested none)
+5 learned    silent for archive/first_contact
+6 brake      not fired
+7 level      silent
+8 act        executed archive
+
+Score: proposed archive = gold; level silent = gold
