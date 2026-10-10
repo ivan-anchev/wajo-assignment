@@ -4,7 +4,7 @@ import { createAgent } from "./agent.ts";
 import { readEmailState } from "../db/mailbox.ts";
 import { openDb, type Db } from "../db/open-db.ts";
 import { mockModel, replayModel } from "../llm/test-models.ts";
-import { ARCHIVE, feedbackCount, INBOX, INJECTION_INBOX } from "./test-agents.ts";
+import { ARCHIVE, feedbackCount, INBOX, injectionInbox } from "./test-agents.ts";
 
 let db: Db;
 
@@ -54,7 +54,7 @@ describe("run", () => {
   });
 
   it("escalates every injection email and executes nothing", async () => {
-    const transcripts = await agentWith(replayModel()).run(INJECTION_INBOX);
+    const transcripts = await agentWith(replayModel()).run(injectionInbox());
 
     expect(
       transcripts.map((t) => ({
@@ -122,7 +122,7 @@ describe("run", () => {
   it("never writes feedback, whatever it decides", async () => {
     const agent = agentWith(replayModel());
     await agent.run(INBOX);
-    await agent.run(INJECTION_INBOX);
+    await agent.run(injectionInbox());
 
     expect(feedbackCount(db)).toBe(0);
   });

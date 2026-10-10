@@ -7,7 +7,7 @@ import {
   agentProposing,
   ARCHIVE,
   feedbackCount,
-  INJECTION_INBOX,
+  injectionInbox,
   newsletterInbox,
   PAY_INVOICE,
   PAY_INVOICE_EDIT,
@@ -132,7 +132,7 @@ describe("reject", () => {
 describe("dismiss", () => {
   it("closes every injection escalation without feedback (invariant 3)", async () => {
     const agent = createAgent(db, replayModel());
-    await agent.run(INJECTION_INBOX);
+    await agent.run(injectionInbox());
 
     const results = [1, 2, 3, 4, 5, 6].map((id) => agent.dismiss(id));
 

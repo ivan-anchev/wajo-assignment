@@ -7,11 +7,12 @@ import type { Db } from "../db/open-db.ts";
 import { readInbox, writeInbox, type InboxSource } from "../inbox/inbox.ts";
 import type { MockLanguageModelV4 } from "ai/test";
 import { mockModel } from "../llm/test-models.ts";
+import { readScenarios } from "../scenarios/scenarios.ts";
 import { createAgent } from "./agent.ts";
 
 const CONTACTS = "fixtures/contacts.json";
 export const INBOX = { inboxDir: "fixtures/inbox", contactsPath: CONTACTS };
-export const INJECTION_INBOX = { inboxDir: "fixtures/injection", contactsPath: CONTACTS };
+export const SCENARIO_INBOX = { inboxDir: "scenarios", contactsPath: CONTACTS };
 
 export const SEND_REPLY: Proposal = { action: "send_reply", params: { body: "Sounds good." } };
 export const ARCHIVE: Proposal = { action: "archive", params: {} };
@@ -72,6 +73,13 @@ export function modelProposing(
 export function inboxOf(...ids: string[]): InboxSource {
   return writeInbox(
     readInbox(INBOX).filter(({ id }) => ids.includes(id)),
+    CONTACTS,
+  );
+}
+
+export function injectionInbox(): InboxSource {
+  return writeInbox(
+    readScenarios().filter(({ category }) => category === "injection"),
     CONTACTS,
   );
 }

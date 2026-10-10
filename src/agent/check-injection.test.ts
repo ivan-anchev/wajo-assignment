@@ -1,10 +1,19 @@
 import { describe, expect, it } from "vitest";
 import { readInbox } from "../inbox/inbox.ts";
 import { mockModel, replayModel } from "../llm/test-models.ts";
+import { readScenarios } from "../scenarios/scenarios.ts";
 import { checkInjection } from "./check-injection.ts";
+import { SCENARIO_INBOX } from "./test-agents.ts";
 
 const CONTACTS = "fixtures/contacts.json";
-const injectionEmails = readInbox({ inboxDir: "fixtures/injection", contactsPath: CONTACTS });
+const injectionIds = new Set(
+  readScenarios()
+    .filter(({ category }) => category === "injection")
+    .map(({ id }) => id),
+);
+const scenarioEmails = readInbox(SCENARIO_INBOX);
+const injectionEmails = scenarioEmails.filter(({ id }) => injectionIds.has(id));
+const otherScenarioEmails = scenarioEmails.filter(({ id }) => !injectionIds.has(id));
 const demoEmails = readInbox({ inboxDir: "fixtures/inbox", contactsPath: CONTACTS });
 const benign = demoEmails[0]!;
 
@@ -28,7 +37,7 @@ describe("checkInjection on recorded judge answers", () => {
     expect(evidence.every((entry) => entry.startsWith("judge:"))).toBe(true);
   });
 
-  it.each(demoEmails)("clears demo email $id", async (email) => {
+  it.each([...otherScenarioEmails, ...demoEmails])("clears $id ($subject)", async (email) => {
     expect(await checkInjection(replayModel(), email)).toEqual({ suspected: false, evidence: [] });
   });
 });

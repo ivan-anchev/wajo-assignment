@@ -31,11 +31,11 @@ export function readInbox(source: InboxSource): Email[] {
 
 export function writeInbox(emails: readonly EmailFile[], contactsPath: string): InboxSource {
   const inboxDir = mkdtempSync(join(tmpdir(), "inbox-"));
- 
+
   for (const email of emails) {
     writeFileSync(join(inboxDir, `${email.id}.json`), JSON.stringify(email));
   }
-  
+
   return { inboxDir, contactsPath };
 }
 

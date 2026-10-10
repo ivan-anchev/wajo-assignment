@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it } from "vitest";
 import { openDb, type Db } from "../db/open-db.ts";
 import { replayModel } from "../llm/test-models.ts";
 import { createAgent } from "./agent.ts";
-import { agentProposing, INJECTION_INBOX, NONE, SEND_REPLY } from "./test-agents.ts";
+import { agentProposing, injectionInbox, NONE, SEND_REPLY } from "./test-agents.ts";
 
 let db: Db;
 
@@ -29,7 +29,7 @@ describe("inbox", () => {
 
   it("lists escalations with dismiss as the only response", async () => {
     const agent = createAgent(db, replayModel());
-    await agent.run(INJECTION_INBOX);
+    await agent.run(injectionInbox());
 
     expect(
       agent.inbox().map((t) => ({
