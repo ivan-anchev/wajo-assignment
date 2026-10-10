@@ -98,13 +98,13 @@ function intake(db: Db, source: InboxSource): Event[] {
 
 async function processEvent(db: Db, llm: LanguageModel, event: Event): Promise<Transcript> {
   const { email } = event;
-  const [analysis, injection] = await Promise.all([
-    analyze(llm, email, readPreferences(db)),
-    checkInjection(llm, email),
-  ]);
-  const { action } = analysis.proposal;
-  const history = bucketHistory(db, action, email.senderClass);
-  const pin = findPin(db, action, email.senderClass);
+  // Guard first: a suspected email never reaches the analysis prompt, so nothing it steered is stored.
+  const injection = await checkInjection(llm, email);
+  const analysis = injection.suspected ? null : await analyze(llm, email, readPreferences(db));
+  // An unanalyzed email proposes no action, so it has no bucket to look up.
+  const action = analysis?.proposal.action;
+  const history = action ? bucketHistory(db, action, email.senderClass) : [];
+  const pin = action ? findPin(db, action, email.senderClass) : null;
   return commit(db, email, {
     emailId: email.id,
     analysis,

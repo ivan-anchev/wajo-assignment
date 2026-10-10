@@ -1,5 +1,6 @@
 import { generateText, Output, type LanguageModel } from "ai";
 import { z } from "zod";
+import { proposalOf } from "../domain/policy.ts";
 import type { ProposalEdit, Transcript } from "../domain/types.ts";
 import { getDecision, transcriptOf } from "../db/decision-log.ts";
 import { findItem } from "../db/items.ts";
@@ -35,7 +36,7 @@ export function preferenceFromEdit(
   changes: ProposalEdit,
 ): Promise<string | null> {
   return extract(db, llm, itemId, (transcript) => ({
-    context: { ...about(transcript), proposed: transcript.decision.analysis.proposal },
+    context: { ...about(transcript), proposed: proposalOf(transcript.decision.analysis) },
     correction: `The user changed the proposal with ${JSON.stringify(changes)} and approved the result.`,
   }));
 }
@@ -85,7 +86,7 @@ function transcriptForItem(db: Db, itemId: number): Transcript | null {
 // Neither body nor subject enters this request: an email cannot author a preference.
 function about({ email, decision }: Transcript) {
   return {
-    action: decision.analysis.proposal.action,
+    action: proposalOf(decision.analysis).action,
     sender: email.from,
     senderClass: email.senderClass,
   };

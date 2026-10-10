@@ -1,9 +1,14 @@
-import type { LanguageModel } from "ai";
 import { MockLanguageModelV4 } from "ai/test";
 import { DEFAULT_MODEL, languageModelFrom } from "./llm.ts";
 
-export function replayModel(): LanguageModel {
+export function replayModel() {
   return languageModelFrom(DEFAULT_MODEL, { live: false });
+}
+
+// Recorded answers behind a mock, so a test can see which requests were made.
+export function observedReplayModel(): MockLanguageModelV4 {
+  const replay = replayModel();
+  return new MockLanguageModelV4({ doGenerate: (options) => replay.doGenerate(options) });
 }
 
 // An Error output makes that call throw instead of answering.

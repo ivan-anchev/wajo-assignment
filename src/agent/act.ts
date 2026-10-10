@@ -1,13 +1,16 @@
 import { executeProposal, type Proposal } from "../domain/actions.ts";
+import { proposalOf } from "../domain/policy.ts";
 import { insertExecution } from "../db/decision-log.ts";
 import { insertItem } from "../db/items.ts";
 import type { Db } from "../db/open-db.ts";
 import type { Decision, Execution, Item, ItemKind, Level } from "../domain/types.ts";
 
 export function act(db: Db, decision: Decision): void {
-  const item = decision.level === "silent" ? null : openItem(db, decision, decision.level);
+  const proposal = proposalOf(decision.analysis);
+  const item =
+    decision.level === "silent" ? null : openItem(db, decision, decision.level, proposal);
   if (executesWithoutApproval(decision.level)) {
-    execute(db, decision, decision.analysis.proposal, item?.id ?? null);
+    execute(db, decision, proposal, item?.id ?? null);
   }
 }
 
@@ -22,8 +25,8 @@ export function execute(
   return insertExecution(db, { decisionId: decision.id, itemId, proposal, executedAt: now });
 }
 
-function openItem(db: Db, decision: Decision, kind: ItemKind): Item {
-  return insertItem(db, { decisionId: decision.id, kind, proposal: decision.analysis.proposal });
+function openItem(db: Db, decision: Decision, kind: ItemKind, proposal: Proposal): Item {
+  return insertItem(db, { decisionId: decision.id, kind, proposal });
 }
 
 function executesWithoutApproval(level: Level): boolean {

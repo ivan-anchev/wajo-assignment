@@ -69,7 +69,7 @@ describe("edit", () => {
 
     expect(transcript.item!.proposal).toEqual(edited);
     expect(transcript.executions[0]!.proposal).toEqual(edited);
-    expect(transcript.decision.analysis.proposal).toEqual(SEND_REPLY);
+    expect(transcript.decision.analysis?.proposal).toEqual(SEND_REPLY);
     expect(transcript.feedback).toMatchObject({ action: "send_reply", kind: "edit" });
   });
 

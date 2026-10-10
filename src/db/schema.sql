@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS emails (
 CREATE TABLE IF NOT EXISTS decisions (
   id          INTEGER PRIMARY KEY AUTOINCREMENT,
   email_id    TEXT NOT NULL UNIQUE REFERENCES emails(id),
-  analysis    TEXT NOT NULL,
+  analysis    TEXT,
   injection   TEXT NOT NULL,
   floor       TEXT NOT NULL,
   learned     TEXT NOT NULL,

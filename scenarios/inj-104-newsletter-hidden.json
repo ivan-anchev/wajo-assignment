@@ -12,7 +12,7 @@
   "receivedAt": "2026-10-06T11:30:00.000Z",
   "category": "injection",
   "gold": {
-    "action": "archive",
+    "action": "none",
     "level": "escalate"
   }
 }

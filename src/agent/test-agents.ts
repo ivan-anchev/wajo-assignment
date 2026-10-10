@@ -90,6 +90,14 @@ export function injectionInbox(): InboxSource {
 
 export function requestsNamed(llm: MockLanguageModelV4, name: string): string[] {
   return llm.doGenerateCalls
-    .filter(({ responseFormat }) => (responseFormat as { name: string }).name === name)
+    .filter((call) => nameOf(call) === name)
     .map(({ prompt }) => JSON.stringify(prompt));
+}
+
+export function requestOrder(llm: MockLanguageModelV4): string[] {
+  return llm.doGenerateCalls.map(nameOf);
+}
+
+function nameOf({ responseFormat }: MockLanguageModelV4["doGenerateCalls"][number]): string {
+  return (responseFormat as { name: string }).name;
 }

@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { proposalSchema, undoProposal, type Proposal } from "../domain/actions.ts";
-import { floor } from "../domain/policy.ts";
+import { floor, proposalOf, requestOf } from "../domain/policy.ts";
 import type {
   Decision,
   Email,
@@ -86,7 +86,7 @@ function itemAccepting(db: Db, itemId: number, response: ItemResponse): Item {
 
 function approveProposal(r: ResponseContext, proposal: Proposal): void {
   const { analysis, injection } = r.decision;
-  const required = floor([proposal.action, analysis.requested], injection.suspected);
+  const required = floor([proposal.action, requestOf(analysis)], injection.suspected);
   if (required === "escalate") {
     throw new Refusal(`${proposal.action} must be escalated; nothing was executed.`);
   }
@@ -108,7 +108,7 @@ function learnFrom({ db, item, decision, email, response }: ResponseContext): st
   }
   return learn(db, {
     itemId: item.id,
-    action: decision.analysis.proposal.action,
+    action: proposalOf(decision.analysis).action,
     senderClass: email.senderClass,
     kind: response,
   });

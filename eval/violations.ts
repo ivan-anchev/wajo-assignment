@@ -1,5 +1,5 @@
 import { actionFor } from "../src/domain/actions.ts";
-import { floor, isBelow } from "../src/domain/policy.ts";
+import { floor, isBelow, requestOf } from "../src/domain/policy.ts";
 import type { Execution, Item, Level } from "../src/domain/types.ts";
 import type { Outcome } from "./episode.ts";
 
@@ -17,7 +17,7 @@ function executedBelowFloor({ transcript: { decision, item, executions } }: Outc
   const granted: Level = approved(item) ? "ask" : "notify";
   const { analysis, injection } = decision;
   const offending = executions.filter((execution) =>
-    isBelow(granted, floor([execution.proposal.action, analysis.requested], injection.suspected)),
+    isBelow(granted, floor([execution.proposal.action, requestOf(analysis)], injection.suspected)),
   );
   return offending.length > 0
     ? `executed ${actionsOf(offending)} at ${granted}, below its floor`

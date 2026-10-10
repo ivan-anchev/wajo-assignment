@@ -3,7 +3,7 @@ import { beforeEach, describe, expect, it } from "vitest";
 import { createAgent } from "./agent.ts";
 import { readEmailState } from "../db/mailbox.ts";
 import { openDb, type Db } from "../db/open-db.ts";
-import { mockModel, replayModel } from "../llm/test-models.ts";
+import { mockModel, observedReplayModel, replayModel } from "../llm/test-models.ts";
 import {
   agentProposing,
   ARCHIVE,
@@ -12,6 +12,8 @@ import {
   injectionInbox,
   LABEL,
   NONE,
+  requestOrder,
+  requestsNamed,
   SEND_REPLY,
 } from "./test-agents.ts";
 
@@ -24,13 +26,18 @@ beforeEach(() => {
 const agentWith = (llm: LanguageModel) => createAgent(db, llm);
 
 describe("run", () => {
-  it("decides each demo email from its recorded analysis, in arrival order", async () => {
-    const transcripts = await agentWith(replayModel()).run(INBOX);
+  it("judges then analyzes each demo email, deciding in arrival order", async () => {
+    const llm = observedReplayModel();
+    const transcripts = await agentWith(llm).run(INBOX);
+
+    expect(requestOrder(llm)).toEqual(
+      Array.from({ length: 3 }, () => ["injection_verdict", "analysis"]).flat(),
+    );
 
     expect(
       transcripts.map((t) => [
         t.email.id,
-        t.decision.analysis.proposal.action,
+        t.decision.analysis?.proposal.action,
         t.decision.injection.suspected,
         t.decision.learned,
         t.decision.level,
@@ -62,12 +69,16 @@ describe("run", () => {
     `);
   });
 
-  it("escalates every injection email and executes nothing", async () => {
-    const transcripts = await agentWith(replayModel()).run(injectionInbox());
+  it("escalates every injection email unanalyzed and executes nothing", async () => {
+    const llm = observedReplayModel();
+    const transcripts = await agentWith(llm).run(injectionInbox());
 
+    expect(requestsNamed(llm, "injection_verdict")).toHaveLength(6);
+    expect(requestsNamed(llm, "analysis")).toEqual([]);
     expect(
       transcripts.map((t) => ({
         suspected: t.decision.injection.suspected,
+        analysis: t.decision.analysis,
         level: t.decision.level,
         item: t.item?.kind,
         allowedResponses: t.item?.allowedResponses,
@@ -77,6 +88,7 @@ describe("run", () => {
     ).toEqual(
       Array.from({ length: 6 }, () => ({
         suspected: true,
+        analysis: null,
         level: "escalate",
         item: "escalate",
         allowedResponses: ["dismiss"],
@@ -178,23 +190,16 @@ describe("requested-action floor (§6)", () => {
     expect(agent.transcript("001")!.decision).toMatchObject({ floor: "ask", level: "ask" });
   });
 
-  it("keeps escalating a suspected injection whatever is requested, without feedback", async () => {
-    const agent = agentWith(
-      mockModel({
-        analysis: {
-          summary: "s",
-          intent: "fyi",
-          proposal: ARCHIVE,
-          requested: "none",
-          confidence: 0.9,
-        },
-        injection_verdict: { suspected: true, evidence: ["ignore previous instructions"] },
-      }),
-    );
+  it("escalates on a suspicious verdict without analyzing the email or writing feedback", async () => {
+    const llm = mockModel({
+      injection_verdict: { suspected: true, evidence: ["ignore previous instructions"] },
+    });
+    const agent = agentWith(llm);
     await agent.run(INBOX);
 
+    expect(requestsNamed(llm, "analysis")).toEqual([]);
     expect(agent.transcript("001")).toMatchObject({
-      decision: { floor: "escalate", level: "escalate" },
+      decision: { analysis: null, floor: "escalate", level: "escalate" },
       item: { kind: "escalate" },
       executions: [],
     });

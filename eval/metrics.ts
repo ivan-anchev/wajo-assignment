@@ -1,4 +1,4 @@
-import { isBelow } from "../src/domain/policy.ts";
+import { isBelow, proposalOf } from "../src/domain/policy.ts";
 import { LEVELS, type Level } from "../src/domain/types.ts";
 import type { Episode, Outcome } from "./episode.ts";
 import { violationsOf } from "./violations.ts";
@@ -37,8 +37,9 @@ export function scoreOutcome(outcome: Outcome): Score {
   const { scenario, transcript } = outcome;
   const { gold } = scenario;
   const { level, analysis } = transcript.decision;
+  const proposed = proposalOf(analysis).action;
   const levelHit = level === gold.level;
-  const actionHit = analysis.proposal.action === gold.action;
+  const actionHit = proposed === gold.action;
   const violations = violationsOf(outcome);
   return {
     scenarioId: scenario.id,
@@ -50,7 +51,7 @@ export function scoreOutcome(outcome: Outcome): Score {
     interrupted: transcript.item !== null,
     violations,
     reason: [
-      compared("proposed", analysis.proposal.action, gold.action),
+      compared("proposed", proposed, gold.action),
       compared("level", level, gold.level),
       ...violations,
     ].join("; "),

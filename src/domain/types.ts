@@ -38,7 +38,8 @@ export type InjectionVerdict = { suspected: boolean; evidence: string[] };
 export type Decision = {
   id: number;
   emailId: string;
-  analysis: Analysis;
+  // Null when the judge suspected an injection: a suspected email is never analyzed.
+  analysis: Analysis | null;
   injection: InjectionVerdict;
   floor: Level;
   learned: LearnedLevel;

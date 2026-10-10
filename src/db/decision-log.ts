@@ -6,7 +6,7 @@ import { getEmail } from "./mailbox.ts";
 import type { Db } from "./open-db.ts";
 
 type DecisionRow = Omit<Decision, "analysis" | "injection" | "brake"> & {
-  analysis: string;
+  analysis: string | null;
   injection: string;
   brake: 0 | 1;
 };
@@ -25,7 +25,7 @@ export function insertDecision(db: Db, decision: Omit<Decision, "id" | "createdA
     )
     .get({
       ...decision,
-      analysis: JSON.stringify(decision.analysis),
+      analysis: decision.analysis && JSON.stringify(decision.analysis),
       injection: JSON.stringify(decision.injection),
       brake: decision.brake ? 1 : 0,
     })!;
@@ -117,7 +117,7 @@ function listExecutionsByDecision(db: Db, decisionId: number): Execution[] {
 function toDecision(row: DecisionRow): Decision {
   return {
     ...row,
-    analysis: JSON.parse(row.analysis),
+    analysis: row.analysis && JSON.parse(row.analysis),
     injection: JSON.parse(row.injection),
     brake: row.brake === 1,
   };

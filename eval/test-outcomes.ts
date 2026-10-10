@@ -51,7 +51,10 @@ export function outcome({
       brake: false,
       pin: null,
       level,
-      analysis: { summary: "", intent: "", proposal, requested, confidence: 0.9 },
+      // As in the agent: a suspected email is never analyzed.
+      analysis: suspected
+        ? null
+        : { summary: "", intent: "", proposal, requested, confidence: 0.9 },
       injection: { suspected, evidence: [] },
       createdAt: "t",
     },

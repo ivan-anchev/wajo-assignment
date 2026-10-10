@@ -1,4 +1,4 @@
-import { actionFor, type ActionName, type RiskClass } from "./actions.ts";
+import { actionFor, type ActionName, type Proposal, type RiskClass } from "./actions.ts";
 import {
   LEVELS,
   type Analysis,
@@ -52,14 +52,25 @@ const BRAKE_BELOW = 0.6;
 
 type Standing = { rung: LearnedLevel; streak: number };
 
+const NOTHING: Proposal = { action: "none", params: {} };
+
+// An unanalyzed (suspected) email proposes and requests nothing.
+export function proposalOf(analysis: Analysis | null): Proposal {
+  return analysis?.proposal ?? NOTHING;
+}
+
+export function requestOf(analysis: Analysis | null): ActionName {
+  return analysis?.requested ?? "none";
+}
+
 export function levelFor(
-  { proposal, requested, confidence }: Analysis,
+  analysis: Analysis | null,
   injection: InjectionVerdict,
   history: readonly ItemResponse[],
   pin: Level | null,
 ): Pick<Decision, "floor" | "learned" | "brake" | "level"> {
-  const floorLevel = floor([proposal.action, requested], injection.suspected);
-  if (actionFor(proposal.action).inert) {
+  const floorLevel = floor([proposalOf(analysis).action, requestOf(analysis)], injection.suspected);
+  if (!analysis || actionFor(analysis.proposal.action).inert) {
     return {
       floor: floorLevel,
       learned: "silent",
@@ -68,7 +79,7 @@ export function levelFor(
     };
   }
   const learned = learnedLevel(history);
-  const brake = confidence < BRAKE_BELOW;
+  const brake = analysis.confidence < BRAKE_BELOW;
   return {
     floor: floorLevel,
     learned,

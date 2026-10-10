@@ -1,3 +1,4 @@
+import { proposalOf } from "../src/domain/policy.ts";
 import { LEVELS } from "../src/domain/types.ts";
 import { labelledEpisodes, type LabelledEpisode, type Outcome, type Run } from "./episode.ts";
 import type { GateResult } from "./gates.ts";
@@ -96,7 +97,7 @@ function renderHistory(labelled: LabelledEpisode[]): string {
 
 function historyCell(outcome: Outcome): string {
   const { level, analysis } = outcome.transcript.decision;
-  const { action } = analysis.proposal;
+  const { action } = proposalOf(analysis);
   const mark = scoreOutcome(outcome).decision ? "✓" : "✗";
   return `${level} ${mark}${action === outcome.scenario.gold.action ? "" : ` (${action})`}`;
 }
