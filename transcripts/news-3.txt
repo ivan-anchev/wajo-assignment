@@ -1,0 +1,13 @@
+Email news-3@e5: "48 hours only: 50% off outerwear"
+  deals@urbanthreads.shop -> ivan@wajo.dev  received 2026-10-07T09:10:00.000Z
+
+1 intake     sender class: newsletter
+2 analyze    intent: promotion  confidence: 0.8
+             summary: Urban Threads is advertising a 48-hour sale with 50% off outerwear until Friday midnight.
+             proposal: archive {}
+3 injection  not suspected
+4 floor      silent (proposed archive, requested none)
+5 learned    silent for archive/newsletter
+6 brake      not fired
+7 level      silent
+8 act        executed archive

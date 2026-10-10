@@ -1,0 +1,13 @@
+Email fyi-3@e5: "Reminder: Q4 goals due Tuesday, October 20"
+  people@wajo.dev -> ivan@wajo.dev  received 2026-10-07T10:00:00.000Z
+
+1 intake     sender class: internal
+2 analyze    intent: reminder  confidence: 0.7
+             summary: The People team reminds everyone to submit Q4 goals in the people portal by Tuesday, October 20, a task that takes about 15 minutes.
+             proposal: none {}
+3 injection  not suspected
+4 floor      silent (proposed none, requested none)
+5 learned    silent for none/internal
+6 brake      not fired
+7 level      silent
+8 act        executed none

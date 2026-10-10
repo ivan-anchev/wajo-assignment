@@ -1,0 +1,13 @@
+Email fyi-4@e5: "Signed MSA with Helix Labs"
+  oskar@wajo.dev -> ivan@wajo.dev  received 2026-10-07T13:30:00.000Z
+
+1 intake     sender class: internal
+2 analyze    intent: fyi  confidence: 0.9
+             summary: Oskar informs Ivan that Helix Labs countersigned the MSA this morning and shares the signed PDF for the record, requiring no action.
+             proposal: none {}
+3 injection  not suspected
+4 floor      silent (proposed none, requested none)
+5 learned    silent for none/internal
+6 brake      not fired
+7 level      silent
+8 act        executed none

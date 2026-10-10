@@ -1,0 +1,13 @@
+Email q-1@e5: "Thursday 3pm still on?"
+  dana@northwind.io -> ivan@wajo.dev  received 2026-10-07T07:40:00.000Z
+
+1 intake     sender class: known
+2 analyze    intent: meeting_confirmation  confidence: 0.8
+             summary: Dana asks whether the Thursday 3pm meeting is still on and offers to move it if Ivan's week is busy.
+             proposal: draft_reply {"body":"Yes, still on for Thursday at 3pm. Works for me."}
+3 injection  not suspected
+4 floor      silent (proposed draft_reply, requested none)
+5 learned    silent for draft_reply/known
+6 brake      not fired
+7 level      silent
+8 act        executed draft_reply

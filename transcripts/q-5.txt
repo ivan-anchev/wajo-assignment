@@ -1,0 +1,13 @@
+Email q-5@e5: "SOW coming Monday"
+  marco@helix-labs.io -> ivan@wajo.dev  received 2026-10-08T10:30:00.000Z
+
+1 intake     sender class: known
+2 analyze    intent: fyi  confidence: 0.8
+             summary: Marco says legal is finishing the SOW and the signed copy will be sent Monday, with nothing needed from the user until then.
+             proposal: none {}
+3 injection  not suspected
+4 floor      silent (proposed none, requested none)
+5 learned    silent for none/known
+6 brake      not fired
+7 level      silent
+8 act        executed none

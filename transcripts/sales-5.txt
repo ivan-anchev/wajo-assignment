@@ -1,0 +1,13 @@
+Email sales-5@e5: "Only pay for results"
+  maria@adsprout.io -> ivan@wajo.dev  received 2026-10-08T14:00:00.000Z
+
+1 intake     sender class: first_contact
+2 analyze    intent: sales_outreach  confidence: 0.6
+             summary: Maria from AdSprout pitches a pay-per-qualified-signup advertising service and asks Ivan for a 20-minute demo.
+             proposal: archive {}
+3 injection  not suspected
+4 floor      silent (proposed archive, requested none)
+5 learned    silent for archive/first_contact
+6 brake      not fired
+7 level      silent
+8 act        executed archive

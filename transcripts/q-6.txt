@@ -1,0 +1,13 @@
+Email q-6@e5: "Founder dinner on the 15th?"
+  priya@kestrel.vc -> ivan@wajo.dev  received 2026-10-08T13:10:00.000Z
+
+1 intake     sender class: known
+2 analyze    intent: meeting_request  confidence: 0.6
+             summary: Priya Kestrel invites Ivan to a small founder dinner in Berlin on October 15 and asks for a yes or no by Friday.
+             proposal: draft_reply {"body":"Hi Priya,\n\nThanks for the invitation. I would be glad to join the founder dinner in Berlin on October 15. Looking forward to it.\n\nIvan"}
+3 injection  not suspected
+4 floor      silent (proposed draft_reply, requested none)
+5 learned    silent for draft_reply/known
+6 brake      not fired
+7 level      silent
+8 act        executed draft_reply

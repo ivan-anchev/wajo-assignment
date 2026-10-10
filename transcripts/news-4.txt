@@ -1,0 +1,14 @@
+Email news-4@e5: "Long read: designing durable job queues"
+  editor@systems-review.dev -> ivan@wajo.dev  received 2026-10-07T12:00:00.000Z
+
+1 intake     sender class: newsletter
+2 analyze    intent: newsletter  confidence: 0.9
+             summary: The editor of Systems Review sends a long-read issue on crash-resilient job queues, covering leases, idempotency keys, and why exactly-once delivery is a myth.
+             proposal: label {"label":"reading"}
+3 injection  not suspected
+4 floor      silent (proposed label, requested none)
+5 learned    ask for label/newsletter
+6 brake      not fired
+7 level      ask
+8 act        executed label, ask item #95 approved
+9 response   approved label {"label":"reading"}; feedback edit for label/newsletter

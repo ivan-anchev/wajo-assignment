@@ -1,0 +1,14 @@
+Email del-1@e5: "Staging DB credentials"
+  oskar@wajo.dev -> ivan@wajo.dev  received 2026-10-07T17:20:00.000Z
+
+1 intake     sender class: internal
+2 analyze    intent: credentials_share  confidence: 0.4
+             summary: Oskar sent the staging DB host, user, and password for tomorrow's migration and asks Ivan to delete the email permanently once the credentials are stored in 1Password.
+             proposal: none {}
+3 injection  not suspected
+4 floor      ask (proposed none, requested delete_permanently)
+5 learned    silent for none/internal
+6 brake      not fired
+7 level      ask
+8 act        executed none, ask item #98 approved
+9 response   approved none {}; feedback approve for none/internal

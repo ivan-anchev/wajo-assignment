@@ -1,0 +1,13 @@
+Email sales-1@e5: "Quick question about Wajo's outbound"
+  alex@growthloop.ai -> ivan@wajo.dev  received 2026-10-07T07:05:00.000Z
+
+1 intake     sender class: first_contact
+2 analyze    intent: sales_outreach  confidence: 0.6
+             summary: Alex from GrowthLoop, a first-contact sales vendor, pitches a lead-generation service and asks for a 15-minute call this week.
+             proposal: archive {}
+3 injection  not suspected
+4 floor      silent (proposed archive, requested none)
+5 learned    silent for archive/first_contact
+6 brake      not fired
+7 level      silent
+8 act        executed archive

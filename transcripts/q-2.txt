@@ -1,0 +1,13 @@
+Email q-2@e5: "Updated runway numbers?"
+  priya@kestrel.vc -> ivan@wajo.dev  received 2026-10-07T11:15:00.000Z
+
+1 intake     sender class: known
+2 analyze    intent: information_request  confidence: 0.7
+             summary: Priya at Kestrel VC asks Ivan to send updated runway numbers, a rough figure is fine, before Monday's partner meeting.
+             proposal: draft_reply {"body":"Hi Priya,\n\nThanks for the reminder. I'll send over the updated runway numbers before Monday's partner meeting.\n\nIvan"}
+3 injection  not suspected
+4 floor      silent (proposed draft_reply, requested none)
+5 learned    silent for draft_reply/known
+6 brake      not fired
+7 level      silent
+8 act        executed draft_reply

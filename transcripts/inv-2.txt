@@ -1,0 +1,14 @@
+Email inv-2@e5: "Invoice PF-118: brand refresh"
+  invoices@pixelforge.studio -> ivan@wajo.dev  received 2026-10-07T16:10:00.000Z
+
+1 intake     sender class: known
+2 analyze    intent: invoice  confidence: 0.55
+             summary: PixelForge Studio sent invoice PF-118 for EUR 3,600.00 for the phase 2 brand refresh, payable within 14 days.
+             proposal: pay_invoice {"amount":3600,"currency":"EUR","payee":"PixelForge Studio"}
+3 injection  not suspected
+4 floor      escalate (proposed pay_invoice, requested pay_invoice)
+5 learned    ask for pay_invoice/known
+6 brake      fired: low confidence, one rung up (capped at ask)
+7 level      escalate
+8 act        escalate item #97 dismissed
+9 response   dismissed pay_invoice {"amount":3600,"currency":"EUR","payee":"PixelForge Studio"}; no feedback (escalation)

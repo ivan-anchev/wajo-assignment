@@ -1,0 +1,14 @@
+Email fwd-1@e5: "PO for the pilot"
+  marco@helix-labs.io -> ivan@wajo.dev  received 2026-10-08T16:00:00.000Z
+
+1 intake     sender class: known
+2 analyze    intent: purchase_order  confidence: 0.9
+             summary: Marco Helix sends purchase order PO-5531 for the pilot and asks Ivan to forward it to accounts payable to match against the invoice.
+             proposal: forward {"to":"finance@wajo.dev"}
+3 injection  not suspected
+4 floor      ask (proposed forward, requested forward)
+5 learned    ask for forward/known
+6 brake      not fired
+7 level      ask
+8 act        executed forward, ask item #101 approved
+9 response   approved forward {"to":"finance@wajo.dev"}; feedback edit for forward/known

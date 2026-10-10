@@ -1,0 +1,13 @@
+Email news-1@e5: "This Week in TypeScript #42"
+  digest@typescript-weekly.dev -> ivan@wajo.dev  received 2026-10-07T06:05:00.000Z
+
+1 intake     sender class: newsletter
+2 analyze    intent: newsletter  confidence: 0.6
+             summary: TypeScript Weekly issue #42 covers the native compiler beta, a deep dive on satisfies, and five tsconfig flags.
+             proposal: archive {}
+3 injection  not suspected
+4 floor      silent (proposed archive, requested none)
+5 learned    silent for archive/newsletter
+6 brake      not fired
+7 level      silent
+8 act        executed archive

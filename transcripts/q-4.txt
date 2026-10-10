@@ -1,0 +1,13 @@
+Email q-4@e5: "Can we push our sync to next week?"
+  dana@northwind.io -> ivan@wajo.dev  received 2026-10-08T09:05:00.000Z
+
+1 intake     sender class: known
+2 analyze    intent: meeting_request  confidence: 0.8
+             summary: Dana asks to move this week's sync to Tuesday or Wednesday of next week, any time after 11.
+             proposal: draft_reply {"body":"Tuesday or Wednesday next week works for me. Any time after 11 is fine."}
+3 injection  not suspected
+4 floor      silent (proposed draft_reply, requested none)
+5 learned    silent for draft_reply/known
+6 brake      not fired
+7 level      silent
+8 act        executed draft_reply

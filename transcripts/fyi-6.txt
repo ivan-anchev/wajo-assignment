@@ -1,0 +1,13 @@
+Email fyi-6@e5: "Offsite plan v2, please read before Thursday"
+  maya@wajo.dev -> ivan@wajo.dev  received 2026-10-08T11:00:00.000Z
+
+1 intake     sender class: internal
+2 analyze    intent: review_request  confidence: 0.6
+             summary: Maya updated the offsite plan with Ivan's comments and asks him to read it before Thursday so they can lock it in.
+             proposal: none {}
+3 injection  not suspected
+4 floor      silent (proposed none, requested none)
+5 learned    silent for none/internal
+6 brake      not fired
+7 level      silent
+8 act        executed none

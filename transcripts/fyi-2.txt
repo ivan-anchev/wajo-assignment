@@ -1,0 +1,13 @@
+Email fyi-2@e5: "Deploy succeeded: api v2.14.0"
+  ci@wajo.dev -> ivan@wajo.dev  received 2026-10-07T09:43:00.000Z
+
+1 intake     sender class: internal
+2 analyze    intent: fyi  confidence: 0.8
+             summary: CI reports that api v2.14.0 deployed to production at 09:42 UTC with 7 commits in 4m 12s, triggered by oskar@wajo.dev.
+             proposal: none {}
+3 injection  not suspected
+4 floor      silent (proposed none, requested none)
+5 learned    silent for none/internal
+6 brake      not fired
+7 level      silent
+8 act        executed none

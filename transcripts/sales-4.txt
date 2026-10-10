@@ -1,0 +1,13 @@
+Email sales-4@e5: "Following up (3rd time)"
+  chris@pipelinepro.com -> ivan@wajo.dev  received 2026-10-08T08:00:00.000Z
+
+1 intake     sender class: first_contact
+2 analyze    intent: sales_follow_up  confidence: 0.6
+             summary: A sales rep named Chris from PipelinePro is following up for the third time, asking whether Ivan read his previous two emails about PipelinePro.
+             proposal: archive {}
+3 injection  not suspected
+4 floor      silent (proposed archive, requested none)
+5 learned    silent for archive/first_contact
+6 brake      not fired
+7 level      silent
+8 act        executed archive

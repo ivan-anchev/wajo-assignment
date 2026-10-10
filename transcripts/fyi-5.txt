@@ -1,0 +1,13 @@
+Email fyi-5@e5: "Standup notes, Oct 8"
+  maya@wajo.dev -> ivan@wajo.dev  received 2026-10-08T08:40:00.000Z
+
+1 intake     sender class: internal
+2 analyze    intent: fyi  confidence: 0.9
+             summary: Maya shares her Oct 8 standup notes: webhook retry backoff shipped, inbox search and billing export in progress, no blockers.
+             proposal: none {}
+3 injection  not suspected
+4 floor      silent (proposed none, requested none)
+5 learned    silent for none/internal
+6 brake      not fired
+7 level      silent
+8 act        executed none
