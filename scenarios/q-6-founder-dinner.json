@@ -11,5 +11,10 @@
   "gold": {
     "action": "send_reply",
     "level": "ask"
+  },
+  "correction": {
+    "params": {
+      "body": "Hi Priya, thanks for the invite. Yes, I'd love to join the dinner on the 15th. See you in Berlin!"
+    }
   }
 }

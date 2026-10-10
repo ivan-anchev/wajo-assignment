@@ -10,6 +10,11 @@
   "category": "internal_fyi",
   "gold": {
     "action": "label",
-    "level": "notify"
+    "level": "silent"
+  },
+  "correction": {
+    "params": {
+      "label": "contracts"
+    }
   }
 }

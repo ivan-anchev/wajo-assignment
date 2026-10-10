@@ -1,6 +1,6 @@
 import { fileURLToPath } from "node:url";
 import { z } from "zod";
-import { actionNameSchema } from "../domain/actions.ts";
+import { actionNameSchema, type Proposal } from "../domain/actions.ts";
 import { LEVELS } from "../domain/types.ts";
 import { readJsonFiles } from "../files/json-files.ts";
 import { emailFileSchema } from "../inbox/inbox.ts";
@@ -33,6 +33,11 @@ const scenarioSchema = z.strictObject({
 });
 
 export type Scenario = z.infer<typeof scenarioSchema>;
+
+// The gold params the persona insists on; empty when the correction is a reason or absent.
+export function correctedParams({ correction }: Scenario): Proposal["params"] {
+  return correction && "params" in correction ? correction.params : {};
+}
 
 export function readScenarios(): Scenario[] {
   return readJsonFiles(SCENARIO_DIR, scenarioSchema);

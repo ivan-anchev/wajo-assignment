@@ -1,7 +1,7 @@
 import type { Agent } from "../src/agent/agent.ts";
 import { actionFor, type ActionName, type Proposal } from "../src/domain/actions.ts";
 import type { Item, ItemResponse, ProposalEdit, ResponseResult } from "../src/domain/types.ts";
-import type { Scenario } from "../src/scenarios/scenarios.ts";
+import { correctedParams, type Scenario } from "../src/scenarios/scenarios.ts";
 
 type Reply =
   | { response: Exclude<ItemResponse, "edit" | "reject"> }
@@ -30,21 +30,18 @@ export function replyTo(
   }
 }
 
-function replyToAsk(proposal: Proposal, { gold, correction }: Scenario): Reply {
-  if (proposal.action === gold.action && carries(proposal, correctedParams(correction))) {
+function replyToAsk(proposal: Proposal, scenario: Scenario): Reply {
+  const { gold, correction } = scenario;
+  if (proposal.action === gold.action && carries(proposal, correctedParams(scenario))) {
     return { response: "approve" };
   }
   if (correction && "reason" in correction) {
     return { response: "reject", reason: correction.reason };
   }
   if (correction || editableWithoutCorrection(gold.action)) {
-    return { response: "edit", edit: { action: gold.action, ...correctedParams(correction) } };
+    return { response: "edit", edit: { action: gold.action, ...correctedParams(scenario) } };
   }
   return { response: "reject" };
-}
-
-function correctedParams(correction: Scenario["correction"]): Proposal["params"] {
-  return correction && "params" in correction ? correction.params : {};
 }
 
 function carries(proposal: Proposal, params: Proposal["params"]): boolean {

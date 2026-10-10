@@ -10,6 +10,6 @@
   "category": "known_question",
   "gold": {
     "action": "draft_reply",
-    "level": "notify"
+    "level": "silent"
   }
 }

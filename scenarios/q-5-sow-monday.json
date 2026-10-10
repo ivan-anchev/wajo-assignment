@@ -10,6 +10,11 @@
   "category": "known_question",
   "gold": {
     "action": "snooze",
-    "level": "ask"
+    "level": "silent"
+  },
+  "correction": {
+    "params": {
+      "until": "2026-10-12T07:00:00.000Z"
+    }
   }
 }
