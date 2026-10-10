@@ -1,11 +1,13 @@
 import { beforeEach, describe, expect, it } from "vitest";
 import { openDb, type Db } from "../db/open-db.ts";
 import { writePreferences } from "../db/preferences.ts";
-import { createAgent } from "./agent.ts";
+import { createAgent, type Agent } from "./agent.ts";
 import {
+  agentProposing,
   feedbackCount,
   inboxOf,
   modelProposing,
+  PAY_INVOICE,
   PAY_INVOICE_EDIT,
   requestsNamed,
   SEND_REPLY,
@@ -144,7 +146,67 @@ describe("preferences (§7.4)", () => {
     expect(feedbackCount(db)).toBe(0);
     expect(agent.prefs()).toBe("");
   });
+
+  it.each([
+    [
+      "an edit on a resolved ask",
+      rejectedAsk,
+      (agent: Agent) => agent.edit(1, {}),
+      /already rejected/,
+    ],
+    [
+      "a reasoned reject on a resolved ask",
+      rejectedAsk,
+      (agent: Agent) => agent.reject(1, "too formal"),
+      /already rejected/,
+    ],
+    [
+      "an edit the registry schema refuses",
+      openAsk,
+      (agent: Agent) => agent.edit(1, { amount: 120 }),
+      /Invalid edit/,
+    ],
+    [
+      "an edit the floor escalates",
+      openAsk,
+      (agent: Agent) => agent.edit(1, PAY_INVOICE_EDIT),
+      /must be escalated/,
+    ],
+    ["an edit on an escalation", escalation, (agent: Agent) => agent.edit(1, {}), /not edit/],
+    [
+      "a reasoned reject on an escalation",
+      escalation,
+      (agent: Agent) => agent.reject(1, "not ours"),
+      /not reject/,
+    ],
+    ["an edit on an unknown item", openAsk, (agent: Agent) => agent.edit(99, {}), /no item #99/],
+    [
+      "a reasoned reject on an unknown item",
+      openAsk,
+      (agent: Agent) => agent.reject(99, "not ours"),
+      /no item #99/,
+    ],
+  ])("refuses %s before any extraction call", async (_, setUp, respond, refusal) => {
+    await setUp();
+    const llm = modelProposing(SEND_REPLY);
+
+    await expect(respond(createAgent(db, llm))).rejects.toThrow(refusal);
+
+    expect(llm.doGenerateCalls).toEqual([]);
+  });
 });
+
+function openAsk() {
+  return agentProposing(db, SEND_REPLY);
+}
+
+async function rejectedAsk() {
+  await (await openAsk()).reject(1);
+}
+
+function escalation() {
+  return agentProposing(db, PAY_INVOICE);
+}
 
 function numbered(count: number): string[] {
   return Array.from({ length: count }, (_, n) => `Preference ${n + 1}.`);

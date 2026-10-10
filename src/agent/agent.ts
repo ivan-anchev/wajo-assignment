@@ -62,13 +62,17 @@ export function createAgent(db: Db, llm: LanguageModel) {
       return respond.approve(db, itemId);
     },
 
+    // Each extraction runs only on an item the response would accept, so no call is spent on a refusal.
     async edit(itemId: number, changes: ProposalEdit): Promise<ResponseResult> {
-      const preferences = await preferencesAfterEdit(db, llm, itemId, changes);
+      const item = respond.itemAcceptingEdit(db, itemId, changes);
+      const preferences = await preferencesAfterEdit(db, llm, item, changes);
       return respondAndNote(db, preferences, () => respond.edit(db, itemId, changes));
     },
 
     async reject(itemId: number, reason?: string): Promise<ResponseResult> {
-      const preferences = reason ? await preferencesAfterReason(db, llm, itemId, reason) : null;
+      const preferences = reason
+        ? await preferencesAfterReason(db, llm, respond.itemAccepting(db, itemId, "reject"), reason)
+        : null;
       return respondAndNote(db, preferences, () => respond.reject(db, itemId));
     },
 

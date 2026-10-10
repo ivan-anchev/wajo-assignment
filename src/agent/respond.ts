@@ -68,7 +68,7 @@ function respond(
 
 // Refusing a closed item up front keeps its error ahead of any edit or floor error;
 // `claim` stays the at-most-once guarantee.
-function itemAccepting(db: Db, itemId: number, response: ItemResponse): Item {
+export function itemAccepting(db: Db, itemId: number, response: ItemResponse): Item {
   const item = findItem(db, itemId);
   if (!item) {
     throw new Refusal(`There is no item #${itemId}.`);
@@ -84,14 +84,23 @@ function itemAccepting(db: Db, itemId: number, response: ItemResponse): Item {
   return item;
 }
 
+// Every refusal `edit` can raise, checked without writing anything.
+export function itemAcceptingEdit(db: Db, itemId: number, changes: ProposalEdit): Item {
+  const item = itemAccepting(db, itemId, "edit");
+  refuseEscalated(getDecision(db, item.decisionId), editedProposal(item, changes));
+  return item;
+}
+
 function approveProposal(r: ResponseContext, proposal: Proposal): void {
-  const { analysis, injection } = r.decision;
-  const required = floor([proposal.action, requestOf(analysis)], injection.suspected);
-  if (required === "escalate") {
-    throw new Refusal(`${proposal.action} must be escalated; nothing was executed.`);
-  }
+  refuseEscalated(r.decision, proposal);
   resolve(r, "approved", proposal);
   execute(r.db, r.decision, proposal, r.item.id);
+}
+
+function refuseEscalated({ analysis, injection }: Decision, proposal: Proposal): void {
+  if (floor([proposal.action, requestOf(analysis)], injection.suspected) === "escalate") {
+    throw new Refusal(`${proposal.action} must be escalated; nothing was executed.`);
+  }
 }
 
 function resolve(

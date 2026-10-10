@@ -1,9 +1,8 @@
 import { generateText, Output, type LanguageModel } from "ai";
 import { z } from "zod";
 import { proposalOf } from "../domain/policy.ts";
-import type { ProposalEdit, Transcript } from "../domain/types.ts";
+import type { Item, ProposalEdit, Transcript } from "../domain/types.ts";
 import { getDecision, transcriptOf } from "../db/decision-log.ts";
-import { findItem } from "../db/items.ts";
 import type { Db } from "../db/open-db.ts";
 import { readPreferences } from "../db/preferences.ts";
 import { untrustedJson } from "./untrusted-email.ts";
@@ -35,10 +34,10 @@ type Correction = { context: object; correction: string };
 export function preferencesAfterEdit(
   db: Db,
   llm: LanguageModel,
-  itemId: number,
+  item: Item,
   changes: ProposalEdit,
-): Promise<string[] | null> {
-  return extract(db, llm, itemId, (transcript) => ({
+): Promise<string[]> {
+  return extract(db, llm, item, (transcript) => ({
     context: { ...about(transcript), proposed: proposalOf(transcript.decision.analysis) },
     correction: `The user changed the proposal with ${JSON.stringify(changes)} and approved the result.`,
   }));
@@ -47,26 +46,22 @@ export function preferencesAfterEdit(
 export function preferencesAfterReason(
   db: Db,
   llm: LanguageModel,
-  itemId: number,
+  item: Item,
   reason: string,
-): Promise<string[] | null> {
-  return extract(db, llm, itemId, (transcript) => ({
+): Promise<string[]> {
+  return extract(db, llm, item, (transcript) => ({
     context: about(transcript),
     correction: `The user rejected the proposal. Their reason: ${reason}`,
   }));
 }
 
-// An unknown item makes no call and yields null; the response's own Refusal follows.
 async function extract(
   db: Db,
   llm: LanguageModel,
-  itemId: number,
+  item: Item,
   correctionOf: (transcript: Transcript) => Correction,
-): Promise<string[] | null> {
-  const transcript = transcriptForItem(db, itemId);
-  if (!transcript) {
-    return null;
-  }
+): Promise<string[]> {
+  const transcript = transcriptOf(db, getDecision(db, item.decisionId));
   const { context, correction } = correctionOf(transcript);
   const { output } = await generateText({
     model: llm,
@@ -79,11 +74,6 @@ async function extract(
     output: Output.object({ schema: preferencesSchema, name: "preferences" }),
   });
   return output.preferences;
-}
-
-function transcriptForItem(db: Db, itemId: number): Transcript | null {
-  const item = findItem(db, itemId);
-  return item && transcriptOf(db, getDecision(db, item.decisionId));
 }
 
 // Neither body nor subject enters this request: an email cannot author a preference.
