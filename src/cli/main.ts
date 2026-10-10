@@ -9,6 +9,7 @@ import {
   type ResponseResult,
   type SenderClass,
 } from "../domain/types.ts";
+import { evaluate, type EvalOptions } from "../../eval/eval.ts";
 import { createAgent, Refusal, type Agent } from "../agent/agent.ts";
 import { openDb } from "../db/open-db.ts";
 import { DEFAULT_MODEL, languageModelFrom } from "../llm/llm.ts";
@@ -138,6 +139,25 @@ program
     console.log(renderStanding(openAgent({ live: false }).unpin(action, senderClass)));
   });
 
+program
+  .command("eval")
+  .description("Play every scenario with a scripted user; write RESULTS.md and transcripts/")
+  .option(
+    "--episodes <n>",
+    "learning episodes to run, with learned state carried over",
+    positiveInteger("a count such as 5"),
+    5,
+  )
+  .option("--no-learning", "run only the fresh-database baseline episode; print it, write no files")
+  .addOption(liveOption())
+  .action(async ({ live, ...options }: EvalOptions & { live: boolean }) => {
+    const { report, safe } = await evaluate(languageModelFrom(config.model, { live }), options);
+    console.log(report);
+    if (!safe) {
+      process.exitCode = 1;
+    }
+  });
+
 type ItemOptions = { set: ProposalEdit; reason?: string; live?: boolean };
 
 function itemCommand(
@@ -152,18 +172,20 @@ function itemCommand(
   return program
     .command(name)
     .description(description)
-    .argument("<itemId>", "item id from `agent inbox`", parseItemId)
+    .argument("<itemId>", "item id from `agent inbox`", positiveInteger("an item id such as 3"))
     .action(async (itemId: number, options: ItemOptions) => {
       const agent = openAgent({ live: options.live ?? false });
       console.log(renderResponse(await respond(agent, itemId, options)));
     });
 }
 
-function parseItemId(value: string): number {
-  if (!/^\d+$/.test(value)) {
-    throw new InvalidArgumentError("expected an item id such as 3");
-  }
-  return Number(value);
+function positiveInteger(example: string): (value: string) => number {
+  return (value) => {
+    if (!/^[1-9]\d*$/.test(value)) {
+      throw new InvalidArgumentError(`expected ${example}`);
+    }
+    return Number(value);
+  };
 }
 
 function describeAction({ name, riskClass, params }: (typeof ACTIONS)[number]): string {
