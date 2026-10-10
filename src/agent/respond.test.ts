@@ -31,7 +31,7 @@ describe("approve", () => {
     expect(transcript.item).toMatchObject({ status: "approved", resolvedAt: expect.any(String) });
     expect(transcript.executions).toMatchObject([{ itemId: 1, proposal: SEND_REPLY }]);
     expect(transcript.feedback).toMatchObject({
-      itemId: 1,
+      decisionId: 1,
       action: "send_reply",
       senderClass: "internal",
       kind: "approve",

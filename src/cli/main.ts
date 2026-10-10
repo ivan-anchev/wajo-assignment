@@ -110,6 +110,29 @@ itemCommand("dismiss", "Mark a notification or escalation as reviewed", (agent, 
 );
 
 program
+  .command("log")
+  .description("List the most recent decisions, silent ones included, oldest first")
+  .option("--limit <n>", "how many decisions to list", positiveInteger("a count such as 20"), 20)
+  .action(({ limit }: { limit: number }) => {
+    const transcripts = openAgent({ live: false }).log(limit);
+    console.log(
+      transcripts.length ? transcripts.map(renderDecisionLine).join("\n") : "No decisions yet.",
+    );
+  });
+
+program
+  .command("revert")
+  .argument(
+    "<decisionId>",
+    "decision id from `agent log`",
+    positiveInteger("a decision id such as 7"),
+  )
+  .description("Revert a silent action and step its bucket back to notify")
+  .action((decisionId: number) => {
+    console.log(renderResponse(openAgent({ live: false }).revert(decisionId)));
+  });
+
+program
   .command("prefs")
   .description("Print the preference lines learned from edits and reject reasons")
   .action(() => {

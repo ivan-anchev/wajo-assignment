@@ -2,8 +2,8 @@ import { bucketHistory, insertFeedback } from "../db/feedback.ts";
 import type { Db } from "../db/open-db.ts";
 import { findPin } from "../db/pins.ts";
 import type { ActionName } from "../domain/actions.ts";
-import { promotion } from "../domain/policy.ts";
-import type { Feedback, Level, SenderClass } from "../domain/types.ts";
+import { promotion, proposalOf } from "../domain/policy.ts";
+import type { Decision, Feedback, ItemResponse, Level, SenderClass } from "../domain/types.ts";
 
 const SENDERS: Record<SenderClass, string> = {
   internal: "emails from colleagues",
@@ -17,7 +17,18 @@ const WORDING: Partial<Record<ActionName, (senders: string) => string>> = {
   draft_reply: (senders) => `draft replies to ${senders}`,
 };
 
-export function learn(db: Db, feedback: Omit<Feedback, "id" | "createdAt">): string | null {
+export function learn(
+  db: Db,
+  decision: Decision,
+  senderClass: SenderClass,
+  kind: ItemResponse,
+): string | null {
+  const feedback = {
+    decisionId: decision.id,
+    action: proposalOf(decision.analysis).action,
+    senderClass,
+    kind,
+  };
   const history = bucketHistory(db, feedback.action, feedback.senderClass);
   const pin = findPin(db, feedback.action, feedback.senderClass);
   insertFeedback(db, feedback);

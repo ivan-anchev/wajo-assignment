@@ -1,6 +1,6 @@
 import type { ActionName } from "../domain/actions.ts";
 import type { Decision, Execution, Transcript } from "../domain/types.ts";
-import { findFeedbackByItem } from "./feedback.ts";
+import { findFeedbackByDecision } from "./feedback.ts";
 import { findItemByDecision } from "./items.ts";
 import { getEmail } from "./mailbox.ts";
 import type { Db } from "./open-db.ts";
@@ -33,10 +33,14 @@ export function insertDecision(db: Db, decision: Omit<Decision, "id" | "createdA
 }
 
 export function getDecision(db: Db, id: number): Decision {
+  return findDecision(db, id)!;
+}
+
+export function findDecision(db: Db, id: number): Decision | null {
   const row = db
     .prepare<[number], DecisionRow>(`SELECT ${DECISION_COLUMNS} FROM decisions WHERE id = ?`)
-    .get(id)!;
-  return toDecision(row);
+    .get(id);
+  return row ? toDecision(row) : null;
 }
 
 export function insertExecution(
@@ -67,8 +71,12 @@ export function findExecutionByItem(db: Db, itemId: number): Execution {
   return toExecution(row);
 }
 
-export function markUndone(db: Db, executionId: number, undoneAt: string): void {
-  db.prepare("UPDATE executions SET undone_at = ? WHERE id = ?").run(undoneAt, executionId);
+// False when the execution was already undone: the conditional update makes undo at-most-once.
+export function markUndone(db: Db, executionId: number, undoneAt: string): boolean {
+  const { changes } = db
+    .prepare("UPDATE executions SET undone_at = ? WHERE id = ? AND undone_at IS NULL")
+    .run(undoneAt, executionId);
+  return changes === 1;
 }
 
 export function findTranscript(db: Db, emailId: string): Transcript | null {
@@ -87,6 +95,16 @@ export function openTranscripts(db: Db): Transcript[] {
     .map((row) => transcriptOf(db, toDecision(row)));
 }
 
+export function recentTranscripts(db: Db, limit: number): Transcript[] {
+  return db
+    .prepare<[number], DecisionRow>(
+      `SELECT * FROM (SELECT ${DECISION_COLUMNS} FROM decisions ORDER BY id DESC LIMIT ?)
+       ORDER BY id`,
+    )
+    .all(limit)
+    .map((row) => transcriptOf(db, toDecision(row)));
+}
+
 export function transcriptOf(db: Db, decision: Decision): Transcript {
   const item = findItemByDecision(db, decision.id);
   return {
@@ -94,7 +112,7 @@ export function transcriptOf(db: Db, decision: Decision): Transcript {
     decision,
     item,
     executions: listExecutionsByDecision(db, decision.id),
-    feedback: item ? findFeedbackByItem(db, item.id) : null,
+    feedback: findFeedbackByDecision(db, decision.id),
   };
 }
 

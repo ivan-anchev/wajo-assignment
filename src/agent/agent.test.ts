@@ -169,6 +169,25 @@ describe("transcript", () => {
   });
 });
 
+describe("log", () => {
+  it("returns every decision in decision order, silent ones included", async () => {
+    const agent = agentWith(replayModel());
+    const transcripts = await agent.run(INBOX);
+
+    expect(agent.log(20)).toStrictEqual(transcripts);
+  });
+
+  it("keeps only the last `limit` decisions", async () => {
+    const agent = agentWith(replayModel());
+    await agent.run(INBOX);
+
+    expect(agent.log(2).map((t) => [t.decision.id, t.email.id])).toEqual([
+      [2, "002"],
+      [3, "003"],
+    ]);
+  });
+});
+
 describe("requested-action floor (§6)", () => {
   it.each([LABEL, NONE])(
     "escalates a $action proposal on an email that requests a payment, executing nothing",

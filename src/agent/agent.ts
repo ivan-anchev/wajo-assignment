@@ -3,6 +3,7 @@ import {
   findTranscript,
   insertDecision,
   openTranscripts,
+  recentTranscripts,
   transcriptOf,
 } from "../db/decision-log.ts";
 import { bucketHistory } from "../db/feedback.ts";
@@ -19,6 +20,7 @@ import { preferencesAfterEdit, preferencesAfterReason } from "./extract-preferen
 import { notePreferences } from "./note-preferences.ts";
 import * as pinning from "./pin.ts";
 import * as respond from "./respond.ts";
+import { revert } from "./revert.ts";
 import type { ActionName } from "../domain/actions.ts";
 import type {
   BucketStanding,
@@ -52,6 +54,10 @@ export function createAgent(db: Db, llm: LanguageModel) {
       return openTranscripts(db);
     },
 
+    log(limit: number): Transcript[] {
+      return recentTranscripts(db, limit);
+    },
+
     approve(itemId: number): ResponseResult {
       return respond.approve(db, itemId);
     },
@@ -72,6 +78,10 @@ export function createAgent(db: Db, llm: LanguageModel) {
 
     dismiss(itemId: number): ResponseResult {
       return respond.dismiss(db, itemId);
+    },
+
+    revert(decisionId: number): ResponseResult {
+      return revert(db, decisionId);
     },
 
     pin(action: ActionName, senderClass: SenderClass, level: Level): BucketStanding {

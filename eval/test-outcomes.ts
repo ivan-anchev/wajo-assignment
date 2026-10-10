@@ -72,7 +72,7 @@ export function outcome({
     feedback: feedback
       ? {
           id: 1,
-          itemId: 1,
+          decisionId: 1,
           action: proposal.action,
           senderClass: "known",
           kind: feedback,

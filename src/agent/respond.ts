@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { proposalSchema, undoProposal, type Proposal } from "../domain/actions.ts";
-import { floor, proposalOf, requestOf } from "../domain/policy.ts";
+import { proposalSchema, type Proposal } from "../domain/actions.ts";
+import { floor, requestOf } from "../domain/policy.ts";
 import type {
   Decision,
   Email,
@@ -10,11 +10,11 @@ import type {
   ProposalEdit,
   ResponseResult,
 } from "../domain/types.ts";
-import { findExecutionByItem, getDecision, markUndone, transcriptOf } from "../db/decision-log.ts";
+import { findExecutionByItem, getDecision, transcriptOf } from "../db/decision-log.ts";
 import { findItem, resolveItem } from "../db/items.ts";
 import { getEmail } from "../db/mailbox.ts";
 import type { Db } from "../db/open-db.ts";
-import { execute } from "./act.ts";
+import { execute, undoExecution } from "./act.ts";
 import { learn } from "./learn.ts";
 import { Refusal } from "./refusal.ts";
 
@@ -45,7 +45,7 @@ export function dismiss(db: Db, itemId: number): ResponseResult {
 export function undo(db: Db, itemId: number): ResponseResult {
   return respond(db, itemId, "undo", (r) => {
     resolve(r, "undone");
-    revert(r);
+    undoExecution(r.db, r.decision, findExecutionByItem(r.db, r.item.id));
   });
 }
 
@@ -103,22 +103,7 @@ function resolve(
 }
 
 function learnFrom({ db, item, decision, email, response }: ResponseContext): string | null {
-  if (item.kind === "escalate") {
-    return null;
-  }
-  return learn(db, {
-    itemId: item.id,
-    action: proposalOf(decision.analysis).action,
-    senderClass: email.senderClass,
-    kind: response,
-  });
-}
-
-function revert({ db, item, decision }: ResponseContext): void {
-  const execution = findExecutionByItem(db, item.id);
-  const now = new Date().toISOString();
-  undoProposal(execution.proposal, { db, emailId: decision.emailId, now });
-  markUndone(db, execution.id, now);
+  return item.kind === "escalate" ? null : learn(db, decision, email.senderClass, response);
 }
 
 function claim(r: ResponseContext, stillOpen: boolean): void {

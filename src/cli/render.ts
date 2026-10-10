@@ -14,6 +14,7 @@ import type {
 
 export function renderDecisionLine({ email, decision, item, executions }: Transcript): string {
   return [
+    String(decision.id).padStart(4),
     email.id.padEnd(5),
     email.senderClass.padEnd(14),
     (decision.analysis ? decision.analysis.proposal.action : "(not analyzed)").padEnd(19),
@@ -75,7 +76,7 @@ export function renderTranscript({
     `6 brake      ${decision.brake ? "fired: low confidence, one rung up (capped at ask)" : "not fired"}`,
     `7 level      ${decision.level}`,
     `8 act        ${describeOutcome(item, executions)}`,
-    ...(item && item.status !== "open" ? [`9 response   ${describeResponse(item, feedback)}`] : []),
+    ...responseStep(item, feedback),
   ].join("\n");
 }
 
@@ -110,11 +111,17 @@ function describeItem(item: Item): string {
     : `${item.kind} item #${item.id} ${item.status}`;
 }
 
-function describeResponse(item: Item, feedback: Feedback | null): string {
-  const learned = feedback
-    ? `feedback ${feedback.kind} for ${feedback.action}/${feedback.senderClass}`
-    : "no feedback (escalation)";
-  return `${item.status} ${describeProposal(item.proposal)}; ${learned}`;
+// A silent decision has no item; its only response is a revert, which writes feedback.
+function responseStep(item: Item | null, feedback: Feedback | null): string[] {
+  if (item && item.status !== "open") {
+    const learned = feedback ? describeFeedback(feedback) : "no feedback (escalation)";
+    return [`9 response   ${item.status} ${describeProposal(item.proposal)}; ${learned}`];
+  }
+  return !item && feedback ? [`9 response   reverted; ${describeFeedback(feedback)}`] : [];
+}
+
+function describeFeedback({ kind, action, senderClass }: Feedback): string {
+  return `feedback ${kind} for ${action}/${senderClass}`;
 }
 
 function describeProposal({ action, params }: Proposal): string {

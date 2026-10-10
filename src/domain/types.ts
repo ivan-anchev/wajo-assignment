@@ -74,7 +74,7 @@ export type Execution = {
 // (action, senderClass) is the learner's bucket; `action` is the originally proposed action.
 export type Feedback = {
   id: number;
-  itemId: number;
+  decisionId: number;
   action: ActionName;
   senderClass: SenderClass;
   kind: ItemResponse;

@@ -59,10 +59,11 @@ CREATE TABLE IF NOT EXISTS drafts (
   created_at  TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))
 );
 
--- item_id is UNIQUE: one item yields at most one feedback row.
+-- decision_id is UNIQUE: one decision yields at most one feedback row, whether it came from
+-- the decision's item or from reverting a silent execution.
 CREATE TABLE IF NOT EXISTS feedback (
   id            INTEGER PRIMARY KEY AUTOINCREMENT,
-  item_id       INTEGER NOT NULL UNIQUE REFERENCES items(id),
+  decision_id   INTEGER NOT NULL UNIQUE REFERENCES decisions(id),
   action        TEXT NOT NULL,
   sender_class  TEXT NOT NULL,
   kind          TEXT NOT NULL,

@@ -167,7 +167,8 @@ export function executeProposal(proposal: Proposal, ctx: ActionContext): void {
   action.execute(proposal.params, ctx);
 }
 
-// Only notify items are undone and notify is below the ask floor, so the throw is the narrowing.
+// Only notified and silent executions are undone, both below the ask floor, so the throw is the
+// narrowing.
 export function undoProposal(proposal: Proposal, ctx: ActionContext): void {
   const action: ActionDefinition = actionFor(proposal.action);
   if (action.riskClass !== "reversible") {
