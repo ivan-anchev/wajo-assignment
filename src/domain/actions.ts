@@ -8,6 +8,7 @@ export type ActionContext = { db: Db; emailId: string; now: string };
 
 type ActionCommon<N extends string, S extends z.ZodObject> = {
   name: N;
+  description: string;
   params: S;
   // Executes nothing, so policy never learns or brakes it.
   inert?: true;
@@ -45,6 +46,7 @@ const noEffect = () => {};
 export const ACTIONS = [
   defineAction({
     name: "none",
+    description: "Take no action on the email",
     riskClass: "reversible",
     inert: true,
     params: noParams,
@@ -53,6 +55,7 @@ export const ACTIONS = [
   }),
   defineAction({
     name: "archive",
+    description: "Move the email out of the inbox; it stays searchable",
     riskClass: "reversible",
     params: noParams,
     execute: (_, { db, emailId, now }) => updateEmailState(db, emailId, { archivedAt: now }),
@@ -60,6 +63,7 @@ export const ACTIONS = [
   }),
   defineAction({
     name: "mark_read",
+    description: "Mark the email as read and leave it in the inbox",
     riskClass: "reversible",
     params: noParams,
     execute: (_, { db, emailId, now }) => updateEmailState(db, emailId, { readAt: now }),
@@ -67,6 +71,7 @@ export const ACTIONS = [
   }),
   defineAction({
     name: "snooze",
+    description: "Hide the email until the given time, then return it to the inbox",
     riskClass: "reversible",
     params: z.strictObject({ until: z.iso.datetime() }),
     execute: ({ until }, { db, emailId }) => updateEmailState(db, emailId, { snoozedUntil: until }),
@@ -74,6 +79,7 @@ export const ACTIONS = [
   }),
   defineAction({
     name: "label",
+    description: "Tag the email with a label for filing and search",
     riskClass: "reversible",
     params: z.strictObject({ label: z.string() }),
     execute: ({ label }, { db, emailId }) =>
@@ -85,6 +91,7 @@ export const ACTIONS = [
   }),
   defineAction({
     name: "draft_reply",
+    description: "Save a reply for the user to review; it is never sent",
     riskClass: "reversible",
     params: z.strictObject({ body: z.string() }),
     execute: ({ body }, { db, emailId }) => saveDraft(db, emailId, body),
@@ -92,30 +99,35 @@ export const ACTIONS = [
   }),
   defineAction({
     name: "send_reply",
+    description: "Send a reply now; prefer draft_reply unless a standing preference asks to send",
     riskClass: "external",
     params: z.strictObject({ body: z.string() }),
     execute: noEffect,
   }),
   defineAction({
     name: "forward",
+    description: "Forward the email to another address",
     riskClass: "external",
     params: z.strictObject({ to: z.email() }),
     execute: noEffect,
   }),
   defineAction({
     name: "unsubscribe",
+    description: "Unsubscribe the user from this mailing list",
     riskClass: "external",
     params: noParams,
     execute: noEffect,
   }),
   defineAction({
     name: "delete_permanently",
+    description: "Delete the email for good; it cannot be recovered",
     riskClass: "irreversible",
     params: noParams,
     execute: noEffect,
   }),
   defineAction({
     name: "pay_invoice",
+    description: "Pay the invoice amount to the payee",
     riskClass: "money",
     params: z.strictObject({
       amount: z.number().positive(),
@@ -134,7 +146,7 @@ export const actionNameSchema = z.enum(ACTIONS.map(({ name }) => name));
 export type Proposal = { action: ActionName; params: Record<string, unknown> };
 
 const proposalOptions = ACTIONS.map((action) =>
-  z.object({ action: z.literal(action.name), params: action.params }),
+  z.object({ action: z.literal(action.name).describe(action.description), params: action.params }),
 );
 type ProposalOption = (typeof proposalOptions)[number];
 

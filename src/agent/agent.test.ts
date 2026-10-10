@@ -46,10 +46,10 @@ describe("run", () => {
         ],
         [
           "002",
-          "none",
+          "archive",
           false,
-          "silent",
-          "silent",
+          "ask",
+          "ask",
         ],
         [
           "003",

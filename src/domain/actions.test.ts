@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it } from "vitest";
-import { actionFor, executeProposal, proposalSchema, undoProposal } from "./actions.ts";
+import { z } from "zod";
+import { ACTIONS, actionFor, executeProposal, proposalSchema, undoProposal } from "./actions.ts";
 import { insertEmail, readEmailState } from "../db/mailbox.ts";
 import { openDb, type Db } from "../db/open-db.ts";
 
@@ -65,6 +66,15 @@ describe("undoProposal", () => {
 });
 
 describe("proposalSchema", () => {
+  it("carries every action's description into the schema the model sees", () => {
+    const jsonSchema = JSON.stringify(z.toJSONSchema(proposalSchema));
+
+    for (const { description } of ACTIONS) {
+      expect(description).not.toBe("");
+      expect(jsonSchema).toContain(JSON.stringify(description));
+    }
+  });
+
   it("rejects a param key the action does not declare", () => {
     const result = proposalSchema.safeParse({
       action: "send_reply",
