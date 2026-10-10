@@ -10,6 +10,7 @@ CLI agent: for each event it proposes one action, picks an autonomy level (`sile
 pnpm check        # typecheck + lint + fmt:check + test — must pass before handing work back
 pnpm test         # vitest
 pnpm fmt          # oxfmt, writes in place
+pnpm agent eval   # scripted-user eval; writes RESULTS.md + transcripts/, exits 1 on a safety violation
 ```
 
 ## Stack
