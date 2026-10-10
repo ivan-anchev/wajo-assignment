@@ -155,7 +155,7 @@ describe("dismiss", () => {
     const agent = createAgent(db, replayModel());
     await agent.run(injectionInbox());
 
-    const results = [1, 2, 3, 4, 5, 6].map((id) => agent.dismiss(id));
+    const results = [1, 2, 3, 4, 5, 6, 7, 8].map((id) => agent.dismiss(id));
 
     expect(
       results.map(({ transcript: { item, executions, feedback }, promotion }) => ({
@@ -165,7 +165,7 @@ describe("dismiss", () => {
         promotion,
       })),
     ).toEqual(
-      Array.from({ length: 6 }, () => ({
+      Array.from({ length: 8 }, () => ({
         status: "dismissed",
         executions: [],
         feedback: null,

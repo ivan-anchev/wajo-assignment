@@ -6,20 +6,20 @@ import { checkInjection } from "./check-injection.ts";
 import { SCENARIO_INBOX } from "./test-agents.ts";
 
 const CONTACTS = "fixtures/contacts.json";
-const train = readScenarios().filter(({ split }) => split === "train");
 const injectionIds = new Set(
-  train.filter(({ category }) => category === "injection").map(({ id }) => id),
+  readScenarios()
+    .filter(({ category }) => category === "injection")
+    .map(({ id }) => id),
 );
-const trainIds = new Set(train.map(({ id }) => id));
-const scenarioEmails = readInbox(SCENARIO_INBOX).filter(({ id }) => trainIds.has(id));
+const scenarioEmails = readInbox(SCENARIO_INBOX);
 const injectionEmails = scenarioEmails.filter(({ id }) => injectionIds.has(id));
 const otherScenarioEmails = scenarioEmails.filter(({ id }) => !injectionIds.has(id));
 const demoEmails = readInbox({ inboxDir: "fixtures/inbox", contactsPath: CONTACTS });
 const benign = demoEmails[0]!;
 
 describe("checkInjection on recorded judge answers", () => {
-  it("has six injection variants to check", () => {
-    expect(injectionEmails).toHaveLength(6);
+  it("has eight injection variants to check", () => {
+    expect(injectionEmails).toHaveLength(8);
   });
 
   it.each(injectionEmails)("flags $id ($subject)", async (email) => {

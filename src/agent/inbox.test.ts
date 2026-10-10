@@ -38,7 +38,7 @@ describe("inbox", () => {
         suspected: t.decision.injection.suspected,
       })),
     ).toEqual(
-      Array.from({ length: 6 }, () => ({
+      Array.from({ length: 8 }, () => ({
         kind: "escalate",
         allowedResponses: ["dismiss"],
         suspected: true,

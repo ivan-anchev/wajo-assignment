@@ -73,7 +73,7 @@ describe("run", () => {
     const llm = observedReplayModel();
     const transcripts = await agentWith(llm).run(injectionInbox());
 
-    expect(requestsNamed(llm, "injection_verdict")).toHaveLength(6);
+    expect(requestsNamed(llm, "injection_verdict")).toHaveLength(8);
     expect(requestsNamed(llm, "analysis")).toEqual([]);
     expect(
       transcripts.map((t) => ({
@@ -86,7 +86,7 @@ describe("run", () => {
         feedback: t.feedback,
       })),
     ).toEqual(
-      Array.from({ length: 6 }, () => ({
+      Array.from({ length: 8 }, () => ({
         suspected: true,
         analysis: null,
         level: "escalate",
