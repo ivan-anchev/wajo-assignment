@@ -8,6 +8,8 @@ import {
   ARCHIVE,
   feedbackCount,
   injectionInbox,
+  MARK_READ,
+  modelProposing,
   newsletterInbox,
   PAY_INVOICE,
   PAY_INVOICE_EDIT,
@@ -100,6 +102,25 @@ describe("edit", () => {
     expect(feedbackCount(db)).toBe(0);
 
     expect((await agent.reject(1)).transcript.feedback).toMatchObject({ kind: "reject" });
+  });
+
+  it("asks on a promoted bucket when the email requests an ask-floor action, executing only on approval or edit", async () => {
+    const deliver = newsletterInbox(db);
+    const agent = createAgent(db, modelProposing(ARCHIVE));
+    for (let n = 0; n < 3; n++) {
+      agent.approve((await deliver(ARCHIVE)).item!.id);
+    }
+    const asked = await deliver(ARCHIVE, { requested: "forward" });
+    const another = await deliver(ARCHIVE, { requested: "forward" });
+
+    expect(asked).toMatchObject({ decision: { floor: "ask", level: "ask" }, executions: [] });
+    expect(agent.approve(asked.item!.id).transcript.executions).toMatchObject([
+      { proposal: ARCHIVE },
+    ]);
+    expect((await agent.edit(another.item!.id, { action: "mark_read" })).transcript).toMatchObject({
+      item: { kind: "ask", status: "approved" },
+      executions: [{ proposal: MARK_READ }],
+    });
   });
 
   it.each([

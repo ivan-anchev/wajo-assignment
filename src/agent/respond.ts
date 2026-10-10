@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { proposalSchema, undoProposal, type Proposal } from "../domain/actions.ts";
-import { floorFor } from "../domain/policy.ts";
+import { floor } from "../domain/policy.ts";
 import type {
   Decision,
   Email,
@@ -85,7 +85,8 @@ function itemAccepting(db: Db, itemId: number, response: ItemResponse): Item {
 }
 
 function approveProposal(r: ResponseContext, proposal: Proposal): void {
-  const required = floorFor(proposal.action, r.decision.injection.suspected);
+  const { analysis, injection } = r.decision;
+  const required = floor([proposal.action, analysis.requested], injection.suspected);
   if (required === "escalate") {
     throw new Refusal(`${proposal.action} must be escalated; nothing was executed.`);
   }

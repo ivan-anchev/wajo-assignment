@@ -1,6 +1,6 @@
 import { fileURLToPath } from "node:url";
 import { z } from "zod";
-import { ACTIONS } from "../domain/actions.ts";
+import { actionNameSchema } from "../domain/actions.ts";
 import { LEVELS, type ProposalEdit } from "../domain/types.ts";
 import { readJsonFiles } from "../files/json-files.ts";
 import { emailFileSchema } from "../inbox/inbox.ts";
@@ -23,7 +23,7 @@ const scenarioSchema = z.strictObject({
     "injection",
   ]),
   gold: z.strictObject({
-    action: z.enum(ACTIONS.map(({ name }) => name)),
+    action: actionNameSchema,
     level: z.enum(LEVELS),
   }),
   onAsk: z.union([

@@ -129,6 +129,8 @@ export const ACTIONS = [
 type RegisteredAction = (typeof ACTIONS)[number];
 export type ActionName = RegisteredAction["name"];
 
+export const actionNameSchema = z.enum(ACTIONS.map(({ name }) => name));
+
 export type Proposal = { action: ActionName; params: Record<string, unknown> };
 
 const proposalOptions = ACTIONS.map((action) =>

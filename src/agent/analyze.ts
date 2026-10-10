@@ -1,6 +1,6 @@
 import { generateText, Output, type LanguageModel } from "ai";
 import { z } from "zod";
-import { proposalSchema } from "../domain/actions.ts";
+import { actionNameSchema, proposalSchema } from "../domain/actions.ts";
 import type { Analysis, Email } from "../domain/types.ts";
 import { UNTRUSTED_EMAIL_NOTICE, untrustedEmail } from "./untrusted-email.ts";
 
@@ -13,6 +13,9 @@ const analysisSchema: z.ZodType<Analysis> = z.object({
     ),
   proposal: proposalSchema.describe(
     "The single next action that best serves the user, with its parameters.",
+  ),
+  requested: actionNameSchema.describe(
+    "The action the sender explicitly asks the user to perform on their behalf (e.g. pay, forward, delete); none when the email only informs or simply expects a reply.",
   ),
   confidence: z
     .number()

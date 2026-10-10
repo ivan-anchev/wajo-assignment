@@ -44,7 +44,7 @@ describe("pins (§7.3)", () => {
     await learnNotify();
     agent.pin("archive", "newsletter", "notify");
 
-    expect((await deliver(ARCHIVE, 0.5)).decision).toMatchObject({
+    expect((await deliver(ARCHIVE, { confidence: 0.5 })).decision).toMatchObject({
       learned: "notify",
       brake: true,
       pin: "notify",

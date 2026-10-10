@@ -23,12 +23,17 @@ export const ALLOWED_RESPONSES: Record<ItemKind, readonly ItemResponse[]> = {
   escalate: ["dismiss"],
 };
 
-export function floor(riskClass: RiskClass, injectionSuspected: boolean): Level {
-  return injectionSuspected ? "escalate" : FLOOR_BY_RISK[riskClass];
+// The strictest floor among the actions in play: the proposed or executed one, plus the one the
+// email requests. A mild proposal cannot slip a risky request under a lower floor.
+export function floor(
+  [first, ...rest]: readonly [ActionName, ...ActionName[]],
+  injectionSuspected: boolean,
+): Level {
+  return injectionSuspected ? "escalate" : maxLevel(riskFloor(first), ...rest.map(riskFloor));
 }
 
-export function floorFor(action: ActionName, injectionSuspected: boolean): Level {
-  return floor(actionFor(action).riskClass, injectionSuspected);
+function riskFloor(action: ActionName): Level {
+  return FLOOR_BY_RISK[actionFor(action).riskClass];
 }
 
 const LADDER: Record<
@@ -48,14 +53,13 @@ const BRAKE_BELOW = 0.6;
 type Standing = { rung: LearnedLevel; streak: number };
 
 export function levelFor(
-  { proposal, confidence }: Analysis,
+  { proposal, requested, confidence }: Analysis,
   injection: InjectionVerdict,
   history: readonly ItemResponse[],
   pin: Level | null,
 ): Pick<Decision, "floor" | "learned" | "brake" | "level"> {
-  const action = actionFor(proposal.action);
-  const floorLevel = floor(action.riskClass, injection.suspected);
-  if (action.inert) {
+  const floorLevel = floor([proposal.action, requested], injection.suspected);
+  if (actionFor(proposal.action).inert) {
     return {
       floor: floorLevel,
       learned: "silent",
@@ -88,12 +92,13 @@ export function isBelow(level: Level, other: Level): boolean {
   return rank(level) < rank(other);
 }
 
+// Per bucket, so it leaves out what varies per email: the requested action, injection, brake.
 export function standingLevel(
   action: ActionName,
   history: readonly ItemResponse[],
   pin: Level | null,
 ): Level {
-  return maxLevel(floorFor(action, false), pin ?? "silent", learnedLevel(history));
+  return maxLevel(floor([action], false), pin ?? "silent", learnedLevel(history));
 }
 
 function learnedLevel(history: readonly ItemResponse[]): LearnedLevel {

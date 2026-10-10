@@ -25,7 +25,13 @@ export type ItemKind = Exclude<Level, "silent">;
 export type ItemStatus = "open" | "approved" | "rejected" | "dismissed" | "undone";
 export type ItemResponse = "approve" | "edit" | "reject" | "dismiss" | "undo";
 
-export type Analysis = { summary: string; intent: string; proposal: Proposal; confidence: number };
+export type Analysis = {
+  summary: string;
+  intent: string;
+  proposal: Proposal;
+  requested: ActionName;
+  confidence: number;
+};
 
 export type InjectionVerdict = { suspected: boolean; evidence: string[] };
 

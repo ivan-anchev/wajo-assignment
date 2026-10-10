@@ -54,12 +54,12 @@ describe("learning (§7.1)", () => {
     await respondThrice((id) => agent.approve(id));
     await respondThrice((id) => agent.dismiss(id));
 
-    const atSilent = await deliver(ARCHIVE, 0.5);
+    const atSilent = await deliver(ARCHIVE, { confidence: 0.5 });
     expect(atSilent.decision).toMatchObject({ learned: "silent", brake: true, level: "notify" });
     expect(agent.undo(atSilent.item!.id).promotion).toBeNull();
     expect(readEmailState(db, atSilent.email.id).archivedAt).toBeNull();
 
-    const atNotify = await deliver(ARCHIVE, 0.5);
+    const atNotify = await deliver(ARCHIVE, { confidence: 0.5 });
     expect(atNotify.decision).toMatchObject({ learned: "notify", brake: true, level: "ask" });
     expect((await agent.reject(atNotify.item!.id)).promotion).toBeNull();
 
@@ -84,7 +84,7 @@ describe("learning (§7.1)", () => {
     await respondThrice((id) => agent.approve(id));
     agent.dismiss((await deliver(ARCHIVE)).item!.id);
 
-    const braked = await deliver(ARCHIVE, 0.5);
+    const braked = await deliver(ARCHIVE, { confidence: 0.5 });
     expect(braked.decision.level).toBe("ask");
     expect(agent.approve(braked.item!.id).promotion).toBeNull();
     for (let n = 0; n < 2; n++) {
@@ -95,7 +95,7 @@ describe("learning (§7.1)", () => {
   });
 
   it("brakes one rung up but never past ask", async () => {
-    expect((await deliver(ARCHIVE, 0.5)).decision).toMatchObject({
+    expect((await deliver(ARCHIVE, { confidence: 0.5 })).decision).toMatchObject({
       learned: "ask",
       brake: true,
       level: "ask",
@@ -103,7 +103,7 @@ describe("learning (§7.1)", () => {
   });
 
   it("never learns or brakes an inert proposal", async () => {
-    const transcript = await deliver(NONE, 0.5);
+    const transcript = await deliver(NONE, { confidence: 0.5 });
 
     expect(transcript.decision).toMatchObject({
       floor: "silent",

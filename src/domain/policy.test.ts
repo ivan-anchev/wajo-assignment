@@ -19,12 +19,18 @@ const EXPECTED_FLOOR: Record<ActionName, Level> = {
 };
 
 describe("floor", () => {
-  it.each(ACTIONS)("$name floors at its risk-class level", (action) => {
-    expect(floor(action.riskClass, false)).toBe(EXPECTED_FLOOR[action.name]);
+  it.each(ACTIONS)("$name floors at its risk-class level", ({ name }) => {
+    expect(floor([name], false)).toBe(EXPECTED_FLOOR[name]);
   });
 
-  it.each(ACTIONS)("$name escalates when injection is suspected", (action) => {
-    expect(floor(action.riskClass, true)).toBe("escalate");
+  it.each(ACTIONS)("$name escalates when injection is suspected", ({ name }) => {
+    expect(floor([name, "none"], true)).toBe("escalate");
+  });
+
+  it("takes the strictest of the proposed and requested actions, in either order", () => {
+    expect(floor(["label", "pay_invoice"], false)).toBe("escalate");
+    expect(floor(["pay_invoice", "label"], false)).toBe("escalate");
+    expect(floor(["send_reply", "none"], false)).toBe("ask");
   });
 });
 
@@ -93,6 +99,29 @@ describe("levelFor", () => {
     expect(levelFor(analysisOf("archive", 0.1), CLEAN, [], null).level).toBe("ask");
   });
 
+  it("raises the floor to the requested action, never lowers it", () => {
+    const promoted = [...thrice("approve"), ...thrice("dismiss")];
+
+    expect(levelFor(analysisOf("label", 0.9, "pay_invoice"), CLEAN, promoted, null)).toMatchObject({
+      floor: "escalate",
+      level: "escalate",
+    });
+    expect(levelFor(analysisOf("archive", 0.9, "send_reply"), CLEAN, promoted, null)).toMatchObject(
+      { floor: "ask", level: "ask" },
+    );
+    expect(levelFor(analysisOf("send_reply", 0.9, "none"), CLEAN, promoted, null)).toMatchObject({
+      floor: "ask",
+      level: "ask",
+    });
+  });
+
+  it("holds an inert proposal at the requested floor", () => {
+    expect(levelFor(analysisOf("none", 0.9, "pay_invoice"), CLEAN, [], null)).toMatchObject({
+      floor: "escalate",
+      level: "escalate",
+    });
+  });
+
   it("never learns or brakes an inert action", () => {
     expect(levelFor(analysisOf("none", 0.1), CLEAN, ["reject"], null)).toEqual({
       floor: "silent",
@@ -157,11 +186,16 @@ describe("promotion (§7.2)", () => {
   });
 });
 
-function analysisOf(action: ActionName, confidence = 0.9): Analysis {
+function analysisOf(
+  action: ActionName,
+  confidence = 0.9,
+  requested: ActionName = "none",
+): Analysis {
   return {
     summary: "s",
     intent: "i",
     proposal: { action, params: {} },
+    requested,
     confidence,
   };
 }

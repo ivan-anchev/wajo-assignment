@@ -4,7 +4,16 @@ import { createAgent } from "./agent.ts";
 import { readEmailState } from "../db/mailbox.ts";
 import { openDb, type Db } from "../db/open-db.ts";
 import { mockModel, replayModel } from "../llm/test-models.ts";
-import { ARCHIVE, feedbackCount, INBOX, injectionInbox } from "./test-agents.ts";
+import {
+  agentProposing,
+  ARCHIVE,
+  feedbackCount,
+  INBOX,
+  injectionInbox,
+  LABEL,
+  NONE,
+  SEND_REPLY,
+} from "./test-agents.ts";
 
 let db: Db;
 
@@ -80,7 +89,13 @@ describe("run", () => {
   it("asks before a reversible proposal while its bucket is cold", async () => {
     const [first] = await agentWith(
       mockModel({
-        analysis: { summary: "s", intent: "fyi", proposal: ARCHIVE, confidence: 0.9 },
+        analysis: {
+          summary: "s",
+          intent: "fyi",
+          proposal: ARCHIVE,
+          requested: "none",
+          confidence: 0.9,
+        },
         injection_verdict: { suspected: false, evidence: [] },
       }),
     ).run(INBOX);
@@ -99,6 +114,7 @@ describe("run", () => {
         summary: "s",
         intent: "fyi",
         proposal: { action: "archive", params: {} },
+        requested: "none",
         confidence: 0.9,
       },
       injection_verdict: new Error("judge unavailable"),
@@ -138,5 +154,51 @@ describe("transcript", () => {
 
   it("returns null for an unknown email id", () => {
     expect(agentWith(replayModel()).transcript("does-not-exist")).toBeNull();
+  });
+});
+
+describe("requested-action floor (§6)", () => {
+  it.each([LABEL, NONE])(
+    "escalates a $action proposal on an email that requests a payment, executing nothing",
+    async (proposal) => {
+      const agent = await agentProposing(db, proposal, "pay_invoice");
+
+      expect(agent.transcript("001")).toMatchObject({
+        decision: { floor: "escalate", level: "escalate" },
+        item: { kind: "escalate", allowedResponses: ["dismiss"] },
+        executions: [],
+      });
+      expect(agent.dismiss(1).transcript.feedback).toBeNull();
+    },
+  );
+
+  it("never lowers the floor of the proposal", async () => {
+    const agent = await agentProposing(db, SEND_REPLY, "none");
+
+    expect(agent.transcript("001")!.decision).toMatchObject({ floor: "ask", level: "ask" });
+  });
+
+  it("keeps escalating a suspected injection whatever is requested, without feedback", async () => {
+    const agent = agentWith(
+      mockModel({
+        analysis: {
+          summary: "s",
+          intent: "fyi",
+          proposal: ARCHIVE,
+          requested: "none",
+          confidence: 0.9,
+        },
+        injection_verdict: { suspected: true, evidence: ["ignore previous instructions"] },
+      }),
+    );
+    await agent.run(INBOX);
+
+    expect(agent.transcript("001")).toMatchObject({
+      decision: { floor: "escalate", level: "escalate" },
+      item: { kind: "escalate" },
+      executions: [],
+    });
+    agent.dismiss(1);
+    expect(feedbackCount(db)).toBe(0);
   });
 });

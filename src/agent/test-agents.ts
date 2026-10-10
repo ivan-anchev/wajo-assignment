@@ -1,7 +1,7 @@
 import { mkdtempSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import type { Proposal } from "../domain/actions.ts";
+import type { ActionName, Proposal } from "../domain/actions.ts";
 import type { ProposalEdit, Transcript } from "../domain/types.ts";
 import type { Db } from "../db/open-db.ts";
 import { readInbox, writeInbox, type InboxSource } from "../inbox/inbox.ts";
@@ -18,6 +18,7 @@ export const SEND_REPLY: Proposal = { action: "send_reply", params: { body: "Sou
 export const ARCHIVE: Proposal = { action: "archive", params: {} };
 export const MARK_READ: Proposal = { action: "mark_read", params: {} };
 export const NONE: Proposal = { action: "none", params: {} };
+export const LABEL: Proposal = { action: "label", params: { label: "finance" } };
 export const PAY_INVOICE: Proposal = {
   action: "pay_invoice",
   params: { amount: 120, currency: "EUR", payee: "Acme" },
@@ -29,22 +30,28 @@ export const PAY_INVOICE_EDIT: ProposalEdit = {
   payee: "Acme",
 };
 
-export async function agentProposing(db: Db, proposal: Proposal) {
-  const agent = agentAnalyzing(db, proposal, 0.9);
+type AnalysisOptions = {
+  confidence?: number;
+  requested?: ActionName;
+  preference?: string | null | Error;
+};
+
+export async function agentProposing(db: Db, proposal: Proposal, requested: ActionName = "none") {
+  const agent = createAgent(db, modelProposing(proposal, { requested }));
   await agent.run(INBOX);
   return agent;
 }
 
 export function newsletterInbox(
   db: Db,
-): (proposal: Proposal, confidence?: number) => Promise<Transcript> {
+): (proposal: Proposal, analysis?: AnalysisOptions) => Promise<Transcript> {
   const inboxDir = mkdtempSync(join(tmpdir(), "inbox-"));
   const newsletter = readInbox(INBOX).find((email) => email.id === "002")!;
   let delivered = 0;
-  return async (proposal, confidence = 0.9) => {
+  return async (proposal, analysis) => {
     const id = `n${++delivered}`;
     writeFileSync(join(inboxDir, `${id}.json`), JSON.stringify({ ...newsletter, id }));
-    const [transcript] = await agentAnalyzing(db, proposal, confidence).run({
+    const [transcript] = await createAgent(db, modelProposing(proposal, analysis)).run({
       inboxDir,
       contactsPath: CONTACTS,
     });
@@ -58,13 +65,10 @@ export function feedbackCount(db: Db): number {
 
 export function modelProposing(
   proposal: Proposal,
-  {
-    confidence = 0.9,
-    preference = null,
-  }: { confidence?: number; preference?: string | null | Error } = {},
+  { confidence = 0.9, requested = "none", preference = null }: AnalysisOptions = {},
 ): MockLanguageModelV4 {
   return mockModel({
-    analysis: { summary: "s", intent: "reply", proposal, confidence },
+    analysis: { summary: "s", intent: "reply", proposal, requested, confidence },
     injection_verdict: { suspected: false, evidence: [] },
     preference: preference instanceof Error ? preference : { sentence: preference },
   });
@@ -88,8 +92,4 @@ export function requestsNamed(llm: MockLanguageModelV4, name: string): string[] 
   return llm.doGenerateCalls
     .filter(({ responseFormat }) => (responseFormat as { name: string }).name === name)
     .map(({ prompt }) => JSON.stringify(prompt));
-}
-
-function agentAnalyzing(db: Db, proposal: Proposal, confidence: number) {
-  return createAgent(db, modelProposing(proposal, { confidence }));
 }

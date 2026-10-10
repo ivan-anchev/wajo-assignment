@@ -22,13 +22,13 @@ export function unpin(db: Db, action: ActionName, senderClass: SenderClass): Buc
   return standingOf(db, action, senderClass);
 }
 
-// Compares against the clean floor: injection is per email, and a pin outlives emails.
+// Compares against the action's own floor: injection and the requested action are per email,
+// and a pin outlives emails.
 function refuseBelowFloor(action: ActionName, level: Level): void {
-  const { riskClass } = actionFor(action);
-  const least = floor(riskClass, false);
+  const least = floor([action], false);
   if (isBelow(level, least)) {
     throw new Refusal(
-      `${action} is ${riskClass} and never runs below ${least}; a pin can only raise it.`,
+      `${action} is ${actionFor(action).riskClass} and never runs below ${least}; a pin can only raise it.`,
     );
   }
 }

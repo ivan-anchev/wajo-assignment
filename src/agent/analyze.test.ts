@@ -31,6 +31,7 @@ describe("analyze prompt", () => {
         summary: "s",
         intent: "fyi",
         proposal: { action: "none", params: {} },
+        requested: "none",
         confidence: 1,
       },
     });
@@ -53,6 +54,7 @@ describe("analyze prompt", () => {
         summary: "s",
         intent: "fyi",
         proposal: { action: "none", params: {} },
+        requested: "none",
         confidence: 1,
       },
     });
