@@ -35,15 +35,12 @@ export function resolveItem(
   db: Db,
   id: number,
   resolution: { status: Exclude<ItemStatus, "open">; proposal: Proposal },
-): boolean {
-  const { changes } = db
-    .prepare(
-      `UPDATE items SET status = @status, proposal = @proposal,
-              resolved_at = strftime('%Y-%m-%dT%H:%M:%fZ', 'now')
-       WHERE id = @id AND status = 'open'`,
-    )
-    .run({ id, status: resolution.status, proposal: JSON.stringify(resolution.proposal) });
-  return changes === 1;
+): void {
+  db.prepare(
+    `UPDATE items SET status = @status, proposal = @proposal,
+            resolved_at = strftime('%Y-%m-%dT%H:%M:%fZ', 'now')
+     WHERE id = @id AND status = 'open'`,
+  ).run({ id, status: resolution.status, proposal: JSON.stringify(resolution.proposal) });
 }
 
 function toItem(row: ItemRow): Item {

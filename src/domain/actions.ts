@@ -6,36 +6,21 @@ export type RiskClass = "reversible" | "external" | "irreversible" | "money";
 
 export type ActionContext = { db: Db; emailId: string; now: string };
 
-type ActionCommon<N extends string, S extends z.ZodObject> = {
+type Action<N extends string = string, S extends z.ZodObject = z.ZodObject> = {
   name: N;
   description: string;
+  riskClass: RiskClass;
   params: S;
   // Executes nothing, so policy never learns or brakes it.
   inert?: true;
   // Sync because effects run inside a better-sqlite3 transaction, which rejects async callbacks.
   execute(params: z.infer<S>, ctx: ActionContext): void;
+  undo?(params: z.infer<S>, ctx: ActionContext): void;
 };
-
-type ReversibleAction<N extends string, S extends z.ZodObject> = ActionCommon<N, S> & {
-  riskClass: "reversible";
-  undo(params: z.infer<S>, ctx: ActionContext): void;
-};
-
-type OneWayAction<N extends string, S extends z.ZodObject> = ActionCommon<N, S> & {
-  riskClass: Exclude<RiskClass, "reversible">;
-};
-
-type ActionDefinition<N extends string = string, S extends z.ZodObject = z.ZodObject> =
-  | ReversibleAction<N, S>
-  | OneWayAction<N, S>;
 
 function defineAction<const N extends string, S extends z.ZodObject>(
-  definition: ReversibleAction<N, S>,
-): ReversibleAction<N, S>;
-function defineAction<const N extends string, S extends z.ZodObject>(
-  definition: OneWayAction<N, S>,
-): OneWayAction<N, S>;
-function defineAction(definition: ActionDefinition): ActionDefinition {
+  definition: Action<N, S>,
+): Action<N, S> {
   return definition;
 }
 
@@ -161,18 +146,18 @@ export function actionFor<N extends ActionName>(name: N): Extract<RegisteredActi
 }
 
 export function executeProposal(proposal: Proposal, ctx: ActionContext): void {
-  // Widening to ActionDefinition lets flat params through: execute is declared with method
-  // syntax, which TS checks bivariantly. Params were already validated by proposalSchema.
-  const action: ActionDefinition = actionFor(proposal.action);
+  // Widening to Action lets flat params through: execute is declared with method syntax,
+  // which TS checks bivariantly. Params were already validated by proposalSchema.
+  const action: Action = actionFor(proposal.action);
   action.execute(proposal.params, ctx);
 }
 
 // Only notified and silent executions are undone, both below the ask floor, so the throw is the
 // narrowing.
 export function undoProposal(proposal: Proposal, ctx: ActionContext): void {
-  const action: ActionDefinition = actionFor(proposal.action);
-  if (action.riskClass !== "reversible") {
-    throw new Error(`${proposal.action} is ${action.riskClass} and cannot be undone`);
+  const action: Action = actionFor(proposal.action);
+  if (!action.undo) {
+    throw new Error(`${proposal.action} is ${action.riskClass} and has no undo`);
   }
   action.undo(proposal.params, ctx);
 }

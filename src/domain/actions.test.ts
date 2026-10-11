@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it } from "vitest";
 import { z } from "zod";
-import { ACTIONS, actionFor, executeProposal, proposalSchema, undoProposal } from "./actions.ts";
+import { ACTIONS, executeProposal, proposalSchema, undoProposal } from "./actions.ts";
 import { insertEmail, readEmailState } from "../db/mailbox.ts";
 import { openDb, type Db } from "../db/open-db.ts";
 
@@ -23,16 +23,19 @@ beforeEach(() => {
 });
 
 const ctx = () => ({ db, emailId: "e1", now: NOW });
+const archive = { action: "archive" as const, params: {} };
+const none = { action: "none" as const, params: {} };
 const label = (name: string) => ({ action: "label" as const, params: { label: name } });
+
 const draftCount = () =>
   db.prepare("SELECT count(*) FROM drafts WHERE email_id = ?").pluck().get("e1");
 
 describe("archive", () => {
   it("sets archivedAt on execute and clears it on undo", () => {
-    actionFor("archive").execute({}, ctx());
+    executeProposal(archive, ctx());
     expect(readEmailState(db, "e1").archivedAt).toBe(NOW);
 
-    actionFor("archive").undo({}, ctx());
+    undoProposal(archive, ctx());
     expect(readEmailState(db, "e1").archivedAt).toBeNull();
   });
 });
@@ -40,8 +43,8 @@ describe("archive", () => {
 describe("none", () => {
   it("leaves email state untouched on execute and undo", () => {
     const before = readEmailState(db, "e1");
-    actionFor("none").execute({}, ctx());
-    actionFor("none").undo({}, ctx());
+    executeProposal(none, ctx());
+    undoProposal(none, ctx());
     expect(readEmailState(db, "e1")).toEqual(before);
   });
 });

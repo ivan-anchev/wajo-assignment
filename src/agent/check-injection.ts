@@ -30,7 +30,10 @@ const JUDGE_INSTRUCTIONS = [
 ].join(" ");
 
 export async function checkInjection(llm: LanguageModel, email: Email): Promise<InjectionVerdict> {
-  return eitherSignal(matchPatterns(email), await askJudge(llm, email));
+  const signals = [matchPatterns(email), await askJudge(llm, email)];
+  const fired = signals.filter((verdict) => verdict.suspected);
+  
+  return { suspected: fired.length > 0, evidence: fired.flatMap((verdict) => verdict.evidence) };
 }
 
 function matchPatterns({ subject, body }: Email): InjectionVerdict {
@@ -57,9 +60,4 @@ async function askJudge(llm: LanguageModel, email: Email): Promise<InjectionVerd
     suspected: output.suspected,
     evidence: output.evidence.map((quote) => `judge: ${JSON.stringify(quote)}`),
   };
-}
-
-function eitherSignal(...verdicts: InjectionVerdict[]): InjectionVerdict {
-  const fired = verdicts.filter((verdict) => verdict.suspected);
-  return { suspected: fired.length > 0, evidence: fired.flatMap((verdict) => verdict.evidence) };
 }

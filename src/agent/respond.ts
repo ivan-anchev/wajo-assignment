@@ -3,7 +3,6 @@ import { proposalSchema, type Proposal } from "../domain/actions.ts";
 import { floor, requestOf } from "../domain/policy.ts";
 import type {
   Decision,
-  Email,
   Item,
   ItemResponse,
   ItemStatus,
@@ -22,8 +21,6 @@ type ResponseContext = {
   db: Db;
   item: Item;
   decision: Decision;
-  email: Email;
-  response: ItemResponse;
 };
 
 export function approve(db: Db, itemId: number): ResponseResult {
@@ -59,28 +56,32 @@ function respond(
   return db.transaction(() => {
     const item = itemAccepting(db, itemId, response);
     const decision = getDecision(db, item.decisionId);
-    const r = { db, item, decision, email: getEmail(db, decision.emailId), response };
-    takeEffect(r);
-    const promotion = learnFrom(r);
+    
+    takeEffect({ db, item, decision });
+    
+    const { senderClass } = getEmail(db, decision.emailId);
+    const promotion = item.kind === "escalate" ? null : learn(db, decision, senderClass, response);
+    
     return { transcript: transcriptOf(db, decision), promotion, preference: null };
   })();
 }
 
-// Refusing a closed item up front keeps its error ahead of any edit or floor error;
-// `claim` stays the at-most-once guarantee.
 export function itemAccepting(db: Db, itemId: number, response: ItemResponse): Item {
   const item = findItem(db, itemId);
   if (!item) {
     throw new Refusal(`There is no item #${itemId}.`);
   }
+
   if (item.status !== "open") {
-    throw alreadyResolved(item);
+    throw new Refusal(`Item #${itemId} is already ${item.status}.`);
   }
+
   if (!item.allowedResponses.includes(response)) {
     throw new Refusal(
       `${item.kind} item #${itemId} takes ${item.allowedResponses.join(", ")}, not ${response}.`,
     );
   }
+
   return item;
 }
 
@@ -108,29 +109,17 @@ function resolve(
   status: Exclude<ItemStatus, "open">,
   proposal: Proposal = r.item.proposal,
 ): void {
-  claim(r, resolveItem(r.db, r.item.id, { status, proposal }));
-}
-
-function learnFrom({ db, item, decision, email, response }: ResponseContext): string | null {
-  return item.kind === "escalate" ? null : learn(db, decision, email.senderClass, response);
-}
-
-function claim(r: ResponseContext, stillOpen: boolean): void {
-  if (!stillOpen) {
-    throw alreadyResolved(r.item);
-  }
-}
-
-function alreadyResolved(item: Item): Refusal {
-  return new Refusal(`Item #${item.id} is already ${item.status}.`);
+  resolveItem(r.db, r.item.id, { status, proposal });
 }
 
 function editedProposal(item: Item, changes: ProposalEdit): Proposal {
   const { action = item.proposal.action, ...params } = changes;
   const base = action === item.proposal.action ? item.proposal.params : {};
   const parsed = proposalSchema.safeParse({ action, params: { ...base, ...params } });
+  
   if (!parsed.success) {
     throw new Refusal(`Invalid edit for item #${item.id}: ${z.prettifyError(parsed.error)}`);
   }
+  
   return parsed.data;
 }

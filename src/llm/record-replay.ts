@@ -28,7 +28,8 @@ export function recordReplay({
       if (!live) {
         throw new Error(`No LLM fixture at ${path}. Re-run with --live to record it.`);
       }
-      const answer = answerOf(await doGenerate());
+      const { content, finishReason, usage, warnings } = await doGenerate();
+      const answer = { content, finishReason, usage, warnings };
       writeFixture(path, { request, answer });
       return answer;
     },
@@ -45,10 +46,6 @@ function requestKey(
 
 function hashOf(request: object): string {
   return createHash("sha256").update(canonicalJson(request)).digest("hex").slice(0, 16);
-}
-
-function answerOf({ content, finishReason, usage, warnings }: GenerateResult): Answer {
-  return { content, finishReason, usage, warnings };
 }
 
 function readFixture(path: string): Fixture {

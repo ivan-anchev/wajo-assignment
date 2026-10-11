@@ -12,7 +12,9 @@ export function revert(db: Db, decisionId: number): ResponseResult {
   return db.transaction(() => {
     const { decision, email, execution } = silentExecution(db, decisionId);
     undoExecution(db, decision, execution);
+    
     const promotion = learn(db, decision, email.senderClass, "undo");
+    
     return { transcript: transcriptOf(db, decision), promotion, preference: null };
   })();
 }
@@ -23,6 +25,7 @@ function silentExecution(db: Db, decisionId: number): Transcript & { execution: 
   if (!decision) {
     throw new Refusal(`There is no decision #${decisionId}.`);
   }
+
   const transcript = transcriptOf(db, decision);
   if (transcript.item) {
     const { id, kind, allowedResponses } = transcript.item;
@@ -30,9 +33,15 @@ function silentExecution(db: Db, decisionId: number): Transcript & { execution: 
       `Decision #${decisionId} has ${kind} item #${id}; it takes ${allowedResponses.join(", ")}.`,
     );
   }
+
   const [execution] = transcript.executions;
   if (!execution || actionFor(execution.proposal.action).inert) {
     throw new Refusal(`Decision #${decisionId} executed nothing to revert.`);
   }
+
+  if (execution.undoneAt) {
+    throw new Refusal(`Decision #${decisionId} is already undone.`);
+  }
+  
   return { ...transcript, execution };
 }

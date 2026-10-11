@@ -71,12 +71,8 @@ export function findExecutionByItem(db: Db, itemId: number): Execution {
   return toExecution(row);
 }
 
-// False when the execution was already undone: the conditional update makes undo at-most-once.
-export function markUndone(db: Db, executionId: number, undoneAt: string): boolean {
-  const { changes } = db
-    .prepare("UPDATE executions SET undone_at = ? WHERE id = ? AND undone_at IS NULL")
-    .run(undoneAt, executionId);
-  return changes === 1;
+export function markUndone(db: Db, executionId: number, undoneAt: string): void {
+  db.prepare("UPDATE executions SET undone_at = ? WHERE id = ?").run(undoneAt, executionId);
 }
 
 export function findTranscript(db: Db, emailId: string): Transcript | null {
