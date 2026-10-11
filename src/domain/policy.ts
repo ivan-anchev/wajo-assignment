@@ -1,14 +1,22 @@
 import { actionFor, type ActionName, type Proposal, type RiskClass } from "./actions.ts";
-import {
-  LEVELS,
-  type Analysis,
-  type Decision,
-  type InjectionVerdict,
-  type ItemKind,
-  type ItemResponse,
-  type LearnedLevel,
-  type Level,
-} from "./types.ts";
+
+export const LEVELS = ["silent", "notify", "ask", "escalate"] as const;
+export type Level = (typeof LEVELS)[number];
+export type LearnedLevel = Exclude<Level, "escalate">;
+
+export type ItemResponse = "approve" | "edit" | "reject" | "dismiss" | "undo";
+
+export type Analysis = {
+  summary: string;
+  intent: string;
+  proposal: Proposal;
+  requested: ActionName;
+  confidence: number;
+};
+
+export type InjectionVerdict = { suspected: boolean; evidence: string[] };
+
+type Standing = { rung: LearnedLevel; streak: number };
 
 const FLOOR_BY_RISK: Record<RiskClass, Level> = {
   reversible: "silent",
@@ -16,25 +24,6 @@ const FLOOR_BY_RISK: Record<RiskClass, Level> = {
   irreversible: "ask",
   money: "escalate",
 };
-
-export const ALLOWED_RESPONSES: Record<ItemKind, readonly ItemResponse[]> = {
-  ask: ["approve", "edit", "reject"],
-  notify: ["dismiss", "undo"],
-  escalate: ["dismiss"],
-};
-
-// The strictest floor among the actions in play: the proposed or executed one, plus the one the
-// email requests. A mild proposal cannot slip a risky request under a lower floor.
-export function floor(
-  [first, ...rest]: readonly [ActionName, ...ActionName[]],
-  injectionSuspected: boolean,
-): Level {
-  return injectionSuspected ? "escalate" : maxLevel(riskFloor(first), ...rest.map(riskFloor));
-}
-
-function riskFloor(action: ActionName): Level {
-  return FLOOR_BY_RISK[actionFor(action).riskClass];
-}
 
 const LADDER: Record<
   LearnedLevel,
@@ -50,9 +39,16 @@ const NEGATIVES: readonly ItemResponse[] = ["reject", "undo", "edit"];
 const STREAK_TO_PROMOTE = 3;
 const BRAKE_BELOW = 0.6;
 
-type Standing = { rung: LearnedLevel; streak: number };
-
 const NOTHING: Proposal = { action: "none", params: {} };
+
+// The strictest floor among the actions in play: the proposed or executed one, plus the one the
+// email requests. A mild proposal cannot slip a risky request under a lower floor.
+export function floor(
+  [first, ...rest]: readonly [ActionName, ...ActionName[]],
+  injectionSuspected: boolean,
+): Level {
+  return injectionSuspected ? "escalate" : maxLevel(riskFloor(first), ...rest.map(riskFloor));
+}
 
 // An unanalyzed (suspected) email proposes and requests nothing.
 export function proposalOf(analysis: Analysis | null): Proposal {
@@ -68,7 +64,7 @@ export function levelFor(
   injection: InjectionVerdict,
   history: readonly ItemResponse[],
   pin: Level | null,
-): Pick<Decision, "floor" | "learned" | "brake" | "level"> {
+): { floor: Level; learned: LearnedLevel; brake: boolean; level: Level } {
   const floorLevel = floor([proposalOf(analysis).action, requestOf(analysis)], injection.suspected);
   if (!analysis || actionFor(analysis.proposal.action).inert) {
     return {
@@ -110,6 +106,10 @@ export function standingLevel(
   pin: Level | null,
 ): Level {
   return maxLevel(floor([action], false), pin ?? "silent", learnedLevel(history));
+}
+
+function riskFloor(action: ActionName): Level {
+  return FLOOR_BY_RISK[actionFor(action).riskClass];
 }
 
 function learnedLevel(history: readonly ItemResponse[]): LearnedLevel {

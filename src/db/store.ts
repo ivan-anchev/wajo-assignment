@@ -1,15 +1,21 @@
 import Database from "better-sqlite3";
 import { readFileSync } from "node:fs";
-import type { Decision, Transcript } from "../domain/types.ts";
-import { Decisions } from "./decisions.ts";
-import { Executions } from "./executions.ts";
-import { FeedbackLog } from "./feedback.ts";
-import { Items } from "./items.ts";
+import type { Email } from "../inbox/inbox.ts";
+import { Decisions, type Decision } from "./decisions.ts";
+import { Executions, type Execution } from "./executions.ts";
+import { FeedbackLog, type Feedback } from "./feedback.ts";
+import { Items, type Item } from "./items.ts";
 import { Mailbox } from "./mailbox.ts";
 import { Pins } from "./pins.ts";
 import { Preferences } from "./preferences.ts";
 
-export type Db = Database.Database;
+export type Transcript = {
+  email: Email;
+  decision: Decision;
+  item: Item | null;
+  executions: Execution[];
+  feedback: Feedback | null;
+};
 
 const SCHEMA = readFileSync(new URL("./schema.sql", import.meta.url), "utf8");
 
@@ -29,7 +35,7 @@ export class Store {
     return new Store(db);
   }
 
-  private constructor(readonly db: Db) {
+  private constructor(readonly db: Database.Database) {
     this.emails = new Mailbox(db);
     this.decisions = new Decisions(db);
     this.executions = new Executions(db);

@@ -1,6 +1,14 @@
-import type { ActionName } from "../domain/actions.ts";
-import type { Execution } from "../domain/types.ts";
-import type { Db } from "./store.ts";
+import type { Database as Db } from "better-sqlite3";
+import type { ActionName, Proposal } from "../domain/actions.ts";
+
+export type Execution = {
+  id: number;
+  decisionId: number;
+  itemId: number | null;
+  proposal: Proposal;
+  executedAt: string;
+  undoneAt: string | null;
+};
 
 type ExecutionRow = Omit<Execution, "proposal"> & { action: ActionName; params: string };
 

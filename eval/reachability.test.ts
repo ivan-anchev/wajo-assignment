@@ -1,7 +1,6 @@
 import { describe, expect, it } from "vitest";
 import type { Proposal } from "../src/domain/actions.ts";
-import { levelFor } from "../src/domain/policy.ts";
-import type { ItemResponse, Level } from "../src/domain/types.ts";
+import { levelFor, type ItemResponse, type Level } from "../src/domain/policy.ts";
 import { correctedParams, readScenarios, type Scenario } from "./scenarios.ts";
 import { replyTo } from "./oracle.ts";
 

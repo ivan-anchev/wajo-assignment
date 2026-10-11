@@ -1,7 +1,15 @@
 import { describe, expect, it } from "vitest";
 import { ACTIONS, type ActionName } from "./actions.ts";
-import { floor, isBelow, levelFor, promotion } from "./policy.ts";
-import { LEVELS, type Analysis, type ItemResponse, type Level } from "./types.ts";
+import {
+  floor,
+  isBelow,
+  LEVELS,
+  levelFor,
+  promotion,
+  type Analysis,
+  type ItemResponse,
+  type Level,
+} from "./policy.ts";
 
 // Keyed by action, not risk class, so a misclassified action fails here.
 const EXPECTED_FLOOR: Record<ActionName, Level> = {

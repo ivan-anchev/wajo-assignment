@@ -1,17 +1,20 @@
 import { z } from "zod";
 import { proposalSchema, type Proposal } from "../domain/actions.ts";
-import { floor, requestOf } from "../domain/policy.ts";
-import type {
-  Decision,
-  Item,
-  ItemResponse,
-  ItemStatus,
-  ProposalEdit,
-  ResponseResult,
-} from "../domain/types.ts";
-import type { Store } from "../db/store.ts";
+import { floor, requestOf, type ItemResponse } from "../domain/policy.ts";
+import type { Decision } from "../db/decisions.ts";
+import type { Item, ItemStatus } from "../db/items.ts";
+import type { Store, Transcript } from "../db/store.ts";
 import { execute, undoExecution } from "./act.ts";
 import { learn } from "./learn.ts";
+
+// The key `action` switches the action.
+export type ProposalEdit = Record<string, unknown>;
+
+export type ResponseResult = {
+  transcript: Transcript;
+  promotion: string | null;
+  preference: string | null;
+};
 
 // The one failure a caller is expected to handle. Anything else thrown here is a bug.
 export class Refusal extends Error {}

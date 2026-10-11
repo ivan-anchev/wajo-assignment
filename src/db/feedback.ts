@@ -1,6 +1,17 @@
+import type { Database as Db } from "better-sqlite3";
 import type { ActionName } from "../domain/actions.ts";
-import type { Feedback, ItemResponse, SenderClass } from "../domain/types.ts";
-import type { Db } from "./store.ts";
+import type { ItemResponse } from "../domain/policy.ts";
+import type { SenderClass } from "../inbox/inbox.ts";
+
+// (action, senderClass) is the learner's bucket; `action` is the originally proposed action.
+export type Feedback = {
+  id: number;
+  decisionId: number;
+  action: ActionName;
+  senderClass: SenderClass;
+  kind: ItemResponse;
+  createdAt: string;
+};
 
 const COLUMNS =
   "id, decision_id AS decisionId, action, sender_class AS senderClass, kind, created_at AS createdAt";

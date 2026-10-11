@@ -1,9 +1,9 @@
 import { actionFor } from "../domain/actions.ts";
-import type { Store } from "../db/store.ts";
-import type { Execution, ResponseResult, Transcript } from "../domain/types.ts";
+import type { Execution } from "../db/executions.ts";
+import type { Store, Transcript } from "../db/store.ts";
 import { undoExecution } from "./act.ts";
 import { learn } from "./learn.ts";
-import { Refusal } from "./respond.ts";
+import { Refusal, type ResponseResult } from "./respond.ts";
 
 // A silent decision opens no item, so the user reverts it by decision id. It counts as an undo
 // under the bucket, which steps the ladder from silent back to notify.

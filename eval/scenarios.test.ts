@@ -1,8 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { SCENARIO_INBOX } from "../src/agent/test-agents.ts";
 import { ACTIONS, proposalSchema } from "../src/domain/actions.ts";
-import { SENDER_CLASSES } from "../src/domain/types.ts";
-import { readInbox } from "../src/inbox/inbox.ts";
+import { readInbox, SENDER_CLASSES } from "../src/inbox/inbox.ts";
 import { correctedParams, readScenarios, type Scenario } from "./scenarios.ts";
 
 const scenarios = readScenarios();

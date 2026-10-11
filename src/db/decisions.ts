@@ -1,5 +1,19 @@
-import type { Decision } from "../domain/types.ts";
-import type { Db } from "./store.ts";
+import type { Database as Db } from "better-sqlite3";
+import type { Analysis, InjectionVerdict, LearnedLevel, Level } from "../domain/policy.ts";
+
+export type Decision = {
+  id: number;
+  emailId: string;
+  // Null when the judge suspected an injection: a suspected email is never analyzed.
+  analysis: Analysis | null;
+  injection: InjectionVerdict;
+  floor: Level;
+  learned: LearnedLevel;
+  brake: boolean;
+  pin: Level | null;
+  level: Level;
+  createdAt: string;
+};
 
 type DecisionRow = Omit<Decision, "analysis" | "injection" | "brake"> & {
   analysis: string | null;

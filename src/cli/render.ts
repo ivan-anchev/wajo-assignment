@@ -1,16 +1,13 @@
+import type { BucketStanding } from "../agent/pin.ts";
+import type { ResponseResult } from "../agent/respond.ts";
+import type { Decision } from "../db/decisions.ts";
+import type { Execution } from "../db/executions.ts";
+import type { Feedback } from "../db/feedback.ts";
+import type { Item } from "../db/items.ts";
+import type { Transcript } from "../db/store.ts";
 import type { Proposal } from "../domain/actions.ts";
-import { proposalOf, requestOf } from "../domain/policy.ts";
-import type {
-  BucketStanding,
-  Decision,
-  Email,
-  Execution,
-  Feedback,
-  InjectionVerdict,
-  Item,
-  ResponseResult,
-  Transcript,
-} from "../domain/types.ts";
+import { proposalOf, requestOf, type InjectionVerdict } from "../domain/policy.ts";
+import type { Email } from "../inbox/inbox.ts";
 
 export function renderDecisionLine({ email, decision, item, executions }: Transcript): string {
   return [

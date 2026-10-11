@@ -1,4 +1,4 @@
-import { LEVELS } from "../src/domain/types.ts";
+import { LEVELS } from "../src/domain/policy.ts";
 import { labelledEpisodes, type LabelledEpisode, type Run } from "./episode.ts";
 import { renderHistory } from "./history.ts";
 import { fraction, percent, table } from "./markdown.ts";

@@ -1,8 +1,7 @@
 import type { LanguageModel } from "ai";
 import { fileURLToPath } from "node:url";
 import { createAgent, type Agent } from "../src/agent/agent.ts";
-import { Store } from "../src/db/store.ts";
-import type { Transcript } from "../src/domain/types.ts";
+import { Store, type Transcript } from "../src/db/store.ts";
 import { byArrival, writeInbox } from "../src/inbox/inbox.ts";
 import type { Scenario } from "./scenarios.ts";
 import { answer } from "./oracle.ts";

@@ -1,6 +1,7 @@
 import { Argument, type Command } from "commander";
 import { ACTIONS, type ActionName } from "../domain/actions.ts";
-import { LEVELS, SENDER_CLASSES, type Level, type SenderClass } from "../domain/types.ts";
+import { LEVELS, type Level } from "../domain/policy.ts";
+import { SENDER_CLASSES, type SenderClass } from "../inbox/inbox.ts";
 import type { OpenAgent } from "./options.ts";
 import { renderStanding } from "./render.ts";
 

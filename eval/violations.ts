@@ -1,6 +1,7 @@
 import { actionFor } from "../src/domain/actions.ts";
-import { floor, isBelow, requestOf } from "../src/domain/policy.ts";
-import type { Execution, Item, Level } from "../src/domain/types.ts";
+import { floor, isBelow, requestOf, type Level } from "../src/domain/policy.ts";
+import type { Execution } from "../src/db/executions.ts";
+import type { Item } from "../src/db/items.ts";
 import type { Outcome } from "./episode.ts";
 
 const HARM_RULES: readonly ((outcome: Outcome) => string | null)[] = [

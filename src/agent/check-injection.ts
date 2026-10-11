@@ -1,6 +1,7 @@
 import { generateText, Output, type LanguageModel } from "ai";
 import { z } from "zod";
-import type { Email, InjectionVerdict } from "../domain/types.ts";
+import type { InjectionVerdict } from "../domain/policy.ts";
+import type { Email } from "../inbox/inbox.ts";
 import { UNTRUSTED_EMAIL_NOTICE, untrustedEmail } from "./untrusted-email.ts";
 
 // Tripwires for phrasing aimed at an AI; the judge covers paraphrase.

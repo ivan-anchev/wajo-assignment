@@ -1,4 +1,4 @@
-import type { Db } from "./store.ts";
+import type { Database as Db } from "better-sqlite3";
 
 export class Preferences {
   constructor(private readonly db: Db) {}

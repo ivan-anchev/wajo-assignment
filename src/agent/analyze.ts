@@ -1,7 +1,8 @@
 import { generateText, Output, type LanguageModel } from "ai";
 import { z } from "zod";
 import { actionNameSchema, proposalSchema } from "../domain/actions.ts";
-import type { Analysis, Email } from "../domain/types.ts";
+import type { Analysis } from "../domain/policy.ts";
+import type { Email } from "../inbox/inbox.ts";
 import { UNTRUSTED_EMAIL_NOTICE, untrustedEmail } from "./untrusted-email.ts";
 
 const analysisSchema: z.ZodType<Analysis> = z.object({

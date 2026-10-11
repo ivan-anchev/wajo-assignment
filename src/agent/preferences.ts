@@ -1,8 +1,9 @@
 import { generateText, Output, type LanguageModel } from "ai";
 import { z } from "zod";
 import { proposalOf } from "../domain/policy.ts";
-import type { Item, ProposalEdit, Transcript } from "../domain/types.ts";
-import type { Store } from "../db/store.ts";
+import type { Item } from "../db/items.ts";
+import type { Store, Transcript } from "../db/store.ts";
+import type { ProposalEdit } from "./respond.ts";
 import { untrustedJson } from "./untrusted-email.ts";
 
 const MAX_LINES = 30;

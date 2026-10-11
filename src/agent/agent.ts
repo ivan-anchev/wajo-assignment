@@ -1,28 +1,24 @@
 import type { LanguageModel } from "ai";
-import type { Store } from "../db/store.ts";
-import { readInbox, type InboxSource } from "../inbox/inbox.ts";
-import { levelFor } from "../domain/policy.ts";
+import type { Decision } from "../db/decisions.ts";
+import type { Store, Transcript } from "../db/store.ts";
+import { readInbox, type Email, type InboxSource, type SenderClass } from "../inbox/inbox.ts";
+import { levelFor, type Level } from "../domain/policy.ts";
 import { act } from "./act.ts";
 import { analyze } from "./analyze.ts";
 import { checkInjection } from "./check-injection.ts";
 import { notePreferences, preferencesAfterEdit, preferencesAfterReason } from "./preferences.ts";
 import * as pinning from "./pin.ts";
+import type { BucketStanding } from "./pin.ts";
 import * as respond from "./respond.ts";
+import type { ProposalEdit, ResponseResult } from "./respond.ts";
 import { revert } from "./revert.ts";
 import type { ActionName } from "../domain/actions.ts";
-import type {
-  BucketStanding,
-  Decision,
-  Email,
-  Event,
-  Level,
-  ProposalEdit,
-  ResponseResult,
-  SenderClass,
-  Transcript,
-} from "../domain/types.ts";
 
 export { Refusal } from "./respond.ts";
+
+// A union with one member: a second event kind turns `const { email } = event`
+// in processEvent into a compile error, which is where the dispatch then belongs.
+type Event = { kind: "incoming_email"; email: Email };
 
 export function createAgent(store: Store, llm: LanguageModel) {
   return {

@@ -2,13 +2,13 @@ import { mkdtempSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import type { ActionName, Proposal } from "../domain/actions.ts";
-import type { ProposalEdit, Transcript } from "../domain/types.ts";
-import type { Store } from "../db/store.ts";
+import type { Store, Transcript } from "../db/store.ts";
 import { readInbox, writeInbox, type InboxSource } from "../inbox/inbox.ts";
 import type { MockLanguageModelV4 } from "ai/test";
 import { mockModel } from "../llm/test-models.ts";
 import { readScenarios } from "../../eval/scenarios.ts";
 import { createAgent } from "./agent.ts";
+import type { ProposalEdit } from "./respond.ts";
 
 const CONTACTS = "fixtures/contacts.json";
 export const INBOX = { inboxDir: "fixtures/inbox", contactsPath: CONTACTS };

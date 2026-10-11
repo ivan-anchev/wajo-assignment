@@ -1,8 +1,15 @@
 import { actionFor, type ActionName } from "../domain/actions.ts";
-import { floor, isBelow, standingLevel } from "../domain/policy.ts";
-import type { BucketStanding, Level, SenderClass } from "../domain/types.ts";
+import { floor, isBelow, standingLevel, type Level } from "../domain/policy.ts";
 import type { Store } from "../db/store.ts";
+import type { SenderClass } from "../inbox/inbox.ts";
 import { Refusal } from "./respond.ts";
+
+export type BucketStanding = {
+  action: ActionName;
+  senderClass: SenderClass;
+  pin: Level | null;
+  level: Level;
+};
 
 export function pin(
   store: Store,

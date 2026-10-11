@@ -1,6 +1,7 @@
+import type { Database as Db } from "better-sqlite3";
 import type { ActionName } from "../domain/actions.ts";
-import type { Level, SenderClass } from "../domain/types.ts";
-import type { Db } from "./store.ts";
+import type { Level } from "../domain/policy.ts";
+import type { SenderClass } from "../inbox/inbox.ts";
 
 export class Pins {
   constructor(private readonly db: Db) {}

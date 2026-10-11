@@ -21,7 +21,7 @@ beforeEach(() => {
   });
 });
 
-const ctx = () => ({ store, emailId: "e1", now: NOW });
+const ctx = () => ({ emails: store.emails, emailId: "e1", now: NOW });
 const archive = { action: "archive" as const, params: {} };
 const none = { action: "none" as const, params: {} };
 const label = (name: string) => ({ action: "label" as const, params: { label: name } });

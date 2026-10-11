@@ -1,7 +1,7 @@
 import { fileURLToPath } from "node:url";
 import { z } from "zod";
 import { actionNameSchema, type Proposal } from "../src/domain/actions.ts";
-import { LEVELS } from "../src/domain/types.ts";
+import { LEVELS } from "../src/domain/policy.ts";
 import { emailFileSchema, readJsonFiles } from "../src/inbox/inbox.ts";
 
 const SCENARIO_DIR = fileURLToPath(new URL("../scenarios", import.meta.url));

@@ -1,7 +1,9 @@
+import type { Decision } from "../db/decisions.ts";
+import type { Feedback } from "../db/feedback.ts";
 import type { Store } from "../db/store.ts";
 import type { ActionName } from "../domain/actions.ts";
-import { promotion, proposalOf } from "../domain/policy.ts";
-import type { Decision, Feedback, ItemResponse, Level, SenderClass } from "../domain/types.ts";
+import { promotion, proposalOf, type ItemResponse, type Level } from "../domain/policy.ts";
+import type { SenderClass } from "../inbox/inbox.ts";
 
 const SENDERS: Record<SenderClass, string> = {
   internal: "emails from colleagues",

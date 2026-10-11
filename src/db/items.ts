@@ -1,7 +1,28 @@
-import { ALLOWED_RESPONSES } from "../domain/policy.ts";
-import type { Item, ItemStatus } from "../domain/types.ts";
+import type { Database as Db } from "better-sqlite3";
 import type { Proposal } from "../domain/actions.ts";
-import type { Db } from "./store.ts";
+import type { ItemResponse, Level } from "../domain/policy.ts";
+
+type ItemKind = Exclude<Level, "silent">;
+export type ItemStatus = "open" | "approved" | "rejected" | "dismissed" | "undone";
+
+export type Item = {
+  id: number;
+  decisionId: number;
+  kind: ItemKind;
+  status: ItemStatus;
+  // Own copy: `edit` rewrites it without touching the decision.
+  proposal: Proposal;
+  createdAt: string;
+  resolvedAt: string | null;
+  // Derived from `kind` when read, never stored. `status` says whether it is still open.
+  allowedResponses: readonly ItemResponse[];
+};
+
+const ALLOWED_RESPONSES: Record<ItemKind, readonly ItemResponse[]> = {
+  ask: ["approve", "edit", "reject"],
+  notify: ["dismiss", "undo"],
+  escalate: ["dismiss"],
+};
 
 type ItemRow = Omit<Item, "proposal" | "allowedResponses"> & { proposal: string };
 

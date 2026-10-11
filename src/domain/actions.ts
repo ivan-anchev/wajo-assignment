@@ -1,9 +1,9 @@
 import { z } from "zod";
-import type { Store } from "../db/store.ts";
+import type { Mailbox } from "../db/mailbox.ts";
 
 export type RiskClass = "reversible" | "external" | "irreversible" | "money";
 
-export type ActionContext = { store: Store; emailId: string; now: string };
+export type ActionContext = { emails: Mailbox; emailId: string; now: string };
 
 type Action<N extends string = string, S extends z.ZodObject = z.ZodObject> = {
   name: N;
@@ -41,36 +41,35 @@ export const ACTIONS = [
     description: "Move the email out of the inbox; it stays searchable",
     riskClass: "reversible",
     params: noParams,
-    execute: (_, { store, emailId, now }) => store.emails.update(emailId, { archivedAt: now }),
-    undo: (_, { store, emailId }) => store.emails.update(emailId, { archivedAt: null }),
+    execute: (_, { emails, emailId, now }) => emails.update(emailId, { archivedAt: now }),
+    undo: (_, { emails, emailId }) => emails.update(emailId, { archivedAt: null }),
   }),
   defineAction({
     name: "mark_read",
     description: "Mark the email as read and leave it in the inbox",
     riskClass: "reversible",
     params: noParams,
-    execute: (_, { store, emailId, now }) => store.emails.update(emailId, { readAt: now }),
-    undo: (_, { store, emailId }) => store.emails.update(emailId, { readAt: null }),
+    execute: (_, { emails, emailId, now }) => emails.update(emailId, { readAt: now }),
+    undo: (_, { emails, emailId }) => emails.update(emailId, { readAt: null }),
   }),
   defineAction({
     name: "snooze",
     description: "Hide the email until the given time, then return it to the inbox",
     riskClass: "reversible",
     params: z.strictObject({ until: z.iso.datetime() }),
-    execute: ({ until }, { store, emailId }) =>
-      store.emails.update(emailId, { snoozedUntil: until }),
-    undo: (_, { store, emailId }) => store.emails.update(emailId, { snoozedUntil: null }),
+    execute: ({ until }, { emails, emailId }) => emails.update(emailId, { snoozedUntil: until }),
+    undo: (_, { emails, emailId }) => emails.update(emailId, { snoozedUntil: null }),
   }),
   defineAction({
     name: "label",
     description: "Tag the email with a label for filing and search",
     riskClass: "reversible",
     params: z.strictObject({ label: z.string() }),
-    execute: ({ label }, { store, emailId }) =>
-      store.emails.update(emailId, { labels: [...store.emails.getState(emailId).labels, label] }),
-    undo: ({ label }, { store, emailId }) =>
-      store.emails.update(emailId, {
-        labels: store.emails.getState(emailId).labels.filter((existing) => existing !== label),
+    execute: ({ label }, { emails, emailId }) =>
+      emails.update(emailId, { labels: [...emails.getState(emailId).labels, label] }),
+    undo: ({ label }, { emails, emailId }) =>
+      emails.update(emailId, {
+        labels: emails.getState(emailId).labels.filter((existing) => existing !== label),
       }),
   }),
   defineAction({
@@ -78,8 +77,8 @@ export const ACTIONS = [
     description: "Save a reply for the user to review; it is never sent",
     riskClass: "reversible",
     params: z.strictObject({ body: z.string() }),
-    execute: ({ body }, { store, emailId }) => store.emails.upsertDraft(emailId, body),
-    undo: (_, { store, emailId }) => store.emails.deleteDraft(emailId),
+    execute: ({ body }, { emails, emailId }) => emails.upsertDraft(emailId, body),
+    undo: (_, { emails, emailId }) => emails.deleteDraft(emailId),
   }),
   defineAction({
     name: "send_reply",

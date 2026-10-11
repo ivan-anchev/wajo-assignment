@@ -1,5 +1,12 @@
-import type { Email, EmailState } from "../domain/types.ts";
-import type { Db } from "./store.ts";
+import type { Database as Db } from "better-sqlite3";
+import type { Email } from "../inbox/inbox.ts";
+
+type EmailState = {
+  archivedAt: string | null;
+  readAt: string | null;
+  snoozedUntil: string | null;
+  labels: string[];
+};
 
 type EmailRow = Omit<Email, "headers"> & { headers: string };
 type EmailStateRow = Omit<EmailState, "labels"> & { labels: string };

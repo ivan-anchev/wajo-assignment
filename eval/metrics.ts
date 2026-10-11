@@ -1,5 +1,4 @@
-import { isBelow, proposalOf } from "../src/domain/policy.ts";
-import { LEVELS, type Level } from "../src/domain/types.ts";
+import { isBelow, LEVELS, proposalOf, type Level } from "../src/domain/policy.ts";
 import type { Scenario } from "./scenarios.ts";
 import { labelledEpisodes, outcomesIn, type Episode, type Outcome, type Run } from "./episode.ts";
 import { violationsOf } from "./violations.ts";

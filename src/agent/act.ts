@@ -1,7 +1,8 @@
 import { executeProposal, undoProposal, type Proposal } from "../domain/actions.ts";
 import { proposalOf } from "../domain/policy.ts";
+import type { Decision } from "../db/decisions.ts";
+import type { Execution } from "../db/executions.ts";
 import type { Store } from "../db/store.ts";
-import type { Decision, Execution } from "../domain/types.ts";
 
 export function act(store: Store, decision: Decision): void {
   const proposal = proposalOf(decision.analysis);
@@ -23,7 +24,7 @@ export function execute(
 ): Execution {
   const now = new Date().toISOString();
 
-  executeProposal(proposal, { store, emailId: decision.emailId, now });
+  executeProposal(proposal, { emails: store.emails, emailId: decision.emailId, now });
 
   return store.executions.insert({ decisionId: decision.id, itemId, proposal, executedAt: now });
 }
@@ -33,5 +34,5 @@ export function undoExecution(store: Store, decision: Decision, execution: Execu
 
   store.executions.update(execution.id, { undoneAt: now });
 
-  undoProposal(execution.proposal, { store, emailId: decision.emailId, now });
+  undoProposal(execution.proposal, { emails: store.emails, emailId: decision.emailId, now });
 }

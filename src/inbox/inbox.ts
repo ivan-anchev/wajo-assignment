@@ -2,7 +2,6 @@ import { mkdtempSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { z } from "zod";
-import type { Email, SenderClass } from "../domain/types.ts";
 
 export const emailFileSchema = z.object({
   id: z.string(),
@@ -15,6 +14,11 @@ export const emailFileSchema = z.object({
   receivedAt: z.iso.datetime(),
 });
 export type EmailFile = z.infer<typeof emailFileSchema>;
+
+export const SENDER_CLASSES = ["internal", "known", "newsletter", "first_contact"] as const;
+export type SenderClass = (typeof SENDER_CLASSES)[number];
+
+export type Email = EmailFile & { senderClass: SenderClass };
 
 const contactsSchema = z.object({ me: z.email(), contacts: z.array(z.email()) });
 export type Contacts = z.infer<typeof contactsSchema>;

@@ -1,7 +1,8 @@
 import { beforeEach, describe, expect, it } from "vitest";
 import { Store } from "../db/store.ts";
 import type { ActionName } from "../domain/actions.ts";
-import type { Level, SenderClass } from "../domain/types.ts";
+import type { Level } from "../domain/policy.ts";
+import type { SenderClass } from "../inbox/inbox.ts";
 import { replayModel } from "../llm/test-models.ts";
 import { createAgent, Refusal, type Agent } from "./agent.ts";
 import { ARCHIVE, MARK_READ, feedbackCount, newsletterInbox } from "./test-agents.ts";
