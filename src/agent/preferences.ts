@@ -1,9 +1,9 @@
 import { generateText, Output, type LanguageModel } from "ai";
 import { z } from "zod";
+import type { ProposalEdit } from "../domain/actions.ts";
 import { proposalOf } from "../domain/policy.ts";
 import type { Item } from "../db/items.ts";
 import type { Store, Transcript } from "../db/store.ts";
-import type { ProposalEdit } from "./respond.ts";
 import { untrustedJson } from "./untrusted-email.ts";
 
 const MAX_LINES = 30;
@@ -32,60 +32,64 @@ const INSTRUCTIONS = [
 
 type Correction = { context: object; correction: string };
 
-export function preferencesAfterEdit(
-  store: Store,
-  llm: LanguageModel,
-  item: Item,
-  changes: ProposalEdit,
-): Promise<string[]> {
-  return extract(store, llm, item, (transcript) => ({
-    context: { ...about(transcript), proposed: proposalOf(transcript.decision.analysis) },
-    correction: `The user changed the proposal with ${JSON.stringify(changes)} and approved the result.`,
-  }));
-}
+export class PreferenceMemory {
+  private readonly store: Store;
+  private readonly model: LanguageModel;
 
-export function preferencesAfterReason(
-  store: Store,
-  llm: LanguageModel,
-  item: Item,
-  reason: string,
-): Promise<string[]> {
-  return extract(store, llm, item, (transcript) => ({
-    context: about(transcript),
-    correction: `The user rejected the proposal. Their reason: ${reason}`,
-  }));
-}
-
-// The extractor returns the whole list. An answer that breaks the list rules is discarded,
-// so a model slip can neither overflow the list nor silently lose what the user taught it.
-export function notePreferences(store: Store, after: string[]): string | null {
-  const before = store.preferences.getLines();
-  if (!followsListRules(before, after)) {
-    return null;
+  constructor({ store, model }: { store: Store; model: LanguageModel }) {
+    this.store = store;
+    this.model = model;
   }
-  store.preferences.set(after);
-  return newOrChangedLine(before, after);
-}
 
-async function extract(
-  store: Store,
-  llm: LanguageModel,
-  item: Item,
-  correctionOf: (transcript: Transcript) => Correction,
-): Promise<string[]> {
-  const transcript = store.transcript(store.decisions.get(item.decisionId));
-  const { context, correction } = correctionOf(transcript);
-  const { output } = await generateText({
-    model: llm,
-    instructions: INSTRUCTIONS,
-    prompt: [
-      `<preferences>\n${store.preferences.get()}\n</preferences>`,
-      untrustedJson("untrusted_context", context),
-      `<user_correction>\n${correction}\n</user_correction>`,
-    ].join("\n\n"),
-    output: Output.object({ schema: preferencesSchema, name: "preferences" }),
-  });
-  return output.preferences;
+  extractAfterEdit(item: Item, changes: ProposalEdit): Promise<string[]> {
+    return this.extract(item, (transcript) => ({
+      context: { ...about(transcript), proposed: proposalOf(transcript.decision.analysis) },
+      correction: `The user changed the proposal with ${JSON.stringify(changes)} and approved the result.`,
+    }));
+  }
+
+  extractAfterReason(item: Item, reason: string): Promise<string[]> {
+    return this.extract(item, (transcript) => ({
+      context: about(transcript),
+      correction: `The user rejected the proposal. Their reason: ${reason}`,
+    }));
+  }
+
+  note(after: string[]): string | null {
+    const before = this.store.preferences.getLines();
+
+    if (!followsListRules(before, after)) {
+      return null;
+    }
+
+    this.store.preferences.set(after);
+
+    return newOrChangedLine(before, after);
+  }
+
+  text(): string {
+    return this.store.preferences.get();
+  }
+
+  private async extract(
+    item: Item,
+    correctionOf: (transcript: Transcript) => Correction,
+  ): Promise<string[]> {
+    const transcript = this.store.transcript(this.store.decisions.get(item.decisionId));
+    const { context, correction } = correctionOf(transcript);
+    const { output } = await generateText({
+      model: this.model,
+      instructions: INSTRUCTIONS,
+      prompt: [
+        `<preferences>\n${this.text()}\n</preferences>`,
+        untrustedJson("untrusted_context", context),
+        `<user_correction>\n${correction}\n</user_correction>`,
+      ].join("\n\n"),
+      output: Output.object({ schema: preferencesSchema, name: "preferences" }),
+    });
+
+    return output.preferences;
+  }
 }
 
 // Neither body nor subject enters this request: an email cannot author a preference.
@@ -97,13 +101,11 @@ function about({ email, decision }: Transcript) {
   };
 }
 
-// A replacement loses exactly one current line; anything more is a dropped preference.
 function followsListRules(before: string[], after: string[]): boolean {
   const lost = before.filter((line) => !after.includes(line));
   return after.length <= MAX_LINES && lost.length <= 1;
 }
 
-// More than one unseen line means the change cannot be named as one line, so none is.
 function newOrChangedLine(before: string[], after: string[]): string | null {
   const unseen = after.filter((line) => !before.includes(line));
   return unseen.length === 1 ? unseen[0]! : null;

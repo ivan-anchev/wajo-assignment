@@ -41,8 +41,6 @@ const BRAKE_BELOW = 0.6;
 
 const NOTHING: Proposal = { action: "none", params: {} };
 
-// The strictest floor among the actions in play: the proposed or executed one, plus the one the
-// email requests. A mild proposal cannot slip a risky request under a lower floor.
 export function floor(
   [first, ...rest]: readonly [ActionName, ...ActionName[]],
   injectionSuspected: boolean,
@@ -50,7 +48,6 @@ export function floor(
   return injectionSuspected ? "escalate" : maxLevel(riskFloor(first), ...rest.map(riskFloor));
 }
 
-// An unanalyzed (suspected) email proposes and requests nothing.
 export function proposalOf(analysis: Analysis | null): Proposal {
   return analysis?.proposal ?? NOTHING;
 }
@@ -99,7 +96,6 @@ export function isBelow(level: Level, other: Level): boolean {
   return rank(level) < rank(other);
 }
 
-// Per bucket, so it leaves out what varies per email: the requested action, injection, brake.
 export function standingLevel(
   action: ActionName,
   history: readonly ItemResponse[],

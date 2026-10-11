@@ -1,146 +1,352 @@
 import type { LanguageModel } from "ai";
+import { z } from "zod";
+import {
+  actionFor,
+  executeProposal,
+  proposalSchema,
+  undoProposal,
+  type ActionName,
+  type Proposal,
+  type ProposalEdit,
+} from "../domain/actions.ts";
+import {
+  floor,
+  isBelow,
+  levelFor,
+  proposalOf,
+  requestOf,
+  type ItemResponse,
+  type Level,
+} from "../domain/policy.ts";
 import type { Decision } from "../db/decisions.ts";
+import type { Execution } from "../db/executions.ts";
+import type { Item, ItemStatus } from "../db/items.ts";
 import type { Store, Transcript } from "../db/store.ts";
 import { readInbox, type Email, type InboxSource, type SenderClass } from "../inbox/inbox.ts";
-import { levelFor, type Level } from "../domain/policy.ts";
-import { act } from "./act.ts";
 import { analyze } from "./analyze.ts";
 import { checkInjection } from "./check-injection.ts";
-import { notePreferences, preferencesAfterEdit, preferencesAfterReason } from "./preferences.ts";
-import * as pinning from "./pin.ts";
-import type { BucketStanding } from "./pin.ts";
-import * as respond from "./respond.ts";
-import type { ProposalEdit, ResponseResult } from "./respond.ts";
-import { revert } from "./revert.ts";
-import type { ActionName } from "../domain/actions.ts";
+import { Learner, type BucketStanding } from "./learner.ts";
+import { PreferenceMemory } from "./preferences.ts";
 
-export { Refusal } from "./respond.ts";
+export class Refusal extends Error {}
+
+export type ResponseResult = {
+  transcript: Transcript;
+  promotion: string | null;
+  preference: string | null;
+};
 
 // A union with one member: a second event kind turns `const { email } = event`
-// in processEvent into a compile error, which is where the dispatch then belongs.
+// in decide into a compile error, which is where the dispatch then belongs.
 type Event = { kind: "incoming_email"; email: Email };
 
-export function createAgent(store: Store, llm: LanguageModel) {
-  return {
-    async run(source: InboxSource): Promise<Transcript[]> {
-      const transcripts: Transcript[] = [];
-      for (const event of intake(store, source)) {
-        transcripts.push(await processEvent(store, llm, event));
-      }
-      return transcripts;
-    },
+export class Agent {
+  private readonly store: Store;
+  private readonly model: LanguageModel;
+  private readonly learner: Learner;
+  private readonly memory: PreferenceMemory;
 
-    transcript(emailId: string): Transcript | null {
-      return store.findTranscript(emailId);
-    },
+  constructor(config: { store: Store; model: LanguageModel }) {
+    this.store = config.store;
+    this.model = config.model;
+    this.learner = new Learner(config.store);
+    this.memory = new PreferenceMemory(config);
+  }
 
-    inbox(): Transcript[] {
-      return store.openTranscripts();
-    },
+  async run(source: InboxSource): Promise<Transcript[]> {
+    const transcripts: Transcript[] = [];
 
-    log(limit: number): Transcript[] {
-      return store.recentTranscripts(limit);
-    },
+    for (const event of this.intake(source)) {
+      transcripts.push(await this.decide(event));
+    }
 
-    approve(itemId: number): ResponseResult {
-      return respond.approve(store, itemId);
-    },
+    return transcripts;
+  }
 
-    // Each extraction runs only on an item the response would accept, so no call is spent on a refusal.
-    async edit(itemId: number, changes: ProposalEdit): Promise<ResponseResult> {
-      const item = respond.itemAcceptingEdit(store, itemId, changes);
-      const preferences = await preferencesAfterEdit(store, llm, item, changes);
-      return respondAndNote(store, preferences, () => respond.edit(store, itemId, changes));
-    },
+  transcript(emailId: string): Transcript | null {
+    return this.store.findTranscript(emailId);
+  }
 
-    async reject(itemId: number, reason?: string): Promise<ResponseResult> {
-      const preferences = reason
-        ? await preferencesAfterReason(
-            store,
-            llm,
-            respond.itemAccepting(store, itemId, "reject"),
-            reason,
-          )
-        : null;
-      return respondAndNote(store, preferences, () => respond.reject(store, itemId));
-    },
+  inbox(): Transcript[] {
+    return this.store.openTranscripts();
+  }
 
-    undo(itemId: number): ResponseResult {
-      return respond.undo(store, itemId);
-    },
+  log(limit: number): Transcript[] {
+    return this.store.recentTranscripts(limit);
+  }
 
-    dismiss(itemId: number): ResponseResult {
-      return respond.dismiss(store, itemId);
-    },
+  approve(itemId: number): ResponseResult {
+    return this.respondToItem(itemId, "approve", (item, decision) =>
+      this.executeApprovedProposal(item, decision, item.proposal),
+    );
+  }
 
-    revert(decisionId: number): ResponseResult {
-      return revert(store, decisionId);
-    },
+  async edit(itemId: number, changes: ProposalEdit): Promise<ResponseResult> {
+    const preferences = await this.memory.extractAfterEdit(
+      this.openItemAcceptingEdit(itemId, changes),
+      changes,
+    );
 
-    pin(action: ActionName, senderClass: SenderClass, level: Level): BucketStanding {
-      return pinning.pin(store, action, senderClass, level);
-    },
+    return this.respondAndNotePreferences(preferences, () =>
+      this.respondToItem(itemId, "edit", (item, decision) =>
+        this.executeApprovedProposal(item, decision, proposalAfterEdit(item, changes)),
+      ),
+    );
+  }
 
-    unpin(action: ActionName, senderClass: SenderClass): BucketStanding {
-      return pinning.unpin(store, action, senderClass);
-    },
+  async reject(itemId: number, reason?: string): Promise<ResponseResult> {
+    const preferences = reason
+      ? await this.memory.extractAfterReason(this.openItemAccepting(itemId, "reject"), reason)
+      : null;
 
-    prefs(): string {
-      return store.preferences.get();
-    },
-  };
+    return this.respondAndNotePreferences(preferences, () =>
+      this.respondToItem(itemId, "reject", (item) => this.closeItem(item, "rejected")),
+    );
+  }
+
+  undo(itemId: number): ResponseResult {
+    return this.respondToItem(itemId, "undo", (item, decision) => {
+      this.closeItem(item, "undone");
+
+      this.undoExecution(decision, this.store.executions.findByItem(item.id));
+    });
+  }
+
+  dismiss(itemId: number): ResponseResult {
+    return this.respondToItem(itemId, "dismiss", (item) => this.closeItem(item, "dismissed"));
+  }
+
+  revert(decisionId: number): ResponseResult {
+    return this.store.transaction(() => {
+      const { decision, email, execution } = this.revertableExecutionOf(decisionId);
+
+      this.undoExecution(decision, execution);
+
+      const promotion = this.learner.recordResponse(decision, email.senderClass, "undo");
+
+      return { transcript: this.store.transcript(decision), promotion, preference: null };
+    });
+  }
+
+  pin(action: ActionName, senderClass: SenderClass, level: Level): BucketStanding {
+    refusePinBelowFloor(action, level);
+
+    return this.learner.pinBucket(action, senderClass, level);
+  }
+
+  unpin(action: ActionName, senderClass: SenderClass): BucketStanding {
+    return this.learner.unpinBucket(action, senderClass);
+  }
+
+  prefs(): string {
+    return this.memory.text();
+  }
+
+  private intake(source: InboxSource): Event[] {
+    const decided = this.store.emails.listIds();
+
+    return readInbox(source)
+      .filter((email) => !decided.has(email.id))
+      .map((email) => ({ kind: "incoming_email", email }));
+  }
+
+  private async decide(event: Event): Promise<Transcript> {
+    const { email } = event;
+    // Guard first: a suspected email never reaches the analysis prompt, so nothing it steered is stored.
+    const injection = await checkInjection(this.model, email);
+    const analysis = injection.suspected
+      ? null
+      : await analyze(this.model, email, this.memory.text());
+    // An unanalyzed email proposes no action, so it has no bucket to look up.
+    const action = analysis?.proposal.action;
+    const { history, pin } = action
+      ? this.learner.bucket(action, email.senderClass)
+      : { history: [], pin: null };
+
+    return this.recordAndAct(email, {
+      emailId: email.id,
+      analysis,
+      injection,
+      pin,
+      ...levelFor(analysis, injection, history, pin),
+    });
+  }
+
+  private recordAndAct(email: Email, decided: Omit<Decision, "id" | "createdAt">): Transcript {
+    return this.store.transaction(() => {
+      this.store.emails.insert(email);
+      const decision = this.store.decisions.insert(decided);
+      this.actOn(decision);
+      return this.store.transcript(decision);
+    });
+  }
+
+  private actOn(decision: Decision): void {
+    const proposal = proposalOf(decision.analysis);
+    const item =
+      decision.level === "silent"
+        ? null
+        : this.store.items.insert({ decisionId: decision.id, kind: decision.level, proposal });
+
+    if (decision.level === "silent" || decision.level === "notify") {
+      this.execute(decision, proposal, item?.id ?? null);
+    }
+  }
+
+  private execute(decision: Decision, proposal: Proposal, itemId: number | null): Execution {
+    const now = new Date().toISOString();
+
+    executeProposal(proposal, { emails: this.store.emails, emailId: decision.emailId, now });
+
+    return this.store.executions.insert({
+      decisionId: decision.id,
+      itemId,
+      proposal,
+      executedAt: now,
+    });
+  }
+
+  private undoExecution(decision: Decision, execution: Execution): void {
+    const now = new Date().toISOString();
+
+    this.store.executions.update(execution.id, { undoneAt: now });
+
+    undoProposal(execution.proposal, { emails: this.store.emails, emailId: decision.emailId, now });
+  }
+
+  // The LLM call has already run, so a failed extraction wrote nothing. The response and the
+  // updated preference list commit together.
+  private respondAndNotePreferences(
+    preferences: string[] | null,
+    response: () => ResponseResult,
+  ): ResponseResult {
+    return this.store.transaction(() => {
+      const result = response();
+      const preference = preferences && this.memory.note(preferences);
+      return { ...result, preference };
+    });
+  }
+
+  private respondToItem(
+    itemId: number,
+    response: ItemResponse,
+    takeEffect: (item: Item, decision: Decision) => void,
+  ): ResponseResult {
+    return this.store.transaction(() => {
+      const item = this.openItemAccepting(itemId, response);
+      const decision = this.store.decisions.get(item.decisionId);
+
+      takeEffect(item, decision);
+
+      const { senderClass } = this.store.emails.get(decision.emailId);
+      const promotion =
+        item.kind === "escalate"
+          ? null
+          : this.learner.recordResponse(decision, senderClass, response);
+
+      return { transcript: this.store.transcript(decision), promotion, preference: null };
+    });
+  }
+
+  private openItemAccepting(itemId: number, response: ItemResponse): Item {
+    const item = this.store.items.find(itemId);
+
+    if (!item) {
+      throw new Refusal(`There is no item #${itemId}.`);
+    }
+
+    if (item.status !== "open") {
+      throw new Refusal(`Item #${itemId} is already ${item.status}.`);
+    }
+
+    if (!item.allowedResponses.includes(response)) {
+      throw new Refusal(
+        `${item.kind} item #${itemId} takes ${item.allowedResponses.join(", ")}, not ${response}.`,
+      );
+    }
+
+    return item;
+  }
+
+  // Every refusal `edit` can raise, checked without writing anything.
+  private openItemAcceptingEdit(itemId: number, changes: ProposalEdit): Item {
+    const item = this.openItemAccepting(itemId, "edit");
+
+    refuseIfFloorEscalates(
+      this.store.decisions.get(item.decisionId),
+      proposalAfterEdit(item, changes),
+    );
+
+    return item;
+  }
+
+  private executeApprovedProposal(item: Item, decision: Decision, proposal: Proposal): void {
+    refuseIfFloorEscalates(decision, proposal);
+
+    this.closeItem(item, "approved", proposal);
+
+    this.execute(decision, proposal, item.id);
+  }
+
+  private closeItem(
+    item: Item,
+    status: Exclude<ItemStatus, "open">,
+    proposal: Proposal = item.proposal,
+  ): void {
+    this.store.items.update(item.id, { status, proposal });
+  }
+
+  private revertableExecutionOf(decisionId: number): Transcript & { execution: Execution } {
+    const decision = this.store.decisions.find(decisionId);
+    if (!decision) {
+      throw new Refusal(`There is no decision #${decisionId}.`);
+    }
+
+    const transcript = this.store.transcript(decision);
+    if (transcript.item) {
+      const { id, kind, allowedResponses } = transcript.item;
+      throw new Refusal(
+        `Decision #${decisionId} has ${kind} item #${id}; it takes ${allowedResponses.join(", ")}.`,
+      );
+    }
+
+    const [execution] = transcript.executions;
+    if (!execution || actionFor(execution.proposal.action).inert) {
+      throw new Refusal(`Decision #${decisionId} executed nothing to revert.`);
+    }
+
+    if (execution.undoneAt) {
+      throw new Refusal(`Decision #${decisionId} is already undone.`);
+    }
+
+    return { ...transcript, execution };
+  }
 }
 
-export type Agent = ReturnType<typeof createAgent>;
+function proposalAfterEdit(item: Item, changes: ProposalEdit): Proposal {
+  const { action = item.proposal.action, ...params } = changes;
+  const base = action === item.proposal.action ? item.proposal.params : {};
+  const parsed = proposalSchema.safeParse({ action, params: { ...base, ...params } });
 
-function intake(store: Store, source: InboxSource): Event[] {
-  const decided = store.emails.listIds();
-  return readInbox(source)
-    .filter((email) => !decided.has(email.id))
-    .map((email) => ({ kind: "incoming_email", email }));
+  if (!parsed.success) {
+    throw new Refusal(`Invalid edit for item #${item.id}: ${z.prettifyError(parsed.error)}`);
+  }
+
+  return parsed.data;
 }
 
-async function processEvent(store: Store, llm: LanguageModel, event: Event): Promise<Transcript> {
-  const { email } = event;
-  // Guard first: a suspected email never reaches the analysis prompt, so nothing it steered is stored.
-  const injection = await checkInjection(llm, email);
-  const analysis = injection.suspected ? null : await analyze(llm, email, store.preferences.get());
-  // An unanalyzed email proposes no action, so it has no bucket to look up.
-  const action = analysis?.proposal.action;
-  const history = action ? store.feedback.listByBucket(action, email.senderClass) : [];
-  const pin = action ? store.pins.find(action, email.senderClass) : null;
-  return commit(store, email, {
-    emailId: email.id,
-    analysis,
-    injection,
-    pin,
-    ...levelFor(analysis, injection, history, pin),
-  });
+function refuseIfFloorEscalates({ analysis, injection }: Decision, proposal: Proposal): void {
+  if (floor([proposal.action, requestOf(analysis)], injection.suspected) === "escalate") {
+    throw new Refusal(`${proposal.action} must be escalated; nothing was executed.`);
+  }
 }
 
-function commit(
-  store: Store,
-  email: Email,
-  decided: Omit<Decision, "id" | "createdAt">,
-): Transcript {
-  return store.transaction(() => {
-    store.emails.insert(email);
-    const decision = store.decisions.insert(decided);
-    act(store, decision);
-    return store.transcript(decision);
-  });
-}
+function refusePinBelowFloor(action: ActionName, level: Level): void {
+  const least = floor([action], false);
 
-// The LLM call has already run, so a failed extraction wrote nothing. The response and the
-// updated preference list commit together.
-function respondAndNote(
-  store: Store,
-  preferences: string[] | null,
-  response: () => ResponseResult,
-): ResponseResult {
-  return store.transaction(() => {
-    const result = response();
-    const preference = preferences && notePreferences(store, preferences);
-    return { ...result, preference };
-  });
+  if (isBelow(level, least)) {
+    throw new Refusal(
+      `${action} is ${actionFor(action).riskClass} and never runs below ${least}; a pin can only raise it.`,
+    );
+  }
 }

@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from "vitest";
 import { Store } from "../db/store.ts";
 import { replayModel } from "../llm/test-models.ts";
-import { createAgent, Refusal, type Agent } from "./agent.ts";
+import { Agent, Refusal } from "./agent.ts";
 import {
   agentProposing,
   ARCHIVE,
@@ -18,7 +18,7 @@ let agent: Agent;
 beforeEach(() => {
   store = Store.open(":memory:");
   deliver = newsletterInbox(store);
-  agent = createAgent(store, replayModel());
+  agent = new Agent({ store, model: replayModel() });
 });
 
 describe("revert", () => {

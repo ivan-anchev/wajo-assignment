@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it } from "vitest";
 import { Store } from "../db/store.ts";
-import { createAgent, type Agent } from "./agent.ts";
+import { Agent } from "./agent.ts";
 import {
   agentProposing,
   feedbackCount,
@@ -24,7 +24,7 @@ beforeEach(() => {
 
 async function askedToReply(preferences: string[] | Error = [IGOR]) {
   const llm = modelProposing(SEND_REPLY, { preferences });
-  const agent = createAgent(store, llm);
+  const agent = new Agent({ store, model: llm });
   await agent.run(inboxOf("001"));
   return { llm, agent };
 }
@@ -189,7 +189,7 @@ describe("preferences (§7.4)", () => {
     await setUp();
     const llm = modelProposing(SEND_REPLY);
 
-    await expect(respond(createAgent(store, llm))).rejects.toThrow(refusal);
+    await expect(respond(new Agent({ store, model: llm }))).rejects.toThrow(refusal);
 
     expect(llm.doGenerateCalls).toEqual([]);
   });

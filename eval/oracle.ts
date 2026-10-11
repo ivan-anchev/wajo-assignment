@@ -1,7 +1,11 @@
-import type { Agent } from "../src/agent/agent.ts";
-import type { ProposalEdit, ResponseResult } from "../src/agent/respond.ts";
+import type { Agent, ResponseResult } from "../src/agent/agent.ts";
 import type { Item } from "../src/db/items.ts";
-import { actionFor, type ActionName, type Proposal } from "../src/domain/actions.ts";
+import {
+  actionFor,
+  type ActionName,
+  type Proposal,
+  type ProposalEdit,
+} from "../src/domain/actions.ts";
 import type { ItemResponse } from "../src/domain/policy.ts";
 import { correctedParams, type Scenario } from "./scenarios.ts";
 

@@ -128,12 +128,13 @@ export const actionNameSchema = z.enum(ACTIONS.map(({ name }) => name));
 
 export type Proposal = { action: ActionName; params: Record<string, unknown> };
 
+export type ProposalEdit = Record<string, unknown>;
+
 const proposalOptions = ACTIONS.map((action) =>
   z.object({ action: z.literal(action.name).describe(action.description), params: action.params }),
 );
 type ProposalOption = (typeof proposalOptions)[number];
 
-// `ACTIONS.map` loses the non-empty tuple type that z.discriminatedUnion requires.
 export const proposalSchema: z.ZodType<Proposal> = z.discriminatedUnion(
   "action",
   proposalOptions as [ProposalOption, ...ProposalOption[]],
@@ -144,18 +145,17 @@ export function actionFor<N extends ActionName>(name: N): Extract<RegisteredActi
 }
 
 export function executeProposal(proposal: Proposal, ctx: ActionContext): void {
-  // Widening to Action lets flat params through: execute is declared with method syntax,
-  // which TS checks bivariantly. Params were already validated by proposalSchema.
   const action: Action = actionFor(proposal.action);
+
   action.execute(proposal.params, ctx);
 }
 
-// Only notified and silent executions are undone, both below the ask floor, so the throw is the
-// narrowing.
 export function undoProposal(proposal: Proposal, ctx: ActionContext): void {
   const action: Action = actionFor(proposal.action);
+
   if (!action.undo) {
     throw new Error(`${proposal.action} is ${action.riskClass} and has no undo`);
   }
+
   action.undo(proposal.params, ctx);
 }

@@ -2,8 +2,7 @@ import { beforeEach, describe, expect, it } from "vitest";
 import { Store } from "../db/store.ts";
 import type { Level } from "../domain/policy.ts";
 import { mockModel, replayModel } from "../llm/test-models.ts";
-import { createAgent, type Agent } from "./agent.ts";
-import type { ResponseResult } from "./respond.ts";
+import { Agent, type ResponseResult } from "./agent.ts";
 import { ARCHIVE, MARK_READ, NONE, SEND_REPLY, newsletterInbox } from "./test-agents.ts";
 
 let store: Store;
@@ -13,7 +12,7 @@ let agent: Agent;
 beforeEach(() => {
   store = Store.open(":memory:");
   deliver = newsletterInbox(store);
-  agent = createAgent(store, replayModel());
+  agent = new Agent({ store, model: replayModel() });
 });
 
 const ASK_TO_NOTIFY =
@@ -122,7 +121,7 @@ describe("learning (§7.1)", () => {
     }
     const third = await deliver(ARCHIVE);
 
-    const responder = createAgent(store, mockModel({ preferences: { preferences: [] } }));
+    const responder = new Agent({ store, model: mockModel({ preferences: { preferences: [] } }) });
     const { transcript, promotion } = await responder.edit(third.item!.id, {
       action: "mark_read",
     });

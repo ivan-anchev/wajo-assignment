@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from "vitest";
 import { Store } from "../db/store.ts";
 import { replayModel } from "../llm/test-models.ts";
-import { createAgent } from "./agent.ts";
+import { Agent } from "./agent.ts";
 import { agentProposing, injectionInbox, NONE, SEND_REPLY } from "./test-agents.ts";
 
 let store: Store;
@@ -28,7 +28,7 @@ describe("inbox", () => {
   });
 
   it("lists escalations with dismiss as the only response", async () => {
-    const agent = createAgent(store, replayModel());
+    const agent = new Agent({ store, model: replayModel() });
     await agent.run(injectionInbox());
 
     expect(

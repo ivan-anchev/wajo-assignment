@@ -1,14 +1,13 @@
 import { mkdtempSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import type { ActionName, Proposal } from "../domain/actions.ts";
+import type { ActionName, Proposal, ProposalEdit } from "../domain/actions.ts";
 import type { Store, Transcript } from "../db/store.ts";
 import { readInbox, writeInbox, type InboxSource } from "../inbox/inbox.ts";
 import type { MockLanguageModelV4 } from "ai/test";
 import { mockModel } from "../llm/test-models.ts";
 import { readScenarios } from "../../eval/scenarios.ts";
-import { createAgent } from "./agent.ts";
-import type { ProposalEdit } from "./respond.ts";
+import { Agent } from "./agent.ts";
 
 const CONTACTS = "fixtures/contacts.json";
 export const INBOX = { inboxDir: "fixtures/inbox", contactsPath: CONTACTS };
@@ -41,7 +40,7 @@ export async function agentProposing(
   proposal: Proposal,
   requested: ActionName = "none",
 ) {
-  const agent = createAgent(store, modelProposing(proposal, { requested }));
+  const agent = new Agent({ store, model: modelProposing(proposal, { requested }) });
   await agent.run(INBOX);
   return agent;
 }
@@ -55,7 +54,7 @@ export function newsletterInbox(
   return async (proposal, analysis) => {
     const id = `n${++delivered}`;
     writeFileSync(join(inboxDir, `${id}.json`), JSON.stringify({ ...newsletter, id }));
-    const [transcript] = await createAgent(store, modelProposing(proposal, analysis)).run({
+    const [transcript] = await new Agent({ store, model: modelProposing(proposal, analysis) }).run({
       inboxDir,
       contactsPath: CONTACTS,
     });

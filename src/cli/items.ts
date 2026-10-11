@@ -1,6 +1,6 @@
 import { InvalidArgumentError, type Command } from "commander";
-import type { Agent } from "../agent/agent.ts";
-import type { ProposalEdit, ResponseResult } from "../agent/respond.ts";
+import type { Agent, ResponseResult } from "../agent/agent.ts";
+import type { ProposalEdit } from "../domain/actions.ts";
 import { liveOption, positiveInteger, type OpenAgent } from "./options.ts";
 import { renderResponse } from "./render.ts";
 

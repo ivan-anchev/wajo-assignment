@@ -61,6 +61,7 @@ export class Store {
 
   findTranscript(emailId: string): Transcript | null {
     const decision = this.decisions.findByEmail(emailId);
+
     return decision ? this.transcript(decision) : null;
   }
 

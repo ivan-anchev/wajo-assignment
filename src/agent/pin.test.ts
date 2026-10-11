@@ -4,7 +4,7 @@ import type { ActionName } from "../domain/actions.ts";
 import type { Level } from "../domain/policy.ts";
 import type { SenderClass } from "../inbox/inbox.ts";
 import { replayModel } from "../llm/test-models.ts";
-import { createAgent, Refusal, type Agent } from "./agent.ts";
+import { Agent, Refusal } from "./agent.ts";
 import { ARCHIVE, MARK_READ, feedbackCount, newsletterInbox } from "./test-agents.ts";
 
 let store: Store;
@@ -14,7 +14,7 @@ let agent: Agent;
 beforeEach(() => {
   store = Store.open(":memory:");
   deliver = newsletterInbox(store);
-  agent = createAgent(store, replayModel());
+  agent = new Agent({ store, model: replayModel() });
 });
 
 async function learnNotify() {

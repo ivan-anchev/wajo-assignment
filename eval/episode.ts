@@ -1,6 +1,6 @@
 import type { LanguageModel } from "ai";
 import { fileURLToPath } from "node:url";
-import { createAgent, type Agent } from "../src/agent/agent.ts";
+import { Agent } from "../src/agent/agent.ts";
 import { Store, type Transcript } from "../src/db/store.ts";
 import { byArrival, writeInbox } from "../src/inbox/inbox.ts";
 import type { Scenario } from "./scenarios.ts";
@@ -20,7 +20,7 @@ export async function runEpisodes(
   count: number,
 ): Promise<Run> {
   const baseline = await runBaseline(llm, scenarios);
-  const agent = createAgent(Store.open(":memory:"), llm);
+  const agent = new Agent({ store: Store.open(":memory:"), model: llm });
   const episodes: Episode[] = [];
   for (let n = 1; n <= count; n++) {
     episodes.push(await runEpisode(agent, scenarios, `e${n}`));
@@ -41,7 +41,7 @@ export function outcomesIn(episode: Episode, split: Scenario["split"]): Episode 
 
 // Decides every scenario of both splits on a fresh database and answers nothing, so nothing is learned.
 async function runBaseline(llm: LanguageModel, scenarios: readonly Scenario[]): Promise<Episode> {
-  const agent = createAgent(Store.open(":memory:"), llm);
+  const agent = new Agent({ store: Store.open(":memory:"), model: llm });
   await agent.run(writeInbox(emailsOf(scenarios, BASELINE), CONTACTS));
   return outcomesOf(agent, scenarios, BASELINE);
 }

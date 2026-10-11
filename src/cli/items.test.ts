@@ -1,6 +1,6 @@
 import { Command } from "commander";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { createAgent } from "../agent/agent.ts";
+import { Agent } from "../agent/agent.ts";
 import { agentProposing, modelProposing, SEND_REPLY } from "../agent/test-agents.ts";
 import { Store } from "../db/store.ts";
 import { addItemCommands } from "./items.ts";
@@ -35,7 +35,7 @@ describe("agent edit --set", () => {
 });
 
 function agent() {
-  return createAgent(store, modelProposing(SEND_REPLY));
+  return new Agent({ store, model: modelProposing(SEND_REPLY) });
 }
 
 async function edit(...pairs: string[]): Promise<void> {

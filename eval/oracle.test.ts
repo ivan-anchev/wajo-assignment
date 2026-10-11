@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it } from "vitest";
-import { createAgent } from "../src/agent/agent.ts";
+import { Agent } from "../src/agent/agent.ts";
 import {
   agentProposing,
   ARCHIVE,
@@ -104,7 +104,7 @@ describe("oracle on an ask", () => {
     },
   ])("$name", async ({ scenario, status, feedback, executed, extractions }) => {
     const llm = modelProposing(SEND_REPLY, { preferences: ["Keep it short."] });
-    const agent = createAgent(store, llm);
+    const agent = new Agent({ store, model: llm });
     await agent.run(INBOX);
 
     const { transcript } = await answer(agent, scenario, agent.inbox()[0]!.item!);
@@ -122,7 +122,7 @@ describe("oracle on an ask", () => {
 describe("oracle on a notify", () => {
   async function notifyItem() {
     const deliver = newsletterInbox(store);
-    const agent = createAgent(store, modelProposing(ARCHIVE));
+    const agent = new Agent({ store, model: modelProposing(ARCHIVE) });
     for (let n = 0; n < 3; n++) {
       agent.approve((await deliver(ARCHIVE)).item!.id);
     }

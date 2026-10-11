@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from "vitest";
 import { Store } from "../db/store.ts";
 import { replayModel } from "../llm/test-models.ts";
-import { createAgent, Refusal, type Agent } from "./agent.ts";
+import { Agent, Refusal } from "./agent.ts";
 import {
   agentProposing,
   ARCHIVE,
@@ -105,7 +105,7 @@ describe("edit", () => {
 
   it("asks on a promoted bucket when the email requests an ask-floor action, executing only on approval or edit", async () => {
     const deliver = newsletterInbox(store);
-    const agent = createAgent(store, modelProposing(ARCHIVE));
+    const agent = new Agent({ store, model: modelProposing(ARCHIVE) });
     for (let n = 0; n < 3; n++) {
       agent.approve((await deliver(ARCHIVE)).item!.id);
     }
@@ -151,7 +151,7 @@ describe("reject", () => {
 
 describe("dismiss", () => {
   it("closes every injection escalation without feedback (invariant 3)", async () => {
-    const agent = createAgent(store, replayModel());
+    const agent = new Agent({ store, model: replayModel() });
     await agent.run(injectionInbox());
 
     const results = [1, 2, 3, 4, 5, 6, 7, 8].map((id) => agent.dismiss(id));
@@ -251,7 +251,7 @@ describe("notify items", () => {
 // Three approved archives move archive/newsletter to notify, so the fourth is executed and notified.
 async function notifiedArchive() {
   const deliver = newsletterInbox(store);
-  const agent = createAgent(store, replayModel());
+  const agent = new Agent({ store, model: replayModel() });
   for (let n = 0; n < 3; n++) {
     agent.approve((await deliver(ARCHIVE)).item!.id);
   }

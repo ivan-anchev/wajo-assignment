@@ -1,6 +1,6 @@
 import type { LanguageModel } from "ai";
 import { beforeEach, describe, expect, it } from "vitest";
-import { createAgent } from "./agent.ts";
+import { Agent } from "./agent.ts";
 import { Store } from "../db/store.ts";
 import { mockModel, observedReplayModel, replayModel } from "../llm/test-models.ts";
 import {
@@ -22,7 +22,7 @@ beforeEach(() => {
   store = Store.open(":memory:");
 });
 
-const agentWith = (llm: LanguageModel) => createAgent(store, llm);
+const agentWith = (llm: LanguageModel) => new Agent({ store, model: llm });
 
 describe("run", () => {
   it("judges then analyzes each demo email, deciding in arrival order", async () => {
