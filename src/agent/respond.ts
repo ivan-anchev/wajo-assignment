@@ -56,12 +56,12 @@ function respond(
   return db.transaction(() => {
     const item = itemAccepting(db, itemId, response);
     const decision = getDecision(db, item.decisionId);
-    
+
     takeEffect({ db, item, decision });
-    
+
     const { senderClass } = getEmail(db, decision.emailId);
     const promotion = item.kind === "escalate" ? null : learn(db, decision, senderClass, response);
-    
+
     return { transcript: transcriptOf(db, decision), promotion, preference: null };
   })();
 }
@@ -116,10 +116,10 @@ function editedProposal(item: Item, changes: ProposalEdit): Proposal {
   const { action = item.proposal.action, ...params } = changes;
   const base = action === item.proposal.action ? item.proposal.params : {};
   const parsed = proposalSchema.safeParse({ action, params: { ...base, ...params } });
-  
+
   if (!parsed.success) {
     throw new Refusal(`Invalid edit for item #${item.id}: ${z.prettifyError(parsed.error)}`);
   }
-  
+
   return parsed.data;
 }

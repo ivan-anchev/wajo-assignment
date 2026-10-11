@@ -32,7 +32,7 @@ const JUDGE_INSTRUCTIONS = [
 export async function checkInjection(llm: LanguageModel, email: Email): Promise<InjectionVerdict> {
   const signals = [matchPatterns(email), await askJudge(llm, email)];
   const fired = signals.filter((verdict) => verdict.suspected);
-  
+
   return { suspected: fired.length > 0, evidence: fired.flatMap((verdict) => verdict.evidence) };
 }
 

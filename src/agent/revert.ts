@@ -12,9 +12,9 @@ export function revert(db: Db, decisionId: number): ResponseResult {
   return db.transaction(() => {
     const { decision, email, execution } = silentExecution(db, decisionId);
     undoExecution(db, decision, execution);
-    
+
     const promotion = learn(db, decision, email.senderClass, "undo");
-    
+
     return { transcript: transcriptOf(db, decision), promotion, preference: null };
   })();
 }
@@ -42,6 +42,6 @@ function silentExecution(db: Db, decisionId: number): Transcript & { execution: 
   if (execution.undoneAt) {
     throw new Refusal(`Decision #${decisionId} is already undone.`);
   }
-  
+
   return { ...transcript, execution };
 }
