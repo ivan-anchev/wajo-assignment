@@ -11,14 +11,14 @@ import {
   SEND_REPLY,
 } from "../src/agent/test-agents.ts";
 import type { ActionName, Proposal } from "../src/domain/actions.ts";
-import { openDb, type Db } from "../src/db/open-db.ts";
+import { Store } from "../src/db/store.ts";
 import { readScenarios, type Scenario } from "../src/scenarios/scenarios.ts";
 import { answer } from "./oracle.ts";
 
-let db: Db;
+let store: Store;
 
 beforeEach(() => {
-  db = openDb(":memory:");
+  store = Store.open(":memory:");
 });
 
 function scenarioWith(action: ActionName, correction?: Scenario["correction"]): Scenario {
@@ -104,7 +104,7 @@ describe("oracle on an ask", () => {
     },
   ])("$name", async ({ scenario, status, feedback, executed, extractions }) => {
     const llm = modelProposing(SEND_REPLY, { preferences: ["Keep it short."] });
-    const agent = createAgent(db, llm);
+    const agent = createAgent(store, llm);
     await agent.run(INBOX);
 
     const { transcript } = await answer(agent, scenario, agent.inbox()[0]!.item!);
@@ -121,8 +121,8 @@ describe("oracle on an ask", () => {
 
 describe("oracle on a notify", () => {
   async function notifyItem() {
-    const deliver = newsletterInbox(db);
-    const agent = createAgent(db, modelProposing(ARCHIVE));
+    const deliver = newsletterInbox(store);
+    const agent = createAgent(store, modelProposing(ARCHIVE));
     for (let n = 0; n < 3; n++) {
       agent.approve((await deliver(ARCHIVE)).item!.id);
     }
@@ -144,7 +144,7 @@ describe("oracle on a notify", () => {
 
 describe("oracle on an escalation", () => {
   it("dismisses it even when the proposal matches gold, and teaches nothing", async () => {
-    const agent = await agentProposing(db, PAY_INVOICE);
+    const agent = await agentProposing(store, PAY_INVOICE);
 
     const { transcript } = await answer(
       agent,

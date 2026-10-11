@@ -2,9 +2,7 @@ import { generateText, Output, type LanguageModel } from "ai";
 import { z } from "zod";
 import { proposalOf } from "../domain/policy.ts";
 import type { Item, ProposalEdit, Transcript } from "../domain/types.ts";
-import { getDecision, transcriptOf } from "../db/decision-log.ts";
-import type { Db } from "../db/open-db.ts";
-import { readPreferences } from "../db/preferences.ts";
+import type { Store } from "../db/store.ts";
 import { untrustedJson } from "./untrusted-email.ts";
 
 const preferencesSchema = z.object({
@@ -32,42 +30,42 @@ const INSTRUCTIONS = [
 type Correction = { context: object; correction: string };
 
 export function preferencesAfterEdit(
-  db: Db,
+  store: Store,
   llm: LanguageModel,
   item: Item,
   changes: ProposalEdit,
 ): Promise<string[]> {
-  return extract(db, llm, item, (transcript) => ({
+  return extract(store, llm, item, (transcript) => ({
     context: { ...about(transcript), proposed: proposalOf(transcript.decision.analysis) },
     correction: `The user changed the proposal with ${JSON.stringify(changes)} and approved the result.`,
   }));
 }
 
 export function preferencesAfterReason(
-  db: Db,
+  store: Store,
   llm: LanguageModel,
   item: Item,
   reason: string,
 ): Promise<string[]> {
-  return extract(db, llm, item, (transcript) => ({
+  return extract(store, llm, item, (transcript) => ({
     context: about(transcript),
     correction: `The user rejected the proposal. Their reason: ${reason}`,
   }));
 }
 
 async function extract(
-  db: Db,
+  store: Store,
   llm: LanguageModel,
   item: Item,
   correctionOf: (transcript: Transcript) => Correction,
 ): Promise<string[]> {
-  const transcript = transcriptOf(db, getDecision(db, item.decisionId));
+  const transcript = store.transcript(store.decisions.get(item.decisionId));
   const { context, correction } = correctionOf(transcript);
   const { output } = await generateText({
     model: llm,
     instructions: INSTRUCTIONS,
     prompt: [
-      `<preferences>\n${readPreferences(db)}\n</preferences>`,
+      `<preferences>\n${store.preferences.get()}\n</preferences>`,
       untrustedJson("untrusted_context", context),
       `<user_correction>\n${correction}\n</user_correction>`,
     ].join("\n\n"),

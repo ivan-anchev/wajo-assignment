@@ -1,6 +1,5 @@
 import { beforeEach, describe, expect, it } from "vitest";
-import { openDb, type Db } from "../db/open-db.ts";
-import { writePreferences } from "../db/preferences.ts";
+import { Store } from "../db/store.ts";
 import { createAgent, type Agent } from "./agent.ts";
 import {
   agentProposing,
@@ -17,15 +16,15 @@ const IGOR = "Replies to Igor are informal, no sign-off.";
 const IGOR_FORMAL = "Replies to Igor are formal, signed with my full name.";
 const NEWSLETTERS = "Newsletters from Northwind stay in the inbox.";
 
-let db: Db;
+let store: Store;
 
 beforeEach(() => {
-  db = openDb(":memory:");
+  store = Store.open(":memory:");
 });
 
 async function askedToReply(preferences: string[] | Error = [IGOR]) {
   const llm = modelProposing(SEND_REPLY, { preferences });
-  const agent = createAgent(db, llm);
+  const agent = createAgent(store, llm);
   await agent.run(inboxOf("001"));
   return { llm, agent };
 }
@@ -67,7 +66,7 @@ describe("preferences (§7.4)", () => {
   });
 
   it("keeps an unchanged list and reports no preference", async () => {
-    writePreferences(db, [IGOR]);
+    store.preferences.set([IGOR]);
     const { agent } = await askedToReply([IGOR]);
 
     expect((await agent.edit(1, { body: "Thanks!" })).preference).toBeNull();
@@ -75,7 +74,7 @@ describe("preferences (§7.4)", () => {
   });
 
   it("replaces a superseded line in place and reports it", async () => {
-    writePreferences(db, [IGOR, NEWSLETTERS]);
+    store.preferences.set([IGOR, NEWSLETTERS]);
     const { agent } = await askedToReply([IGOR_FORMAL, NEWSLETTERS]);
 
     const { preference } = await agent.reject(1, "Igor wants formal replies after all");
@@ -85,7 +84,7 @@ describe("preferences (§7.4)", () => {
   });
 
   it("stores a two-line change but names no single preference", async () => {
-    writePreferences(db, [IGOR]);
+    store.preferences.set([IGOR]);
     const { agent } = await askedToReply([IGOR_FORMAL, NEWSLETTERS]);
 
     const { preference } = await agent.reject(1, "Igor wants formal replies after all");
@@ -95,7 +94,7 @@ describe("preferences (§7.4)", () => {
   });
 
   it("discards an answer longer than 30 lines and still commits the response", async () => {
-    writePreferences(db, [IGOR]);
+    store.preferences.set([IGOR]);
     const { agent } = await askedToReply([IGOR, ...numbered(30)]);
 
     const { transcript, preference } = await agent.reject(1, "too formal");
@@ -106,7 +105,7 @@ describe("preferences (§7.4)", () => {
   });
 
   it("discards an answer that drops two current lines and still commits the response", async () => {
-    writePreferences(db, [IGOR, NEWSLETTERS, "Invoices from Acme are paid by Dana."]);
+    store.preferences.set([IGOR, NEWSLETTERS, "Invoices from Acme are paid by Dana."]);
     const { agent } = await askedToReply([IGOR_FORMAL]);
 
     const { transcript, preference } = await agent.reject(1, "Igor wants formal replies after all");
@@ -143,7 +142,7 @@ describe("preferences (§7.4)", () => {
     await expect(agent.reject(1, "too formal")).rejects.toThrow("model down");
 
     expect(agent.transcript("001")!.item!.status).toBe("open");
-    expect(feedbackCount(db)).toBe(0);
+    expect(feedbackCount(store)).toBe(0);
     expect(agent.prefs()).toBe("");
   });
 
@@ -190,14 +189,14 @@ describe("preferences (§7.4)", () => {
     await setUp();
     const llm = modelProposing(SEND_REPLY);
 
-    await expect(respond(createAgent(db, llm))).rejects.toThrow(refusal);
+    await expect(respond(createAgent(store, llm))).rejects.toThrow(refusal);
 
     expect(llm.doGenerateCalls).toEqual([]);
   });
 });
 
 function openAsk() {
-  return agentProposing(db, SEND_REPLY);
+  return agentProposing(store, SEND_REPLY);
 }
 
 async function rejectedAsk() {
@@ -205,7 +204,7 @@ async function rejectedAsk() {
 }
 
 function escalation() {
-  return agentProposing(db, PAY_INVOICE);
+  return agentProposing(store, PAY_INVOICE);
 }
 
 function numbered(count: number): string[] {

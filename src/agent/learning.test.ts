@@ -1,19 +1,18 @@
 import { beforeEach, describe, expect, it } from "vitest";
-import { readEmailState } from "../db/mailbox.ts";
-import { openDb, type Db } from "../db/open-db.ts";
+import { Store } from "../db/store.ts";
 import type { Level, ResponseResult } from "../domain/types.ts";
 import { mockModel, replayModel } from "../llm/test-models.ts";
 import { createAgent, type Agent } from "./agent.ts";
 import { ARCHIVE, MARK_READ, NONE, SEND_REPLY, newsletterInbox } from "./test-agents.ts";
 
-let db: Db;
+let store: Store;
 let deliver: ReturnType<typeof newsletterInbox>;
 let agent: Agent;
 
 beforeEach(() => {
-  db = openDb(":memory:");
-  deliver = newsletterInbox(db);
-  agent = createAgent(db, replayModel());
+  store = Store.open(":memory:");
+  deliver = newsletterInbox(store);
+  agent = createAgent(store, replayModel());
 });
 
 const ASK_TO_NOTIFY =
@@ -47,7 +46,9 @@ describe("learning (§7.1)", () => {
     const seventh = await deliver(ARCHIVE);
 
     expect(seventh).toMatchObject({ decision: { learned: "silent", level: "silent" }, item: null });
-    expect(readEmailState(db, seventh.email.id).archivedAt).toBe(seventh.executions[0]!.executedAt);
+    expect(store.emails.getState(seventh.email.id).archivedAt).toBe(
+      seventh.executions[0]!.executedAt,
+    );
   });
 
   it("steps back one rung on undo at silent and on reject at notify, without announcing", async () => {
@@ -57,7 +58,7 @@ describe("learning (§7.1)", () => {
     const atSilent = await deliver(ARCHIVE, { confidence: 0.5 });
     expect(atSilent.decision).toMatchObject({ learned: "silent", brake: true, level: "notify" });
     expect(agent.undo(atSilent.item!.id).promotion).toBeNull();
-    expect(readEmailState(db, atSilent.email.id).archivedAt).toBeNull();
+    expect(store.emails.getState(atSilent.email.id).archivedAt).toBeNull();
 
     const atNotify = await deliver(ARCHIVE, { confidence: 0.5 });
     expect(atNotify.decision).toMatchObject({ learned: "notify", brake: true, level: "ask" });
@@ -120,7 +121,7 @@ describe("learning (§7.1)", () => {
     }
     const third = await deliver(ARCHIVE);
 
-    const responder = createAgent(db, mockModel({ preferences: { preferences: [] } }));
+    const responder = createAgent(store, mockModel({ preferences: { preferences: [] } }));
     const { transcript, promotion } = await responder.edit(third.item!.id, {
       action: "mark_read",
     });

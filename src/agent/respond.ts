@@ -9,65 +9,63 @@ import type {
   ProposalEdit,
   ResponseResult,
 } from "../domain/types.ts";
-import { findExecutionByItem, getDecision, transcriptOf } from "../db/decision-log.ts";
-import { findItem, resolveItem } from "../db/items.ts";
-import { getEmail } from "../db/mailbox.ts";
-import type { Db } from "../db/open-db.ts";
+import type { Store } from "../db/store.ts";
 import { execute, undoExecution } from "./act.ts";
 import { learn } from "./learn.ts";
 import { Refusal } from "./refusal.ts";
 
 type ResponseContext = {
-  db: Db;
+  store: Store;
   item: Item;
   decision: Decision;
 };
 
-export function approve(db: Db, itemId: number): ResponseResult {
-  return respond(db, itemId, "approve", (r) => approveProposal(r, r.item.proposal));
+export function approve(store: Store, itemId: number): ResponseResult {
+  return respond(store, itemId, "approve", (r) => approveProposal(r, r.item.proposal));
 }
 
-export function edit(db: Db, itemId: number, changes: ProposalEdit): ResponseResult {
-  return respond(db, itemId, "edit", (r) => approveProposal(r, editedProposal(r.item, changes)));
+export function edit(store: Store, itemId: number, changes: ProposalEdit): ResponseResult {
+  return respond(store, itemId, "edit", (r) => approveProposal(r, editedProposal(r.item, changes)));
 }
 
-export function reject(db: Db, itemId: number): ResponseResult {
-  return respond(db, itemId, "reject", (r) => resolve(r, "rejected"));
+export function reject(store: Store, itemId: number): ResponseResult {
+  return respond(store, itemId, "reject", (r) => resolve(r, "rejected"));
 }
 
-export function dismiss(db: Db, itemId: number): ResponseResult {
-  return respond(db, itemId, "dismiss", (r) => resolve(r, "dismissed"));
+export function dismiss(store: Store, itemId: number): ResponseResult {
+  return respond(store, itemId, "dismiss", (r) => resolve(r, "dismissed"));
 }
 
-export function undo(db: Db, itemId: number): ResponseResult {
-  return respond(db, itemId, "undo", (r) => {
+export function undo(store: Store, itemId: number): ResponseResult {
+  return respond(store, itemId, "undo", (r) => {
     resolve(r, "undone");
-    undoExecution(r.db, r.decision, findExecutionByItem(r.db, r.item.id));
+    undoExecution(r.store, r.decision, r.store.executions.findByItem(r.item.id));
   });
 }
 
 // One transaction: a refusal throws and rolls everything back.
 function respond(
-  db: Db,
+  store: Store,
   itemId: number,
   response: ItemResponse,
   takeEffect: (r: ResponseContext) => void,
 ): ResponseResult {
-  return db.transaction(() => {
-    const item = itemAccepting(db, itemId, response);
-    const decision = getDecision(db, item.decisionId);
+  return store.transaction(() => {
+    const item = itemAccepting(store, itemId, response);
+    const decision = store.decisions.get(item.decisionId);
 
-    takeEffect({ db, item, decision });
+    takeEffect({ store, item, decision });
 
-    const { senderClass } = getEmail(db, decision.emailId);
-    const promotion = item.kind === "escalate" ? null : learn(db, decision, senderClass, response);
+    const { senderClass } = store.emails.get(decision.emailId);
+    const promotion =
+      item.kind === "escalate" ? null : learn(store, decision, senderClass, response);
 
-    return { transcript: transcriptOf(db, decision), promotion, preference: null };
-  })();
+    return { transcript: store.transcript(decision), promotion, preference: null };
+  });
 }
 
-export function itemAccepting(db: Db, itemId: number, response: ItemResponse): Item {
-  const item = findItem(db, itemId);
+export function itemAccepting(store: Store, itemId: number, response: ItemResponse): Item {
+  const item = store.items.find(itemId);
   if (!item) {
     throw new Refusal(`There is no item #${itemId}.`);
   }
@@ -86,16 +84,16 @@ export function itemAccepting(db: Db, itemId: number, response: ItemResponse): I
 }
 
 // Every refusal `edit` can raise, checked without writing anything.
-export function itemAcceptingEdit(db: Db, itemId: number, changes: ProposalEdit): Item {
-  const item = itemAccepting(db, itemId, "edit");
-  refuseEscalated(getDecision(db, item.decisionId), editedProposal(item, changes));
+export function itemAcceptingEdit(store: Store, itemId: number, changes: ProposalEdit): Item {
+  const item = itemAccepting(store, itemId, "edit");
+  refuseEscalated(store.decisions.get(item.decisionId), editedProposal(item, changes));
   return item;
 }
 
 function approveProposal(r: ResponseContext, proposal: Proposal): void {
   refuseEscalated(r.decision, proposal);
   resolve(r, "approved", proposal);
-  execute(r.db, r.decision, proposal, r.item.id);
+  execute(r.store, r.decision, proposal, r.item.id);
 }
 
 function refuseEscalated({ analysis, injection }: Decision, proposal: Proposal): void {
@@ -109,7 +107,7 @@ function resolve(
   status: Exclude<ItemStatus, "open">,
   proposal: Proposal = r.item.proposal,
 ): void {
-  resolveItem(r.db, r.item.id, { status, proposal });
+  r.store.items.update(r.item.id, { status, proposal });
 }
 
 function editedProposal(item: Item, changes: ProposalEdit): Proposal {

@@ -1,8 +1,7 @@
 import type { LanguageModel } from "ai";
 import { beforeEach, describe, expect, it } from "vitest";
 import { createAgent } from "./agent.ts";
-import { readEmailState } from "../db/mailbox.ts";
-import { openDb, type Db } from "../db/open-db.ts";
+import { Store } from "../db/store.ts";
 import { mockModel, observedReplayModel, replayModel } from "../llm/test-models.ts";
 import {
   agentProposing,
@@ -17,13 +16,13 @@ import {
   SEND_REPLY,
 } from "./test-agents.ts";
 
-let db: Db;
+let store: Store;
 
 beforeEach(() => {
-  db = openDb(":memory:");
+  store = Store.open(":memory:");
 });
 
-const agentWith = (llm: LanguageModel) => createAgent(db, llm);
+const agentWith = (llm: LanguageModel) => createAgent(store, llm);
 
 describe("run", () => {
   it("judges then analyzes each demo email, deciding in arrival order", async () => {
@@ -117,7 +116,7 @@ describe("run", () => {
       item: { kind: "ask", status: "open" },
       executions: [],
     });
-    expect(readEmailState(db, first!.email.id).archivedAt).toBeNull();
+    expect(store.emails.getState(first!.email.id).archivedAt).toBeNull();
   });
 
   it("writes nothing when the judge fails, so the email is retried next run", async () => {
@@ -152,7 +151,7 @@ describe("run", () => {
     await agent.run(INBOX);
     await agent.run(injectionInbox());
 
-    expect(feedbackCount(db)).toBe(0);
+    expect(feedbackCount(store)).toBe(0);
   });
 });
 
@@ -192,7 +191,7 @@ describe("requested-action floor (§6)", () => {
   it.each([LABEL, NONE])(
     "escalates a $action proposal on an email that requests a payment, executing nothing",
     async (proposal) => {
-      const agent = await agentProposing(db, proposal, "pay_invoice");
+      const agent = await agentProposing(store, proposal, "pay_invoice");
 
       expect(agent.transcript("001")).toMatchObject({
         decision: { floor: "escalate", level: "escalate" },
@@ -204,7 +203,7 @@ describe("requested-action floor (§6)", () => {
   );
 
   it("never lowers the floor of the proposal", async () => {
-    const agent = await agentProposing(db, SEND_REPLY, "none");
+    const agent = await agentProposing(store, SEND_REPLY, "none");
 
     expect(agent.transcript("001")!.decision).toMatchObject({ floor: "ask", level: "ask" });
   });
@@ -223,6 +222,6 @@ describe("requested-action floor (§6)", () => {
       executions: [],
     });
     agent.dismiss(1);
-    expect(feedbackCount(db)).toBe(0);
+    expect(feedbackCount(store)).toBe(0);
   });
 });

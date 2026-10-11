@@ -1,15 +1,14 @@
 import { beforeEach, describe, expect, it } from "vitest";
 import { z } from "zod";
 import { ACTIONS, executeProposal, proposalSchema, undoProposal } from "./actions.ts";
-import { insertEmail, readEmailState } from "../db/mailbox.ts";
-import { openDb, type Db } from "../db/open-db.ts";
+import { Store } from "../db/store.ts";
 
 const NOW = "2026-10-07T09:00:00.000Z";
-let db: Db;
+let store: Store;
 
 beforeEach(() => {
-  db = openDb(":memory:");
-  insertEmail(db, {
+  store = Store.open(":memory:");
+  store.emails.insert({
     id: "e1",
     threadId: "t1",
     from: "a@x.dev",
@@ -22,30 +21,30 @@ beforeEach(() => {
   });
 });
 
-const ctx = () => ({ db, emailId: "e1", now: NOW });
+const ctx = () => ({ store, emailId: "e1", now: NOW });
 const archive = { action: "archive" as const, params: {} };
 const none = { action: "none" as const, params: {} };
 const label = (name: string) => ({ action: "label" as const, params: { label: name } });
 
 const draftCount = () =>
-  db.prepare("SELECT count(*) FROM drafts WHERE email_id = ?").pluck().get("e1");
+  store.db.prepare("SELECT count(*) FROM drafts WHERE email_id = ?").pluck().get("e1");
 
 describe("archive", () => {
   it("sets archivedAt on execute and clears it on undo", () => {
     executeProposal(archive, ctx());
-    expect(readEmailState(db, "e1").archivedAt).toBe(NOW);
+    expect(store.emails.getState("e1").archivedAt).toBe(NOW);
 
     undoProposal(archive, ctx());
-    expect(readEmailState(db, "e1").archivedAt).toBeNull();
+    expect(store.emails.getState("e1").archivedAt).toBeNull();
   });
 });
 
 describe("none", () => {
   it("leaves email state untouched on execute and undo", () => {
-    const before = readEmailState(db, "e1");
+    const before = store.emails.getState("e1");
     executeProposal(none, ctx());
     undoProposal(none, ctx());
-    expect(readEmailState(db, "e1")).toEqual(before);
+    expect(store.emails.getState("e1")).toEqual(before);
   });
 });
 
@@ -55,7 +54,7 @@ describe("undoProposal", () => {
     executeProposal(label("b"), ctx());
 
     undoProposal(label("a"), ctx());
-    expect(readEmailState(db, "e1").labels).toEqual(["b"]);
+    expect(store.emails.getState("e1").labels).toEqual(["b"]);
   });
 
   it("deletes the draft that draft_reply saved", () => {

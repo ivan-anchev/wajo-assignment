@@ -1,6 +1,5 @@
 import { actionFor } from "../domain/actions.ts";
-import { findDecision, transcriptOf } from "../db/decision-log.ts";
-import type { Db } from "../db/open-db.ts";
+import type { Store } from "../db/store.ts";
 import type { Execution, ResponseResult, Transcript } from "../domain/types.ts";
 import { undoExecution } from "./act.ts";
 import { learn } from "./learn.ts";
@@ -8,25 +7,25 @@ import { Refusal } from "./refusal.ts";
 
 // A silent decision opens no item, so the user reverts it by decision id. It counts as an undo
 // under the bucket, which steps the ladder from silent back to notify.
-export function revert(db: Db, decisionId: number): ResponseResult {
-  return db.transaction(() => {
-    const { decision, email, execution } = silentExecution(db, decisionId);
-    undoExecution(db, decision, execution);
+export function revert(store: Store, decisionId: number): ResponseResult {
+  return store.transaction(() => {
+    const { decision, email, execution } = silentExecution(store, decisionId);
+    undoExecution(store, decision, execution);
 
-    const promotion = learn(db, decision, email.senderClass, "undo");
+    const promotion = learn(store, decision, email.senderClass, "undo");
 
-    return { transcript: transcriptOf(db, decision), promotion, preference: null };
-  })();
+    return { transcript: store.transcript(decision), promotion, preference: null };
+  });
 }
 
 // Every non-silent decision, an injection-suspected one included, has an item and is refused here.
-function silentExecution(db: Db, decisionId: number): Transcript & { execution: Execution } {
-  const decision = findDecision(db, decisionId);
+function silentExecution(store: Store, decisionId: number): Transcript & { execution: Execution } {
+  const decision = store.decisions.find(decisionId);
   if (!decision) {
     throw new Refusal(`There is no decision #${decisionId}.`);
   }
 
-  const transcript = transcriptOf(db, decision);
+  const transcript = store.transcript(decision);
   if (transcript.item) {
     const { id, kind, allowedResponses } = transcript.item;
     throw new Refusal(

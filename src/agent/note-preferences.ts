@@ -1,16 +1,15 @@
-import type { Db } from "../db/open-db.ts";
-import { readPreferenceLines, writePreferences } from "../db/preferences.ts";
+import type { Store } from "../db/store.ts";
 
 const MAX_LINES = 30;
 
 // The extractor returns the whole list. An answer that breaks the list rules is discarded,
 // so a model slip can neither overflow the list nor silently lose what the user taught it.
-export function notePreferences(db: Db, after: string[]): string | null {
-  const before = readPreferenceLines(db);
+export function notePreferences(store: Store, after: string[]): string | null {
+  const before = store.preferences.getLines();
   if (!followsListRules(before, after)) {
     return null;
   }
-  writePreferences(db, after);
+  store.preferences.set(after);
   return newOrChangedLine(before, after);
 }
 

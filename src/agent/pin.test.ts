@@ -1,20 +1,19 @@
 import { beforeEach, describe, expect, it } from "vitest";
-import { openDb, type Db } from "../db/open-db.ts";
-import { findPin } from "../db/pins.ts";
+import { Store } from "../db/store.ts";
 import type { ActionName } from "../domain/actions.ts";
 import type { Level, SenderClass } from "../domain/types.ts";
 import { replayModel } from "../llm/test-models.ts";
 import { createAgent, Refusal, type Agent } from "./agent.ts";
 import { ARCHIVE, MARK_READ, feedbackCount, newsletterInbox } from "./test-agents.ts";
 
-let db: Db;
+let store: Store;
 let deliver: ReturnType<typeof newsletterInbox>;
 let agent: Agent;
 
 beforeEach(() => {
-  db = openDb(":memory:");
-  deliver = newsletterInbox(db);
-  agent = createAgent(db, replayModel());
+  store = Store.open(":memory:");
+  deliver = newsletterInbox(store);
+  agent = createAgent(store, replayModel());
 });
 
 async function learnNotify() {
@@ -74,7 +73,7 @@ describe("pins (§7.3)", () => {
   it("accepts a pin at the floor, and pin and unpin write no feedback", () => {
     expect(agent.pin("send_reply", "known", "ask")).toMatchObject({ level: "ask" });
     expect(agent.unpin("send_reply", "known")).toMatchObject({ pin: null, level: "ask" });
-    expect(feedbackCount(db)).toBe(0);
+    expect(feedbackCount(store)).toBe(0);
   });
 
   it.each<[ActionName, SenderClass, Level]>([
@@ -84,7 +83,7 @@ describe("pins (§7.3)", () => {
   ])("refuses to pin %s/%s below the floor at %s (invariant 4)", (action, senderClass, level) => {
     expect(() => agent.pin(action, senderClass, level)).toThrow(Refusal);
     expect(() => agent.pin(action, senderClass, level)).toThrow(/a pin can only raise it/);
-    expect(findPin(db, action, senderClass)).toBeNull();
+    expect(store.pins.find(action, senderClass)).toBeNull();
   });
 
   it("holds only its own action and sender class", async () => {

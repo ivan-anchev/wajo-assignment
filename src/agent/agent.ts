@@ -1,16 +1,5 @@
 import type { LanguageModel } from "ai";
-import {
-  findTranscript,
-  insertDecision,
-  openTranscripts,
-  recentTranscripts,
-  transcriptOf,
-} from "../db/decision-log.ts";
-import { bucketHistory } from "../db/feedback.ts";
-import { insertEmail, storedEmailIds } from "../db/mailbox.ts";
-import type { Db } from "../db/open-db.ts";
-import { findPin } from "../db/pins.ts";
-import { readPreferences } from "../db/preferences.ts";
+import type { Store } from "../db/store.ts";
 import { readInbox, type InboxSource } from "../inbox/inbox.ts";
 import { levelFor } from "../domain/policy.ts";
 import { act } from "./act.ts";
@@ -36,91 +25,96 @@ import type {
 
 export { Refusal } from "./refusal.ts";
 
-export function createAgent(db: Db, llm: LanguageModel) {
+export function createAgent(store: Store, llm: LanguageModel) {
   return {
     async run(source: InboxSource): Promise<Transcript[]> {
       const transcripts: Transcript[] = [];
-      for (const event of intake(db, source)) {
-        transcripts.push(await processEvent(db, llm, event));
+      for (const event of intake(store, source)) {
+        transcripts.push(await processEvent(store, llm, event));
       }
       return transcripts;
     },
 
     transcript(emailId: string): Transcript | null {
-      return findTranscript(db, emailId);
+      return store.findTranscript(emailId);
     },
 
     inbox(): Transcript[] {
-      return openTranscripts(db);
+      return store.openTranscripts();
     },
 
     log(limit: number): Transcript[] {
-      return recentTranscripts(db, limit);
+      return store.recentTranscripts(limit);
     },
 
     approve(itemId: number): ResponseResult {
-      return respond.approve(db, itemId);
+      return respond.approve(store, itemId);
     },
 
     // Each extraction runs only on an item the response would accept, so no call is spent on a refusal.
     async edit(itemId: number, changes: ProposalEdit): Promise<ResponseResult> {
-      const item = respond.itemAcceptingEdit(db, itemId, changes);
-      const preferences = await preferencesAfterEdit(db, llm, item, changes);
-      return respondAndNote(db, preferences, () => respond.edit(db, itemId, changes));
+      const item = respond.itemAcceptingEdit(store, itemId, changes);
+      const preferences = await preferencesAfterEdit(store, llm, item, changes);
+      return respondAndNote(store, preferences, () => respond.edit(store, itemId, changes));
     },
 
     async reject(itemId: number, reason?: string): Promise<ResponseResult> {
       const preferences = reason
-        ? await preferencesAfterReason(db, llm, respond.itemAccepting(db, itemId, "reject"), reason)
+        ? await preferencesAfterReason(
+            store,
+            llm,
+            respond.itemAccepting(store, itemId, "reject"),
+            reason,
+          )
         : null;
-      return respondAndNote(db, preferences, () => respond.reject(db, itemId));
+      return respondAndNote(store, preferences, () => respond.reject(store, itemId));
     },
 
     undo(itemId: number): ResponseResult {
-      return respond.undo(db, itemId);
+      return respond.undo(store, itemId);
     },
 
     dismiss(itemId: number): ResponseResult {
-      return respond.dismiss(db, itemId);
+      return respond.dismiss(store, itemId);
     },
 
     revert(decisionId: number): ResponseResult {
-      return revert(db, decisionId);
+      return revert(store, decisionId);
     },
 
     pin(action: ActionName, senderClass: SenderClass, level: Level): BucketStanding {
-      return pinning.pin(db, action, senderClass, level);
+      return pinning.pin(store, action, senderClass, level);
     },
 
     unpin(action: ActionName, senderClass: SenderClass): BucketStanding {
-      return pinning.unpin(db, action, senderClass);
+      return pinning.unpin(store, action, senderClass);
     },
 
     prefs(): string {
-      return readPreferences(db);
+      return store.preferences.get();
     },
   };
 }
 
 export type Agent = ReturnType<typeof createAgent>;
 
-function intake(db: Db, source: InboxSource): Event[] {
-  const decided = storedEmailIds(db);
+function intake(store: Store, source: InboxSource): Event[] {
+  const decided = store.emails.listIds();
   return readInbox(source)
     .filter((email) => !decided.has(email.id))
     .map((email) => ({ kind: "incoming_email", email }));
 }
 
-async function processEvent(db: Db, llm: LanguageModel, event: Event): Promise<Transcript> {
+async function processEvent(store: Store, llm: LanguageModel, event: Event): Promise<Transcript> {
   const { email } = event;
   // Guard first: a suspected email never reaches the analysis prompt, so nothing it steered is stored.
   const injection = await checkInjection(llm, email);
-  const analysis = injection.suspected ? null : await analyze(llm, email, readPreferences(db));
+  const analysis = injection.suspected ? null : await analyze(llm, email, store.preferences.get());
   // An unanalyzed email proposes no action, so it has no bucket to look up.
   const action = analysis?.proposal.action;
-  const history = action ? bucketHistory(db, action, email.senderClass) : [];
-  const pin = action ? findPin(db, action, email.senderClass) : null;
-  return commit(db, email, {
+  const history = action ? store.feedback.listByBucket(action, email.senderClass) : [];
+  const pin = action ? store.pins.find(action, email.senderClass) : null;
+  return commit(store, email, {
     emailId: email.id,
     analysis,
     injection,
@@ -129,25 +123,29 @@ async function processEvent(db: Db, llm: LanguageModel, event: Event): Promise<T
   });
 }
 
-function commit(db: Db, email: Email, decided: Omit<Decision, "id" | "createdAt">): Transcript {
-  return db.transaction(() => {
-    insertEmail(db, email);
-    const decision = insertDecision(db, decided);
-    act(db, decision);
-    return transcriptOf(db, decision);
-  })();
+function commit(
+  store: Store,
+  email: Email,
+  decided: Omit<Decision, "id" | "createdAt">,
+): Transcript {
+  return store.transaction(() => {
+    store.emails.insert(email);
+    const decision = store.decisions.insert(decided);
+    act(store, decision);
+    return store.transcript(decision);
+  });
 }
 
 // The LLM call has already run, so a failed extraction wrote nothing. The response and the
 // updated preference list commit together.
 function respondAndNote(
-  db: Db,
+  store: Store,
   preferences: string[] | null,
   response: () => ResponseResult,
 ): ResponseResult {
-  return db.transaction(() => {
+  return store.transaction(() => {
     const result = response();
-    const preference = preferences && notePreferences(db, preferences);
+    const preference = preferences && notePreferences(store, preferences);
     return { ...result, preference };
-  })();
+  });
 }

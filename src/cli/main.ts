@@ -3,7 +3,7 @@ import { existsSync } from "node:fs";
 import { ACTIONS } from "../domain/actions.ts";
 import { evaluate } from "../../eval/eval.ts";
 import { createAgent, Refusal } from "../agent/agent.ts";
-import { openDb } from "../db/open-db.ts";
+import { Store } from "../db/store.ts";
 import { DEFAULT_MODEL, languageModelFrom } from "../llm/llm.ts";
 import { addItemCommands } from "./items.ts";
 import { liveOption, positiveInteger, type OpenAgent } from "./options.ts";
@@ -22,7 +22,7 @@ const config = {
 };
 
 const openAgent: OpenAgent = ({ live }) =>
-  createAgent(openDb(config.dbPath), languageModelFrom(config.model, { live }));
+  createAgent(Store.open(config.dbPath), languageModelFrom(config.model, { live }));
 
 const program = new Command("agent")
   .description("Inbox agent: learns when to act, notify, ask, or escalate")

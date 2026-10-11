@@ -3,7 +3,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import type { ActionName, Proposal } from "../domain/actions.ts";
 import type { ProposalEdit, Transcript } from "../domain/types.ts";
-import type { Db } from "../db/open-db.ts";
+import type { Store } from "../db/store.ts";
 import { readInbox, writeInbox, type InboxSource } from "../inbox/inbox.ts";
 import type { MockLanguageModelV4 } from "ai/test";
 import { mockModel } from "../llm/test-models.ts";
@@ -36,14 +36,18 @@ type AnalysisOptions = {
   preferences?: string[] | Error;
 };
 
-export async function agentProposing(db: Db, proposal: Proposal, requested: ActionName = "none") {
-  const agent = createAgent(db, modelProposing(proposal, { requested }));
+export async function agentProposing(
+  store: Store,
+  proposal: Proposal,
+  requested: ActionName = "none",
+) {
+  const agent = createAgent(store, modelProposing(proposal, { requested }));
   await agent.run(INBOX);
   return agent;
 }
 
 export function newsletterInbox(
-  db: Db,
+  store: Store,
 ): (proposal: Proposal, analysis?: AnalysisOptions) => Promise<Transcript> {
   const inboxDir = mkdtempSync(join(tmpdir(), "inbox-"));
   const newsletter = readInbox(INBOX).find((email) => email.id === "002")!;
@@ -51,7 +55,7 @@ export function newsletterInbox(
   return async (proposal, analysis) => {
     const id = `n${++delivered}`;
     writeFileSync(join(inboxDir, `${id}.json`), JSON.stringify({ ...newsletter, id }));
-    const [transcript] = await createAgent(db, modelProposing(proposal, analysis)).run({
+    const [transcript] = await createAgent(store, modelProposing(proposal, analysis)).run({
       inboxDir,
       contactsPath: CONTACTS,
     });
@@ -59,8 +63,8 @@ export function newsletterInbox(
   };
 }
 
-export function feedbackCount(db: Db): number {
-  return db.prepare<[], { n: number }>("SELECT count(*) AS n FROM feedback").get()!.n;
+export function feedbackCount(store: Store): number {
+  return store.db.prepare<[], { n: number }>("SELECT count(*) AS n FROM feedback").get()!.n;
 }
 
 export function modelProposing(

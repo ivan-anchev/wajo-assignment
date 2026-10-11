@@ -1,18 +1,18 @@
 import { beforeEach, describe, expect, it } from "vitest";
-import { openDb, type Db } from "../db/open-db.ts";
+import { Store } from "../db/store.ts";
 import { replayModel } from "../llm/test-models.ts";
 import { createAgent } from "./agent.ts";
 import { agentProposing, injectionInbox, NONE, SEND_REPLY } from "./test-agents.ts";
 
-let db: Db;
+let store: Store;
 
 beforeEach(() => {
-  db = openDb(":memory:");
+  store = Store.open(":memory:");
 });
 
 describe("inbox", () => {
   it("lists every open ask with the responses its kind allows, oldest first", async () => {
-    const agent = await agentProposing(db, SEND_REPLY);
+    const agent = await agentProposing(store, SEND_REPLY);
 
     const inbox = agent.inbox();
 
@@ -28,7 +28,7 @@ describe("inbox", () => {
   });
 
   it("lists escalations with dismiss as the only response", async () => {
-    const agent = createAgent(db, replayModel());
+    const agent = createAgent(store, replayModel());
     await agent.run(injectionInbox());
 
     expect(
@@ -47,7 +47,7 @@ describe("inbox", () => {
   });
 
   it("drops an item once it is resolved", async () => {
-    const agent = await agentProposing(db, SEND_REPLY);
+    const agent = await agentProposing(store, SEND_REPLY);
 
     agent.approve(1);
 
@@ -55,7 +55,7 @@ describe("inbox", () => {
   });
 
   it("is empty when every decision was silent", async () => {
-    const agent = await agentProposing(db, NONE);
+    const agent = await agentProposing(store, NONE);
 
     expect(agent.inbox()).toEqual([]);
   });

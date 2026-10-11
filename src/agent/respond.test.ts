@@ -1,6 +1,5 @@
 import { beforeEach, describe, expect, it } from "vitest";
-import { readEmailState } from "../db/mailbox.ts";
-import { openDb, type Db } from "../db/open-db.ts";
+import { Store } from "../db/store.ts";
 import { replayModel } from "../llm/test-models.ts";
 import { createAgent, Refusal, type Agent } from "./agent.ts";
 import {
@@ -16,15 +15,15 @@ import {
   SEND_REPLY,
 } from "./test-agents.ts";
 
-let db: Db;
+let store: Store;
 
 beforeEach(() => {
-  db = openDb(":memory:");
+  store = Store.open(":memory:");
 });
 
 describe("approve", () => {
   it("executes the proposal once, closes the item, records positive feedback", async () => {
-    const agent = await agentProposing(db, SEND_REPLY);
+    const agent = await agentProposing(store, SEND_REPLY);
 
     const { transcript } = agent.approve(1);
 
@@ -39,7 +38,7 @@ describe("approve", () => {
   });
 
   it("executes once when approved twice", async () => {
-    const agent = await agentProposing(db, SEND_REPLY);
+    const agent = await agentProposing(store, SEND_REPLY);
     agent.approve(1);
 
     expect(() => agent.approve(1)).toThrow(Refusal);
@@ -47,11 +46,11 @@ describe("approve", () => {
     await expect(agent.edit(1, { bdy: "Thanks!" })).rejects.toThrow(/already approved/);
     await expect(agent.edit(1, PAY_INVOICE_EDIT)).rejects.toThrow(/already approved/);
     expect(agent.transcript("001")!.executions).toHaveLength(1);
-    expect(feedbackCount(db)).toBe(1);
+    expect(feedbackCount(store)).toBe(1);
   });
 
   it("is refused after reject and executes nothing", async () => {
-    const agent = await agentProposing(db, SEND_REPLY);
+    const agent = await agentProposing(store, SEND_REPLY);
     await agent.reject(1);
 
     expect(() => agent.approve(1)).toThrow(/already rejected/);
@@ -62,7 +61,7 @@ describe("approve", () => {
 
 describe("edit", () => {
   it("executes the edited payload under the original bucket", async () => {
-    const agent = await agentProposing(db, SEND_REPLY);
+    const agent = await agentProposing(store, SEND_REPLY);
     const edited = { action: "send_reply", params: { body: "Thanks!" } };
 
     const { transcript } = await agent.edit(1, { body: "Thanks!" });
@@ -74,13 +73,13 @@ describe("edit", () => {
   });
 
   it("overlays a same-action edit on the current params", async () => {
-    const agent = await agentProposing(db, SEND_REPLY);
+    const agent = await agentProposing(store, SEND_REPLY);
 
     expect((await agent.edit(1, {})).transcript.executions[0]!.proposal).toEqual(SEND_REPLY);
   });
 
   it("buckets an action switch under the proposed action", async () => {
-    const agent = await agentProposing(db, SEND_REPLY);
+    const agent = await agentProposing(store, SEND_REPLY);
 
     const { transcript } = await agent.edit(1, { action: "forward", to: "dana@northwind.io" });
 
@@ -92,21 +91,21 @@ describe("edit", () => {
   });
 
   it("re-runs the floor, refuses an edit into a money action and leaves the ask usable (invariant 5)", async () => {
-    const agent = await agentProposing(db, SEND_REPLY);
+    const agent = await agentProposing(store, SEND_REPLY);
     const before = agent.transcript("001");
 
     await expect(agent.edit(1, PAY_INVOICE_EDIT)).rejects.toThrow(/pay_invoice must be escalated/);
     expect(agent.transcript("001")).toEqual(before);
     expect(before!.item).toMatchObject({ status: "open", proposal: SEND_REPLY });
     expect(before!.executions).toEqual([]);
-    expect(feedbackCount(db)).toBe(0);
+    expect(feedbackCount(store)).toBe(0);
 
     expect((await agent.reject(1)).transcript.feedback).toMatchObject({ kind: "reject" });
   });
 
   it("asks on a promoted bucket when the email requests an ask-floor action, executing only on approval or edit", async () => {
-    const deliver = newsletterInbox(db);
-    const agent = createAgent(db, modelProposing(ARCHIVE));
+    const deliver = newsletterInbox(store);
+    const agent = createAgent(store, modelProposing(ARCHIVE));
     for (let n = 0; n < 3; n++) {
       agent.approve((await deliver(ARCHIVE)).item!.id);
     }
@@ -129,18 +128,18 @@ describe("edit", () => {
     ["an ill-typed param", { action: "forward", to: "not-an-email" }],
     ["an unknown key", { bdy: "Thanks!" }],
   ])("refuses %s and leaves the item untouched", async (_, changes) => {
-    const agent = await agentProposing(db, SEND_REPLY);
+    const agent = await agentProposing(store, SEND_REPLY);
     const before = agent.transcript("001");
 
     await expect(agent.edit(1, changes)).rejects.toThrow(/Invalid edit for item #1/);
     expect(agent.transcript("001")).toEqual(before);
-    expect(feedbackCount(db)).toBe(0);
+    expect(feedbackCount(store)).toBe(0);
   });
 });
 
 describe("reject", () => {
   it("closes the ask without executing and records negative feedback", async () => {
-    const agent = await agentProposing(db, SEND_REPLY);
+    const agent = await agentProposing(store, SEND_REPLY);
 
     const { transcript } = await agent.reject(1);
 
@@ -152,7 +151,7 @@ describe("reject", () => {
 
 describe("dismiss", () => {
   it("closes every injection escalation without feedback (invariant 3)", async () => {
-    const agent = createAgent(db, replayModel());
+    const agent = createAgent(store, replayModel());
     await agent.run(injectionInbox());
 
     const results = [1, 2, 3, 4, 5, 6, 7, 8].map((id) => agent.dismiss(id));
@@ -172,22 +171,22 @@ describe("dismiss", () => {
         promotion: null,
       })),
     );
-    expect(feedbackCount(db)).toBe(0);
+    expect(feedbackCount(store)).toBe(0);
   });
 
   it("never turns a money escalation into feedback", async () => {
-    const agent = await agentProposing(db, PAY_INVOICE);
+    const agent = await agentProposing(store, PAY_INVOICE);
 
     expect(agent.transcript("001")!.item!.kind).toBe("escalate");
     expect(agent.dismiss(1).transcript.item!.status).toBe("dismissed");
-    expect(feedbackCount(db)).toBe(0);
+    expect(feedbackCount(store)).toBe(0);
     expect(() => agent.dismiss(1)).toThrow(/already dismissed/);
   });
 });
 
 describe("refusals", () => {
   it("refuses an unknown item id", async () => {
-    const agent = await agentProposing(db, SEND_REPLY);
+    const agent = await agentProposing(store, SEND_REPLY);
 
     expect(() => agent.approve(999)).toThrow(/There is no item #999/);
   });
@@ -198,12 +197,12 @@ describe("refusals", () => {
     ["reject on an escalation", PAY_INVOICE, (agent: Agent) => agent.reject(1)],
     ["edit on an escalation", PAY_INVOICE, (agent: Agent) => agent.edit(1, {})],
   ])("refuses %s without side effects", async (_, proposal, respond) => {
-    const agent = await agentProposing(db, proposal);
+    const agent = await agentProposing(store, proposal);
     const before = agent.transcript("001");
 
     await expect((async () => respond(agent))()).rejects.toThrow(/takes .*, not/);
     expect(agent.transcript("001")).toEqual(before);
-    expect(feedbackCount(db)).toBe(0);
+    expect(feedbackCount(store)).toBe(0);
   });
 });
 
@@ -215,7 +214,7 @@ describe("notify items", () => {
 
     expect(transcript.item!.status).toBe("dismissed");
     expect(transcript.executions).toMatchObject([{ undoneAt: null }]);
-    expect(readEmailState(db, notified.email.id).archivedAt).toBe(
+    expect(store.emails.getState(notified.email.id).archivedAt).toBe(
       notified.executions[0]!.executedAt,
     );
     expect(transcript.feedback).toMatchObject({
@@ -232,27 +231,27 @@ describe("notify items", () => {
 
     expect(transcript.item!.status).toBe("undone");
     expect(transcript.executions).toMatchObject([{ undoneAt: expect.any(String) }]);
-    expect(readEmailState(db, notified.email.id).archivedAt).toBeNull();
+    expect(store.emails.getState(notified.email.id).archivedAt).toBeNull();
     expect(transcript.feedback).toMatchObject({ kind: "undo" });
   });
 
   it("undo twice reverts once", async () => {
     const { agent, notified } = await notifiedArchive();
     const undone = agent.undo(notified.item!.id);
-    const feedbackBefore = feedbackCount(db);
+    const feedbackBefore = feedbackCount(store);
 
     expect(() => agent.undo(notified.item!.id)).toThrow(/already undone/);
     expect(agent.transcript(notified.email.id)!.executions).toMatchObject([
       { undoneAt: undone.transcript.executions[0]!.undoneAt },
     ]);
-    expect(feedbackCount(db)).toBe(feedbackBefore);
+    expect(feedbackCount(store)).toBe(feedbackBefore);
   });
 });
 
 // Three approved archives move archive/newsletter to notify, so the fourth is executed and notified.
 async function notifiedArchive() {
-  const deliver = newsletterInbox(db);
-  const agent = createAgent(db, replayModel());
+  const deliver = newsletterInbox(store);
+  const agent = createAgent(store, replayModel());
   for (let n = 0; n < 3; n++) {
     agent.approve((await deliver(ARCHIVE)).item!.id);
   }

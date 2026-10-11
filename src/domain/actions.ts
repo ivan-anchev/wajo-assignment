@@ -1,10 +1,9 @@
 import { z } from "zod";
-import type { Db } from "../db/open-db.ts";
-import { deleteDraft, readEmailState, saveDraft, updateEmailState } from "../db/mailbox.ts";
+import type { Store } from "../db/store.ts";
 
 export type RiskClass = "reversible" | "external" | "irreversible" | "money";
 
-export type ActionContext = { db: Db; emailId: string; now: string };
+export type ActionContext = { store: Store; emailId: string; now: string };
 
 type Action<N extends string = string, S extends z.ZodObject = z.ZodObject> = {
   name: N;
@@ -27,7 +26,6 @@ function defineAction<const N extends string, S extends z.ZodObject>(
 const noParams = z.strictObject({});
 const noEffect = () => {};
 
-// Simulator: reversible actions change local email state; the rest never leave the process.
 export const ACTIONS = [
   defineAction({
     name: "none",
@@ -43,35 +41,36 @@ export const ACTIONS = [
     description: "Move the email out of the inbox; it stays searchable",
     riskClass: "reversible",
     params: noParams,
-    execute: (_, { db, emailId, now }) => updateEmailState(db, emailId, { archivedAt: now }),
-    undo: (_, { db, emailId }) => updateEmailState(db, emailId, { archivedAt: null }),
+    execute: (_, { store, emailId, now }) => store.emails.update(emailId, { archivedAt: now }),
+    undo: (_, { store, emailId }) => store.emails.update(emailId, { archivedAt: null }),
   }),
   defineAction({
     name: "mark_read",
     description: "Mark the email as read and leave it in the inbox",
     riskClass: "reversible",
     params: noParams,
-    execute: (_, { db, emailId, now }) => updateEmailState(db, emailId, { readAt: now }),
-    undo: (_, { db, emailId }) => updateEmailState(db, emailId, { readAt: null }),
+    execute: (_, { store, emailId, now }) => store.emails.update(emailId, { readAt: now }),
+    undo: (_, { store, emailId }) => store.emails.update(emailId, { readAt: null }),
   }),
   defineAction({
     name: "snooze",
     description: "Hide the email until the given time, then return it to the inbox",
     riskClass: "reversible",
     params: z.strictObject({ until: z.iso.datetime() }),
-    execute: ({ until }, { db, emailId }) => updateEmailState(db, emailId, { snoozedUntil: until }),
-    undo: (_, { db, emailId }) => updateEmailState(db, emailId, { snoozedUntil: null }),
+    execute: ({ until }, { store, emailId }) =>
+      store.emails.update(emailId, { snoozedUntil: until }),
+    undo: (_, { store, emailId }) => store.emails.update(emailId, { snoozedUntil: null }),
   }),
   defineAction({
     name: "label",
     description: "Tag the email with a label for filing and search",
     riskClass: "reversible",
     params: z.strictObject({ label: z.string() }),
-    execute: ({ label }, { db, emailId }) =>
-      updateEmailState(db, emailId, { labels: [...readEmailState(db, emailId).labels, label] }),
-    undo: ({ label }, { db, emailId }) =>
-      updateEmailState(db, emailId, {
-        labels: readEmailState(db, emailId).labels.filter((existing) => existing !== label),
+    execute: ({ label }, { store, emailId }) =>
+      store.emails.update(emailId, { labels: [...store.emails.getState(emailId).labels, label] }),
+    undo: ({ label }, { store, emailId }) =>
+      store.emails.update(emailId, {
+        labels: store.emails.getState(emailId).labels.filter((existing) => existing !== label),
       }),
   }),
   defineAction({
@@ -79,8 +78,8 @@ export const ACTIONS = [
     description: "Save a reply for the user to review; it is never sent",
     riskClass: "reversible",
     params: z.strictObject({ body: z.string() }),
-    execute: ({ body }, { db, emailId }) => saveDraft(db, emailId, body),
-    undo: (_, { db, emailId }) => deleteDraft(db, emailId),
+    execute: ({ body }, { store, emailId }) => store.emails.upsertDraft(emailId, body),
+    undo: (_, { store, emailId }) => store.emails.deleteDraft(emailId),
   }),
   defineAction({
     name: "send_reply",
