@@ -1,12 +1,12 @@
 import { LEVELS } from "../src/domain/types.ts";
 import { labelledEpisodes, type LabelledEpisode, type Run } from "./episode.ts";
-import type { GateResult } from "./gates.ts";
 import { renderHistory } from "./history.ts";
 import { fraction, percent, table } from "./markdown.ts";
 import {
   metricsBySplit,
   violationsIn,
   type Confusion,
+  type GateResult,
   type Metrics,
   type SplitMetrics,
 } from "./metrics.ts";
@@ -77,6 +77,18 @@ export function renderSummary(run: Run, gates: GateResult[]): string {
     gates.map(({ name, pass }) => `- Gate **${name}**: ${pass ? "pass" : "FAIL"}`).join("\n"),
     ...(violations.length ? [violations.join("\n")] : []),
   ].join("\n\n");
+}
+
+export function renderResultsJson(model: string, run: Run, gates: GateResult[]): string {
+  const results = {
+    model,
+    episodes: labelledEpisodes(run).map(({ label, episode }) => ({
+      label,
+      metrics: metricsBySplit(episode),
+    })),
+    gates,
+  };
+  return `${JSON.stringify(results, null, 2)}\n`;
 }
 
 function summaryRow(label: string, splits: SplitMetrics): string[] {

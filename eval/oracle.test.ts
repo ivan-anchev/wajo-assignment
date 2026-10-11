@@ -12,7 +12,7 @@ import {
 } from "../src/agent/test-agents.ts";
 import type { ActionName, Proposal } from "../src/domain/actions.ts";
 import { Store } from "../src/db/store.ts";
-import { readScenarios, type Scenario } from "../src/scenarios/scenarios.ts";
+import { readScenarios, type Scenario } from "./scenarios.ts";
 import { answer } from "./oracle.ts";
 
 let store: Store;

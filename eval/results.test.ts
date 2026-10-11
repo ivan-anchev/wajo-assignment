@@ -1,9 +1,9 @@
 import { describe, expect, it } from "vitest";
 import { ARCHIVE, modelProposing } from "../src/agent/test-agents.ts";
-import { readScenarios } from "../src/scenarios/scenarios.ts";
+import { readScenarios } from "./scenarios.ts";
 import { runEpisodes } from "./episode.ts";
-import { checkGates } from "./gates.ts";
-import { renderResultsJson } from "./results-json.ts";
+import { checkGates } from "./metrics.ts";
+import { renderResultsJson } from "./results.ts";
 
 const sales = readScenarios().filter(({ category }) => category === "first_contact_sales");
 

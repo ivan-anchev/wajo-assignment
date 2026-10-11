@@ -1,6 +1,6 @@
 import type { ActionName, Proposal } from "../src/domain/actions.ts";
 import type { Feedback, Item, Level, Transcript } from "../src/domain/types.ts";
-import { readScenarios, type Scenario } from "../src/scenarios/scenarios.ts";
+import { readScenarios, type Scenario } from "./scenarios.ts";
 import type { Outcome } from "./episode.ts";
 
 export type Built = {

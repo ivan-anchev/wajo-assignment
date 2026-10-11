@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { readInbox } from "../inbox/inbox.ts";
 import { mockModel, replayModel } from "../llm/test-models.ts";
-import { readScenarios } from "../scenarios/scenarios.ts";
+import { readScenarios } from "../../eval/scenarios.ts";
 import { checkInjection } from "./check-injection.ts";
 import { SCENARIO_INBOX } from "./test-agents.ts";
 

@@ -4,7 +4,7 @@ import { createAgent, type Agent } from "../src/agent/agent.ts";
 import { Store } from "../src/db/store.ts";
 import type { Transcript } from "../src/domain/types.ts";
 import { byArrival, writeInbox } from "../src/inbox/inbox.ts";
-import type { Scenario } from "../src/scenarios/scenarios.ts";
+import type { Scenario } from "./scenarios.ts";
 import { answer } from "./oracle.ts";
 
 export type Outcome = { scenario: Scenario; transcript: Transcript };

@@ -1,5 +1,5 @@
 import { proposalOf } from "../src/domain/policy.ts";
-import type { Scenario } from "../src/scenarios/scenarios.ts";
+import type { Scenario } from "./scenarios.ts";
 import { outcomesIn, type LabelledEpisode, type Outcome } from "./episode.ts";
 import { table } from "./markdown.ts";
 import { scoreOutcome } from "./metrics.ts";

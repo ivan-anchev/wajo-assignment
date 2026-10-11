@@ -5,8 +5,7 @@ import { levelFor } from "../domain/policy.ts";
 import { act } from "./act.ts";
 import { analyze } from "./analyze.ts";
 import { checkInjection } from "./check-injection.ts";
-import { preferencesAfterEdit, preferencesAfterReason } from "./extract-preference.ts";
-import { notePreferences } from "./note-preferences.ts";
+import { notePreferences, preferencesAfterEdit, preferencesAfterReason } from "./preferences.ts";
 import * as pinning from "./pin.ts";
 import * as respond from "./respond.ts";
 import { revert } from "./revert.ts";
@@ -23,7 +22,7 @@ import type {
   Transcript,
 } from "../domain/types.ts";
 
-export { Refusal } from "./refusal.ts";
+export { Refusal } from "./respond.ts";
 
 export function createAgent(store: Store, llm: LanguageModel) {
   return {

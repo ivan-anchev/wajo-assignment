@@ -7,7 +7,7 @@ import type { Store } from "../db/store.ts";
 import { readInbox, writeInbox, type InboxSource } from "../inbox/inbox.ts";
 import type { MockLanguageModelV4 } from "ai/test";
 import { mockModel } from "../llm/test-models.ts";
-import { readScenarios } from "../scenarios/scenarios.ts";
+import { readScenarios } from "../../eval/scenarios.ts";
 import { createAgent } from "./agent.ts";
 
 const CONTACTS = "fixtures/contacts.json";

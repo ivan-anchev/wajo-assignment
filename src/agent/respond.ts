@@ -12,7 +12,9 @@ import type {
 import type { Store } from "../db/store.ts";
 import { execute, undoExecution } from "./act.ts";
 import { learn } from "./learn.ts";
-import { Refusal } from "./refusal.ts";
+
+// The one failure a caller is expected to handle. Anything else thrown here is a bug.
+export class Refusal extends Error {}
 
 type ResponseContext = {
   store: Store;

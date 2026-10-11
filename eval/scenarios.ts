@@ -1,11 +1,10 @@
 import { fileURLToPath } from "node:url";
 import { z } from "zod";
-import { actionNameSchema, type Proposal } from "../domain/actions.ts";
-import { LEVELS } from "../domain/types.ts";
-import { readJsonFiles } from "../files/json-files.ts";
-import { emailFileSchema } from "../inbox/inbox.ts";
+import { actionNameSchema, type Proposal } from "../src/domain/actions.ts";
+import { LEVELS } from "../src/domain/types.ts";
+import { emailFileSchema, readJsonFiles } from "../src/inbox/inbox.ts";
 
-const SCENARIO_DIR = fileURLToPath(new URL("../../scenarios", import.meta.url));
+const SCENARIO_DIR = fileURLToPath(new URL("../scenarios", import.meta.url));
 
 const scenarioSchema = z.strictObject({
   ...emailFileSchema.shape,

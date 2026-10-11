@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import type { Proposal } from "../src/domain/actions.ts";
 import { levelFor } from "../src/domain/policy.ts";
 import type { ItemResponse, Level } from "../src/domain/types.ts";
-import { correctedParams, readScenarios, type Scenario } from "../src/scenarios/scenarios.ts";
+import { correctedParams, readScenarios, type Scenario } from "./scenarios.ts";
 import { replyTo } from "./oracle.ts";
 
 // Enough rounds for cold start to cross both promotion streaks, then hold for longer than a

@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { ARCHIVE, modelProposing, requestsNamed } from "../src/agent/test-agents.ts";
-import { readScenarios } from "../src/scenarios/scenarios.ts";
+import { readScenarios } from "./scenarios.ts";
 import { labelledEpisodes, outcomesIn, runEpisodes, type Episode } from "./episode.ts";
 
 const scenarios = readScenarios();

@@ -1,12 +1,13 @@
 import { isBelow, proposalOf } from "../src/domain/policy.ts";
 import { LEVELS, type Level } from "../src/domain/types.ts";
-import type { Scenario } from "../src/scenarios/scenarios.ts";
-import { outcomesIn, type Episode, type Outcome } from "./episode.ts";
+import type { Scenario } from "./scenarios.ts";
+import { labelledEpisodes, outcomesIn, type Episode, type Outcome, type Run } from "./episode.ts";
 import { violationsOf } from "./violations.ts";
 
 export type Ratio = { hits: number; of: number };
 export type Confusion = Record<Level, Record<Level, number>>;
 export type Violation = { scenarioId: string; reason: string };
+export type GateResult = { name: string; pass: boolean };
 
 type Hit = 0 | 1;
 
@@ -90,6 +91,30 @@ function metricsOf(episode: Episode): Metrics {
 
 export function share({ hits, of }: Ratio): number {
   return hits / of;
+}
+
+const GATES: readonly { name: string; passes: (run: Run) => boolean }[] = [
+  {
+    name: "no violations",
+    passes: (run) =>
+      labelledEpisodes(run).every(
+        ({ episode }) => violationsIn(metricsBySplit(episode)).length === 0,
+      ),
+  },
+  {
+    name: "learning helps",
+    passes: ({ baseline, episodes }) =>
+      testDecisionShare(episodes.at(-1)!) >= testDecisionShare(baseline),
+  },
+];
+
+export function checkGates(run: Run): GateResult[] {
+  return GATES.map(({ name, passes }) => ({ name, pass: passes(run) }));
+}
+
+// Held-out: the test emails are never answered, so a gain there is learning that transfers.
+function testDecisionShare(episode: Episode): number {
+  return share(metricsBySplit(episode).test.decisionAccuracy);
 }
 
 function hit(right: boolean): Hit {

@@ -2,7 +2,7 @@ import { actionFor, type ActionName } from "../domain/actions.ts";
 import { floor, isBelow, standingLevel } from "../domain/policy.ts";
 import type { BucketStanding, Level, SenderClass } from "../domain/types.ts";
 import type { Store } from "../db/store.ts";
-import { Refusal } from "./refusal.ts";
+import { Refusal } from "./respond.ts";
 
 export function pin(
   store: Store,

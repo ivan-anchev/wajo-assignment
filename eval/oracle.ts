@@ -1,7 +1,7 @@
 import type { Agent } from "../src/agent/agent.ts";
 import { actionFor, type ActionName, type Proposal } from "../src/domain/actions.ts";
 import type { Item, ItemResponse, ProposalEdit, ResponseResult } from "../src/domain/types.ts";
-import { correctedParams, type Scenario } from "../src/scenarios/scenarios.ts";
+import { correctedParams, type Scenario } from "./scenarios.ts";
 
 type Reply =
   | { response: Exclude<ItemResponse, "edit" | "reject"> }

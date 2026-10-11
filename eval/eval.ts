@@ -3,12 +3,10 @@ import { readdirSync, rmSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { renderTranscript } from "../src/cli/render.ts";
-import { readScenarios } from "../src/scenarios/scenarios.ts";
+import { readScenarios } from "./scenarios.ts";
 import { labelledEpisodes, runEpisodes, type Outcome, type Run } from "./episode.ts";
-import { checkGates } from "./gates.ts";
-import { scoreOutcome } from "./metrics.ts";
-import { renderResultsJson } from "./results-json.ts";
-import { renderResults, renderSummary } from "./results.ts";
+import { checkGates, scoreOutcome } from "./metrics.ts";
+import { renderResults, renderResultsJson, renderSummary } from "./results.ts";
 
 const RESULTS_PATH = fileURLToPath(new URL("../RESULTS.md", import.meta.url));
 const RESULTS_JSON_PATH = fileURLToPath(new URL("../results.json", import.meta.url));

@@ -1,9 +1,8 @@
-import { mkdtempSync, writeFileSync } from "node:fs";
+import { mkdtempSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { z } from "zod";
 import type { Email, SenderClass } from "../domain/types.ts";
-import { readJsonFile, readJsonFiles } from "../files/json-files.ts";
 
 export const emailFileSchema = z.object({
   id: z.string(),
@@ -37,6 +36,21 @@ export function writeInbox(emails: readonly EmailFile[], contactsPath: string): 
   }
 
   return { inboxDir, contactsPath };
+}
+
+export function readJsonFile<S extends z.ZodType>(path: string, schema: S): z.infer<S> {
+  const result = schema.safeParse(JSON.parse(readFileSync(path, "utf8")));
+  if (!result.success) {
+    throw new Error(`${path}: ${z.prettifyError(result.error)}`);
+  }
+  return result.data;
+}
+
+export function readJsonFiles<S extends z.ZodType>(dir: string, schema: S): z.infer<S>[] {
+  return readdirSync(dir)
+    .filter((name) => name.endsWith(".json"))
+    .toSorted()
+    .map((name) => readJsonFile(join(dir, name), schema));
 }
 
 export function classifySender(email: EmailFile, contacts: Contacts): SenderClass {
