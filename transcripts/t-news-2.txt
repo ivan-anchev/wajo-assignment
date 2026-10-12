@@ -7,8 +7,8 @@ Email t-news-2@e5: "New episode: running Postgres with a team of ten"
              summary: DevTalks announces a new podcast episode about running Postgres with a ten-person team.
              proposal: archive {}
 4 floor      silent (proposed archive, requested none)
-5 learned    ask for archive/newsletter
-6 level      ask
-7 act        opened ask item #187 [approve, edit, reject]
+5 learned    silent for archive/newsletter
+6 level      silent
+7 act        executed archive
 
-Score: proposed archive = gold; level ask, gold silent
+Score: proposed archive = gold; level silent = gold

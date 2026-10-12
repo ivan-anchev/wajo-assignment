@@ -349,13 +349,13 @@
         "text": "",
         "providerMetadata": {
           "anthropic": {
-            "signature": "CAQSwQgKEAgSGAI4AUIIdGhpbmtpbmcSDFfDH56siKYjbpyCDhoM0fybf42dMcvrb+VHIjBiA67insahfQCdMe1KOXIRTx8jw59F+jLZIqExi2g4w8bCekucrO54yBgiU7puWjEq3gc+RBNiiL2/GWvY9jlmcACvkHYr6x0E1t7yR/TyECSm1QCBZrJrESc7COapEylsFhVsFE79+52NtcPFTLok4uxoILZw0lwPNHJkG73gcx5Xl78hB8jLVew65xdg0yxk52VX491THPFUraflZpL2W7p2OMgI5wchiJFSN+BOjNthePmQdzwCAS18mrTAzTFHF/aSMaVxkv11aAJFzEddJXurPOPOuB68E1ZD7Dxheml4O+TYiYcQkJnhu5sogHkKtfcab3sxrUV9NdDt5GDWGc+1iNZE1QJ/vQTUu/lez3NOtuDhA1oPXrfytSgj01fIP0VvkpdOvDyNVOF24+pVv+OhCKubB6HJraCHXqZwp7ihSD1HnU0539TNYoBNFOZu/m+dvvaJ6uVB32jgHRooSUWrvJN0vRZGfYZbHCn9ELEtyD0+NHmPFPHM3m2BuuxwAuiZcfpzy5r/mQOfteq6GeydqMCg7tO6dQzS3OTYOXm8J3TkJBAJRAJiZTx7KnIPQMADh2z+uFFF5lq68GK8yyfSpXV9V3pM8IpybqYDMcRhzLNmXBTH2iADp47x91oOIMTnj9QycRwOJfeMrezdjHp1OjwzqMwTOAzQsy6zGF5XuhClLsLLKAsrYDVVqPlPtTOPFAhVhb3hkkP/J80SH6iC+xn79ANXGuoLilSIeUCj+xm6aMAfM3CBr4XwL/4A9sj+GiDoDv0WaMEoHGgrBks3kVyqZElyJUWK0ZLa0eVUvSfNNXNcpLwr8kAV62h8TKRsLamVyQ1LqvaK8RKguvxTD7aiz2KtPf67nFNWj8MPkHn2r2jmausm03/QYyxwnXLl6gahcO9J+mNUwPog0vY8vnbV8pobIhqFseFyUpcehQWK0iLwpBjlCLDTyLlpRHT4UWvd2k74HvpGw/jufq7Q2zHrBzrgfNy9z1rY1pscXyCiu+1ZNRgHAiZt74oxkvqnTPK8jAkERV0jUXXaqQNKluV6tDczybNcjUwjrJeDufuh2eD0heEejp+JBLHhZXmEmDba27p7B2Ct/yztRUyIsd5elZdeLqrCfIjezhpn1LOTg4D20B5hLlZ/qnjxZ854bSXIqSVWWCwxix1Tq98upZvlF3zv2H9slzNnqivKgykBoysLaHfeFdlXPF0aVHJEnbUpW+7vG2U9J4JVKgLionxZD6O7jfxkby09LD+5QLiSBIKXPLJcU7bOv2Vf4XCw2gi6cxrQb7LIY8n7qpCuTdJNtyak8myYVwr1T9uZc2In/jedv4sKfygS60XszNx9iPmSZIdB1hOfPyoOuQweHQ3q3/xnaQNYmoJBdXoYAQ=="
+            "signature": "CAQSrwkKEAgSGAI4AUIIdGhpbmtpbmcSDNLP2pyan6i60HCyFBoMGMFxnJaWqSHfql+fIjC+UZCFt0nGPQJDeCOuGz646Vcp1+adp4jnOF7M4T8mopNfEoISE+kAuFo0qcXw8FwqzAh6DKy79KmLKI6sVJa5XykYnYZ/1VGPQ5zz/Zn7BPoapX8LvmkPAbgDQc/YfvsGW01PEwbcLCtbX80mL+3syf7OS/zG3l3f+KCsG8FTTMX9H4jhsqnq4ut9HA9WD/U+ksB6BFjeYEud3OviesKao7Dhm79fhnDBroBTAgzEDTdltuI7WWzjclav2F3v3MUtiSqr8fL7LPSuduWwsy5T7Yro5uz5WDiixUBkpuRq63/E0JoBP4k2ZEabJIYE2pc/QYb9FgACF0Vk0KIn0aFlkDhIDVtKS8LHIfCzY8w83wPD+5LqAtBeapIJaipOiHQMRsk5Svb7NjdeQ8yAP8fyDJXeeJiWvRr9/V7m/HScc9jSYyetZcBoxq/woTTPeZkioaXhvTga/Zn/YyvTiWbyM2Rwpze739C4HFdUQIytaT32GrCjtvZ7gnyhr5IDR58EY2xXqNb3XVeQkw8FIvzGYiK461XrWCdbRDsNZ3n5DUGHtMu4A/Ykb+LYxBwmfUanRSwttpuDJgXZ/pIdHx0pZxnH0DYexH3Ih+i4k1C40NahcVPNo6AjEautgGi6gVZc8MJAlu2PFJBLqJG8agZTIqnEQ6QXJPCS1LBHoVstWsNVsSi74lZKo+HS6+Q4DvVrIHXj/AUR2RuJS1XDn1aWOfNisZL3aBRRPd06TRDPhImnf7GD2Wwo8muhMKKbywFqPxHF1kpQnwxQ/ml5QT23nmafPwrlLc30ijEh2MHQYncYs+BNQx2nmbcu+swhvqutYB8ZAoYPi8L/exTxdUvLoQz5Qaf45L8ThVyLMyk0NTUUC4ZN/60ktksMk38YzLt8VrNQO3LzNWsZ13WC/CM5uQEGRvUr1BzvqGUffzub3O/fhUjFF1BAigjALxN9U1uAaq97nfPmZqbAOtLIyH2japH1e419hswgjDwZSQzItrO5/5JnFTbSImDKkMXpLLHPyEcP6ySg6Oo6m2P+CCR6mW+YCn5z59wz80RhUR6H6zTrxz6DLihmwH25/ffzLdEJATtx+j0SSMywbn0cQeOQG0QIt5QX02Dx3NiKtlD4k2oqbcm8OV/HLVDEhgbTeI/TuVv+ftb1m7A0fPbr3pEfOmn8BRhx27RiG4QuHCGHbYFsCCfmkmF6kKRq+Pb6lfa839BTXY1IB8Zgan0G2cSC7lEwxkApfniNvVcnm+/8dabGP1KIegrpWJRRXR7u/MHooN6bdRQXi2rLEr8DE2t5PXzCS1ASmdfZymGvwPnp9bf4FQzAANnRdcENldNl89srGfPj1yGgj7ufEZLSDNIukpvFfDyCATuN0hbKkCAg13f/2c5kLmH2o2tQhSVP7i2ogT5cakuS2mY4ILk/RTBh4I2bhXR3Spl4mP2nxJqUQnJ6SoYwPqoeQkvFreVBasa84V7mnYfanIJOfHjGbe3xhjbqHLD0SycsMMHsD1FcmM0NHDxsWJfo9iu8jJQqcRgB"
           }
         }
       },
       {
         "type": "text",
-        "text": "{\"summary\":\"Marco from helix-labs.io says legal is finishing the SOW and the signed copy will arrive Monday, with nothing needed from Ivan until then.\",\"intent\":\"fyi\",\"proposal\":{\"action\":\"mark_read\",\"params\":{}},\"requested\":\"none\"}"
+        "text": "{\"summary\":\"Marco at Helix Labs says legal is finishing the SOW and the signed copy will arrive Monday, with nothing needed from Ivan until then.\",\"intent\":\"fyi\",\"proposal\":{\"action\":\"mark_read\",\"params\":{}},\"requested\":\"none\"}"
       }
     ],
     "finishReason": {
@@ -370,15 +370,15 @@
         "cacheWrite": 0
       },
       "outputTokens": {
-        "total": 290,
-        "text": 94,
-        "reasoning": 196
+        "total": 324,
+        "text": 93,
+        "reasoning": 231
       },
       "raw": {
         "input_tokens": 3345,
-        "output_tokens": 290,
+        "output_tokens": 324,
         "output_tokens_details": {
-          "thinking_tokens": 196
+          "thinking_tokens": 231
         },
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,

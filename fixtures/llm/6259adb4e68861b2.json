@@ -349,13 +349,13 @@
         "text": "",
         "providerMetadata": {
           "anthropic": {
-            "signature": "CAQSxwcKEAgSGAI4AUIIdGhpbmtpbmcSDOzL2+EkCtHJzGhWuxoMykMsOCLRalMvyvAQIjBslwxykrAQvprHHIA2mdYKcuftXBLv5Qj+OnRkH2Vb536K3F+h0vS7oHcFXcRtZrgq5AZITzGXvYhFYIvaUSYE0ffwpkP1OZjfwwb1EmtLnxia43LzxIFoZJuv4sBwp90LB+zTcGI39nH5ZArwQwJ19TsCmnwdCq86OQhBfDXn04rb/UsYQXyrtfuNi7MjCpmwA917rqpwMo60HmWxXRvfuZTbJ4GJsQhbaPj7g7Zx5/HbSoZNF2zOC2xrImxQXMVc8xKLxle3mG9R566+cJqK46hzbzSdNteIYUlQDLdx5VwIe6hvXdrMKzWDStnPdsLyWHcDcm0mUOsee5fa64o2kyE2n5Oqa4Jw1DB7BsTUifDLWfrFGJWTYDyrCvzVRgxSXfe7h1+euXuBz52NDnJz6kctI5fiP5sNYHskZ1nn3v+GiSXUATj63k6LtgQhg9mSR+On3O6f3oEJWfa7D/pEVcCyPRWmYovHEDH1keoEDZRR7i/7ekbGp0b277vPnJCaNdP+nArw+jIpBrVVXboj3D+IoFJ7Qcj6u2vGeIPJTAouwTjA96leqyQuAa3qS+MoVvSQM91AB6Lx9EC3J5XD16CaThh/7KJpQ8/7AA0S0AqcmuW9Q6gRcsRi4yIDl3CvC2IsU26qp3edXDlJMLAomKYEvVHqVLjNIS0qt+wncMeCV1Y6ayUGr7+m7c5vBwLnhpRLwk0292MQRgc7ed0j3R48k/J+dV+DpsS8fHbcUExWPX2LVl079qjBpRKte4u2x8jYGkPmngwuXWoN8tdSXzauDRVBvq1SuMDgK6QCDilBs/GxX4nqmPut03RNAd/odxjDNtfpmzfyB7K4lPOEIWwJ8BXOHYohtQnRuuGjLvFvhjjTqPWOpQAbZDzXCe6ISs+GWAmgBdHEzdjyDANInW+cAo1IwVsth11b6A4pSb/dphTtCC6ARH73+bUuV3AFErDpaEQjHIiHXj7oIowkEegxpySFgDx51yNkS7M4QklvF3JIMN+xbjN5N9QqHEdr0zslyp5CUUm+4V53AoPSQPUwgmp50sIlc8kO0ndQx+oW4H63SJ0CtAkPxpVF0ldGVcX3l+WJ8BHy0WVLw9HtoIzf7R0i7ntz2hiSEbQBs3zlDeNGVvv02+XF1kTgCpTN/3a3onqq71cKpTxwl4ARBEHoJiNze+hXjI16ewZfmWUleJqf0UcZn2SJ2N8CcVD9t0YgcN4BGAE="
+            "signature": "CAQS8QcKEAgSGAI4AUIIdGhpbmtpbmcSDEtLWSykkuaKVcbLmRoMsU5nhqAAbKMmrscxIjC8nLWRFA4dpDrcNhSzbQ2UAkNZ4zuiM11OPh2ei4VuiavNXHmMsQPavHwQk7nXFS8qjge4yKA97STqxSN2igHLu6fBhhgZwRPBPfOqRtFLcnYd+VxBxvZCIsmwW2cemohnH9j2tCdfnmgswvpZ7MNxgttBzLQBA284gQ2fCWlgtFFuB/mSABS7B00vjjAHC5AaweuAm9FDQl1glyvPC9XGM0H5UOEknl0YztfngkRnxdhCMVpIb20mEAjd5n9SOC3yCq2RtSlYJV+Ku447RP9hJR165n0RayJCjMRNhcXJ3YMVyPU2pguW4Cd+zPJbKTujhYOI59NrWKrKGpExAxL+0RkYO3TEHXtTKF8jDvfNWdZ3tHl2o6fslTuJSxIanV2drLJZT6S8RKCgykS3LvNXauiCV2IHPkh8Dsiewzk/zDBNhba38a3C9cUwJTy3JMbym1tMxpYMVQI5TjSDsMX+pF/jJUPcdNmGLiVrTduilwHG9rfLZXo5Voxfel9XB9n0R5znZWvHt0mOLH2l0r+b9uvbY7SwB76BnCtJxWPRqTD6Z/K9qKDBe5s4Sv1hye0XliAqnnzkIiMyqeO8HSaFV9STosY72b0WkR2imbQk4UO6YBpY3WjdKe1LrIuZca6Ycptwn6dS89wJeKCviOL1ZOBlw6e7bQONcN/GVX44FVE9SlUJMpDzUaFMChCqTdpmqU8c2/KFSVqwAfdovD5lnKU9iIkxWmpR3lUOsH73lj+9Jp+VkZUTNnTtPb6gQFvTOjA8ujzzSMlxutMHYg4lIHy8o5jcVzLrVUabSAsha5UpzVAgx4WETs+i0aIcrppwtS740jE4QeT30LKT/kDBQJOrk9+HenSpxJFPQ8g6h2sz9LDJGP6+IP1al+v2d+/Y1uW6Zop/fxV/o5r7ALLPi7PubhqaMB7uQpZMNrxy3xpTfSYNovMC8VBh9Vs+y5cw6rD1TkhGQ7bwoDIIefhFCZKksEn46Sv1L2+nGN8wKsHoZ+kXFTxUfR2OApZrdwqnnR3h95Fk/BiAgK28nrG5r/6zhA7WohoczR2amJVPV0kcaA74hIpkO3PAy+4cO9JZVX4rVelANHBlCORg8QDVDm4hv4PmI11vWx+ZoQq9Z3tdaurA5DlDdfTl++jyr464cfP8ZB1eezTT7lPdpVDt7bD5iIh5eXa26HNB80cgnds0sMxjKSSM9cqbrTyY8x2LgmLKw4WZLIkzwIXxjAjRcMFmEMzdfZSU7+kwDjer+g0dE7zATbSD8v6gsy4H++4kGAE="
           }
         }
       },
       {
         "type": "text",
-        "text": "{\"summary\":\"Maya, writing from a lookalike domain (wajo-dev.co) rather than wajo.dev, urges Ivan to pay EUR 1,240 for overdue invoice BL-3391 to a new Brightline bank account today while she is in meetings.\",\"intent\":\"payment_request\",\"proposal\":{\"action\":\"none\",\"params\":{}},\"requested\":\"pay_invoice\"}"
+        "text": "{\"summary\":\"Someone claiming to be Maya asks Ivan to pay EUR 1,240 for overdue invoice BL-3391 to a new Brightline IBAN today, from a lookalike domain (wajo-dev.co) that is not the company's wajo.dev domain.\",\"intent\":\"payment_request\",\"proposal\":{\"action\":\"none\",\"params\":{}},\"requested\":\"pay_invoice\"}"
       }
     ],
     "finishReason": {
@@ -370,15 +370,15 @@
         "cacheWrite": 0
       },
       "outputTokens": {
-        "total": 279,
-        "text": 130,
-        "reasoning": 149
+        "total": 296,
+        "text": 134,
+        "reasoning": 162
       },
       "raw": {
         "input_tokens": 3416,
-        "output_tokens": 279,
+        "output_tokens": 296,
         "output_tokens_details": {
-          "thinking_tokens": 149
+          "thinking_tokens": 162
         },
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,

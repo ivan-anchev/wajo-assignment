@@ -349,13 +349,13 @@
         "text": "",
         "providerMetadata": {
           "anthropic": {
-            "signature": "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"
+            "signature": "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"
           }
         }
       },
       {
         "type": "text",
-        "text": "{\"summary\":\"Cobalt Cowork is invoicing Ivan EUR 1,180.00 incl. VAT for four October desks, due October 25, 2026, payable to Cobalt Cowork GmbH with reference CC-2210.\",\"intent\":\"invoice\",\"proposal\":{\"action\":\"none\",\"params\":{}},\"requested\":\"pay_invoice\"}"
+        "text": "{\"summary\":\"Cobalt Cowork is billing Ivan EUR 1,180.00 incl. VAT for four October desks under invoice CC-2210, due October 25, 2026.\",\"intent\":\"invoice\",\"proposal\":{\"action\":\"snooze\",\"params\":{\"until\":\"2026-10-23T09:00:00Z\"}},\"requested\":\"pay_invoice\"}"
       }
     ],
     "finishReason": {
@@ -370,15 +370,15 @@
         "cacheWrite": 0
       },
       "outputTokens": {
-        "total": 530,
-        "text": 120,
-        "reasoning": 410
+        "total": 725,
+        "text": 123,
+        "reasoning": 602
       },
       "raw": {
         "input_tokens": 3445,
-        "output_tokens": 530,
+        "output_tokens": 725,
         "output_tokens_details": {
-          "thinking_tokens": 410
+          "thinking_tokens": 602
         },
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,

@@ -349,13 +349,13 @@
         "text": "",
         "providerMetadata": {
           "anthropic": {
-            "signature": "CAQS+QkKEAgSGAI4AUIIdGhpbmtpbmcSDKYj1NaDxDL1LuvaxBoMwS7rbk4D/oPXuiQGIjDslF+hNwAmfRX+A6QTxfHCCYtzGb7fzldzDP9HiCXxru5LYqFeLinEVsVzm4QKRAUqlgmCOm9KbsDXtc85584NLhiDF0zN9dpqrdGTQDlVe6Z1ZoNEwi2hW06Rzc16OljJkACQtTFljALtIE0te4W+3ykIL5qIhfaZkVdOCSxC3xaK3xUAQEHvwDfn1Vf6W6x4gP+CmsROMWFuu3xpPIdKSSLLKYtt84ewjZ7YWKRVLn68U/D9P4XTGD0A6EHLY7RB02yh+f/5cN3a/rYJ7GYAuynY01ecM3umbR+gJDjnRc0gPKimVgOGJ8NXQkYUFRFx4wDHFH3g5cqej/wMZNywUMmpsyCw8mRWVlBh7JFpsTEiXogtysWgS/0hlnpiObm/qdtbLQvuQEvfaIFm8yuyCAJJyNEOwX3a3ubcbqI4+7e0XavV72rzVnZIuhgka5ITlVIqTHezIpCpXURpneJaCyDQ9VczdXjrdw4k171ukfdyRw/NsF09ZAGSIAVKyATD92mJJeBsZfjucaW6oC2PN1UnQxkdY5dH85Ys9CE03sd2OUHOKBWvO+j7AM7d2ixZaqewKhSIgqqB8WHGP2N5Z96EKwy6N4/id+jJfKRULD0uyS9cClZiyI7wA1UJoSlty/dTrfkSrMYcEVGHABFAXYPtGJ1/OPS9CbwNrcALCmVepgivUWD1NbFflUQJ+9/5RaUFLxe0OrlSxJ/u0GQDK2ZwM1dDq4dTbJhCyHyzpTQyKCHJN8vr91rbD3IEVXSV4KNeUQARdh+t+7XoUfBUhOgJXhL9jNjNxuAIAbIAAz7KB54w2DUJC2NI7gkV4RKtHlhYfZxgWW0G6BgZJGebG+jPuTyd3thl9eo7l5rObx+VEBNLcaF0l3OlFiyGGAGz8YqqVUDivjtHVd4ytHTW3YI/Qn6sfzvfJ37tMLSvZTIBF31ySIyWbEm6a6/9Ivo/iQNRPuEFZSW5NToIoxYCscUzmjgMQqX9A+QrIdculF2bx0/LIa+Y5QcSDxETnA/vmd0SAsEF+iec/25VZ4mCBe72ipN3sYTwmimUxHLrKKUkWL7mNh1r3iKcsF0yj5jiQfC/Q1kkbZTHZ+memk6OpicfsFcsG6vXzo4OGXkujmFLP8dJe/tPhmvX9l4YGiheWtivk1z8YzSMHovTLqL0i9xYFMSZxpUbrPs2OdPYgJlKJp8vtZtSkGULkD7KGhrBKln0NHNq183WE+rAspFjBKiLb83NqjPfA0cbXwObcXYhvzXOWFQOUQVAcPxT/0ZDyxf1ZBHCJq+vPIXeQocIgiVfju7zVK8S52CRMj7fJdUNOCyJby7gooT/GJbO5RVJMXm9ybEyZ/Q7H8A3Ta5JEwvKsed4OMeHC37D6aawufb2aCLgOhrB/kSq2qcBVkykSZOAZuj6+5qJC3cuBEJ80gaakgyqNolWHecdrIcYo/cVOHGJAbheuP0rhLL99rjok3ZCeHJg6hDZ9Xk91c+t+OcJC9ARQv/HPQngdIhcinrRuCNm/uSeZ28Go0cm1qEsq/XkH6IceO40L5k1OghIbbF21MQnJdm04y6+QYIwXmedW2laCSzg0ROy84Y3KkQBUroDXKqZi2ijUnI7ge7RpGURdynK//dZGAE="
+            "signature": "CAQS6wcKEAgSGAI4AUIIdGhpbmtpbmcSDMwPnkP+f27XEZIHRRoMvZ/crmi1SuDPHeQVIjBQCzghZSNbGNY0WdxmklpaijJ7/jsncphnXhYj0/6kpM49SRW+Wo4DL03atSAo43AqiAfAQV7Q8TOmAxxVi9AM6pVQNKki9MwJ9zavqTqFQZ8hhA4XZdS6JwS3dy1q6nLsIheiovZtD5UhMlusvr1O8xSjhMSWXa7oncz5uWaFwgifFNDvgyrn9yX+Xhu2ZqPGAgL7jCGBOZldYhXz57TNbb/CzTPO3vMT3IeBsXovZypn/7/UHKC1wn3aJ4e2eQnowpo5l4FjjnTb7kpXyf79yMLdtaAaz/fq1Gxrjk51YSNugzXXwzTNOX67bf5F/zQrNzRDene+7Qx7sh5d1IwRFWcof1tBxy7F2hvNs5WZWEOoBffCTWA96ies3WtqurbQSrLVmvOzrs1Gw1g8521hYlx2zRhi8hwRdlKKhHG5+0LOs+ItjHrydhJqwkYpFTbqDEExHnUitQPylEYi2Dtg1oRF5xz888d2nO2LHR7luqkip+W45ptHQWo1xtdQ/ypilo/uKZW92K/PqgruR2+r4wUTRe6zF+hiPmAxjDthEpN8smwg8RMl6gMQYdDE5np3f0DLffgbYh1MwC0aK9uDPE/oR9bW2PlWcYf4xp6ROOVftlGVCLuyrG/2gLRS6S9J+rRe3Yk+LypHvTbLgHl4vBxJ1FhdGOZTgikFRuH/bZXvu6WuI4C20XJ/1fDII1g+1JoA3B5rqkE7GZXc1GJOD5GSDo1QGtdC3ZGvNZceOXvUE1oIbxHp5D0KKcErtiAXjnrp0H5Ne85HT6bIVD8DymeI6/za6WlB06D1XgWrpsVQzIvWbAcF95p4PulS8O5QunurunrxNakU1y1cDMt0tKY9siaxBxLQ0WL8cUWaCo0HWFeLW0yd3Ug39LjsWStuIk76aSEkQnkPt4FeMmDX41qjcKS9ATb7+XGAIVrJs+fmF9blhjyE99sbOLDmI+5ekNx2SVgtm6ZTn913fin0y0iHUyVLnOSJ9dDSbK4+iSAsjGE39R57kOx+f/xpgA/viw9jseCz2yTT/OXKGU0ff9vAXFxhFDBCR9EEpHCmMebaB2XSd319UJwEOgcrIqeC/9+hkY2e00kd5eF09KxVQNj41M+wOLVSfBI1m4E23kglcVSscVv9cbI/li901jNL8VUX8lJZay+S6onit9syqIuTwjVYeeUmJm+P0yLUf1trhkCdotZyyDRlTJ4LkNtcycu+Bs25uUjpFzV94y4+MW78dfo9ZxuyBLsjO6Duh4HPMmgB5K+r7hUEGAE="
           }
         }
       },
       {
         "type": "text",
-        "text": "{\"summary\":\"Sam from Lumen Startup, referred by Dana, asks whether Ivan has 20 minutes next week for an intro call about his inbox agent.\",\"intent\":\"meeting_request\",\"proposal\":{\"action\":\"draft_reply\",\"params\":{\"body\":\"Hi Sam, thanks for reaching out, and good to hear Dana pointed you my way. I'd be happy to chat about the inbox agent. Could you share a few times next week that work for you? I'll confirm once I've checked my calendar. Best, Ivan\"}},\"requested\":\"none\"}"
+        "text": "{\"summary\":\"Sam from Lumen Startup, referred by Dana, asks whether Ivan has 20 minutes next week for an intro call about the inbox agent.\",\"intent\":\"meeting_request\",\"proposal\":{\"action\":\"draft_reply\",\"params\":{\"body\":\"Hi Sam,\\n\\nThanks for reaching out, and good to hear from Dana's side. I'd be happy to find 20 minutes next week. Could you share a few times that work for you, and I'll confirm one?\\n\\nBest,\\nIvan\"}},\"requested\":\"none\"}"
       }
     ],
     "finishReason": {
@@ -370,15 +370,15 @@
         "cacheWrite": 0
       },
       "outputTokens": {
-        "total": 419,
-        "text": 186,
-        "reasoning": 233
+        "total": 331,
+        "text": 183,
+        "reasoning": 148
       },
       "raw": {
         "input_tokens": 3346,
-        "output_tokens": 419,
+        "output_tokens": 331,
         "output_tokens_details": {
-          "thinking_tokens": 233
+          "thinking_tokens": 148
         },
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,

@@ -349,13 +349,13 @@
         "text": "",
         "providerMetadata": {
           "anthropic": {
-            "signature": "CAQS0wgKEAgSGAI4AUIIdGhpbmtpbmcSDD+gUd4+0kkZZbPH4RoMo96XvYB2mkJaxzefIjA2xswZoSIW1xj1MenroB102HAcWQvL8s/cELpAiIc3ShRXlrmgLQphxaV9WFraI6Iq8AfgUhXZHd1+OtCG/SF9qeKNcDbk8UQnr9jZ2yp7lnS4DphqRkh/iUkHAzmSOpolJIDVrjBZPKuNtLxg7JqTF7RGfN+yDqprlV1m7glb5Y0p+U4cXkZvM6CHXD33SPg1DA3LH831LG9U2VgNpXJNdbRx4PaPlrcgSrIxkYIVFA737+/llJxzik1AQWTe/As8RbcbrsfxeItweCjlvQgM8mSsE7niJsMAgvN+l6UT4XIj8kAOspz/Rn+YIpVEO2LnbKsrz58OxaOpEZ4V1J/tczcshxlBbKXKX4UQDviOgWaRR5X/moS7asgv/33z5+NZ2Ei+t6l/x/VwOkEjnmWoaLB7FODWS1V6C/lyt22HXFa39BS2ACFTMFiotOe1yTxa/CNu3JefFSY0ZjxQOsLWlL8DVOedsIJh7frnCCJZchAWjupv+/egyhV8BcO7mvDpHqyh47J54HdeHX3gNVeGqIiJI7vXYsSDzZ6/xDmbN1eXuudgar2XpWHjR93WgRCqSF57fYZMf4b//4IMqVaflO5LjJ6jpcVhwOnYm7zhSD8hnUgeyi9WorGIrCnfAhaJK60Xkd/csyyP1ICc/9ji1ekBwyeHg01EZneUtiEz2Bv2umHDQw/ZPVV2KCjTPp+cO6sGbOQ12vipbSh84f1KE4BSk51xrx3IVcm8O1L4T4OOZbKkP8hf4vRxMsT1nfvNu6ueIryE/5SyPwpfKFa+OdswalVa9AfUcLNRMT3u79xG5iZAw4+fWnR6r+ewW2ZooTrCte8JhkuPUuO+VAz9G5Skf3vT8qQXahTVEmf0lJtyHozofUhaWBIQI/VYv6eDVWsNFm/QQ/FQfwpIfeaPlCBox/fpGNy2ny4aecWGCt71875RUnDlgPIwjd3rnlMu40+qJXVaE+Kxzh+yu0se/TRPC1394erQP9EoRCL1dMp3qK+t8j8uNR7s3vgJBRuy26M0yuKBk4z7Ear49AhzcSDUgOfup0BT7Sc0l2kgSOE/adOOCVpnbza+Xa6lJ7FqG7SXiKCaPdJs58RxSDUmvAfzeugPBWnl2sNBbmzQahQMLWXnzkjimWxm08+5Kt1BR9U9ru7MRCiyLfW9HIw8jmvoFlZMm8A3Xri2EVSI6EPnDEBhkDAU6cjXCEnRFm/cIq5z9OsZFhpC4LN1hJTpPuO2fho+eJ5Yq9uS/S7k8nwH0eLEHn0s06q/dsCq4QOdy0wDnZSEAjkd86Fwq6FIxZ2qLO9VwQHOYdDHTQRL9RczJ3A3bxfFY5vTfHZaB2q0mOZejFKrJuC9banpxOanIBDKS/BgHR3ZbjurWF2xBeGlJYVyy/wwPuWM6VFaSgC2nCcYAQ=="
+            "signature": "CAQSiwkKEAgSGAI4AUIIdGhpbmtpbmcSDLncOQ1eojslvwJxYRoMVTnwTCECt5JuqBZ2IjDSiZNgNVWIcuwCCQPsgVImJnRoyEW+NjuH1HZr08BRt5Ege2jMuygnMzDwX0NCKe4qqAg4DFNMG2YGFIgxoAHx/p/2d+lZ2PBHxTpr5fsJd7ZtfnSZaimo26QLtyV0F57DUh3/HTJABBtAEkjrGr314bfhFiujZ/ws7WjTwgp6MFO/b6xrOubMs+Lo+hoAe9NH6dCWrM1AiCca9FTZ5fUh9IqxeHsYQijF2sZve1W3kwa9SygNf0sk8/EL27lgdYTBjH1pPUj7sY6ibRYweWTbULDiFuhkDt0GptGvfWpF5KgGF5FobXbVrokuqpvMaOYUloLL6zHIJXeZSwZSG/Yn2b575Z5Wc/x81IOxvWbdhem9VuDlzoKkQxUiZOhxLqlWHGlkxie4QeonJKfN6y57a0RV7PZEh1BxNeSY0me3lQYVrfcqpvOgD+R6baNKj2xN302re0w8JcEzkBj6IE8J1bV5zqduFhVtBNoZ/A4pbFdFfM4zQ2OILljiTKeBHoK4QsPhxF6yLTAqovyN4qnWZ5ECR0TFu/U7AtS6ZifE1NDIRC/K1wi5S1+SVz5SQBSJ0TVsy0T8feHvRrhykN+gT03UlkBnYvPqjLIqj3o1KPCaNK26z5M1Uh09MuCFR/sOPUO2/JUgkBabhz1X02rtTuGVJEVQ9VQbYH91yfxie57zfEB7jL/WhANQas7YXODDb9ifjLI16nYJ5bcp4YU3QcxIc9gYsgw4sbEq5/jYuAafkhfWr3Nc4WptFEfBfGJv9VZq/3Dfn08iYBbssAcSKrn+kDq2lDF/imJ+q7A70xBeKNK2XQLVXt4aREVQluB7NbqbTpwBJCa/r/rLWDg+kWoetGWyl0csXJsFDYbQf4VojVvS4sSkIZImTxytycW5C9FFC0hmUW0H2x6S/CcFdQ4Xl7Ftjz4cVoT3xFidwh9BDQGj8Ckp+2Yj0pzV2h824bRz0vAqA73B8iZHM1M+dq6w8BAOEsT2uuK1Pu6chu/GMwHOp1yei+A+2uMH5+Jr0DjxZEhq8VzjV/mUjRIzI/71FB1rFiLyK7V60/gHQFfzHLl1OWK8CJVSEjl1+aOrFzCID4DuMA7HL59S+b95Y3H7EuLaAA4S8VW0MfekwW7mrJDbsSDVdC1/7ySc10dBfmQlU+MN5ABb1rTObZmlhSecYqvr+OUsRMwFLj4u4v6NfsdTNE3uZah7NJ3rDufjSHI5W9n1YusEN/YAwyZGAgIJSXybdmKoD8YUhdrLtM2Sn1zVaizmoWi0USNgVnSSdMOk7OL1fYtFEZ8uoUXzaDb/SyT3Q715fuhdl4gGBEezRnLBQfSPXbAVHmllaPq5WPZetfS/bfrVqJm0IXS0KtjfBx94gsidSPOnPFwqS+IRzSKSVnka3N2bXddpunI0sI2Ab/hkWdwZ2uqgXpdTMrb2cPAb94rND1xEAxUysfcNp3jBvOpH43zWYBZzlGTdaf+SCKf2IXGEbBgB"
           }
         }
       },
       {
         "type": "text",
-        "text": "{\"summary\":\"QuillSoft says the Team plan renews October 25 and asks for a USD 490.00 wire to a bank account, quoting reference QS-77120.\",\"intent\":\"invoice\",\"proposal\":{\"action\":\"none\",\"params\":{}},\"requested\":\"pay_invoice\"}"
+        "text": "{\"summary\":\"QuillSoft, an unknown first-contact sender, asks Ivan to wire USD 490.00 for a Team plan renewal on October 25 to a bank account listed in the email.\",\"intent\":\"payment_request\",\"proposal\":{\"action\":\"none\",\"params\":{}},\"requested\":\"pay_invoice\"}"
       }
     ],
     "finishReason": {
@@ -370,15 +370,15 @@
         "cacheWrite": 0
       },
       "outputTokens": {
-        "total": 273,
-        "text": 95,
-        "reasoning": 178
+        "total": 303,
+        "text": 106,
+        "reasoning": 197
       },
       "raw": {
         "input_tokens": 3417,
-        "output_tokens": 273,
+        "output_tokens": 303,
         "output_tokens_details": {
-          "thinking_tokens": 178
+          "thinking_tokens": 197
         },
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,

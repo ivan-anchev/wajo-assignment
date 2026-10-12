@@ -4,7 +4,7 @@ Email t-fyi-2@e5: "Recap: Northwind check-in call"
 1 intake     sender class: internal
 2 injection  not suspected
 3 analyze    intent: fyi
-             summary: Nadia recaps today's Northwind check-in: they are happy with the pilot, want SSO in Q1, and Dana will send renewal paperwork next month, with nothing needed from Ivan.
+             summary: Nadia recaps a check-in with Northwind: they are happy with the pilot, want SSO in Q1, and Dana will send renewal paperwork next month, with nothing needed from Ivan.
              proposal: mark_read {}
 4 floor      silent (proposed mark_read, requested none)
 5 learned    silent for mark_read/internal

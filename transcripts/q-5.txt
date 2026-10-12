@@ -4,12 +4,12 @@ Email q-5@e5: "SOW coming Monday"
 1 intake     sender class: known
 2 injection  not suspected
 3 analyze    intent: fyi
-             summary: Marco at Helix Labs says legal is finishing the SOW and the signed copy will arrive Monday, with nothing needed from Ivan until then.
+             summary: Marco from Helix Labs says legal is finishing the SOW and the signed copy will arrive Monday, with nothing needed from Ivan until then.
              proposal: mark_read {}
 4 floor      silent (proposed mark_read, requested none)
 5 learned    ask for mark_read/known
 6 level      ask
-7 act        executed snooze, ask item #181 approved
+7 act        executed snooze, ask item #142 approved
 8 response   approved snooze {"until":"2026-10-12T07:00:00.000Z"}; feedback redirect for mark_read/known
 
 Score: proposed mark_read, gold snooze; level ask, gold silent

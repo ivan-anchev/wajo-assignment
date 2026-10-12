@@ -4,12 +4,11 @@ Email q-4@e5: "Can we push our sync to next week?"
 1 intake     sender class: known
 2 injection  not suspected
 3 analyze    intent: reschedule_request
-             summary: Dana from Northwind asks to move this week's sync to Tuesday or Wednesday next week, any time after 11.
-             proposal: draft_reply {"body":"Hi Dana,\n\nTuesday or Wednesday next week works for me, any time after 11. Let me know which day suits you best and I'll confirm the time.\n\nThanks,\nIvan"}
+             summary: Dana from Northwind asks to move this week's sync to Tuesday or Wednesday next week, with any time after 11 working for her.
+             proposal: draft_reply {"body":"Hi Dana,\n\nThanks for letting me know. Next week works for me. Would Tuesday or Wednesday after 11 suit you best? Let me know which day you prefer and I'll confirm the time.\n\nIvan"}
 4 floor      silent (proposed draft_reply, requested none)
-5 learned    notify for draft_reply/known
-6 level      notify
-7 act        executed draft_reply, notify item #179 dismissed
-8 response   dismissed draft_reply {"body":"Hi Dana,\n\nTuesday or Wednesday next week works for me, any time after 11. Let me know which day suits you best and I'll confirm the time.\n\nThanks,\nIvan"}; feedback dismiss for draft_reply/known
+5 learned    silent for draft_reply/known
+6 level      silent
+7 act        executed draft_reply
 
-Score: proposed draft_reply = gold; level notify, gold silent
+Score: proposed draft_reply = gold; level silent = gold

@@ -349,13 +349,13 @@
         "text": "",
         "providerMetadata": {
           "anthropic": {
-            "signature": "CAQS5woKEAgSGAI4AUIIdGhpbmtpbmcSDLqtT0w8VvkNheUJIRoMM0sUjjYIGBpNZK+DIjBog2BIUl3QgW75NevW5nR4cKx1S0aJk1yt9+0ZUSlC/UxZYYAB5czMKCk5OAnZg9QqhApusQmCRwyTiSpkTjVkSbgfBCZqr3S1waSCrEfW522gnleNblThnHG6v1ZrYDKjpcktQSONWwnCdH/uMDPlUG5/YQEMWUwWylbUCaOcPZlDdPaGn2EG+yMl9ewP2J1YdVdJ0TnkoDheMNxPUxSOtdCdWvYiTczterqa9mDfhTA/p6g+bWN16eSZfx4lmUue48XCdS/4wVYCV9Bumcjg8O+I5G1L95t720pC59hk+asrCEKEYdwn1eJxB0oI/mUs9YV+zImhwxHuWPh8e1LSz+db3k4QRZEY3WTiK0VKN5KRZswOhNq3UdNopQ4FeVYICu+OfghddeNPH2jLx5ImC3y2Aqzt3QftNQN0DlTraxd4E/Rz2iAfudO15pJ24bNRfl9DnIB/rX4selsP7BKmNs1y2+mK4O0h3MAzIgzxnnCB2N7M8a4v/v32VQl6GUwvl8pEFdkA9Abdx1xM92utBCEbbQhwJ4E2g6vgyIk1drUcDgO/8UlgU1E+FH2eAhAfbeePqiaVajn1kFuoY5NFHwXkBSl3YkqBQzUEEX8/JlsR4n6CUYg0c5uEW43fsra4/K7qe/IQFzG3V9vLe4fV52BV+p18jpzoKWozkNNnghASLj5fURBBtLgcBaveoVtZf48KvrNWdixYWbY/h6rFMIeaYjcCsivsJay9dowuffm0hJznstkPnFwzE7ZRVMLGrCKZ2GaEm14SAOmJaj8PymxXtizwA24PvOLGlFLv9s9+Zl3HOOfTMoEUBhYs9NbNJx+lJR2KMzQ15RZMhLPmx3nHZvARRssr01p69ansMGHjutTh215EBmYAbDpr1Bq1Q1/IeBZoO06X4Uj6lbV6VrZbDPhzkzA7dUo+fhSBwe02wN6XwYuA02cvLZqbN32jtqfbmx1fPI1mGAOKsX4nPZY1wCoTD3HEtHjk2Lre9KjnL0TUgL87D7FauL302lRS47kKtC/LzMv75P2doMcbf3Bw4JccTuOHhkDXIgJ3+DGGstJw6+BOZP0qaaJCQnpHhgu8OPZbtHmGYIQCmABJgAGuTm5KJWCCKawsZ/hMGNgjAkfECeqPJQGG60WR8ns1kpqDv8mbglwf9Uo6SwWP2blaB0q5oPeq3DDJL8McfIqHpTjCz9ZgeCI/acMnZbdgTNoVIyQsNOYC0he66aBQkqwzXPXIdBKNapD7QDs9yjTnQjlL7l2CNaHR8pMPFC6lscge982D4BQtDowiikAFWWiDDTudnhWMSE1j9Ovbhag76017UKgPo8SBwRJggSXD8I3IaH8K8qtGfhYNkTct284rrY6McCbDg/raG8YEHL0Mcosd0xxUNf2tVw3AnCU6S+57bDCHAMInIpU5Q8RnRyrFC1d/xpeWU4H/PVrBZ6VGmNn+6QQvIG7j0jqR1g+wijKTIikUCX/9oZfwhEH+WdmOgjctakmqgM6KDcgotE9+n6fTzNvWtTmUpfSN2xEQbHYvIpnur5nVmwH9oEZ1VrOha5GkWbBKPZILf/3LEPo2AZYDCIFbEF3sUJ96hizq8S+6OaOlo3mGxWvktmRgde9ecrwiMYczPAWRe0PRSg+4Vf4r63dpgdi/Nzn8qK5xQKxHGxy8q+O6c867Leo9cTbO4Y1AWP0boZoIWiJn7R3xwDKoEMJaURDU5PABTbyfMlC8l1I7FRv2fJFuh1W6M0bVkXwRx8S7iQlLZkg6t7kCBmKww1oYAQ=="
+            "signature": "CAQS9QgKEAgSGAI4AUIIdGhpbmtpbmcSDP6T29P/6ts5n06rFxoMsERZwRyuJ7PdCf82IjD7cEYIeWD6E4HlPXw7fQl6/eLBHuvnEknuxvNWRE5I0TDBtn5prTNN8Jxf9H51fVMqkgi2HOtuCznYS7d+s37VQJ6gaJP/MlDd3PMpVh4RQqPDIymuGrSH0xnP5SGZYc4ucDDmR92IGmkSmrtbW65p6IwlTrVaj0IMBn/eTquL/lNjl+2oRLc3+bxXaQMVAjKioUVqcWARXXJsdzvar0+gA1o87xv6b3oxSrmJAjfUK40BBEWLt0a3BaHYwCc0MDNc/2XeCZClxHY3D+h8kwP2PqwJcBi1SIxtrah/JH3HSkUGWa9lj97kaZ04aH/wcd8oByTGFqyHMO6a4qLkruBIQSlSgrcujrdwuaDq3ZmGpiRmZNwF95diZk8JD2Ro8OZKDZqwRoZEdPk+rj4PtN25T9M3pYaAtVlhLm8arJyjpTeGoZZOZafmUYQXYWNENLs2KZksdBhCU1wc2P9L0J+JFb8mv4sv1gAYFLvXFczSSi3Ipa2JD3+bCtlXi+eHlaU2f82geK0C2Rg6fv3e2ED3x3WldqtYsiGrzo/VDBJPddbaDz3uq+O5PQcag9S+lIxY1bmk7YqAMlNn4ZzJKEGT/fnBM3S6c8hk1qMkWfVR/R0jBVCuLdeBC4khk7ddEMi23R6dC8nOfTRc7Ws5VlpSa98WkySd3HxxatDcFdnlVFHUIHeQEbAp2C6GkK2lFVTXqOj9S3ywHq91DczXrtxCoQvNaNsN/QUDBV/2YBxoBK3Yfz5wD+DOuUVDnHysbQJJgbhMM1FeokWWy665SJLmag5WwrGTGoyWS5UgInr2ENXL/GBSgzqZ2BqG4emrbRLMslyR/rFujD2bk8joDf+6YsboNqvENpLZlDVfFw0ZDzJ/lrZvUFqsCt1MLHAl0Z3THFMkjgj4XRC2PYhjoo9BgvAgAk4biXBP5rb+SjiImxLth0DIw1rZbZVFmS00345ClmKU8/1HHjU6dt7wZoM1rV5HtcjevlC5PELpWiFBUayZpqobimUsAXTUrra2pKHpHUX3RQjrQbrrtZXb6b7hK/2PLWwRBME6tKx0oHf2BZhWX0f5dVf0AB6QIxw9fgIvDuBN/qFnu2sq/f5B4XUzjAnFQTZkk2qe/fvc0WKuKebQhF6N70gZEM1gO/Pw2J+yiy765KYgL+1E5wWZjlh6j0+ZJ3xjOK3cfrZba4SRe2Dp0+zdgvr+u7niWMQng333bFOLgkilk0lVBYEfbPepvTQVR7VMf/qIsXVTJ2stS+/HM/mQArtGVC3QxCyibuNqg97N/bWTmq9UiqXHBixB+/XZI3U62WeklMn16yU9RwEPg2kVmMqYa6DG+ENk3lxppwBkEB29+Au9YjopObMYXHCnN5ff+Q+tRBvbA9x4e6IX5nk61uU8EWUYe8t2kaLHynKykkeHXdt8/LZCMZMSjwSejQzeQCnEdyUukqojecbLqLMpGAE="
           }
         }
       },
       {
         "type": "text",
-        "text": "{\"summary\":\"Priya Kestrel asks Ivan for updated runway numbers, even a rough figure, before Monday's partner meeting.\",\"intent\":\"information_request\",\"proposal\":{\"action\":\"draft_reply\",\"params\":{\"body\":\"Hi Priya,\\n\\nThanks for the reminder. I'll get you an updated runway figure before Monday's partner meeting. I'll send a rough number as soon as I've refreshed the model.\\n\\nBest,\\nIvan\"}},\"requested\":\"none\"}"
+        "text": "{\"summary\":\"Priya from Kestrel asks Ivan to send updated runway numbers, even a rough figure, before Monday's partner meeting.\",\"intent\":\"information_request\",\"proposal\":{\"action\":\"draft_reply\",\"params\":{\"body\":\"Hi Priya,\\n\\nThanks for the note. I'll send the updated runway numbers before Monday's partner meeting. A rough figure is fine for now, and I'll follow up with the detail.\\n\\nBest,\\nIvan\"}},\"requested\":\"none\"}"
       }
     ],
     "finishReason": {
@@ -370,15 +370,15 @@
         "cacheWrite": 0
       },
       "outputTokens": {
-        "total": 429,
-        "text": 167,
-        "reasoning": 262
+        "total": 363,
+        "text": 169,
+        "reasoning": 194
       },
       "raw": {
         "input_tokens": 3360,
-        "output_tokens": 429,
+        "output_tokens": 363,
         "output_tokens_details": {
-          "thinking_tokens": 262
+          "thinking_tokens": 194
         },
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,

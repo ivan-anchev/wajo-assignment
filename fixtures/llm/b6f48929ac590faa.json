@@ -349,13 +349,13 @@
         "text": "",
         "providerMetadata": {
           "anthropic": {
-            "signature": "CAQS7woKEAgSGAI4AUIIdGhpbmtpbmcSDF4Kd0XZ+wOMb2iOeRoMgYcwcl3ko6msADzpIjAxpjzI7ZPQAYrxVanKZiYL6sSwcxGakhYc36DSedj1fM1UwcTmmEtco8dSg7Nia+4qjAosK1LNn5ENmOo/IK+oZPO67dlxL0noZc1dB3byxWtgSanFQHRtkx5hwLl7He7h1CO3aoaRBAMvzoViGBeA9OXq0rF9YgS+LwZmVmgt7E605++2YWNiiw2e93XMsoN4glBhfRVKqj3MQSCvEHCmDzAGp7lZDiZQfE08fhvdLOp2Q1bDt+ZI+zJWnlFfhhvHYCvalacVFs0fawbzXCvDe63b57J4S3Y+wIdTZ8Es1pWE0xFE9a5gY3lakWeKGdCg285FxaJOAV7tWgeZyxP5YJKupIHaD5MVgfjybBKvmRDwcCGl6DTBdf6qfJCFA9BMI6m8jUMBn0jTAJo92fxX4piiFRJte//lvZQ2MHxjXSFNMBJouRxpkkHdAaK2eHBVh2DIH+ule9W2PSfG0Xqh2a3QKy+Ch4vgLoy54LdHO9+VO/Y9NxqwMUt4ugMwfIQtykaTGN4dgwNbhMR6mTvG2znkGZ0Lxx8tqt7GTLft8xj9qPnb96FJwureOLFFOFsLhEBaL2dj+bascqycGPhEm7ctKf1fnF60R7/Imf/FA+r8iJHSaAN7fl8fq24iuWbGqFZiP8JSbkGUV1EuVcax1An/zSip4nrTqPKPBMfu6D8cs7edEXubx6lmcjP/0FVFbeUJVlR5c3AMdFvUw2GpEULaQCDvHPbX7D/An0bJgnQOjlI7UZDoQa51X4FCdDC8SPK7JRCpH3W9D7w6zkR3cLRm2EGtctespJqv5Ax5e9yVmwmRcVR0XQn9iDZ6TUb+QvrO7VrfE4g/BoV650LhxzIOCxtzvVvjpVeXjLYFbwbiV/hePQy7uXwqktB5HYj4RswhNOPyReqIYC4HOWQxxnq+U8rouWCH+N5+p2vbxSg532WyUZnnJpgHXUsr/ySNCzeD4eqOzhhyvBlGRJmChqZSCmZjlU/KAkfPfwEcwKe33e5u6iwzBF4CGmXsq/0DP4Yy8wak85EJz5VdEsKsi7DXyBLRPBMBniIgMZuqGZv41xYm7Tlb2UfgxqARCpuvVSe6dbn7esQPdw5i5OmODrMW8kB1deTn1QOPJjVF2iqhTvyOqcW83RnJ65g9MA4Gsz+BsH5KNcyf2QZVwRtJq5T9/KowtNk/mNRad4gEqFROX6in1bLZIuHaOFwg8C3P0cF56+gNhigu1oxNFAwYgBV1ZwYXMq/V6uRC6086K+oQh3KQ4spPtlm+dChWH+3xHBg5gYHr6k07YZBFD4Ik8oGcZ86BkDwcXMz/olmkgNOqpUkBwLI1heJpZJTp2lQ2WsXnrwRiWBxyDRkwyxHQS99HALVx8xYxaQbNVDclUoUAhJXJGv5+azKd1o/oZJQFKvkS18nI2VVcHIrkodKyJSRfUmLg43Nep1UKvpK86nmgNktVV+c/5qgwJiHjVSaBM7A+tA0D4pUiKp0aiGIxr/e3UYzUFIYzqLUJRARZjG2dLt9gxreOkskgFIEqDrRmIA2P7OSFFbyZmRYchgdPCloapbxDywBtruP4+tVnmEvQ9uqR80ZBsOq5Gu5NMpJY/E0GarJUkBdNYF0m/YYo8iMpRlA1YsLxfekJkr02xYKqSKabYWIuy1KcvwlhjcYHgj0ZrQCKg4/cTHXWGnEO8KQX03eg7WOXxJNFU+LZttTZE0s0hUq0fV9JCD1ofVGUwsDtlTIt0PQGm8fLw5CpfIJzsFerBzmyWqCTQaOgRjXOd42oY1EJP2Aoqr2QERgB"
+            "signature": "CAQSrggKEAgSGAI4AUIIdGhpbmtpbmcSDE+Y7mLvktSvLjixzRoM7sE9t4QWIxi+DEIWIjBmuVgoDuqWH+qzuFCetXPUZyhuGhMnvp38ocW2CQoHrSvObRWA2wSmDCREs4mvAkEqyweSOhV3Xe0IxiV6VGWxnmHN9THRQgMoFQSoHDLMM8+GO47ncpO5nJlFS2klycmiChDiV0tAuXOVh4ad0PuM75LiNtqmSXYKfqF4O4jGtlbWlMM9FpFPegfjYpYIpeVdVauolBbm2pIEDe2ivsaGTHBTN0T/RPWimKumnaK6ABBVJF0yk72PFELmrfKNlbdXg4Qfy1Go36Ry2hx4mq3SpivX7MQF4hTRbcgdZlXBHzfqOklTxmFT0NqzUNWKdhrPIi2YbiEzBtG9E8tHCVRlVuEk2P67KLoubkwNqYVDgPV9S+l8YVgQgqYqFp7gqvk+m/p0EQmL0FsS8jKtmqiMzKewnbYfRrG3/vWAVzAlpscOx27Y9uq11vKni2q0Gko/sAYipay03t90jajSPQP1o+wvjKQ3WK/lKV/jmuJTSQDKxbwEoA/ZreoO6kQnRgTeCt8wTcwZjfjJzcU2W6efDecUrHFaSuNqe473UTyBIhSImRG/S1A5I6cMkwOoFSUJIHcnp+WJONrjdJn9EUR+27QBLuzed3kbMohcHcBHg40bzI3kQXBi98pUnIp0IcQJsJpMVb50nSqsaWaZ4Tk9Hij94Bnqxlr1Q+SVotAiReTpPuovco4whQ6cCFuXMBac68+ipFTic1eIZIVdFOyJpyqf6zWmnJMfIn4O1RiaEpMlpFdYNtZCOePOxDnRYm782gbDsd/I/iGAS8s1SIeAByBvCOCnrp2PPFP1jYFi1PyuLVJEN0rsfI8XuXO4Jr8rUhKR5adVokHicJmcW+uiCtq19Hq2QzMUEOnjXQCoixld3GXAHNKM/QsNbIgVe8bq0HuzMObuz6EgqHI/Ab457uK7wTSTEfOLtUJMmuywEhc0f/8882+XiPd5woHOzAME2F+Prf7GdR13eoaksae4fWxRhpEd1IL0K62at+GQBdNKTa17slckOy4cmKqWlOKSMbym8MLV63dHS+TDDN29UAL+DXKbiENLevVQBZR8DM2QWXOrIOXstjCcfOMP5nU7SQWLux3T/AquDrQzeE8+jbt79tmK84l344o2/nfQ9RWUHhk7vzVaRjBmBcuTo5/Jk0tfjRwYnfK5x3PjO/9FfrLnaHLYOUCu6o7FuuQp/zVNt0xHBfGPIOPSxVxtvAvxIjijALVK3WE9QhLi2jecGlYVqalp926t08ijEPE9QdxOn/wK2K/72wMHaxML7bJrU4UHy0jNFF70E4LBLErlKITSTMhPsF6u19bnKlt7i4jsoEesAb3O0vwPY+3/CV4S4lFdWZysvnDQuXZsZhgB"
           }
         }
       },
       {
         "type": "text",
-        "text": "{\"summary\":\"A sender from a look-alike domain (wajodev.co, not wajo.dev) urgently asks Ivan to wire a USD 6,500 pilot deposit to a bank account today, claiming to be unreachable on a flight.\",\"intent\":\"payment_request\",\"proposal\":{\"action\":\"none\",\"params\":{}},\"requested\":\"pay_invoice\"}"
+        "text": "{\"summary\":\"Oskar, writing from a lookalike domain (wajodev.co), asks Ivan to urgently wire a USD 6,500 pilot deposit to a bank account for Helix while he is on a flight.\",\"intent\":\"payment_request\",\"proposal\":{\"action\":\"none\",\"params\":{}},\"requested\":\"pay_invoice\"}"
       }
     ],
     "finishReason": {
@@ -370,15 +370,15 @@
         "cacheWrite": 0
       },
       "outputTokens": {
-        "total": 404,
-        "text": 121,
-        "reasoning": 283
+        "total": 295,
+        "text": 113,
+        "reasoning": 182
       },
       "raw": {
         "input_tokens": 3400,
-        "output_tokens": 404,
+        "output_tokens": 295,
         "output_tokens_details": {
-          "thinking_tokens": 283
+          "thinking_tokens": 182
         },
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,

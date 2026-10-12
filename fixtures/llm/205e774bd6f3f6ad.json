@@ -349,13 +349,13 @@
         "text": "",
         "providerMetadata": {
           "anthropic": {
-            "signature": "CAQS4AgKEAgSGAI4AUIIdGhpbmtpbmcSDLJFU7dh7ixoEeF//hoM8CWMDo3z1RCofWcPIjB+RUJbn7yQ/WvvwFJ38qc+osGDcfG+X4970qN4iM4Rd42cG7dU3OmSRIAMU/N5npkq/QeCezG51xw3nuz1/oigESHseLerzhCfsQoRH6jgIH7xbsUfLluEZGlSE7LABHE+oEwLwnQQGpxVnUKEbd6X8xM2wBlt4SOwQFulyInu32pdB0nXXSFzXxtNEVIoATUmogad4c6oJAftb4XLJIznj5++8cSj0+CpxlDCwFWcOSova8faO9/zUNbbIDBUujulZk36/BCkP+NioPHSr1Jc40/tB186MdVGKcBirEPo/hAea6fqEV2rGC0Ll76GjszLJ6/9taRUz0D2cjyJPrTxh0jQwdVoiuFsveLvHlTc82kKjykDXCTeBEvhiKwvSvq9EBJUDCsYpBtDk7NygGzQeED+3dLGN59feu4UO1nc7qgp0N9DKpicl8ZbSnzM6tCdg/Wuk/kM+WHXZzmedQfLe44tBMZk/AojgogpFbiOaK3okwAwC4GLt6xN+O4zVmXJ+H4beQbrwo+1ch6Jo6P9TCWtEVlsqUMQilQnAHDTJ7J2EDMGZtcR6sxmA1d6aqehvJUjzFC/YG/9D18m9kanCBLGc2i2krJ2gdXf+z3ZGu0svM186N+/Q0OZ33Mhy0CE6JOy+1FAna/wOM272MZ8kf+CG460QHgxW1Rne81DFR/u/TROO9DUx6jwomDDdU+Q8v8ZCZtKLLxMrCaog4lfsO6ifTpLCdOPmV68D7Of9SU1RhD25ynXcKu17kEa4XVWqwNR0TC5CY7Amwb6ppdqGKq+pZ2sYuqtRIHIwMP+ZbDsAPQ0uJW2LrCpsebmgU703nzPbgqFwHmmhlPLr9gTaHX7rbxu5q/Vcuv2zUz/ggWxZik7JEH4XbCXZ90Gh+Hz4O8L0/hmTHn9xgOufo8G3d5TAkYhVeZbHJBumTCmSpWqelft1Pwn9+ViP4shJ/D/FQsLMDWbWdbtKz3d8o1BItQW5Tq9Qn4cvVN9sKJ4NvyvX5BNCRqFt6gIa7vUV3Lfd/fiEpospxShMlJuWeUunTm/2d4BddLn+oQ2E+4roASNNKga8hqcUUeqQ0vyAIBceA7cl0AO5BtGFrH9kt+O+vqRWTmfrucVJOSEf+rffJXS79jIvAdM0U+Bmm26vVSISQoFx+rju+pgzQwRyXM/aSbYgRlZqPYi8OtqK/988oOdYopVbjv/m/EJKCe2uwkxAaaB0COMnWloe1DOQdv0tjSv4ioSbInCFeYsV/f6TtILr8YxLq39TIzSXTbmiQ9nSkNSMQEM3NGrnr5xK/JLDIs3Jpc0Sl3yWMKUByQkPJR2nLzxr0J3cKO8DQLJfcPDPtNGbQjyWZowjx9ciq2REE3w1B0pdOGnz5jKns12V4Di55uIyN0aWVt1Yw/a/LKw9kvemMYc2Bz8TU1uH+bZGAE="
+            "signature": "CAQSjgkKEAgSGAI4AUIIdGhpbmtpbmcSDOJ6ZQTqKhJ/u9siMRoMv8fwPc1HUCdSbrveIjCgahuEnqsxAaa3CoHqEPJrGbqf+5Azcx4Y3Ruh+q8m1o0eBBHxyIMxfsRka0NUmUEqqwj2PjrTC9W69AZRKyQylcefdFpnuYGNlA5hCQj2lpcapjOM/GfFmarqBxqfxjf2zNnQ6GiVMK2uM8TPUibVNKEMo/gSjepdy+Uq4q08svzGX+84z5rXtGFHedpSs6BAV8x9fVlnCCK5YP9N9AzE/hUyWIXNHW9zV9lLpT/Lggd88KuP47DbdGajZE/Fe+JWnbY14IapTqmnspr1tRZvErwrqkAz2ogPuqABA6f4ELJTGV0wSn11f6k03qUMFXn/imcYnVaaLpcVCBD7FY2OqiS+DbY8Ff0nOKRHeg5JSr00redbykZA4hfNdOluctln7IQpxxY4hMk1WO0s1LVPB0qqxqdWlSpTPeTTjCrbqQWOliWdk/HV8CjMw8MzYyAzyAlyxjqC4tbERm+3FKyYmLqZQSaCpvVpK9Oskl1AEgaSHUMDoVUxmicx87KTgyTzmLuXKfMLrWuiA9UvmsivFr9jNBR9xzQ9rPU5q/zlQguoZ+09YD5NA9Duh0JQEs3DAlhF2l2S1etayOvTOEzLuo3iq8S7MDnquG8L/q8xNA3MIk0sS+O4QQ1qvddik5lyx5aKWQ2u68SMp5X0Yqh6hYMntqs1qClweCycrXxkeI8UlrL1wNsz0bmBPsO4M39ceGgi4opFSXS0at6EOLAxdGZJVucSDaoCJQJb2gIBw7JuVQNAGnQf41k9Hr3xX78QPxcIRgJq9s2/Qj7Fkzg4XvsQgpWsvbbXCduFM+mkaRy+QtGXoE50+lanODgNrS9bOwaNVwR66vtCUIgkaYwWR575Ja5Q3nf2vW3Tfn0X1ms4g8PUCUf3eQQnn671I36s19XOrsM8+trXoigobiRgXromxnqDFEtqWCranWQPAMRUXhaNjpY5N5ZHyEhdX3Jgh7ss7S9nu3JfUlPgMWQ9S6juMFkFxtee4xHN983AsHg8hJ0Cl3PUwby0UMTNr1PFHtPsYsFp8WhJAf6T9f5vrEwuTHpALF3nvmzKh4p5ArMSf3UGMF2X2a79p5i3DRqDX/W+3tmcDo+tVvidaQ4azznLOWcAFPty+PEsb55ghfXmlyHTAdS7LnYgBqK4lCk/duUi+SoGuf2MjxQSIZs5X5tpup6eRg9F3IrDD6ELKqSNHTGTHdR8UHj54NRMrWEWtmuL154E0YnrPsQstOr8XD2Lh4kjRGKYO6DMQfWeAFOh4zBYgeOGS31DnncXgUUVFNF0Usukjr+8tYZEHPMkdOOokbvrJ0I51bAbwrVfFrNNFbyqSdlDrmRAff1XDlV2LFPTK3ZC1an5hBe2g+QLbJFPGCsxWjpZj3hbvTFIRFkOqJ4rXqhThGq6/TWBdoICYz4ez5FjqIVTiwB8/2ZSkLTGalUNnKDfb5bim44bN569DzQk2UenjN+YbWBdioyLP8P2cftN2GKfPFtk9xgB"
           }
         }
       },
       {
         "type": "text",
-        "text": "{\"summary\":\"Dana from Northwind asks to move this week's sync to Tuesday or Wednesday next week, any time after 11.\",\"intent\":\"meeting_request\",\"proposal\":{\"action\":\"draft_reply\",\"params\":{\"body\":\"Hi Dana,\\n\\nNo problem. Tuesday or Wednesday next week after 11 works for me. Let me know which day suits you best and I'll confirm the time.\\n\\nThanks,\\nIvan\"}},\"requested\":\"none\"}"
+        "text": "{\"summary\":\"Dana from Northwind asks to move this week's sync to Tuesday or Wednesday next week, any time after 11.\",\"intent\":\"meeting_reschedule\",\"proposal\":{\"action\":\"draft_reply\",\"params\":{\"body\":\"Hi Dana,\\n\\nThanks for letting me know. Tuesday or Wednesday next week after 11 works for me. Let me know which day suits you best and I'll confirm the new time.\\n\\nIvan\"}},\"requested\":\"none\"}"
       }
     ],
     "finishReason": {
@@ -370,15 +370,15 @@
         "cacheWrite": 0
       },
       "outputTokens": {
-        "total": 358,
-        "text": 160,
-        "reasoning": 198
+        "total": 372,
+        "text": 162,
+        "reasoning": 210
       },
       "raw": {
         "input_tokens": 3349,
-        "output_tokens": 358,
+        "output_tokens": 372,
         "output_tokens_details": {
-          "thinking_tokens": 198
+          "thinking_tokens": 210
         },
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,

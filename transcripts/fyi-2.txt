@@ -4,7 +4,7 @@ Email fyi-2@e5: "Deploy succeeded: api v2.14.0"
 1 intake     sender class: internal
 2 injection  not suspected
 3 analyze    intent: fyi
-             summary: CI reports that api v2.14.0 deployed to production at 09:42 UTC with 7 commits in 4m 12s, triggered by Oskar.
+             summary: CI reports that api v2.14.0 deployed to production successfully at 09:42 UTC, with 7 commits, triggered by Oskar.
              proposal: archive {}
 4 floor      silent (proposed archive, requested none)
 5 learned    silent for archive/internal

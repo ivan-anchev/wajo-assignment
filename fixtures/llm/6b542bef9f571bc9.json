@@ -48,17 +48,8 @@
   "answer": {
     "content": [
       {
-        "type": "reasoning",
-        "text": "",
-        "providerMetadata": {
-          "anthropic": {
-            "signature": "CAQSgQcKEAgSGAI4AUIIdGhpbmtpbmcSDF7+HeIxMUQkvwLn0RoMe/Jcnk5WWr95HLRcIjBRSKc8q+R2FX3zJLx86KhuIH+dNfAcfnj/se0bATV3LuYpUzmqlRg73JJmIFA7O30qngbA8CZLZOiuohsU25U7vehiMEfzrfEG15zRWpbmDIXxFHFxKOepn1UPjG/xzioxAB8AHRQSdrc25B7YNtE8T3JtCrHrx+j+yEtoP3u2PoNIu2o+ugnpL5JAzfQ0lpDnvSz0399yowCHaVL2SH6JazAvF6WzOUONXOUoMoD2tKnq1BAnh9jS6gyzUhT0tOnMdgXLGjYAofQVIg4+DOgX3DcYuo8lZCmv8utibiE746TryMjeqyJpqBGUsrtpTaVLEYH00BBzcxyvgcJqtw1acvIJyulmBXM4/6PnJjQ1zVokOTqqwKXS/wY5V5jBpKRhVcyB/R+KTN7y5R0lSUHs9Q3HnsMDbLE7sd3diAoaLplZ+5SUF3Mdbv2nvNzqGfv/f+k6MKENXsH8x88nyhCdzGbmiNvq6bHgxW7i6HpPxwcjY3HFySLbVjjH4AMGHxlUaqaFvHdA42EfT/HTngfNyJAbEEI7Qw+k4tDHqepRtRWyBaCEwLdLohgZ1HAWxATCfiN600fToa6tQ4tH8J0a+QSQ0Nmg6/zwYjeuoCd7aABsXi293l/aCorRlv2VjFGeY5QtJ3Q2vZ9uoDkao3EoP8iEEj2KH2RE/76Jxw8jMySOhH7tjEpcqgSEfpxe3ymRFxY+jr0VjjjnNO1BB80+noWbuP4RlmbJAAfchuuEQISUsDbh7uDuKlCWnG9reugMwgl5ySQqU9B6CfjwgNvDH8ohsiCZyTtS8gaoGC97gw3x+Bnhe0r8aTvOVTKd1ZVA3qqrOEurXhp95ocSiQq4J0PAgsmtJW09J8HMlf6Y5PiaqdDtH007V0LkIdmguwArZhy85T70I96T+hs4l1RSpFzX/O+zwbKKUjE7atKINFi8N3rjo6gUdxze9KJNKcm+mQrK6tEgMz6IU0fCf3pTn7FOuMj37DsSKaN+yPsqatumVFYFzhdZyATFEew5qB70BOknG/OCnjSg3HT6clO1WcXWBNRgy3YuTXPQouoFR8FWAbsElK38NgdmcTEqyA2NLWrBHNhb/W4HKzRxVejtzufeYIqABHj79Vt7fu8Th6YYAQ=="
-          }
-        }
-      },
-      {
         "type": "text",
-        "text": "{\"suspected\":false,\"evidence\":[]}"
+        "text": "{\"suspected\": false, \"evidence\": []}"
       }
     ],
     "finishReason": {
@@ -73,15 +64,15 @@
         "cacheWrite": 0
       },
       "outputTokens": {
-        "total": 128,
-        "text": 18,
-        "reasoning": 110
+        "total": 17,
+        "text": 17,
+        "reasoning": 0
       },
       "raw": {
         "input_tokens": 690,
-        "output_tokens": 128,
+        "output_tokens": 17,
         "output_tokens_details": {
-          "thinking_tokens": 110
+          "thinking_tokens": 0
         },
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,

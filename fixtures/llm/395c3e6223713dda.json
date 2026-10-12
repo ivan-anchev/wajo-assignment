@@ -346,7 +346,7 @@
     "content": [
       {
         "type": "text",
-        "text": "{\"summary\":\"Lena shares notes from today's design review: keep the three-step onboarding, drop the welcome video, and she owns the copy changes, with no decisions needed from Ivan.\",\"intent\":\"fyi\",\"proposal\":{\"action\":\"mark_read\",\"params\":{}},\"requested\":\"none\"}"
+        "text": "{\"summary\":\"Lena shares notes from today's onboarding design review: keep the three-step flow, drop the welcome video, and she owns the copy changes, with nothing needed from Ivan.\",\"intent\":\"fyi\",\"proposal\":{\"action\":\"mark_read\",\"params\":{}},\"requested\":\"none\"}"
       }
     ],
     "finishReason": {
@@ -361,13 +361,13 @@
         "cacheWrite": 0
       },
       "outputTokens": {
-        "total": 99,
-        "text": 99,
+        "total": 100,
+        "text": 100,
         "reasoning": 0
       },
       "raw": {
         "input_tokens": 3362,
-        "output_tokens": 99,
+        "output_tokens": 100,
         "output_tokens_details": {
           "thinking_tokens": 0
         },

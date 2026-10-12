@@ -349,13 +349,13 @@
         "text": "",
         "providerMetadata": {
           "anthropic": {
-            "signature": "CAQS5QkKEAgSGAI4AUIIdGhpbmtpbmcSDGUGaiuOmQb1ToLljBoMfCs4nkftCHxjx10EIjCDFm/SPqGB8o39q2e5Bom8p4ufam7lKGhIqiNj9Im6b47443mUcoaRbVXnTkW4440qgglfU6EUSGzEUPq3G2+PWS3R7MgjR3H9ZOvbhO/Y4SPUmDcvjC/7hGNXtjnnRMFJUgqNeekt1rsjRcoCGmwTX152z0hZ8/TZnUljNWvt8+RaNJTAbTB1ozflhAmOlrZNS7GsQ9ibLbpbiM3SYNEVdnYklMY1lfpkfr1PzFkFg+fK5QpSvGoVqkPB4cJeS/xxgZyzoiu5S1NdLeTGLJccnTzJI2WfpGrM7l+QJ8aXp4JFu4q+EM0CaSKh7etM0t3rH12uYExBnQ77rzvRSAygZY2OGDPKMGrgSfCTLtT8j6s5aTbAtamaRUiZa+4+ZyJOBdM817R+9N3RySoHw+fPDrNRRXpxwQRt7UCZzeCzwr5s7B+63/Q8Uj/9O9z599j0h0y9Z/KAbpjZdnTIFCd8eJu19D6WOQvZTmXjefNv8IslJUAbZp1A7ZEI0ZGmE0rGZiq03h5hXwyAzonmUEmST1SD7vVJi2zBxBV3oKUoxIY1o16vkwxqgm7EFnWTxbgOf3IMf1Tsy/3Nzyp8m9dgvnjfN8BnIfJjjJfuLiyYZJvnNGmLPUQi7RCUbVwQmbrw77SvcXR+0basAirL9TkoDMLaOpl+v4fhmBLcTKUw73v7vy6IP1YzJsNomZCn4Pxo9egiKQ0H7hULjZx3zNSSlPPL9QM82zeKFGe3lsT9ZArRIkaVng08Kbtfpx4A/ros6K/ua+okzjAV9CZDRdH0feLCJw3cbWXsKpontyex9vpsD6gj+3nfHg9V+/8h1P/54jl+0XJShbnTrwUBzosZP3qPKB/JnUS7+wchuLsAxIUbRVVM/wEVAXg4LYmIC9RK1n2Oj8TgPN0Zaj9X+EQnHubg2+Uu5XjBnqPIKAPR3yuOeV434WwFpYUHgiyOth+Q7re1382873RPZZNRXjBo7iX0ljxrEr1inH52EFk99kGWxv2TwWdnVtXL808mXgrySx8haXxztjD25qjBb6lBV7A8LA6xw8MU9iqVCqEgvT5mV/8m/ZQvooa4STlNSBbByeCq5jqLLSmKMk/uEPQMnZPwuBfq1McZkqSK/n0s7d1vqXMfrfUVOwULDr4Zq2PmY2IoGZV3RgmeWxr58nSUmGtL5qMdTdLrcLrJxVq+eO7LdUb+XOPzJYH242uWdLDlIR+CxoY7w5saqOENTNg8cC3oLxSNeN0c5k2KRgZJO1TaDmsjb2vRyk6vU78/CBWa0AKipNTPF691DGQm40cJXDFWViWoBJ2uVTOP2cB3bD32aNQtgohp+mkJmbXFJS/5Y6w7rQp1/lRSNV37mudjNS2hCf93Ft2E4D4ZqBBRIMhWBuj/S/loKwla7wGshkJMV4HgroUtE7dI6jF8CAOKqPj+bpPmgmgcz4Wsu2rxJloy10PWb5Exl3F84Uoudw/Cm8KPooCdnmc03J2u2yIygkWn75+tsNETL2Lr87aLPIvMeHy/soZ2OzmghURddCYOBaNEguLSedbFblwZXkORA3a5z/3JLLrMz78uo0M7eh2/ac57B7Zw7NNtT3q+PbY0pPwubxgB"
+            "signature": "CAQSowkKEAgSGAI4AUIIdGhpbmtpbmcSDPJ/vThWPTZTYhSCZRoMMSuuizQK+Z0RBx+zIjDx2fmlkuSCFePnR1l8c3Msz2flIsjr4Ch5K6FIO3x689JFTxavRZNZSGv2HpuQfwUqwAiF2G1AilcN0moJjCx0yPHcOhtczkXnrmttUJOSB58I2CICX8cigoAbg+6MSLO2pjQlbrzKge573ZLF9jSA26L5s0VxSkCqV6inHn1nHtnJmsZItcPHK8qZo24iYOZZj10VcbkCJn6ghtMGId0GrTYKRxrdJVH7yr59202CUIGaF3uX0dW+MnVXOfzLYNKWLMWkR9Qx2qj4sz+aTXpd0Gsu0IYUuSumEm4O7qKMpxOb0nyasAdARnRFkjlVoiGIk3NwfOlZ2r13EqEHAYoV5TfgYmsMXnCguwFnGwyWtOqzFj1QudNL7/1APzqBHE9fX35HITo4jzMSPxTrTOjvIlvXfkUF4NZU33NW4bqBD0izeygb1TQ+TIDFeQjQE1wnN064M+zQbd0L3nFpKxTgPE6hOfB3LxOQpk4TG8HFU/HS/rYZXPGcwTNcPYmTUbwPO5hziOYNrcCnN01eiNArt+M2ocIMwBTkUY1xhSv2A6/9GDsw7m4y4xF28Z2+QCJplJoauQHYag3g5oQf2RMyWTRz/gIcPT7JewrNVmovWfzWnNTPBrnLqZ2CepAwyKLDCdEYLWZMm5Ke5ruP2CLPT+zPOxoTHqxJpVX4D6XYeDnbzsNLYe2CmUy6r7oEFLkKEM1maDsstMTcpFiLWgiUR/+NQETB/jWKwkgJXAAO6FLKEffZT6ylAxlmuqOsEQP9dtoufrNJkntkJM9EOzOrzLz667H/1vEHRQwH+MjKmqogSO/T+Be6/lwhXt4/9eXd1n5HCDkBcRGLXrftvhwP4WhRAyJS903hEMgKcPz4cBBC09fJyWg2L6Vgk7B4iqqg0obRqQ7tqgR/MBscjo13ofKgXiCQm8v3TP+h2m8Iu88ZooQHtTx0ScS6gXSr0M+Dyzc0MXsj88GywOF/0Sts55aMEwN2dyoq5Gh/MbLDldXOw7n0V4z62nMfOIh/mcsnOtISKcevj+qJz1uJrBPA26TzoLsIFUYnEpRwVUSESTAEXhfCd/hkuQJU+Aviy3zq4/sc7rGJ2fTJ1siW35pLLmmEc1950N38UegzWw5l/QcyxTp6ItdN/Awmi3JNiy4h6wrGuUNtOhx7OlMtiab+M0uXYpiRW/9xDz+3sC85HPIa/88n1uPB/2pA9njjwxM7Sx9hB66zqWZuw3txuL0pk3W+izzphxyNfsK3FjZEWEZgcANJmkpSUDbQoPZTTm8T5duiCxoC6gwALSLDltxMALQ+nTwcGMss8HuACcMmhODHuvpPYR8P/xT+JpH6IKkqCIuJeJ2Q1gJv/FKVbRzgv5n7wb9GMexUPDV3TpxOh7kA1tdiXYYQdQjWoHNiozTa/puvKw3RPvLQIYh5Dpkf6bUx3boRLPeLyYRyWM2ilxHW7NdE+pLg2j09Ma/AnxKKjaeQjfoiCD925AktbCDbOujJmSn0T5OHXtaQEJ/CYnA3qhgB"
           }
         }
       },
       {
         "type": "text",
-        "text": "{\"summary\":\"Marco from Helix Labs sends purchase order PO-5531 for the pilot and asks Ivan to forward it to accounts payable so it can be matched to the invoice.\",\"intent\":\"forward_request\",\"proposal\":{\"action\":\"none\",\"params\":{}},\"requested\":\"forward\"}"
+        "text": "{\"summary\":\"Marco from Helix Labs sent purchase order PO-5531 for the pilot and asks Ivan to forward it to accounts payable.\",\"intent\":\"forward_request\",\"proposal\":{\"action\":\"draft_reply\",\"params\":{\"body\":\"Hi Marco,\\n\\nThanks for sending PO-5531. Could you send me the email address for the accounts payable contact so I can forward it to them?\\n\\nIvan\"}},\"requested\":\"forward\"}"
       }
     ],
     "finishReason": {
@@ -370,15 +370,15 @@
         "cacheWrite": 0
       },
       "outputTokens": {
-        "total": 319,
-        "text": 99,
-        "reasoning": 220
+        "total": 363,
+        "text": 153,
+        "reasoning": 210
       },
       "raw": {
         "input_tokens": 3376,
-        "output_tokens": 319,
+        "output_tokens": 363,
         "output_tokens_details": {
-          "thinking_tokens": 220
+          "thinking_tokens": 210
         },
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,

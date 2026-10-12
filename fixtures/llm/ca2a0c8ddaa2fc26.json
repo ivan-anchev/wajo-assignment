@@ -349,13 +349,13 @@
         "text": "",
         "providerMetadata": {
           "anthropic": {
-            "signature": "CAQSxwgKEAgSGAI4AUIIdGhpbmtpbmcSDPFY/R4uFG23tlZQgxoMDDtmzTx1zsdJxiIEIjD8gSyeoXNjN/HGm4P6GoyoDqSFggiHSuMsFYepWJma0gxLn209d9Hvi5z5vTg+c4Uq5Afa+fkS7+WZPfbT6fZPmQUz37/LZBs57kO5BxOogqSHuqSsb8IGVrKRMHZiGoQ+uS0+ODyDHvzowODz5inDq+Te1eYEp6UMli+33ceVDkMxZu2WxJxkUa9eUQJ1PdNV+WbVghULrYYzW54zfflEEnXsNcRjpM52/7Kq3RHpO31Tjp0k3DSOUzH9Ts+9mX+HoOprTUAsMFXxVI74AsZyYs3EGpdpgiekffFZk0PkAIy0/vIYbqEKj04rdtlX6ONGuqkt5K4MmJ0sr75mlEjKbIuP/SDm2kLkbPFK2He/KeNXdYO3tj/tygznbJRWKz2fX0GNi+Gz6bgnv9Vice/qJuKKi9PVnQd7P0NnICKa6Y8Owd6KDHcYBq+QsZdrGmjP06GP2+n4nIbu/QNePjYnyZqbsOH+InUQy/rntdOrMvPIVVcBNc1RkwUQKq7EVDI3jVu/sZLlpHF7gW/GL+dr41wuo6pNT3JX5f5F4P3Z4OtH9NNaydHf8Vjw+X1gbDdQp7S/7SdJBnoLSAu091Fe3Qx7La7nQXjDVHX8cRHbIyJTaHC3WJOyR7JfM+pq9jsEb8f6w2oAJAHE7eim0WIoQBXfBjFvTArpngsfgBTSrSL1L6GIgDlHCFNyJ8h5xWhap0nA6hkDBl+1XJW3bRbPFpZks8qGKbYEL/cHePZEXTgeamNRCT9ibpufp2MPfZNOZZLn8z8wCo2CQ8+yyyamGxEcZrf1NCv58NDHxUyliI+KYiEZQZq+zJL1IxCwgWsA7KXMJP8LApEgwbpfsBi/FFG0p3bjzABx0G6whZ/w3OCTr5bxIXY5hxOVf2ZFpUWtcsPu3Cskk6H8L9L7j0XfdB8AwuXdm1Tw1TkiLU0OMvOugP3GB/NfhucUHYjFqecPMBRlf1e2VV0FcK7WJLBd2kaRoK9KWH061IcgnyAc7B5fKDBxOvZizu/wfNT+HZUcjcdtXQYgzPjMnXzNYiHfcr9TA9w8kD3QwuO26GGIlEltFeE/6O78kY1IhXjxOI534SUVdO8coUOR0YY2M261bsAKpIGbFV/pp+430MEA85QqU9SPTeVzR3a5l7gGVGVCbz6sAECvTgbHlMBr+YpVZa41oM3EqDy52I6dbsdhWc3lfMGPz6WBrGTomTNYvyFMMDZqOjsovLh7f2I+e1H6ySRnOiIqcE8EQjK76Fb81l62h8gESXtRuHB9TApFgqe7yU8tSjFXTto+J5mY23bkHy4Fo7nAjrp6ra4VQqSgothKtz0kKLp5zc4hMi8/6Gsz+EQ/qvcE1h4oEdk+a2b8mf+D02iyJyubwSv99D3Lyk8NL9RvjkwYAQ=="
+            "signature": "CAQS4gkKEAgSGAI4AUIIdGhpbmtpbmcSDHePwtPLWzfE5raEtRoMS8c0K7aURgAVfEHPIjDGDXkKm8m1bNq07p4YVnXYttCFZrWmaXWzZjxvyb7u9KI9AcyJQ0X3baxwFsmRKGoq/wjmBUa2LV2uPYixGgdeb4g50y2QL/5o3i6klDJtQO0oNREEyNpmfP3pcnnqhBMqEhDV24W+8ErmFHiIKanrj4JVKC8gbCXZ15k7ZEMGeYu2vF2KdRR1ABUSlKArjgGqC5GGIMiCYayluCpOWAqo+aDtlys8tPmQnSGYAjIBe2O+YruQliZGnFncrCzONvsduICFPotck7PYGPUzBQAKEJrCndCoRC6Ab8PZkp5M+YFRPxXJGVVBOI2dRBnOzZ1KWKHy6HV8k6/dLX73PiIfPGP1EYL5TinXHtONnScoStefZ+RFmxDQhG/2AQXA6pGMbCGxJe02lGP1QaDkRl+kVLKpoLzbY/vANpNVsehY0rZkRXfZ7Dx0Qg0W2zlx0tCoCVqMCUD5j9yhfhG5fTSPZNVOMdmkp7+vDaRDjrsjuLz42x2gQcLH6FEhQDkTFGQjXtoi+47ZWU7oFTov+B2yEcnzsJhZKispNlflj+si0+8kLPZls8skTj1UKWW6Rf4HUzZomFvitAQ4b1RtzgQ4fWoJsCvW1/z0bEduWdljfRnLlubPknBdYGOB4tyT8k6MLhey9nTdDY/f7TQ+bwH9S8gsRDbvQDxS5n5ymT3zdHQG4oU5l7ATAmlGn5ptw0Yu6mUICb6u5uwr6SYen+85JHxfk/Di9j7LrMvCnzlvn6+0aGTat8UXnn9nrI6birTCKIrKowE7p4qn2p5fjno6Or18274PiR0e8EoEWWX5Qp2ndn+rpgjHBkP5LnWszJpc4GR4zEcbaOkAaH53zX1dyj3oAcvoWCEk1p1ox0ncV2k47t9TkMd0IrdTerSndgHLItskp8dp+iKeZSK12C00yVW8Qas/0JrXjuVXek2s/0m9sRZo8PSkSHZoc8zgLHZhPZbvXQcBvL+XMm8fea6k9wgXTyh6dVmGOFAyCy5UziGd6cGmgR4sOquFTGaEyIVwcFrkPbpmoaZ7JW+GcwtuJU7llkN3DmW/+WOd9vaqwoQnoGpOlnItuOAikd9Dbuyaddg0Pu27rLbSqyzmvl0pyAbTR9MWg2R/2ZWK+uEny/zFsEfMCbdKP7fOzH1gxAKhPy8GrbIWfr4a5zQicgPH8mYL/wj2dtSzUojqZ3u8pjvQIOZ3eonI1HfkjaBMeEWSvVtcEhGQxkbc3LTHAj/hDJmdPyyRKd7UpQ+vTfq23P3XdkUxEgchz2CkVDkus7kLFIlJRhwjZYLOul5GZ+J7+Q1wfQvBnDCOJ6jeXh7EjLksG21igOyJANVxSzubmlKUk0c9mMZHLNz8jIx7yDBd2lY1npkyITfEoYrZmlbfsI1M//mk9cadDXEscYUj9CE3XQyBKqCjD3q1zTGj1LSs11ldWWDUDiWw5EhwPvWeGuxAuo5w8ed/G+KBwXRqng0Ulwy+H+m8Sbon7y0FVShXYZO2yxktLm80bge86gk2qEqhXf4wtvbZtVsBWqNhH7piWDvXeAMsHw0qvbbz6p9Xu1N7RIQql0Zrux1FuLMv8iSBzQWlyBY3vJtR+lxfP8Z3pBgB"
           }
         }
       },
       {
         "type": "text",
-        "text": "{\"summary\":\"Olivia from greendesk.co pitches office plant care for Wajo, with delivery, watering and replacement from EUR 4 per plant a month, and asks whether she should send options.\",\"intent\":\"sales_pitch\",\"proposal\":{\"action\":\"archive\",\"params\":{}},\"requested\":\"none\"}"
+        "text": "{\"summary\":\"Olivia from Greendesk offers office plant care for Wajo, delivered and maintained from EUR 4 per plant a month, and asks if she should send options.\",\"intent\":\"sales_outreach\",\"proposal\":{\"action\":\"archive\",\"params\":{}},\"requested\":\"none\"}"
       }
     ],
     "finishReason": {
@@ -370,15 +370,15 @@
         "cacheWrite": 0
       },
       "outputTokens": {
-        "total": 286,
-        "text": 103,
-        "reasoning": 183
+        "total": 328,
+        "text": 96,
+        "reasoning": 232
       },
       "raw": {
         "input_tokens": 3373,
-        "output_tokens": 286,
+        "output_tokens": 328,
         "output_tokens_details": {
-          "thinking_tokens": 183
+          "thinking_tokens": 232
         },
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,

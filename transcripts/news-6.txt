@@ -4,12 +4,11 @@ Email news-6@e5: "Kestrel Ventures Q3 letter to founders"
 1 intake     sender class: newsletter
 2 injection  not suspected
 3 analyze    intent: fyi
-             summary: Kestrel Ventures sends its Q3 letter to founders, sharing portfolio runway data and what strong teams changed about pricing and hiring.
-             proposal: mark_read {}
-4 floor      silent (proposed mark_read, requested none)
-5 learned    ask for mark_read/newsletter
-6 level      ask
-7 act        ask item #184 rejected
-8 response   rejected mark_read {}; feedback reject for mark_read/newsletter
+             summary: Kestrel Ventures sends its Q3 investor letter to founders, sharing portfolio runway data and lessons on pricing and hiring.
+             proposal: none {}
+4 floor      silent (proposed none, requested none)
+5 learned    silent for none/newsletter
+6 level      silent
+7 act        executed none
 
-Score: proposed mark_read, gold none; level ask, gold silent
+Score: proposed none = gold; level silent = gold

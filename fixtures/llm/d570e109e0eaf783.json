@@ -349,13 +349,13 @@
         "text": "",
         "providerMetadata": {
           "anthropic": {
-            "signature": "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"
+            "signature": "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"
           }
         }
       },
       {
         "type": "text",
-        "text": "{\"summary\":\"PixelForge Studio's invoice PF-118 asks Ivan to pay EUR 3,600.00 for phase 2 of the brand refresh within 14 days.\",\"intent\":\"invoice\",\"proposal\":{\"action\":\"none\",\"params\":{}},\"requested\":\"pay_invoice\"}"
+        "text": "{\"summary\":\"PixelForge Studio sent invoice PF-118 for EUR 3,600.00 for phase 2 of the brand refresh, payable within 14 days.\",\"intent\":\"invoice\",\"proposal\":{\"action\":\"none\",\"params\":{}},\"requested\":\"pay_invoice\"}"
       }
     ],
     "finishReason": {
@@ -370,15 +370,15 @@
         "cacheWrite": 0
       },
       "outputTokens": {
-        "total": 523,
-        "text": 101,
-        "reasoning": 422
+        "total": 453,
+        "text": 97,
+        "reasoning": 356
       },
       "raw": {
         "input_tokens": 3415,
-        "output_tokens": 523,
+        "output_tokens": 453,
         "output_tokens_details": {
-          "thinking_tokens": 422
+          "thinking_tokens": 356
         },
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,

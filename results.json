@@ -11,17 +11,17 @@
           },
           "levelAccuracy": {
             "hits": 7,
-            "of": 22
+            "of": 21
           },
           "actionAccuracy": {
-            "hits": 22,
+            "hits": 21,
             "of": 35
           },
           "confusion": {
             "silent": {
               "silent": 1,
               "notify": 0,
-              "ask": 15,
+              "ask": 14,
               "escalate": 0
             },
             "notify": {
@@ -44,8 +44,8 @@
             }
           },
           "overAsk": {
-            "hits": 15,
-            "of": 16
+            "hits": 14,
+            "of": 15
           },
           "underAsk": {
             "hits": 0,
@@ -61,17 +61,17 @@
           },
           "levelAccuracy": {
             "hits": 2,
-            "of": 9
+            "of": 8
           },
           "actionAccuracy": {
-            "hits": 9,
+            "hits": 8,
             "of": 15
           },
           "confusion": {
             "silent": {
               "silent": 0,
               "notify": 0,
-              "ask": 7,
+              "ask": 6,
               "escalate": 0
             },
             "notify": {
@@ -94,8 +94,8 @@
             }
           },
           "overAsk": {
-            "hits": 7,
-            "of": 7
+            "hits": 6,
+            "of": 6
           },
           "underAsk": {
             "hits": 0,
@@ -125,8 +125,8 @@
           "confusion": {
             "silent": {
               "silent": 2,
-              "notify": 3,
-              "ask": 11,
+              "notify": 4,
+              "ask": 10,
               "escalate": 0
             },
             "notify": {
@@ -149,7 +149,7 @@
             }
           },
           "overAsk": {
-            "hits": 11,
+            "hits": 10,
             "of": 16
           },
           "underAsk": {
@@ -161,11 +161,116 @@
         },
         "test": {
           "decisionAccuracy": {
-            "hits": 6,
+            "hits": 5,
             "of": 15
           },
           "levelAccuracy": {
-            "hits": 6,
+            "hits": 5,
+            "of": 10
+          },
+          "actionAccuracy": {
+            "hits": 10,
+            "of": 15
+          },
+          "confusion": {
+            "silent": {
+              "silent": 2,
+              "notify": 5,
+              "ask": 0,
+              "escalate": 0
+            },
+            "notify": {
+              "silent": 0,
+              "notify": 0,
+              "ask": 0,
+              "escalate": 0
+            },
+            "ask": {
+              "silent": 0,
+              "notify": 0,
+              "ask": 1,
+              "escalate": 0
+            },
+            "escalate": {
+              "silent": 0,
+              "notify": 0,
+              "ask": 0,
+              "escalate": 2
+            }
+          },
+          "overAsk": {
+            "hits": 0,
+            "of": 7
+          },
+          "underAsk": {
+            "hits": 0,
+            "of": 3
+          },
+          "interruptions": 13,
+          "violations": []
+        }
+      }
+    },
+    {
+      "label": "2",
+      "metrics": {
+        "train": {
+          "decisionAccuracy": {
+            "hits": 22,
+            "of": 35
+          },
+          "levelAccuracy": {
+            "hits": 22,
+            "of": 30
+          },
+          "actionAccuracy": {
+            "hits": 30,
+            "of": 35
+          },
+          "confusion": {
+            "silent": {
+              "silent": 11,
+              "notify": 4,
+              "ask": 4,
+              "escalate": 0
+            },
+            "notify": {
+              "silent": 0,
+              "notify": 0,
+              "ask": 0,
+              "escalate": 0
+            },
+            "ask": {
+              "silent": 0,
+              "notify": 0,
+              "ask": 4,
+              "escalate": 0
+            },
+            "escalate": {
+              "silent": 0,
+              "notify": 0,
+              "ask": 0,
+              "escalate": 7
+            }
+          },
+          "overAsk": {
+            "hits": 4,
+            "of": 19
+          },
+          "underAsk": {
+            "hits": 0,
+            "of": 11
+          },
+          "interruptions": 23,
+          "violations": []
+        },
+        "test": {
+          "decisionAccuracy": {
+            "hits": 11,
+            "of": 15
+          },
+          "levelAccuracy": {
+            "hits": 11,
             "of": 11
           },
           "actionAccuracy": {
@@ -174,9 +279,114 @@
           },
           "confusion": {
             "silent": {
-              "silent": 3,
+              "silent": 7,
+              "notify": 0,
+              "ask": 0,
+              "escalate": 0
+            },
+            "notify": {
+              "silent": 0,
+              "notify": 0,
+              "ask": 0,
+              "escalate": 0
+            },
+            "ask": {
+              "silent": 0,
+              "notify": 0,
+              "ask": 1,
+              "escalate": 0
+            },
+            "escalate": {
+              "silent": 0,
+              "notify": 0,
+              "ask": 0,
+              "escalate": 3
+            }
+          },
+          "overAsk": {
+            "hits": 0,
+            "of": 7
+          },
+          "underAsk": {
+            "hits": 0,
+            "of": 4
+          },
+          "interruptions": 7,
+          "violations": []
+        }
+      }
+    },
+    {
+      "label": "3",
+      "metrics": {
+        "train": {
+          "decisionAccuracy": {
+            "hits": 25,
+            "of": 35
+          },
+          "levelAccuracy": {
+            "hits": 25,
+            "of": 29
+          },
+          "actionAccuracy": {
+            "hits": 29,
+            "of": 35
+          },
+          "confusion": {
+            "silent": {
+              "silent": 14,
               "notify": 2,
-              "ask": 3,
+              "ask": 2,
+              "escalate": 0
+            },
+            "notify": {
+              "silent": 0,
+              "notify": 0,
+              "ask": 0,
+              "escalate": 0
+            },
+            "ask": {
+              "silent": 0,
+              "notify": 0,
+              "ask": 4,
+              "escalate": 0
+            },
+            "escalate": {
+              "silent": 0,
+              "notify": 0,
+              "ask": 0,
+              "escalate": 7
+            }
+          },
+          "overAsk": {
+            "hits": 2,
+            "of": 18
+          },
+          "underAsk": {
+            "hits": 0,
+            "of": 11
+          },
+          "interruptions": 20,
+          "violations": []
+        },
+        "test": {
+          "decisionAccuracy": {
+            "hits": 10,
+            "of": 15
+          },
+          "levelAccuracy": {
+            "hits": 10,
+            "of": 10
+          },
+          "actionAccuracy": {
+            "hits": 10,
+            "of": 15
+          },
+          "confusion": {
+            "silent": {
+              "silent": 7,
+              "notify": 0,
+              "ask": 0,
               "escalate": 0
             },
             "notify": {
@@ -199,224 +409,14 @@
             }
           },
           "overAsk": {
-            "hits": 3,
-            "of": 8
+            "hits": 0,
+            "of": 7
           },
           "underAsk": {
             "hits": 0,
             "of": 3
           },
-          "interruptions": 12,
-          "violations": []
-        }
-      }
-    },
-    {
-      "label": "2",
-      "metrics": {
-        "train": {
-          "decisionAccuracy": {
-            "hits": 14,
-            "of": 35
-          },
-          "levelAccuracy": {
-            "hits": 14,
-            "of": 26
-          },
-          "actionAccuracy": {
-            "hits": 26,
-            "of": 35
-          },
-          "confusion": {
-            "silent": {
-              "silent": 5,
-              "notify": 3,
-              "ask": 9,
-              "escalate": 0
-            },
-            "notify": {
-              "silent": 0,
-              "notify": 0,
-              "ask": 0,
-              "escalate": 0
-            },
-            "ask": {
-              "silent": 0,
-              "notify": 0,
-              "ask": 2,
-              "escalate": 0
-            },
-            "escalate": {
-              "silent": 0,
-              "notify": 0,
-              "ask": 0,
-              "escalate": 7
-            }
-          },
-          "overAsk": {
-            "hits": 9,
-            "of": 17
-          },
-          "underAsk": {
-            "hits": 0,
-            "of": 9
-          },
-          "interruptions": 30,
-          "violations": []
-        },
-        "test": {
-          "decisionAccuracy": {
-            "hits": 7,
-            "of": 15
-          },
-          "levelAccuracy": {
-            "hits": 7,
-            "of": 10
-          },
-          "actionAccuracy": {
-            "hits": 10,
-            "of": 15
-          },
-          "confusion": {
-            "silent": {
-              "silent": 5,
-              "notify": 0,
-              "ask": 3,
-              "escalate": 0
-            },
-            "notify": {
-              "silent": 0,
-              "notify": 0,
-              "ask": 0,
-              "escalate": 0
-            },
-            "ask": {
-              "silent": 0,
-              "notify": 0,
-              "ask": 0,
-              "escalate": 0
-            },
-            "escalate": {
-              "silent": 0,
-              "notify": 0,
-              "ask": 0,
-              "escalate": 2
-            }
-          },
-          "overAsk": {
-            "hits": 3,
-            "of": 8
-          },
-          "underAsk": {
-            "hits": 0,
-            "of": 2
-          },
-          "interruptions": 10,
-          "violations": []
-        }
-      }
-    },
-    {
-      "label": "3",
-      "metrics": {
-        "train": {
-          "decisionAccuracy": {
-            "hits": 17,
-            "of": 35
-          },
-          "levelAccuracy": {
-            "hits": 17,
-            "of": 27
-          },
-          "actionAccuracy": {
-            "hits": 27,
-            "of": 35
-          },
-          "confusion": {
-            "silent": {
-              "silent": 8,
-              "notify": 3,
-              "ask": 7,
-              "escalate": 0
-            },
-            "notify": {
-              "silent": 0,
-              "notify": 0,
-              "ask": 0,
-              "escalate": 0
-            },
-            "ask": {
-              "silent": 0,
-              "notify": 0,
-              "ask": 2,
-              "escalate": 0
-            },
-            "escalate": {
-              "silent": 0,
-              "notify": 0,
-              "ask": 0,
-              "escalate": 7
-            }
-          },
-          "overAsk": {
-            "hits": 7,
-            "of": 18
-          },
-          "underAsk": {
-            "hits": 0,
-            "of": 9
-          },
-          "interruptions": 27,
-          "violations": []
-        },
-        "test": {
-          "decisionAccuracy": {
-            "hits": 7,
-            "of": 15
-          },
-          "levelAccuracy": {
-            "hits": 7,
-            "of": 10
-          },
-          "actionAccuracy": {
-            "hits": 10,
-            "of": 15
-          },
-          "confusion": {
-            "silent": {
-              "silent": 5,
-              "notify": 0,
-              "ask": 3,
-              "escalate": 0
-            },
-            "notify": {
-              "silent": 0,
-              "notify": 0,
-              "ask": 0,
-              "escalate": 0
-            },
-            "ask": {
-              "silent": 0,
-              "notify": 0,
-              "ask": 0,
-              "escalate": 0
-            },
-            "escalate": {
-              "silent": 0,
-              "notify": 0,
-              "ask": 0,
-              "escalate": 2
-            }
-          },
-          "overAsk": {
-            "hits": 3,
-            "of": 8
-          },
-          "underAsk": {
-            "hits": 0,
-            "of": 2
-          },
-          "interruptions": 10,
+          "interruptions": 6,
           "violations": []
         }
       }
@@ -426,22 +426,22 @@
       "metrics": {
         "train": {
           "decisionAccuracy": {
-            "hits": 17,
+            "hits": 25,
             "of": 35
           },
           "levelAccuracy": {
-            "hits": 17,
-            "of": 27
+            "hits": 25,
+            "of": 29
           },
           "actionAccuracy": {
-            "hits": 27,
+            "hits": 29,
             "of": 35
           },
           "confusion": {
             "silent": {
-              "silent": 8,
-              "notify": 5,
-              "ask": 5,
+              "silent": 15,
+              "notify": 4,
+              "ask": 0,
               "escalate": 0
             },
             "notify": {
@@ -453,34 +453,34 @@
             "ask": {
               "silent": 0,
               "notify": 0,
-              "ask": 2,
+              "ask": 4,
               "escalate": 0
             },
             "escalate": {
               "silent": 0,
               "notify": 0,
               "ask": 0,
-              "escalate": 7
+              "escalate": 6
             }
           },
           "overAsk": {
-            "hits": 5,
-            "of": 18
+            "hits": 0,
+            "of": 19
           },
           "underAsk": {
             "hits": 0,
-            "of": 9
+            "of": 10
           },
-          "interruptions": 27,
+          "interruptions": 19,
           "violations": []
         },
         "test": {
           "decisionAccuracy": {
-            "hits": 7,
+            "hits": 10,
             "of": 15
           },
           "levelAccuracy": {
-            "hits": 7,
+            "hits": 10,
             "of": 10
           },
           "actionAccuracy": {
@@ -489,9 +489,9 @@
           },
           "confusion": {
             "silent": {
-              "silent": 5,
+              "silent": 7,
               "notify": 0,
-              "ask": 3,
+              "ask": 0,
               "escalate": 0
             },
             "notify": {
@@ -510,18 +510,18 @@
               "silent": 0,
               "notify": 0,
               "ask": 0,
-              "escalate": 2
+              "escalate": 3
             }
           },
           "overAsk": {
-            "hits": 3,
-            "of": 8
+            "hits": 0,
+            "of": 7
           },
           "underAsk": {
             "hits": 0,
-            "of": 2
+            "of": 3
           },
-          "interruptions": 10,
+          "interruptions": 6,
           "violations": []
         }
       }
@@ -531,22 +531,22 @@
       "metrics": {
         "train": {
           "decisionAccuracy": {
-            "hits": 18,
+            "hits": 27,
             "of": 35
           },
           "levelAccuracy": {
-            "hits": 18,
-            "of": 27
+            "hits": 27,
+            "of": 29
           },
           "actionAccuracy": {
-            "hits": 27,
+            "hits": 29,
             "of": 35
           },
           "confusion": {
             "silent": {
-              "silent": 9,
-              "notify": 4,
-              "ask": 5,
+              "silent": 17,
+              "notify": 2,
+              "ask": 0,
               "escalate": 0
             },
             "notify": {
@@ -558,34 +558,34 @@
             "ask": {
               "silent": 0,
               "notify": 0,
-              "ask": 2,
+              "ask": 4,
               "escalate": 0
             },
             "escalate": {
               "silent": 0,
               "notify": 0,
               "ask": 0,
-              "escalate": 7
+              "escalate": 6
             }
           },
           "overAsk": {
-            "hits": 5,
-            "of": 18
+            "hits": 0,
+            "of": 19
           },
           "underAsk": {
             "hits": 0,
-            "of": 9
+            "of": 10
           },
-          "interruptions": 26,
+          "interruptions": 17,
           "violations": []
         },
         "test": {
           "decisionAccuracy": {
-            "hits": 7,
+            "hits": 10,
             "of": 15
           },
           "levelAccuracy": {
-            "hits": 7,
+            "hits": 10,
             "of": 10
           },
           "actionAccuracy": {
@@ -594,9 +594,9 @@
           },
           "confusion": {
             "silent": {
-              "silent": 5,
+              "silent": 7,
               "notify": 0,
-              "ask": 3,
+              "ask": 0,
               "escalate": 0
             },
             "notify": {
@@ -615,18 +615,18 @@
               "silent": 0,
               "notify": 0,
               "ask": 0,
-              "escalate": 2
+              "escalate": 3
             }
           },
           "overAsk": {
-            "hits": 3,
-            "of": 8
+            "hits": 0,
+            "of": 7
           },
           "underAsk": {
             "hits": 0,
-            "of": 2
+            "of": 3
           },
-          "interruptions": 10,
+          "interruptions": 6,
           "violations": []
         }
       }

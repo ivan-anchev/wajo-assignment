@@ -349,13 +349,13 @@
         "text": "",
         "providerMetadata": {
           "anthropic": {
-            "signature": "CAQS1AkKEAgSGAI4AUIIdGhpbmtpbmcSDOx/PYoDZj7/SASWChoM0CTfgxMQ1ll8Y2aDIjDdvdH4BsMNKrwpx83n/n1iGhSr06eonZZCeElxEKa1bSROdtAWHUwnfSodTOtFPCsq8Qh+vqNSVyE2D0NjcR2ixYSkHF67gEpaPub/mAFmM/XSUBRDkEZjeCWNZAnwHKZxF+8OGrpcglUCrxcxyHob4KVmn7jMZ4JJnWnosrRsDzPLsv//AMLfFYYkAXkEXsXhOZjm7jsmhv35ry3vl+unUCQX6mr9Q8atHiajXlLbMc9JruKgRlliZs1DcSBL8yzkn15sHjmgF6nGOR/C1GKkDb1Tgi6famQJqHSF26EREPY5n/QnJYknmAaoCAdH81Y/gLXqDAhcwhM4MljUvM2N0xVI0Bq4JYboXNWjEFAAmcxrpoXq2pCmQpwOSBMtlk6SeZQGRMEwlwI5U8SebnDCUJmfZtY6OWKa2Ccwx7R5AWUkaiPJxwM7NgpuGOB2+rLuXI4Ycpkiu25CYWiJMOOxe0e+04ZKb7cY1pX/i9ipXAH3YB6oimCAqn8I8hO4ULQ2dBjL5ztvGNjyhbDcjAm5dmMcyRhClrM4grP8ItYJZdphY9kkvBaVNkN9oNdS+AaLI3VqSPdzlho7D0N1XLEBR+6SPwHul3SvuQ3HyNdlJ4pfrOHx3KQAxVB9pBiVkL+FMsnqQd4xqm+KNaq3jnH0gYKgQYXksyk8EK5pc+2tDqht31ggq+F73GiFo+qn1ZfEezeigyZjG/tpItJemaLWd57qfkStSD+3jK4tIOJSs7B5ml16IZL6RmF7a85ux1viWrNKy+c3T3H2CiKHkFOkh4lqOxiCF+1BzI5lMES/LNxQkEYAmKwI6/n/AtslFE8agrnbOiLlLes9NSj0NexRY249emFvJOxWMDJp6t0DwtAuGxZT8Fz9D+vlR9EsvI+yLhSTfmyxqeA3NMxMy9YcLhXdk4ulSL6PESZRCrWEv9wDUq2lGI62PptP/HVYzDwkglEZjlE93yZoWn/W4Wuj04mOy6S03P+KtXSW3PB97N2cesWSyoM5HHrAio7JFGlON4sZg8v7NxDzZcm6n1gEGVSUkqu2RQcj3yyofbBIBnMS5zCHYDoXI7JccCtNlaAlEBW5IL8eNdmdFk2ZXn5as0uq5qeTBc9s9XPx7XaNTV+Nbz8BiTDXuPvvGh5q4iTApV/eFuIu7hlesbOckJvHkcjhVmorDscWnaXI6l2gdVTMNqkluncDjRVBf9LHLmuu3kb3orHStTLQuUE+xm5+Mu2a1HNdth0GbkcsS9RsIzIeCi6Vvl7GJ05FfcT3FK2c98pBqntp/kjx7g+aGaX6H29cbKEF6pm0XpmkkADiaAN3EKn9oNy4lXoX/GJ/F5LvbF1ww2YDlfJSYATigshoGCDeQCcMutcCRtbm5PwBRilhNE2FD7S25zweT1uiZLrocRR4e8lu/ABXdIiTu/3Tv2LGvPpxUucyFPWK7HdGftDAaRT20SRqRYG5dUcKP73wi4aKtfaDa7pAHgHgA/jm7GI42oFGYqrIMiIJ8dTdkw+OIb9uUnrkcnN3+Q3DP/CkaCu5t+9AqNJ/nk5P2o2BjroR5CxuGQEvRVSuixrIttEVdkYYAQ=="
+            "signature": "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"
           }
         }
       },
       {
         "type": "text",
-        "text": "{\"summary\":\"Brightline Cloud billing sent invoice BL-3391 for September hosting, EUR 1,240.00, due October 20, 2026.\",\"intent\":\"invoice\",\"proposal\":{\"action\":\"none\",\"params\":{}},\"requested\":\"none\"}"
+        "text": "{\"summary\":\"Brightline Cloud billing sent invoice BL-3391 for September hosting, EUR 1,240.00 due October 20, 2026.\",\"intent\":\"invoice\",\"proposal\":{\"action\":\"none\",\"params\":{}},\"requested\":\"pay_invoice\"}"
       }
     ],
     "finishReason": {
@@ -370,15 +370,15 @@
         "cacheWrite": 0
       },
       "outputTokens": {
-        "total": 318,
-        "text": 87,
-        "reasoning": 231
+        "total": 611,
+        "text": 92,
+        "reasoning": 519
       },
       "raw": {
         "input_tokens": 3433,
-        "output_tokens": 318,
+        "output_tokens": 611,
         "output_tokens_details": {
-          "thinking_tokens": 231
+          "thinking_tokens": 519
         },
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,

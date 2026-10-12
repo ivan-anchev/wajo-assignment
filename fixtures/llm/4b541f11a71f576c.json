@@ -349,13 +349,13 @@
         "text": "",
         "providerMetadata": {
           "anthropic": {
-            "signature": "CAQSywsKEAgSGAI4AUIIdGhpbmtpbmcSDKspXQX4zL8exkcfCBoM0wkDsx60zeN+05BoIjBPQnQE8rGHX5wOZiH+T7mD4hzFOW6EURZGacQMKHLCCJVFn4L6pK33sq41kJbbKu0q6ApIfLTASWKCcgg1ObfNk0q6sD52pQok0fd/ZpmXGoZcH2nQbl27gAR5esJiPY15qMzXMoXykXlxgWOf3mlfy1fHGA4OBnDXATu4Vckgo+S/iY91Lm/G1xqIL2S8mOMf4/+M6qblIbmUl/Ftur4j9nEh8uaXThGZD/QL1DFn5hJh66NvKOcCKI9a/R4gI0PLOBkp3eB5RjhcETfbL55YiwX0L5tuBxtXB1ZM8sRNrLhx0/Y//MrYfHLw37upJ9EbqzJtBFrxpFQqmsZRAkG5a/oDt7p5nTw23zd2heuLEZNFQd/bScUgwM1eVnqXt/1CtEslZQA9KreL/54p/tDJlDA7XCbUYJHUVRPyvAsWMip5i7bzi6xpVAdbz3F+6NAMW18smubgu75z2nKMprm6qUKrsOxLYgZyfAFChdsvYeV2FnUV3pRSCU3PSjNz+YsjdXqxdD+Yy9wzNBJnNF5pd594zvwGljom5B3dsQvcASWpFCec8mcrt1B4ltuC5traTKdC16DXT8nIxXtN+OAY2iDigSgoIjMVd6Cui5ussM55H1XqoxdpggPYCKAKhXfOSo8+PZYVSoNNjr5Mi/+kNf02d/eKwTWxthYz3tUMG/GN7ab5YhuzTVwV1eXzSZgixxgm1ZhjTaOqc+HUf3Vw22MLpvoJhmno1p1LCcYO2rKCzOWfiBJ5ODH5WJzxfk1dlx7opccSkd91oMh0m6QGsVglO+NnZQ/EV5AdExLZ1hIfqogFNIOpJrBHrqsKytyDj+490sAnRLqD7dVipKgmm2Cy7hopkIS8yRY/uRUtYjdLVP8x85lPlXur0cD1CI+6OIBYNx3q6wJnDJFbYFCk7hIiUvWBLnRzDALtjQovNu1Tsx93724uffNYQY4FkLGS+XY62iQUPIZqotam9SGzgw0YqvpDeTGxiacRQ082+an0MCqkCWw6imMpnpRuIYxg8N+MH6xjn8EgrIkr2RiB/rqzg32LtppOY58CObN/bPwlMn4VxV+hro6LMPaK/JkOAF8ojchFcTb/QFJjWJZyU2WOHvMLgmzyHgo8tq073xDGj9JqLT0DXkAc5LN4Xuvnq99U49S40CAuHwEJ/k4SlDF4wIFAGXITwg/xVyJV6TGIWeiS1oDN3sPeaa6fDM3HD42ERfPfS/lRerDdxtd4db5SBMpeZjwlREGkkXhNqH6Q/vh1P4IKlhV32SscS38mZRT9vqM6Mk+XtLOCv8SsEAnleeai1Y7xCu9V+MQhH/wG/c4b92Z/Vcp5YdtzOrNro+z7tUW6Hh6KPKDeJH+GOk5a5e4uIbAzJ7UeW0uRpyUM67zsTTVUE6lByZ7fKOtm5UR43PKzBQCm1IDwWJVCA+l631INzRSpiXReDrBEAMIG73gxp/NyTWk8d4zoCfWNvHPSA936Gdk7fIB7elyUCPgvCEODAz8nIbE7n+ph5qXCP/J6pdHOS4i5o8ZQA19fenf2r8eXW2xPqGHlA1lLoOfsGqEi9A0DbFsnfu/GLVWaOjLaWc1vIngyQCnRmLpPT+D8aXdnhmlZRVwyjP1wd9ijoNCq/l6Oqpm4Qa4GApzytAKch2gcOPGeI8tNsaEU9Vd5r6smb6NKpHSrVnG1hWbYgrEg0tMS+AHHS9/oNf4kies9Rh/YEKZWa2H4hQHfAwpR21JkddMMZj0XYess6L1ur5rQuiCRpWfeY9uR9b2YnZs3U+izL7sjh27wt21DQgc+PGZsjocIKyEMYzxjKemB77N2MiQZ6ryUzE0r2tzOvZT/KROUntORnHQGTNEZjmScDPMvaOyt+TQGVOZrG4LXtdGwMFeIKQb7l8HjtmwpYqESqivbxUyUGAE="
+            "signature": "CAQSkQsKEAgSGAI4AUIIdGhpbmtpbmcSDPPntIW+DFrj7WDf1BoMd0Giso3nxH8yQ4fzIjCFFpeie9MbTtFA9zLiXIx9SXa8UeAOu3v/54yOjT7lj2iCHwgSfhwJH/Y2pW8wKugqrgp9VAMy5vyGgR+tF6Qr1O/k2Ji5xPnB2yzXhNl5X6PTqAS4utWWImjcxlJ+Z7A5t393Qf7gJ9VC4D1Iveq6rQE6WiV+Qt8eUi5DU2LYFABRT8tXtZckEi4ThTUtThDhZ5d6ED/1shgO6w8Uc4+QWxOmn2Lupgoqwg8lGrUjz1vdmKozwjsWSRVFQ8zrm0B1tcd8t+VpGN//yA5BkF/k3r3huQhoXXz1YAQksO09ky/3YxNLnHkdHqtbrEwCgGmQulFPWhOnBAPXUb9Xq24DwVh34eEx8eZWkF3SCCrSGf1EQTC90PvR9vsAxNbRlnVgwdgy3HF7DT00HWLqNm0cTzkcgAQji5GgdT97L/sFJMYdB93wj0fdyl0TT89CsoQbp4WQKCnUlRbnR9/uiRGBFmRdrlMd3SDOEq3RhzsieuWe/WYnJ07ZAG92mvTs3kvpgQGm7AIdIux6A1GbVjA9+nA9u335KVj+BXuNWGorbU4DoJO+rOkQxbMuWqMYfNQ4O/2Smj2D0Le7UNz49p4p5JcNwpUZTCq6yA8neA6RnRDpgZFA7M8odvHR4KYvTY+9hpV0sNXk998eTBBqp4+oWZWXNSmAx9pU8E9mp0YhUjibXjs0+xm6FWQaZyRl8eXouM7GYjdCv+mERYv6HE8hN+z4pIi5tDdTRLgaJrh4DWfSTTqBxA64uxVGSblYhkSOws5s4leRC2Bv2nUNyxJ/zh7dKd16NijnGGygVl9VGZ6vQMSh/IW/s43cy3ABIaBAOzXLHRaveWpoUI0F2oe6cHjUlZ0Qcx9y9jT1bcybZBiR4PRB81Q01v92He6zk9udfgzmPE+a5aBM/DKvudMuomiUDkdBWZ0qjYBEI8asaPl/NnBq8Ojy0uvU/M0iqbRh7ZMxxBKvxN5scM+7jMqZm6kn+3YoxFRskyPvMB/WbNYHxauKCq7zLBHKpY4LhvB/O2pWwheEKp1zDzyX8jVLDBuqtwaBH+F6VmMJgLGqcv850MkBJtkHfmPLaCsCgz2WPmECWXsW6qsV4piLId1RmbZOK6h4WsZkN9uvBEYSFRZrxHFtgD0c82RxHBIUZUFqXrFn2xDrpFxHhg1u4lTuMUElAoBoQ3l3KzRHmsfOBMQm+6q04Du1RiEdLy2jOcrl3TNqprCtpoS9FrmA/uGvIL7Epwk1gD2tgMMqFOfuMiT1iNmSpiErRIDspJ2m/UtOFpKimNiB5ofWNORqoHlQVtqCkv/0qH1IMSPwZ8f0TUKrZh7bCPwwx1Ee2/2GOAze6WIB4Eb8+r/pG+LMBJMU59gEuQkI8L6DE0POCvbxkB6w+a1tBDhCp6iNxMWJm49NFOgzaXNVt4iQ/RMm706ZvJ8ANhds+628ePNfCcx38wCLPIkuU7BK/HnOBfvEa3tvFSUv8cTxqJeDVOMoh7xpIyZBALyIKRifURQW6gNsZAMW0Wr/wF4AIuhT6Qx/OlUPvmKnDnPV2B18zUKMxF660Jf9x8ZkVGYTUMlxWHBm2MjyiigdKknQPDQX73y27yK24yxc5wMWPPBmoUOCsqpc0v2KFJ5seO/Y2pZAHPiwyaiQjXA7TM0PcS9Ib+Vm3Kk7uNG0I8/3eBHrAEqlWEnLEWFAU+qh67byH31H4Z7PV1gUChuyJ0DlttkICwu0Sxr5OhGSo2boaajQdc4dtqsUcu338M0cpn8Wme3ufCPShLlA5AR0N5bfTOjNb79M9kzkUGCbgcIrPkrQUBs8C0ibbk7iChZr/MJMCaRSuZ+xeo4YAQ=="
           }
         }
       },
       {
         "type": "text",
-        "text": "{\"summary\":\"Oskar sends staging database credentials for tomorrow's migration and asks Ivan to delete the email permanently once they are stored in 1Password.\",\"intent\":\"credentials_handoff\",\"proposal\":{\"action\":\"none\",\"params\":{}},\"requested\":\"delete_permanently\"}"
+        "text": "{\"summary\":\"Oskar sent staging database credentials for tomorrow's migration and asked Ivan to delete the email permanently once they are saved in 1Password.\",\"intent\":\"credentials_share\",\"proposal\":{\"action\":\"none\",\"params\":{}},\"requested\":\"delete_permanently\"}"
       }
     ],
     "finishReason": {
@@ -370,15 +370,15 @@
         "cacheWrite": 0
       },
       "outputTokens": {
-        "total": 400,
-        "text": 97,
-        "reasoning": 303
+        "total": 371,
+        "text": 95,
+        "reasoning": 276
       },
       "raw": {
         "input_tokens": 3393,
-        "output_tokens": 400,
+        "output_tokens": 371,
         "output_tokens_details": {
-          "thinking_tokens": 303
+          "thinking_tokens": 276
         },
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,

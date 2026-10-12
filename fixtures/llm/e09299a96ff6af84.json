@@ -349,13 +349,13 @@
         "text": "",
         "providerMetadata": {
           "anthropic": {
-            "signature": "CAQSogkKEAgSGAI4AUIIdGhpbmtpbmcSDNxLauKWM0F/XD9ujhoMYqxF9qwIzGNG8VNLIjALlFgsWp8EOJuXWE2E6nfh4vQom2nEmOzEM5HmQY6lugGb6Kc/vZbNPbIMSLbAdogqvwghNS0X3/eVjwVZrJBEfdwHPEjOPnmmHdLdemb1KMq8ZdsbHfjlVyxtO8TuIf2KJqcvzDm6A4RQEkTqWNjjsZMp9EyiNeNz+m6HuNMpojoXBu0ZRinXSJCcBsyNoeYvvPSyB88KI9wIQnRzJIftS3A5Uf//yKccXkFAdZYhoxucS+CMPAph2buU7QJMn6VHMh0Vau4M67LmjDy5HvPj3AUEpGye7UoZrdZT02Okh6SkC78Ii/yzAD4czJZfnVcaKpEKMXe/lY0Kzt8OCeRTtCbuYFmug9oF9s08zjHpfxj48dW5iYueCZ1asoKeJSHb0b/wer8T16w0AbJCY9pekOZOWxcJKzH3pUAkEzvTfKimxUiIcVFa8IGdQJMnt5jqeNXLRhPEM03c3vKQXQVcAGzu8Qw7F5Qthx+QYspRgCoY3Cji122D1p7CrtMSomON1uG5GAV8ew4CZJlcOSvVhOvvA0RU0+Dw14wtDDtqfqRUSleCqv61H/BIFephpfjlNX7qqQodMJIdxHvpJAzxByC9+3uVMOMcOwqqMO2kUSics5xP4z0rJXokeq3DlvRLGpw1WRrYoULSi0M8G/vxERV4P3gTdTSot/HKzktAs8UdgZNO1p3qm9EQiiGAzW1t1FfRhwcGZyRI9y8scAidUArVkLGo7ib55QG9JJbhWh2K/zCYIVDzX8Q5W9ey/jnCZmDvVytHq0Rq/9MgOAwZEqkBt+wwa8vrrJUpA5aSVtDAXtzuv2yCyg0DinBHSIIxGyyiWR5z4IYHi26nxZDEfWGgIy9eHdzEHjKy45zHGt4/um9yMh0DlX6qbz9/ueA+lVkMHSIWjLOhnwCW55gzEzFCYT1DCTKHgwz99MpE84EblDCwQZIoRteeavh+DfyX4azX91vF24enEQqkuDD4lykNyKTjNE/LYFTm6UbQ2EpC0MhTXFQnWgrRqrPy6Qcb+PZCZHv1AalUhffslPGfI2AX2ZmHdxV7GfBPlT9+jQhRI7bvtgbpJuv9Tolev2L0BRzKvgTx1RTzQijK3PIDB3WMIEZApNuKv5XbiSSZmAJML7AtXZRRL+FJ2MWICbCoEntHtIazlrWwhj0rBkZiReL45PzR3Op2pKJ0hZjdbD+5OwDkHtV8RWuFqw9cGntUCx33CfnVxSsQgCTbLxIWBJ4hWxgtAAD6PEhmrgmAxxWnP+RuP6dRQJ26XtR5nsR+k9HIehFV2+/9WgB0Gm3boBSHM2EVcDnemFUoeIglD6MQsG003y8W2KWjqP+yUNn0ibxSkcddnO+on1BPfSQzKqHgNLcFH/26flx2aj13NMyWEamf5FHiWcoaSFVyXRlD4o9nVCWmoNqL8QXCVha2nyv06zF8RmUXAmqmgfYAcIlOTk3aT7CKSbPa5hdsaIdv7lLcG7IwBjTVqhhYKHllDy/801jv6kTqyrPsGl3Lz19UGAE="
+            "signature": "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"
           }
         }
       },
       {
         "type": "text",
-        "text": "{\"summary\":\"The People team sent Ivan Jonas's signed offer letter and ID card scan, and asks him to file the contract in the HR drive and then permanently delete the email.\",\"intent\":\"document_sharing\",\"proposal\":{\"action\":\"none\",\"params\":{}},\"requested\":\"delete_permanently\"}"
+        "text": "{\"summary\":\"The People team sent Ivan Jonas's signed offer letter and ID scan, asking him to file the contract in the HR drive and then permanently delete the email.\",\"intent\":\"document_handoff\",\"proposal\":{\"action\":\"none\",\"params\":{}},\"requested\":\"delete_permanently\"}"
       }
     ],
     "finishReason": {
@@ -370,15 +370,15 @@
         "cacheWrite": 0
       },
       "outputTokens": {
-        "total": 297,
-        "text": 100,
-        "reasoning": 197
+        "total": 413,
+        "text": 98,
+        "reasoning": 315
       },
       "raw": {
         "input_tokens": 3395,
-        "output_tokens": 297,
+        "output_tokens": 413,
         "output_tokens_details": {
-          "thinking_tokens": 197
+          "thinking_tokens": 315
         },
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,

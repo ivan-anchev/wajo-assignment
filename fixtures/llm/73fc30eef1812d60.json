@@ -346,7 +346,7 @@
     "content": [
       {
         "type": "text",
-        "text": "{\"summary\":\"Kestrel Ventures sends its Q3 letter to founders, reporting portfolio runway and pricing and hiring lessons.\",\"intent\":\"newsletter\",\"proposal\":{\"action\":\"archive\",\"params\":{}},\"requested\":\"none\"}"
+        "text": "{\"summary\":\"Kestrel Ventures sends its Q3 newsletter to founders, reporting portfolio runway and pricing and hiring lessons.\",\"intent\":\"newsletter\",\"proposal\":{\"action\":\"archive\",\"params\":{}},\"requested\":\"none\"}"
       }
     ],
     "finishReason": {
@@ -361,13 +361,13 @@
         "cacheWrite": 0
       },
       "outputTokens": {
-        "total": 86,
-        "text": 86,
+        "total": 88,
+        "text": 88,
         "reasoning": 0
       },
       "raw": {
         "input_tokens": 3394,
-        "output_tokens": 86,
+        "output_tokens": 88,
         "output_tokens_details": {
           "thinking_tokens": 0
         },

@@ -345,17 +345,8 @@
   "answer": {
     "content": [
       {
-        "type": "reasoning",
-        "text": "",
-        "providerMetadata": {
-          "anthropic": {
-            "signature": "CAQS+AUKEAgSGAI4AUIIdGhpbmtpbmcSDKN3Gxnis2psDln0vxoMuKC/nNXTYdhZLzQKIjAAH0SkJ5jY1Vv8q1LEqrw0Ydr12YHDhg8Xnu4jsOCNTar6Ia0Rym53ZUR3++4fJx8qlQWRZqi4Yab7zqjLD0JMk24QNRdhJJfIvNYKR4UMzcApfTsr/sEJ+aO/al8AXvPpqrmL98C3+7h5QTC8cRg0hm1N7XwN1YcThoedIGWfZi4reN6BcYRRdXmMly3nFbIo6AHT7cd6Q4L1W60eZkMdwxHbLt/5yJ2Jp3TisWC2qXt95W6cfRwqYsCFFyGy3BJqtjihyucUctDUsQZtA2iERPMDQpv3NjfucLsvuQOqaYXe5y4+Vz5V1ROVggKUNPJyc8fYlGM6o5eR0Vi2yE+OavO/wyvLQlbI7UP2ecLD7blkQjkG5pCuwJDGDIhVC288+du2fh1YaqFWpsuZ5CX75Vm0YjDzF7eaeYdw2pHEyf19k3gKqTndKZMMAXpIVr+tBaVxGwuPHeiRMNu0FhrTppFijl2cwtck9N1/FBCdgs8qRI95Lzmd4z74PgGLfsYa1qyG0dLdgh5GKPSa14PwWdPjYiLb0P0Zp9+izUeIBxSrAYWw3Jdoav3NJszP/juhWE2uQWK15Q43Irb7xgL9I1qvvUFvEijbbZQhx8WzSuoFElqkrY57in+qJJqN7uOIWhP7bWJCJ6FrOkfBTZKgIIThL2nJ8ydZf7saSFdlmO2XKPhceHJfN2usP6cKT/xquedxrw0Q6lOiuAA/GIybGaKvB8LKA8fTBlHSAfR4AZgMHopDLbGdpyFdlnta6MNtR8MNYYJ0kdXW8oe6dmMdC0wRvHhuNqTrd3RjfCgjkNSEWTYU0tDJGsD2qASy+UnynxomvtO4aYGm1bXMmFz3zO217ufIKDGS/5FgwwJTJhPSFDHFs92NLayPDfu+p+IhdVkyRfiu4T3h1VMWfbwPCfZqbLiczfQRQm5RaKW6e/Lw93XxAbOKGAE="
-          }
-        }
-      },
-      {
         "type": "text",
-        "text": "{\"summary\":\"The TypeScript Weekly digest #42 covers the native compiler beta, a deep dive on satisfies, and five tsconfig flags.\",\"intent\":\"newsletter\",\"proposal\":{\"action\":\"archive\",\"params\":{}},\"requested\":\"none\"}"
+        "text": "{\"summary\":\"A weekly TypeScript newsletter (issue #42) covering the native compiler beta, a satisfies deep dive, and tsconfig flags.\",\"intent\":\"newsletter\",\"proposal\":{\"action\":\"archive\",\"params\":{}},\"requested\":\"none\"}"
       }
     ],
     "finishReason": {
@@ -370,15 +361,15 @@
         "cacheWrite": 0
       },
       "outputTokens": {
-        "total": 158,
-        "text": 89,
-        "reasoning": 69
+        "total": 91,
+        "text": 91,
+        "reasoning": 0
       },
       "raw": {
         "input_tokens": 3372,
-        "output_tokens": 158,
+        "output_tokens": 91,
         "output_tokens_details": {
-          "thinking_tokens": 69
+          "thinking_tokens": 0
         },
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,

@@ -7,8 +7,8 @@ Email t-news-1@e5: "Weekend fares from Berlin from EUR 39"
              summary: Flyaway Travel promotes weekend one-way fares from Berlin to Lisbon, Split and Kraków starting at EUR 39.
              proposal: archive {}
 4 floor      silent (proposed archive, requested none)
-5 learned    ask for archive/newsletter
-6 level      ask
-7 act        opened ask item #186 [approve, edit, reject]
+5 learned    silent for archive/newsletter
+6 level      silent
+7 act        executed archive
 
-Score: proposed archive, gold unsubscribe; level ask = gold
+Score: proposed archive, gold unsubscribe; level silent, gold ask

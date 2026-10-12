@@ -349,13 +349,13 @@
         "text": "",
         "providerMetadata": {
           "anthropic": {
-            "signature": "CAQSlgYKEAgSGAI4AUIIdGhpbmtpbmcSDMzWhsRBySCTYbvk2BoMXcN5C9SOf7AJfun/IjDBIcwj/XpkVVNFArcYdh8oxPFP5hBfBiP9/U/V2N1WoSmPRPTJA7ukbTB4bUCb3oAqswV4nI+TWmCUI8VyLCGpkNI3NVllrMZjvUKJBc6OpBjrCO36xZe36t+icK//zeH0EJSzjIkxruzh1hmdczl5q3JJPmEiU9xKdW6XCCo+D5ESwA5GUorJpbJNEqvG5QLWJ/FIaDu640ANeytOwkGEvgc4bHYaA/WTw2Kr4Cy6lEOrr1YtQ3NJTmVU2kOZ6KcltjXeYQzYSDqwiDAPq/HejNtpZ85b4aiU3E76VHWbDhphmfugnwXVJ7C6C/H5F9zTQ1BzT02L2AlFETGmbaGc/otRc/tHUHmAaZo0RDr/Emg2yOuRMTUJVkDFM1hERhd6fG40WhOr7NwElwOEYkaUMB1En0KWVQHWZwZ7ty+s3nNF8BC3xRCKqQYBrUVLea5CZAHzuTd135P9xDOfFTbirC+mI5pIfeB+AU0xVGqAbht18jT4KE6c9k8gxD24xS8alGVrwtcgRmSTrDwtsDwRB+1AFfrRHsmTxxT0ahbi+bPz1/BE4ZivIHccFfKv/9Dg3Sxf7rFwT/TI2zoqNXtjC82ONNW/yvBHDXW8JN/sMdby+RXyCSB6yBZ6Ki3vIYe5WqmlNfXvW3dmodLU4LvQQhCKogW6kqijxNNapGSm7BHsVnLq5/aAJQhnBA8zsUl9NfCWniExnm8csIyOTefHLPv3bmT2UBu3TBZMOdEwgVBClihIBb2xZdQF4pn/JM0X24rXkgX9YOQNYMbp2CwViDY0/0ypdyJ96ZoQKioD/UH+uTQMjS/IpKtc27Tz7dVJIjqyvuJ8NAaq5dssxcipbImD9nVE04KVgH3KOjwzEFaY/tdOlTGxSi5OMuRhLkIRe4rFsTE7JOCPBIjpJAFD6Qc1p3zN3ZXWu4tbML5AkABTuxCFKCUBUMHKNEuN3aBpqLDhi083V33/KZjR65HWdhskkQiVGAE="
+            "signature": "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"
           }
         }
       },
       {
         "type": "text",
-        "text": "{\"summary\":\"Sam from leadforge.io offers three ideas for filling Wajo's pipeline and asks for a short call on Tuesday.\",\"intent\":\"sales_pitch\",\"proposal\":{\"action\":\"archive\",\"params\":{}},\"requested\":\"none\"}"
+        "text": "{\"summary\":\"Sam from leadforge.io pitches three ideas for growing Wajo's pipeline and asks for a short call on Tuesday.\",\"intent\":\"sales_pitch\",\"proposal\":{\"action\":\"draft_reply\",\"params\":{\"body\":\"Hi Sam, thanks for reaching out and for the ideas. I'm not looking for outside lead-generation help right now, so I'll pass on the call. Best of luck with LeadForge.\\n\\nIvan\"}},\"requested\":\"none\"}"
       }
     ],
     "finishReason": {
@@ -370,15 +370,15 @@
         "cacheWrite": 0
       },
       "outputTokens": {
-        "total": 168,
-        "text": 87,
-        "reasoning": 81
+        "total": 590,
+        "text": 165,
+        "reasoning": 425
       },
       "raw": {
         "input_tokens": 3384,
-        "output_tokens": 168,
+        "output_tokens": 590,
         "output_tokens_details": {
-          "thinking_tokens": 81
+          "thinking_tokens": 425
         },
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,

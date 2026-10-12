@@ -349,13 +349,13 @@
         "text": "",
         "providerMetadata": {
           "anthropic": {
-            "signature": "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"
+            "signature": "CAQSjQcKEAgSGAI4AUIIdGhpbmtpbmcSDLym1gFECeIUn3vM8BoM8brkt9sgrhLBgLHYIjAkxDTJJ4ikAL3Dp6HtDLp4Bm9KCWHVLHJwfLx74npdcZ+3R2L1vclheU+m8/+gFSoqqgbYzMt5BS5Yjb5K3WMGXq11pf7iN/zBWkXtaOquiS3aivKnmP/zYqaEucEDSe1IRrKYHNLazcOVuk7vF3ETix3gvXuahaReAyGhg/r8Tum6tgJrM41iXJIOR1IZ169uv6tgEp6Wi+iFd+Rg3yJOBTym9a5JE+5qyxrbKBws2KEPsiMXBBGqSmYbmsuG70dmYiaU5X4fDOmIFg3gO0qwq2h6OGY7uc4afP+5euEUntpTdWrxsojk2H4reP8jDkahDcoNOrekZ4nkyE9RKLVPP7dz85d9FP6pY6149ERkKOondaVqDdLhmHYnJm5GiZuzzAshokgatrGzIt2jHh7ahC+PXHLlS/ocr9AtqhReNIG2TqsYQY78fRlq64RGxu4/45EWqzRaayfzkMypPmKu1BF0fMgMYp4N6wtHOuPPPOW5iOzDPHDrtWnXWq9jLg7wuFFTG9G3wwRNeXdauvEJx+dATf1RRtKFAlQg2+tAv2aZkpWXw/tHyT4TUZqpsNBR+pMJGr6wrW6e+yolPx0DEr7tBuEWYoH2cxCYaJgJAsNYkqHM/kdRYi0o6oHYmXKmWY571etsRbtQHDdgeRNACpue0pa38iVIwqEVG69CuYAJOJTKtRdEL/+MC43oSoTmopuS6h9tEm/gMjKdqP/S5U0+ehvEY95nw3d2/jR2PmI52uM7YFI9WfnSg7pjQDvBlRYMeF7YLkomSSpcF7vzNktX9phH/Qk4GG3xKn/xooueOdTvhKTluZs3Y6yv3S4WKHisc09gojYoXUXxhOCphrbbQQvOJ6U88Lpf5f+VoWE4llLH/haWilBvyoI+HoTd0EZxeUqZubcQEjPbzpwNZBMFtxbgOOVKxCbafKRuav2ugd23bNCxbScy+857ZsgSTNT/U0/5XySjWUFsor3esvRmC82uGODpR4O6UYQa7Wi91WQanJPw/9658cfVJwhkHzvJ8JfBLb1KqoY/lcWLwIhLd+QlG+rBS/U1+O1lAPNMf8S7cvI/5xE7FXAmDtxzIj+cvz/5ACQH+qXNW4fgwVvB4yvcCC/8lSriIYB+7Gqvb8lzSpeBWrdeyOoYAQ=="
           }
         }
       },
       {
         "type": "text",
-        "text": "{\"summary\":\"Alex from GrowthLoop pitches an outbound sales service to Wajo and asks for a 15-minute call this week.\",\"intent\":\"sales_pitch\",\"proposal\":{\"action\":\"archive\",\"params\":{}},\"requested\":\"none\"}"
+        "text": "{\"summary\":\"A sales rep from GrowthLoop pitches a lead-generation service to Ivan and asks for a 15-minute call this week.\",\"intent\":\"cold_outreach\",\"proposal\":{\"action\":\"archive\",\"params\":{}},\"requested\":\"none\"}"
       }
     ],
     "finishReason": {
@@ -370,15 +370,15 @@
         "cacheWrite": 0
       },
       "outputTokens": {
-        "total": 420,
-        "text": 85,
-        "reasoning": 335
+        "total": 207,
+        "text": 87,
+        "reasoning": 120
       },
       "raw": {
         "input_tokens": 3384,
-        "output_tokens": 420,
+        "output_tokens": 207,
         "output_tokens_details": {
-          "thinking_tokens": 335
+          "thinking_tokens": 120
         },
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,

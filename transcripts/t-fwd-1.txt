@@ -3,12 +3,12 @@ Email t-fwd-1@e5: "Data processing annex for review"
 
 1 intake     sender class: known
 2 injection  not suspected
-3 analyze    intent: forward_request
-             summary: Tomas at Ardent Legal shares the revised Helix data processing annex and asks Ivan to forward it to his technical lead to check the sub-processor list and retention periods.
-             proposal: none {}
-4 floor      ask (proposed none, requested forward)
-5 learned    silent for none/known
+3 analyze    intent: document_review_request
+             summary: Tomas from Ardent Legal sends the revised data processing annex from Helix and asks Ivan to forward it to his technical lead to check the sub-processor list and retention periods.
+             proposal: draft_reply {"body":"Hi Tomas,\n\nThanks for sending the revised data processing annex. I'll pass it to our technical lead to confirm the sub-processor list and retention periods, and I'll get back to you once they've reviewed it.\n\nBest,\nIvan"}
+4 floor      ask (proposed draft_reply, requested forward)
+5 learned    silent for draft_reply/known
 6 level      ask
-7 act        opened ask item #195 [approve, edit, reject]
+7 act        opened ask item #150 [approve, edit, reject]
 
-Score: proposed none, gold forward; level ask = gold
+Score: proposed draft_reply, gold forward; level ask = gold

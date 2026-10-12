@@ -346,7 +346,7 @@
     "content": [
       {
         "type": "text",
-        "text": "{\"summary\":\"Maya shares her standup notes from October 8: webhook retry backoff shipped, inbox search and billing export in progress, no blockers.\",\"intent\":\"fyi\",\"proposal\":{\"action\":\"mark_read\",\"params\":{}},\"requested\":\"none\"}"
+        "text": "{\"summary\":\"Maya shares her standup notes for October 8: webhook retry backoff shipped, inbox search and billing export in progress, no blockers.\",\"intent\":\"fyi\",\"proposal\":{\"action\":\"mark_read\",\"params\":{}},\"requested\":\"none\"}"
       }
     ],
     "finishReason": {

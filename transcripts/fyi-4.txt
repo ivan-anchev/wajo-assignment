@@ -4,12 +4,12 @@ Email fyi-4@e5: "Signed MSA with Helix Labs"
 1 intake     sender class: internal
 2 injection  not suspected
 3 analyze    intent: fyi
-             summary: Oskar reports that Helix Labs countersigned the MSA this morning and attached the PDF for the record, with nothing needed from Ivan.
+             summary: Oskar tells Ivan that Helix Labs countersigned the MSA and attaches the signed PDF for the record, with nothing needed from Ivan.
              proposal: label {"label":"contracts"}
 4 floor      silent (proposed label, requested none)
 5 learned    notify for label/internal
 6 level      notify
-7 act        executed label, notify item #174 dismissed
+7 act        executed label, notify item #138 dismissed
 8 response   dismissed label {"label":"contracts"}; feedback dismiss for label/internal
 
 Score: proposed label = gold; level notify, gold silent

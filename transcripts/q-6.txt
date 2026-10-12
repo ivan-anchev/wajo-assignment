@@ -4,12 +4,12 @@ Email q-6@e5: "Founder dinner on the 15th?"
 1 intake     sender class: known
 2 injection  not suspected
 3 analyze    intent: invitation
-             summary: Priya at Kestrel VC invites Ivan to a small founder dinner in Berlin on October 15 and asks for a yes or no by Friday.
-             proposal: draft_reply {"body":"Hi Priya,\n\nThanks for the invitation. I'd be glad to join the founder dinner in Berlin on October 15.\n\nLooking forward to it,\nIvan"}
+             summary: Priya Kestrel invites Ivan to a small founder dinner in Berlin on October 15 and asks for a yes or no by Friday.
+             proposal: draft_reply {"body":"Hi Priya,\n\nThanks for the invitation. I'd be glad to join the founder dinner in Berlin on October 15. Looking forward to it.\n\nBest,\nIvan"}
 4 floor      silent (proposed draft_reply, requested none)
-5 learned    notify for draft_reply/known
-6 level      notify
-7 act        executed draft_reply (undone), notify item #183 undone
-8 response   undone draft_reply {"body":"Hi Priya,\n\nThanks for the invitation. I'd be glad to join the founder dinner in Berlin on October 15.\n\nLooking forward to it,\nIvan"}; feedback undo for draft_reply/known
+5 learned    silent for draft_reply/known
+6 level      silent
+7 act        executed draft_reply (undone)
+8 response   corrected; feedback redirect for draft_reply/known
 
-Score: proposed draft_reply, gold send_reply; level notify, gold ask
+Score: proposed draft_reply, gold send_reply; level silent, gold ask

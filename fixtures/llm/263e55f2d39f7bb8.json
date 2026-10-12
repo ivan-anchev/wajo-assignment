@@ -349,13 +349,13 @@
         "text": "",
         "providerMetadata": {
           "anthropic": {
-            "signature": "CAQS/gcKEAgSGAI4AUIIdGhpbmtpbmcSDFcdbswI8rrFlB1a3BoMsOzLQOZn+EdSQ44qIjCEYwfYbjbWAIHhM2tmFi0OdMcokx3fJF+WG8j7NS8ja3m3vLkTY4mAd4OR7aEImC8qmwesm0d696D9T8YcuJGjO+N5tEFdccDzFSdVuqVguMwT32hLR2nGB7o5Pbr1da0dS7510pIExR2R2tcfspzADPl/Fcnb7iOHNRMWlRM58mt8V1w27b9/VqNEUqZsVbM/GEv2GihQtTc5Miu60XoMlWr0jDAaQrXn0kIbo26j1hsHlsrCi5ZdxuujWNeRfFmyhuHZZYLse7BBxyk4sc/GVeYxbD6+OyqCxYGrI8PWaZjUvdsnLhkC1+WWn3o0BNpLT3UGcwiDlQ16cr0vciiWRU8qih9Z9APXm44KgArK4ANgK7SiLrc++2RRymPU+VfsbWWe+MdXIBd6hnXHCH5xjid3+859q/oJin7bdh/MYPqckcvTkLTwLBP67smIXkmUSiIfaxNVIIfZKSum7B2GaOs0G8BWAh3yVpYk9dJlS7GR94lYBVyFgEK04H6ARC7JndLGlw4FiciCs1/9KF32/TWwqDtblUaS4ywHEK4aScTdjHu7kpbnkI2UTzmVVYxSXJ3MCe9DM3bNINYW2LLqY8nComJn/xNTIHlKwSc0XQ2mO3Ruw1UjWtryN9Ju64000ULPj47bxEV36Bs9lR8ry87gLu0A334qgPf/jWNqNl6KeDdxtnHBhHdKVNGFQE+Bq8WCr490PdReXc3J8kldc4Gp7qMrck9pmBlKUQ/woYDubfnNFJBFLKBqLfSL9vjPKcA2a1jgoYihxHW06b5M6nk6XdfExNsK/1JYQnp3eqhVRE+nZ7i2VMm5buRHPH4xgFG3TG//9ZcNEYyHyincg+IjJFSxyYBAzbrWu2/F3cnkCN576Wmbpwik2iFg1QssdWhdDBrUsJi6erHR+DBl4G/o1+Du47yjyggOweXnegwoJe4het4fHv2vivLT0mCfV/4xioicnAVCy8elp9WnzLKZxw/EVzLu3UUfPKiwxqBYqfW6Jhrt6xMcj92Qo0tjneFwbPK21GAiMhOm0XH6n+k5RE30nmcfZsunBw+QSGe+/rb4BrZcJNW9CTCsmEgN/AUxC4sf2hQbSB7HLyBrgNsvzbaOV9PQ/4JjQsTPUBOcdPhGCZcfXW2Tk1/h5Ez5w4YxyACneOxTRtqyNrax0SUHgjucEG2Vn9yS+29rdc3B/XwgYSP+8MAGYFsSm5D13nRgdEhTaPA25jJ9wS2dLK5KvHidH2rCtcQMI/dI0FiLxw8Pw8LPEmISO9zWXS+lr3C9LhwjN11ockPRhxgB"
+            "signature": "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"
           }
         }
       },
       {
         "type": "text",
-        "text": "{\"summary\":\"Nina from talentbridge.co offers three senior TypeScript engineers starting next week at lower rates and asks whether to send their profiles.\",\"intent\":\"cold_outreach\",\"proposal\":{\"action\":\"archive\",\"params\":{}},\"requested\":\"none\"}"
+        "text": "{\"summary\":\"Nina from TalentBridge offers three senior TypeScript engineers starting next week at lower rates and asks whether she should share their profiles.\",\"intent\":\"vendor_pitch\",\"proposal\":{\"action\":\"draft_reply\",\"params\":{\"body\":\"Hi Nina,\\n\\nThanks for reaching out. We're not looking to add contractors right now, so please hold off on sharing the profiles.\\n\\nBest,\\nIvan\"}},\"requested\":\"none\"}"
       }
     ],
     "finishReason": {
@@ -370,15 +370,15 @@
         "cacheWrite": 0
       },
       "outputTokens": {
-        "total": 251,
-        "text": 90,
-        "reasoning": 161
+        "total": 765,
+        "text": 158,
+        "reasoning": 607
       },
       "raw": {
         "input_tokens": 3357,
-        "output_tokens": 251,
+        "output_tokens": 765,
         "output_tokens_details": {
-          "thinking_tokens": 161
+          "thinking_tokens": 607
         },
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,

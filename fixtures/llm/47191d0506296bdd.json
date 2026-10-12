@@ -345,17 +345,8 @@
   "answer": {
     "content": [
       {
-        "type": "reasoning",
-        "text": "",
-        "providerMetadata": {
-          "anthropic": {
-            "signature": "CAQS6AYKEAgSGAI4AUIIdGhpbmtpbmcSDKeXnIfcagJnEiqHwBoM7wvM7BlXVKRzG9NZIjA900a7/fHnBS5ZMuFpXr035Q8hGJ8XETnbR3ve1u0R4bd4TrmZMm7hYpg62utHfgUqhQbtZNfAHHPpSRsh324UF78cS9SzcX2z0eDSxPGgz2jfDgkMKA/k3YzaV6CR1m4D86K0jUqQwddBKHYiEEdieTPeO/Kodz36wfAEIIQZollk6rnQ/EjikV5coCFwsIONgKKGqaaUkC0jgm1X/WQEYhCV4piMouoijlYnKc9MwGGp7zq2ry0z+ZbIrHob+q/KBKz6PkDlKmJwGyKXC4ra41WmO18Y9MqiYItaP7Dmrjl4ikdYTOnCah3lq7QZ9kErRVVZY8IhTVpdWBZxu/iwwGcqRIsl9Y37f95NoPJmh4/qukVhWHsyfPE0uEkU7e/eK7sGcw/Qf8JfVOUQ1OKcEvI7bkcsTF3GpXUyGYaGA502b1V73wkNY718V7SpCw5Wp+az/SllV9QSobe43n8onh9hgxtTIhnXO6gb5/oF8NjWeWCLsrq64upDVrzz1uVgEOmfOjLvsNEMeQGFRk4gdOevzhcgypetdBc5vfc5OUOxiz2k4iQ5pae/V04Mh4j8uHlpvqNCPRlg/SVRxRgNkQYSaCRCx0wrjm/X3GJ/FhbP6zfQ0ysdi2QDCDFYbGyPCFcg08bNWnkEtj9bJIGNhAElKLEaFW/vHXQrH9M79U+toF1KvOt3/D0d6FUPtAesbvDqnizGmO3LbHZ906Y1pVZWWuH2QeEHYtg3OGvqfy5Obw6fuJNBbOlOpa/Oou1vUhA60DIF1as/fF4M+BUcOKAiyPN79Tgc8jr7MZ5OTSASkkSKDBzoV+5DnyOOszzOM5EVRnjraqh85xju9a3l9HQnf3hpPFRx/jqqFx/hes+y3GCOAQlL20tPpvaC2kncc6BKlG+KW+U7Jhqs0vBWzMs0vhZgk9XuDpTlCv8MSOwItbn8T5kJhVKN5nZW+p6Y0UftVLYcJi4QyDcWuhkfetWhViHI9t/m9zYAuYDCG9yhXr2elQwPT6k8w1eL6iNP0qaDD4w5mMm/0VLbfZwBzvBxB42DVgFhU4U5OaloL6aT7NrWtkyNaVCUEfdHSczVn+pUDoTeiBgB"
-          }
-        }
-      },
-      {
         "type": "text",
-        "text": "{\"summary\":\"Jordan from CloudSaver.io offers a reserved-instance tool to cut Ivan's AWS bill by 40% and asks to send a free savings report.\",\"intent\":\"sales_outreach\",\"proposal\":{\"action\":\"archive\",\"params\":{}},\"requested\":\"none\"}"
+        "text": "{\"summary\":\"A cold sales pitch from cloudsaver.io offering a 40% AWS cost cut and asking to send a free savings report.\",\"intent\":\"sales_pitch\",\"proposal\":{\"action\":\"archive\",\"params\":{}},\"requested\":\"none\"}"
       }
     ],
     "finishReason": {
@@ -370,15 +361,15 @@
         "cacheWrite": 0
       },
       "outputTokens": {
-        "total": 204,
-        "text": 97,
-        "reasoning": 107
+        "total": 86,
+        "text": 86,
+        "reasoning": 0
       },
       "raw": {
         "input_tokens": 3360,
-        "output_tokens": 204,
+        "output_tokens": 86,
         "output_tokens_details": {
-          "thinking_tokens": 107
+          "thinking_tokens": 0
         },
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,

@@ -52,7 +52,7 @@
         "text": "",
         "providerMetadata": {
           "anthropic": {
-            "signature": "CAQSrQcKEAgSGAI4AUIIdGhpbmtpbmcSDM64sXvgwkNHKTif2RoMV7O0UoyJtVciTsPYIjBkXVK6Bvc28oWL0Y8KEX0U6zJBrPE5FKvU9DrTdKFFjrhhpJ7ST5BJsncm5UmDPqEqygY5ZUaqqZ0LrsInMtcvBzOkNVGWPevL2T0C8YGBya344RbEfezsA7o9NRAL6fdjzI/1RTGQToD79X4gcFH4eJqArMP9QUTP96Z+XrqQMylU9ubMiEP/ATjhKD3CzcVHPMPOQ8LbhkgBWPuYbuEMsJLqfdE2QSkY1fTwlDPuy9LI+H0y8esDCC5WVSNHe6i1hmBO3tO5t9OE0mzrUfk2DEVqWnKbpKedUhN6dZImQzPI1UfaBPZGC+Puubr2vyb9nbd7V6YI9Q4vt+CvQdxU2V1TPKHC3oiRKCY3GKXlVSAd7UKhrzYHe9EgkEOfMSlUtcK+YULARZLaFIger8wZi/N0MYV5qd3LojbvGu74Qe/oojLQyTLPGbN4KIkgLlp/q8uWfr7TdRLlOmiCFeO7fC41/gLtaeDuaFwPZdUmcxOIlNeojaWqcXNY6+SmUKbavliJiIAHsIOP4zddQ5mdv40aPE+36FqfvMUEfPnZYH1C5GjO2ulENnoA58Uo1URhCMP4zG5BMdloSeMGW3TFII97Cafp1Vn8OMNagZTkXnE2YXxI23fm43FycdHaH4h9mSNUbUhJEdPXPP4lJ/ukz13MXpfQib5ByP26e0jtr7zETLhjzeKM+nGcVTa5wzpjb5XYW8S8VPvBPuTSkBLmK3mSE6wpOj87h8r6v2kTGwSygYxoMkGNnMntecf1L1Y1UUjU5ZguOyglOzapZVlThlWMkKqNgyZFGrHaWs/+wKIZs0FOgNpyEO28VPIoDoCHSRm+LwXAbnZqey6BqZrjN3QdmwpfLaADn3rQwmZxVmbZp0b9o3/Q/NMKZpgKhxu4drezzGx4GDP+vuZ5tW6qeZLHZcREMj3wyPnyOh0vgzFvz0z+D+CIxTwFmDxL4USKlRzxGgav/3YJgbY7beOGwTUlOb+kqGwG/a+lAnpc4vVVt7WUbZ11Kw1fwoiB4k7btgQSaxd2Z17vqVDS3UpX02I63SKMP6uAbOvbuNJNAeS1gfBBWbHn8l6ciC1jFr078Mr75n5hSNV2kzDXUcCKUIyEXEvo0JuKkkM9mQnzizc4F0G6nEsZp8hdEDDYbanW0jGLmud3JfQidsXZL1uYAVNMCTfW7T2EArsDSBgB"
+            "signature": "CAQSmAcKEAgSGAI4AUIIdGhpbmtpbmcSDCGGelW1FF0EJvjWjxoMmb9u+oJyR7/2zNKzIjASFuF6pNfoDc71pO+TVDAhA9YUAr+gThw2l8Hl1h0M03+Tx/t1iHItlXGl1PKXzw8qtQZHx5IrqUkjd9GIMIjUzKJZ6WQD/lY/a1tlun/zWaw0xumOwdzLlrRu+WoxaEL8Zv+mwKLdQcPOmkDzKt+cZpCJGR1m+SWY4uomonuF99DatDldJR7PYS6oX1pVkp0KRSZ0zyoO78ve4OT/8ZRg3KNJ+aYiA12kspaWhVAZ0dF5jvt+HDzddHYin7FhXL0IBnGvTdZyy+Kw9MmP82pxU/V6i0v3EUwYaOl6ce2VndXSB+RoYqi2CUdX7ACd15Ryx4OY5vPBNzW15NmShLcwJ9BT7KofeDtxjY4TS59gnjkRRZOMk25Fh+keEs03KeSiyojqhgkqa6LOTKj1GWkzrGvTnoIhEOPY1U8NrkXH1MVxIuDVMc0vJAaFNcz0CUtHLWPaf1pLcp8Yu/CpflOaUwLO01wwowKHXv4par6TRZEz0dG5Ipg4vpbSDvSxiWy2pirjRfocaB6s+EdfJW7W+JY9gJprqMEQbDAV8NLsDDeizK+CvuPhYcqyt5U0PAbsWnd751Rr/0vNPHb7xTRYmQdrqO/d8TY2ANFX7jtYCpKFsr7dHqzyajvFDrNip1cKolyF9xfY3Re7yewavCPl7VeQBBqOtz4c1X1YEvHGzzpQ2pwr2T2KsZ3ceMvO3goXC708vY3eTrGqQdyX/nzaGbXCXGczux8xamMVAWujNWopA+c2bBE92DZuOzX0ANfF68kGHhPdlP+VXpaX/CJKlqXQqOpv1u+tI99ME7ZNhE6W1V7WbkV+rR+UkIRwuE+LaS6K6HpZaqTSUbZRHyyuHeLRI27fyIKIyMUnsJ3DtBrSGzvVk0ttz6V+CJ+NDOHphgc4Sc9Sko6vcmtTYxFF8VeWGcl6R3BCBgDLgRDm34F4bqOXwJ4uLF602LN8PJfvtobhEhPohKi/wms38TfY32seqZ9Bw0PtT3izyrN8LHvzqB6r5RkeVXT3tCCTIA8djlLBHIGxEqg8w7eOdhxNr5+IaFifrstrFZib7O3+9+SGede0dTBdjKNWV+Uf5Socch/cMALORuBluGT6KQXf6N+N7gUSpQi2WYX84ceMEMBaYr9cUj+COQrJRg55U2J8NNz4ZAHIyxgB"
           }
         }
       },
@@ -73,15 +73,15 @@
         "cacheWrite": 0
       },
       "outputTokens": {
-        "total": 151,
+        "total": 142,
         "text": 17,
-        "reasoning": 134
+        "reasoning": 125
       },
       "raw": {
         "input_tokens": 706,
-        "output_tokens": 151,
+        "output_tokens": 142,
         "output_tokens_details": {
-          "thinking_tokens": 134
+          "thinking_tokens": 125
         },
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,

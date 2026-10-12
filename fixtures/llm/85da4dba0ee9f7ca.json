@@ -349,13 +349,13 @@
         "text": "",
         "providerMetadata": {
           "anthropic": {
-            "signature": "CAQSqAgKEAgSGAI4AUIIdGhpbmtpbmcSDN9q4PaOlHdj5f31dhoMrI9+8vggJDkRT6ecIjBpZ3hmAHUPGWI24XxNdYU275MLbdE8DDhQJjBSXQrlkZ+GV+c8KeyhJWbfu35zTIAqxQethvZnx2xeeZ7ctDSg96utuu4avzufzsSSHJQyj2tFTY7rwP6fRr+vIyt7YiJW2DQ2/bRV/g4fg5C9KC8B/AdTQo+ZWkteuMw26cGTQD/4Tdds8I9KZ8MS3ugtyfIGf9EhDsywkCeSW8wSNwcPi1ZkKQlyDm4qknUnNW410vQmDBFC/hBTuhQLITZOPYmDZE5YIs1OZ8a5GHXpi1Vm9KhH0a2Pc9FA/bU/JnGyHSe74KBCDrFP/0zuCZ4LWMkVONLcIgC6gcmICgLyGG2ULGAb0DBvTCBYpgA73xIzO/h9nx0XqoQ/WjhjFG3fZagYb5SANovzPZzLQho6TVXjzQfhfCAofazBPW7WwyQ6h7TC2Z5L+4LVIRY8jzEohLon/tRAti+cFhbkgWl+Xq0y3sIhafvvic0bWumg4i36b27x+bec0X+MVrIRP0Tti3m6ZFvWmQz781bmFan0K/+P/cDEYQx68jqkMM1p+i4HBv97NSxDKlcigIOECoNuLdxuh5ARPxrubg89jkQKbWtF18iUqk/o8qn1Z2GQO5OjkFrVWd9ZlI6nMZwqkut8H/F9AF+iGyx15wk4X2gdaDDYhYomvjU3FFJggbZlIfsFfKJDuLk2adtH0VUy26faLOrJ16jfBbz8M2mNXG81/xR7lrWPUR2vvnfYM5cR4Gw1S5hxGGSbgxmtSvb4j3vs0yPuS0JdbhgZN+PAhh4Rur3FjrYTZctT+rjRDoRZVlAiy6yfyPHiOtSczJtVCP0G7ikr97hnktCFzNSaCOuPZWK60Ij26Kt6d4nQTVmro6ypTqC4AMyjB3KLOLiHB73afqX9IMVUIcAfM+PMqwlP4ZXhVR370kReL+o6wi5iV2NSrt2WyyqD90Jhh2pXOOaKhx145PafU9AmtVgU3+uZe/p3hv8YFZK5imUAYplL/6EPwHOznUXPg447AW3tmyfsbcLdWV6b1uCNJYXECgs8/AKIMB1bo3vdRzwAGcvvRRyZVYty+9LipMqbiJLRLps5+JBDkQbKzM276FfpAKmUXpTBMLLmG2TCBAKBkI4820FIC1QLs2zcjRI7PD4f+RPkIyvriLIFrtATL9N6XYvQ+hK/hHoA4ZZpJ0AwTpu10kt6uZfwVtegzB27HhqomUk82MRHMnNdF9BQRejetkACMk+/+sqXwJGLg6K1n2LUxUhKiwHf5pCVJHof9e5r6PjkiUqqusgshAzhXwR4XEyfQdKxiJfRWQt33/2rSla8aDCDJC7c4o2kZSF1g+M4/haAyrIpLxBKDZ8Q0xgB"
+            "signature": "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"
           }
         }
       },
       {
         "type": "text",
-        "text": "{\"summary\":\"Tomas from Ardent Legal sends the revised Helix data processing annex and asks Ivan to forward it to his technical lead to check the sub-processor list and retention periods.\",\"intent\":\"forward_request\",\"proposal\":{\"action\":\"none\",\"params\":{}},\"requested\":\"forward\"}"
+        "text": "{\"summary\":\"Tomas from Ardent Legal sends the revised Helix data processing annex and asks Ivan to forward it to his technical lead to confirm the sub-processor list and retention periods.\",\"intent\":\"document_review_request\",\"proposal\":{\"action\":\"none\",\"params\":{}},\"requested\":\"forward\"}"
       }
     ],
     "finishReason": {
@@ -370,15 +370,15 @@
         "cacheWrite": 0
       },
       "outputTokens": {
-        "total": 254,
-        "text": 100,
-        "reasoning": 154
+        "total": 417,
+        "text": 103,
+        "reasoning": 314
       },
       "raw": {
         "input_tokens": 3381,
-        "output_tokens": 254,
+        "output_tokens": 417,
         "output_tokens_details": {
-          "thinking_tokens": 154
+          "thinking_tokens": 314
         },
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,

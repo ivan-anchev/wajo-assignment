@@ -349,13 +349,13 @@
         "text": "",
         "providerMetadata": {
           "anthropic": {
-            "signature": "CAQS/QgKEAgSGAI4AUIIdGhpbmtpbmcSDKIQZ/xx1j65HqLNbBoMt9kjVzlXx8JjWFBkIjBFMSos9gBAA71RHJQBgU1Gboh7RrkZ6Q9DrIcGB9df4OaeCqmII/8qdmreyU0vjqYqmgjQYlbKPq/y5hV5OfBrkQKtZN8RXWKEju2Zaa/lutKAJ6FCFyiARJA8agdWT6QsdSejHvBpf9WXGeCO1Ii3HiycSyzyBZ09SxoSBXrKZSyGNG/JgAlRKVxUMRDSFqrWZJlpeW2NG9AKFbd++n6du+PaIZebR3orqNQGZI9Te1iTyDkQUmCGSuD0TSHEiRzVaAcDmoMG59Pt1WlVKWhf6lIpNaViV54vEZEi/MdxUcqVRZVfXYWIbmpuxiDZ0125YBNpcI9H7rb1+ec37bCAQFHRmRiPuAizFqdvJIOpwZZzfxGR447NLRrb/x+MgAclFfMEQwP3vVbbi4sWcxR7fwd0HztD22nkpoJfasv5ZSyRrNz3452XuNr0NQwd0h0uTfhWnHrCqsyPAanZU1XACtVNkcs3ibLKcrSeW1lxuSQ0+jCiqJXOTXCORHSmeQQ8jhnSaoekN2I7UOblqa72E/zgDI3KKAwzDo5jMjPUKZYEeAFEHvrucDMH7PIdwyJsTvq7YK6a447ijyjytx77Bhhmx60e4Q8STXY/8DFPW1bMiudjTRBgdh1vqs+1LN97JiM2aIjSHrS78Lsw8fdj05VJcoH0wuBKhehAQrGzXuOKpXRFwE6Kq+9Ye0P75PU+5STwoMfUAa61h2NVL4JJYPGyQ5ZkSzLjitSpl9nSpVINQ/8XYIuN+tQQOqwiLGGRNedrXxQEcxcWnVxDyXqRm7p3wFn72/75mduqfIpg5KIaeePVjTylb9G2ZhsJOlZy8SZXAT3kTgk9Oso8u2dqYk2flCd0znkgjPdlYubl2TskAkHwZmb0c5noUodFACkeOQxYazGyZFvFU22dzYvmFAwFraj8pPAwUd1qg8s+tsJjzccv12VPvYRWz+dVtKwwbyQIgyAr0t4/dHMWqij+CySv+l4501Pu5A4kojDxzhMERMFmUR0BgilbAtAG34xLF2+ryGhJjMztEeTWyd8QQdl8Mf5hEN7+Sy4Vqrkd7Rt/orFzEP/uOiH0vGX4JPQskBJgR3tw8b0F7P82hFISxqHyf0G4VjsWjtQYbeuUWuE6iEfA2LXpwlM1xd2sZLd6956BL1T86AcYriKnHFbqMvGMxgzPpA/b8osIxw5IHC21VwCbUGHY/+82BcscQYdpTqm+zzWu3v1NuiWenI+FLmL7ks1Exn/WH4qh8DCTI5p3eMT6m7lX6EouHix/ndRu65NuMCbFDFOcsKMfm1LnLQgeE5eXwqtYhPGBdVuwymSXkjIG3r1w50dTa2yPLpRx1P6hAvpsi3g/q0PApm+31ZgxkEas5hUKEG/8wWjvXZ/bIZy3/kCCSJKGyNhylHyPdQin30BMbog1kR2ufqio0h/T2FXZhDFUsea0jEsucDH54do5kyBtMBfHAfAYAQ=="
+            "signature": "CAQS8wcKEAgSGAI4AUIIdGhpbmtpbmcSDBmm/vvfNIAe1urcqxoMVZuVmf6sGJSVzjOLIjC2x+BFTWjelO0uEfJhL+J62EovdnrponB89njBAuV2Y6YXgXjCKLcxa99LQHR4fnMqkAfnvXXUXi5eeQbMpJ4aEXSnLMS7xYcZXQnBBFEHCOut2dC+DjeKCo9Dp9Katv+iKWWtz/N3iPDjheaJx1A3h0GLm2orOPL/yxOC6MZ4RCPLtHR/J1Sgu0MY4SKcIiZG95cFGdgukkKDiFWwxMT9jFwX+SJWvx5Yvhptovwm4vobAvl8oWtiGTGj0uu06cZuLAC/hylDrXIx0JC8Xv+hSCANtEOfpwDBG+Mb1rkDHJhnckXvDq1r3JD2qcf9taRODW0cOEGzibkeKyAdptpe+DXVVwjKKg1ogZ7rZh8dqJDGefGNgHmWYRZLp+wWb9Ru7+pU4AzH8vX3q71bsn3tfjAjmEe2LW01gdLNmwiM8xDOZgb3A9jtVfy61TMTbtqIvIqEtBctqBdcttit3nQZ84gA0xbMHXPdXqE72vuPtt4SXuyZDpokHNrcAlVBFZJCi2k282B6iPXYStOidfs4lbrRIt7hkZSISaXGpiiJ2zVAyBQIv5Y+AQW4bnWxGk1DRCL2AgcNR2nZmlwxvgQCf4WbSPC1GmDsDHpDpOJqGxI9Er23oFbGDWtqe0wiPfNGkmrkCxtWhdYBX006H7UEYChcgAfFt2kKh6xpvTKyX8RYbygWzeuT2/uvJOkz36RLfuUHflSb7Sf5ZA8dhiu/BHWOQAVsld4iF2avOXO3UGT8UDXN1UkJnDsJSoR6fRReAG2P6uGEShIVcb2QkDvtIrmQb6wn7eBZqbswQ8kn//CO8tAvwVpK7dJXRKbQnLqfjFzE8ncKZSPa7GtaDjptm2oinKIDEEvhJ1jfpUbIVKSUw+c4DmShomDJ8EG8ZCaf9n8eFiiiXJzJzWGIfiUT7fzGArcu4/tkO7iXYjAts2GccC8ZDb/Z4WYT87DqAQRENeqJNyT5orkOp1a6BI3Nh14bGBK5KK3+YQQZkG6by0cGPnTpf4H3H97yHkTND1uGTff0fr34INx2Ve/sl014dDdY3eczNAgwA/2hpHy4qHNJxLow9/kvU5AJhEzViKJcxHbxo0ddX2Wh7AoeET299Am9z1FXokPT0NOD/M4Iqv3Qex78UrbogNyF1WD69kIsYI+BjL4xIHtoCXDJ9AxoYWDtYokiPY13INnAvwtL/lLUE+HQ/8bgpeY+caoX+6TXVIINctgUmmjvkmpyh1ND12oftB8VBWB4HaMcBaFvio89LsUWUmGEdxtrSeV3rEPPnqYYAQ=="
           }
         }
       },
       {
         "type": "text",
-        "text": "{\"summary\":\"Maya says she updated the offsite plan with Ivan's comments and asks him to read it before Thursday so they can lock it in.\",\"intent\":\"review_request\",\"proposal\":{\"action\":\"none\",\"params\":{}},\"requested\":\"none\"}"
+        "text": "{\"summary\":\"Maya has updated the offsite plan with Ivan's comments and asks him to read it before Thursday so it can be locked in.\",\"intent\":\"review_request\",\"proposal\":{\"action\":\"none\",\"params\":{}},\"requested\":\"none\"}"
       }
     ],
     "finishReason": {
@@ -370,15 +370,15 @@
         "cacheWrite": 0
       },
       "outputTokens": {
-        "total": 264,
-        "text": 82,
-        "reasoning": 182
+        "total": 221,
+        "text": 81,
+        "reasoning": 140
       },
       "raw": {
         "input_tokens": 3361,
-        "output_tokens": 264,
+        "output_tokens": 221,
         "output_tokens_details": {
-          "thinking_tokens": 182
+          "thinking_tokens": 140
         },
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,

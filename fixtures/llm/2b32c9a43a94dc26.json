@@ -349,13 +349,13 @@
         "text": "",
         "providerMetadata": {
           "anthropic": {
-            "signature": "CAQSwAgKEAgSGAI4AUIIdGhpbmtpbmcSDMEnmQ8zPgk+frJGNBoMxECqQ7gT6fMmivTtIjAHyrXEfiyNfjaSqdxsf6SP4ktUhpXEvUiDEkZbdKcQ4ZysR2mc19l0Idzbz4v7x4Eq3QeXjRZgmURDGhSpP0howNfT6LECRhktttfslzxi749AwXLMtDQNOCUWxYZX5bnSG0LA9izpDPIaaPfOc0SskEh71p1cM6juzlSUYIzmB21HRPgx173h7GH4wzHhQWPnY839ghlWdPyWaRgBTjcB187jQJV9TRSu5qekMyes93LIZ52Xl+eQeXauXSxP5aPd8NC1shUOamWjtRoj5RMcDKj7fAn696YWeLf1wgChCP2pwTVgGhj+I6PrWJSxTnh1nzjfCHLo28iRnv+eDxgA/ABL/p/fAM/+xco7wT7CfUmSTUBGd2Wp9cdGOXHJbDcIrbci/LxXTexO2HtwHbbhCRW6nRDiPT2WuZzqXna1wGZgS3+0yxis9hlekHcS4D+KOn5qQNZGsMzpGlta6wRWRii84lEVDyaSeiIiG2V7/sCOMcwvKEHXsDY9cMvtqJ9Ugj9kYmXSLG4M0NllYIK5WRmmdU1z4i66bQJFizAlAtp8iEZqACBO8ItP92K5uj05fDg7UC0SdN34e7A5NIELgLmTUFtppaFWwQKMqNa8vSCPeb9g9ia9pte/ooH0MYiS6C7LBgbYGrC0h2L7H7xA55MqLkL3jh5lIQpuFLhDAlRusaXtKWOlNlrxLT6RoPL7dmKb+EC8XerJPUX7jaPcQ0A3yFdCv5cL87IWWrDWYrCS0s9q4t9uuuQ6FEkze1W8P+ZIiyCTCv9ZKFyhujCAOiD2qgT4PN/K68aR2FLDK3vFKge+g6DwdK3XS1AaCJPKbafufKoSfPrWwnbLz8G/mJQ9CHtTbXjsvfsHdyUD6j2FRpwXbAFBu/8X8bfapF2YXDH8+mJuYjfksygrBAvF7U+BEHEKAVMy5FOfPs5ap2Dey3S2XhPNNc3yWRdBep9nBL4mY7tXUjk/1wBsrYfbHrr4vo04ImewpGyLbZpp6qVkPTK6f/4gegvjm7ZLBnO3kGqCpcWyGKGC/hrV2YZkp6dPkqCR1NF4NMj+U0VlsAK5lS15pMmDawQwLUVMluQ7OtVQI2lRcr2N/VyGDvylWZDjTv5+FXEYpYIrAyHMoCZ/Pmf3p9phTKN7qqDYETu4NtrbnBN6GQIQYVuKI26EvlO4fUSChdteHG3AsZV+1gNm0h1fdo+7G790t2seVMPFL3f294BDoXZSuZToaPKUBNj3fo6Y/FKzfUn7RIAlEdnwp3h6a34XsZ9RP0EYG0w9j0F7hWkWUx0GAkO6/uq80MqmN4kpeZmB0hVBzgUcYT1zbzkiqMQ0fTwc1bXFtIOShlXZ3v/p8gv3KOlHD3f6slAPCU1x978fMrhTjlMHQRgB"
+            "signature": "CAQS0gYKEAgSGAI4AUIIdGhpbmtpbmcSDM1bGdNjIMWSTgHCaBoMjjlfqDGAepP5WV/vIjD1ybejIdnLy8Tf2KVbsr0DHrzkIJaxQxuCeUCsrsEskpgZN7RxlND7Kg/0SH4L0vEq7wVOVXeGG2UkvfIJcCJRim/1xb786w6/XvhIOmnhyWTJUbnsTJmvEdjOt3PZz2oCNJZiLlb54nFePvH9jfHCHDp0+s8inUR1EpwPlFdt8nU/Y41KZei3POJi7HVGmvJYJh/f1dUIDFDPr9uSIa9nyyerBM6bT8BLs77jf6xauBjKVT2B2nEbUpkHWn1bPd4iCzqTDlJmI/14HALdB8Qi6SFIPDnUMSMj4pdLuYRIep5PZomELVM4uUQnYCks3ygBtrPCGDGBuAeS+Okk5Yl+jBS8Rs1bXP1gIRhSO4OhMl6iJELfJHkE5EzvSSsox0hBRPOmQH/dkhvXAJni25d3Txr++cK8q2yb67ZeyAmX45NXGcrIiZDucuI3XLC+OuIX03nPlg0JFP4dPwSCvKrHxHTgx1Y+4EqkZzWQgN8nR1zyZYF41m/MfhdTmZuwLCuKhTDwkdB8f/Q1BK1ahL4fS3QUMSCjD6XjM6HYf81+s7dLNYXIOEHsacbTKqGFD4Wxp9aa8E4jVThdX0goJwIUgzfcW9IK437/5TWbFSaPzihAXRQjkFqPIwms7DyrYTVBQdj+wc2VBkh/GVs9lNwmmISlKB0I6v6pYgZ0rD1UG1OK7HKcLo64b9G/MWVLG+7tLu7UWCd5jtSkb8BgmgXn/ZFpDdccl4ZsANNFL5w2s6R6h3yeTYK8GJrssfobVD9rIggw6ibRFE3MCv2tz2XPqZtgYQIln/QmVD8ah7Kq6wue6xXcLVHTjXHGLAnxy4ACp+U0spWolz+uhCeFEiwCCcvu2clyv3CJeTymU0oo8Y/m0hV4rsEAO1BBP3kJ6V0jlQ/VibIZTDON0sQrJPJwWnVJU5rJV7buADrMqa/P+RPVc6O0+HzvtG5/Yqlvn1BJQtrrMeBPHh22VJ3uv2pOY/y5IG0XPuIqROnUv6reDCx1O+5+DH/q0nbTv1UVoC/52tdA8qHnaXbKl4dTsqNLWjEf4OE0/xZ6Vvaj2a9l88m1GAE="
           }
         }
       },
       {
         "type": "text",
-        "text": "{\"summary\":\"Maria from AdSprout, a first-contact vendor, pitches a pay-per-qualified-signup ad service and asks for a 20-minute demo for Wajo.\",\"intent\":\"cold_outreach\",\"proposal\":{\"action\":\"archive\",\"params\":{}},\"requested\":\"none\"}"
+        "text": "{\"summary\":\"Maria from AdSprout pitches a pay-for-qualified-signups ad service and asks Ivan for a 20-minute demo.\",\"intent\":\"cold_outreach\",\"proposal\":{\"action\":\"archive\",\"params\":{}},\"requested\":\"none\"}"
       }
     ],
     "finishReason": {
@@ -370,15 +370,15 @@
         "cacheWrite": 0
       },
       "outputTokens": {
-        "total": 287,
-        "text": 100,
-        "reasoning": 187
+        "total": 194,
+        "text": 89,
+        "reasoning": 105
       },
       "raw": {
         "input_tokens": 3360,
-        "output_tokens": 287,
+        "output_tokens": 194,
         "output_tokens_details": {
-          "thinking_tokens": 187
+          "thinking_tokens": 105
         },
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,

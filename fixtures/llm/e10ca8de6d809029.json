@@ -345,17 +345,8 @@
   "answer": {
     "content": [
       {
-        "type": "reasoning",
-        "text": "",
-        "providerMetadata": {
-          "anthropic": {
-            "signature": "CAQS0QUKEAgSGAI4AUIIdGhpbmtpbmcSDGmcqExBtp47kzBzPhoMz8KTry2KTJyZWjFPIjBAv//WqDKBulbJ+GjmaGrT0lE9ujI79P5oTwMO3B1L9FDyA0qMF2JaBevwvE9rHuQq7gQaniG0cnA0dGlufs4ySUa+DO9xdjG4Ma+BsxpNiH9Ul8uEjS0MYecvuvjr6AuBKDbiqC4Tdb9ROisqCUA+gdBnHIacw3CkpHwErkDMme9hkJ2Pc2fkbo6Lh7yQzQhnbwX9Jp51xQNUJghw10RnrOstZyxqnLkj3naqg7YGVf7Q5Nm8oOpL6loYjhwBxqfli2qVYKeqU803jtLhMoj3EGPxhzRrQc+eGvo39hHyoU66hhGCckyuwcV1UtbD4KWv5BP5ZyGNmpPjygqMxsjOE8mjUvpudVmdW3GE65oMRn2sS7z0wdu7GnvNFeMbzPHO/HHN18UP81i+iG1GvufvojpYc/uaz+5uXblTKFwbFEPmMm4DSQy6RTlDCmDmN7rnAM6Nx3O9fAsWAmX+gMw/n0lbM8jg3jCKEgpF+rfivA9VOaurQzaWcTtGEnSZfmpxArTy5V1CA6z2NCz1eaAxczlBHiWRDDcKNXr03xESvBv3EGuhxTHXU4vMJVYFmvF/PCbycbHC2YN2ROf+N+WmePAS4WTbLubUKZvtuVBShS7MrEBXIlaqebTbNKkSSYVIoA0uHt3pF0+XtK1IR55DMZPva85EJuR0kRoSwPh2Ih+OnYxWMRYUGLVZskw7B+JrJwoROQZH6s9js7YinSOoBCVbfQ7viXqAx7dt9jVzQtaGBe/q+YSVoZVaCRJouBRBChLJx5WTq4f81RXIBDmz4eNT/neRf6WBoE/vZ/2S7D+nIahdyC+CG4yJc8uV4XjdPgzd64euG36hmR2qciQwLOFqnKWdOzYx7Ed4auVA8fgEgnzwaPHxJk3GydL9hQnfGAE="
-          }
-        }
-      },
-      {
         "type": "text",
-        "text": "{\"summary\":\"Maya says today's 16:00 retro has moved to the Atlas room, and to ignore her earlier email about the room.\",\"intent\":\"fyi\",\"proposal\":{\"action\":\"mark_read\",\"params\":{}},\"requested\":\"none\"}"
+        "text": "{\"summary\":\"Maya says today's retro has moved to the Atlas room, same time at 16:00, and to ignore her previous email about the room.\",\"intent\":\"fyi\",\"proposal\":{\"action\":\"mark_read\",\"params\":{}},\"requested\":\"none\"}"
       }
     ],
     "finishReason": {
@@ -370,15 +361,15 @@
         "cacheWrite": 0
       },
       "outputTokens": {
-        "total": 137,
-        "text": 82,
-        "reasoning": 55
+        "total": 84,
+        "text": 84,
+        "reasoning": 0
       },
       "raw": {
         "input_tokens": 3338,
-        "output_tokens": 137,
+        "output_tokens": 84,
         "output_tokens_details": {
-          "thinking_tokens": 55
+          "thinking_tokens": 0
         },
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,

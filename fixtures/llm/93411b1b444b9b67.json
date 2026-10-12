@@ -345,8 +345,17 @@
   "answer": {
     "content": [
       {
+        "type": "reasoning",
+        "text": "",
+        "providerMetadata": {
+          "anthropic": {
+            "signature": "CAQSsAUKEAgSGAI4AUIIdGhpbmtpbmcSDCEMSMXiCpVl7qLyEhoMh3hJiFDmKJc7GOW5IjC4ec3hGW2TB3DrDW259Un7CfPyTNOrvcYk0KRpXOOc5jykyAQUkcRxejM0ntZzveAqzQRNNSZHANt4z4rmgdQXh9ShaBIZlwmS1rLqhtA2p6d2unWKjvPlA9kP5OV/rEBrKoRqT8cUAzBb11Ttz4MBAkkTCVYKzUEyWE7py0XHdks5GgX1yCFfn6paTP2ih0KhlOV3IsPu9YjXwEHyPFwDtrY8MlQ6zRIjm0MzoGIWLv3e7lXozvZl6b5Py6js2wU1Ui27f0n0dyVvZB2a0vijc0IDDU/h2KXTu41a2wYHDozmpG+dNlgWBF7YUC42GaH9K1OipB4SLXEVjKpV6w+7fAuT4UXnGdTcf9z9Ecdd76SHjJKfIAiyPLHlLsqV4qKHC0Lr1IwGmCxlg/8C7ALfvgBoXQhl181UL9joXZLrx8HPTvWRqNkuQpRKKUjcPyvl5YGI/Zn5YTC2TkHrNBCSWpAPrtc0ieKIRJrFtx7GeJyeO6jH8fFLrgIzs2b8pKEPWabvvYSc4mpknekp3/Hra17pL6NWpA0fpCQiT78U/uQsciq1ZfDd+P1gZmd4GSu+vJI2OLPtWdDOOifuOkc9CdO6aiRnoSEDESz/WsNV4iI0huxZoKNFXJCJd5RQ4P38/Pgt4tN/TtTV8kNB+3R54D1Ouxq8ocPhgozT2VGtkR7e6c+IJ3haY51JzOjl2QZY8KLoSGctvHmWVnwPtmOHiEl4B1C/cpXj1Np5vdaEqeRzQdKakx0OaxMKDDnjyGHpK0TtiegZN/T59VvljdDKNe9e1vojyeTU/k35GhWHUlZ7zO5ApmW7EhfWUb7itVeQM7CZQHmIG+JkIANHVkxFGAE="
+          }
+        }
+      },
+      {
         "type": "text",
-        "text": "{\"summary\":\"Nadia, a colleague, recaps the Northwind check-in: the pilot went well, they want SSO in Q1, and Dana will send renewal paperwork next month, with nothing needed from Ivan.\",\"intent\":\"fyi\",\"proposal\":{\"action\":\"mark_read\",\"params\":{}},\"requested\":\"none\"}"
+        "text": "{\"summary\": \"Nadia recaps today's Northwind check-in: they like the pilot, want SSO in Q1, and Dana will send renewal paperwork next month, with nothing needed from Ivan.\", \"intent\": \"fyi\", \"proposal\": {\"action\": \"mark_read\", \"params\": {}}, \"requested\": \"none\"}"
       }
     ],
     "finishReason": {
@@ -361,15 +370,15 @@
         "cacheWrite": 0
       },
       "outputTokens": {
-        "total": 111,
-        "text": 111,
-        "reasoning": 0
+        "total": 154,
+        "text": 109,
+        "reasoning": 45
       },
       "raw": {
         "input_tokens": 3379,
-        "output_tokens": 111,
+        "output_tokens": 154,
         "output_tokens_details": {
-          "thinking_tokens": 0
+          "thinking_tokens": 45
         },
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,

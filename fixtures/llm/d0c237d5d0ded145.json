@@ -349,13 +349,13 @@
         "text": "",
         "providerMetadata": {
           "anthropic": {
-            "signature": "CAQSvAkKEAgSGAI4AUIIdGhpbmtpbmcSDPUmoyJjzgQXtW3M5xoMDD95CQHeCwMT5Pa1IjAgwAS29jaMfpu8kh71C/+P3DeQWbCblXZn4f1Goq8L9IDjoRS+sdGv/UeK348+vzIq2Qg3uhQ1ihdLKmQ+kxd9LcO5ScxXwueKq7/jd9UNTR4haUbtMXVi3Gb+fXSVOzvdlCTCwveAqG/LzMr0bdg2+pzNgrrpOxyCPeDaAdkGxhR0seEJoqSpRPoVLLFoExyiKIOb+4tK//8HKSsbjB4xAFYVCwaHokuPyEC8vfNPPiRxkm3oJNqy9Rl8oMyCFx84NiwjwmiHEYLJPY1qp+SoOcEPIIIIeANg1XRFNA9cdxkh2uFYy5NN8TbQNknMNekwCHh3cJPpoiUwzuCeUL2i7bnWGQ3CUfeqkgkrvERqYydIK/oqncZrCK11iEEga2Efd17ncF+570oU7fd/TAtR9V7W3AigX7IDi6Zyxi89zcG5bPgA0gmfaCelIY3Ba+7OpIsitFinOBexn/BaQ3z4w86HCncgkKAuOQ9zGccXV99RM0lRavjpo2k3ia81bUuKGRbwkX36Yyxm0oZ8yXIyIGHWxa8FMwrNhlqgbDgBXFpV3+mMwcvkF/u5vZ8CqlGz+vh1VIIqIB/MtTVPWwuVDwTr0ZgWNOIvTRP5CVCD4x4Ee3qK9k+e8RlhMpPEWalZU1dDqaiIn22pYDX7T2oNwxNI/M3vo7bJmqEvZZSBZX8BDRcKNMdnn/DSOAjHcG4YppC5TlhcXs7d2vsTb4XCEzMmOY/6bxORmtzlCdNGwHQGF1+lGhKze7nX2Mxi87Y4DwOQwvaOmt0BDZugKLsrforZlMum0KA0++Lc7GiQ0ahDfFx76/cWQ5w8XeiGim1y3X+Gvl2+dAu6ft1g8MA+f17dRVsG/EN/ol+/hdJS85j1zpGrbjP0bMAcJOFakjHYwd2zGC8BM9HTL5u+Ma4VzwuNd7GXNkF8cPvarVUiZnCSapBEOAYedTt5lbUSH99RWbiFr34KUGQ6q/adfDZoqec640QQDpFnXhudk144X73yUPGu6QeWDFvPFuNocateJmbK8OcA99WiP2/d3Nx6/1CZYkaI/dzFHqX6zkZzWFzzZwb+7NjaOmurLuRrxI8CGBFvNBXgnqwU+pTFE6KCMPP3LMVErU3G37g4/nolUxO/7xxrIMbioLoolM7x4ihYWXs9+09aqWtRNupKJg9SWloAlIEP+ULjTXj6246UdgkdHLsTWvLF7q1fCuZGsv6E4RPxFOl40SyXV5QkBYDyLgdqqheFUMGie2MIDmHRFaG7auZLsX4FmYgA2v1kX5Lc8OpDwnTpUlmojuyrNS16g3ukUpmJyHkWAp9emLKXrL42ZDGg4L+h39Ge7X0j9nULCAK9ObFUpWiA/XmkvXqX8vHBcJXKlOIkF5Cj9KZdjFAj6LNwvLm40bd+ZK1W9Hr4TWCvfsydhO6rGpYiNjx30iVpuUsiFsPt202uKDgCM9revvhZofdWrYRYJ4pf/G6wPyOIGf1nMMj4W5fgWI1Ct3szCJBEitPO6Hzjm0kFzmvkYmtQ8SfQgoFFMsNlsvEG1ZbZ/rsksU/+lHAYAQ=="
+            "signature": "CAQSugkKEAgSGAI4AUIIdGhpbmtpbmcSDAu7cqA2Q7pIFy0lZxoMFtPyzpc6DW2Q0LACIjBL6m3Pi6E7ZFvfZF1kYgL5XVJyIhweGyuwf3rmbRx5lAHkMJ2QJLS5AJWTbruhhLgq1wjrWeTtGvSEo7npAZI7IfhP9xPW3hj1edIMu1W7bHdjRb4GvgF9yQqq1gW7LAUaDGdLgcFFoMOdTh8xcGhDbuR3AisaRWRQTeuqFKNIOx3dI+0Vpc7N4AQ+pW+RqXZElcGMsqXDpfmnUuzx+9P7CdH7HjAnXTlXj3A8yQ/1M5rGbvjBBPDcSQKGbTlljzRVZ64BxYb/iEbX7HIVOYwhXfBzDCmAhpmu8kDPwaaYpEFSVGECGU9MOCUu8JTibS2SKwFmq/TltIA+7dGATYOnTroZ4wBU/3lAPwEGZqz5B+YSAnfttSN6aDbV6Bm8CMp4So5jD3IO3jFIeiL4oYkS6paHIzWfwgb3y1j+vb1TFyrCZniuaulaSKzgjhXkqGDyiBYfNdo5AnqQNnrMwBNaljpnbieQi3Q9KkkhLBF+ekOa8zX5JFCDBlGS9sgMFi9K9qMHVBb4cv2DOfY/hBBt+eCL5EstGWvwJSKkW4qMTXaHb3c25S9cAOE0TCfFwpWkNLggWQebUOGVw0XltLNUHI64GYSXhyEvEmS2S8r6ou3ckKw5i3knf4uSxiYqlRJtx0GlmAD9nTo248QvTXMrr5XP6zdbsZnQCusdF+pdFJCcZj3WffFwGqjr4iRYibR2As4JFYqk4Gn9DkAvJ9S1l/g4LC71cDxurSsYYXaNknWmoKBCm5i+Miw9LJdvLLSb0aeO8fzXF9dJCMywyuwVwcMKqlH/M6GmHdAsKM+Ng6b2p/FFQWX2d2HJKG0oLqN/YP1rBmcrzN5/hKxTKgzQX9voAiYcll931AuyGXS/6rUZlpjoifBV8dLpLgDEmdTg8aeCchemCG80hUxv3922mpseIb/dwcpShvrrdujmmshBpeobGGUZz31WK0URMLsGm9zOYKB18G6+NLEXkuvV5QCh90fL5AI1rEU9znrH6UJGe5UhHAD83q4V7K4rszKqlOmWxrZurS0/oHZ/PUBGjMUvOoo6izXor3nDrl21tJ9iGEWq3Q6v+qSXUzNhXFir7ln4cQmiY36wBeGtTO8A4iyFxepGxyoTj8BKfikg4Mjkn8aQbroyrLzU7Qajb+wvo6F8r7jeYImGCDC2C8KSSrhVykG1T69h9BlDahvWYKW9W3baUR9RcAIXRULSDJMqHVhgLJ3YDl5vL/7a3b5mdhkzY3UdbCFKVx3fYsGEJt3s7ar4Hp5CPrEXUsRlaAJVxfnkOCcT1F7GbYAj+zO/6cYXO3UBPsq7p9wmCZ5B15TJil8227kqVzSzrF515H1ELRFTxFHNrxqeC0tyoFr4k7qDyHenXD60Pv4troIa9bdNRbKHSO0ufUkucu4t4iKmsjrA8Od7M3hRkPPiKrMfSLYrqfVAEC7wihFde2zICITZ9EYGZAjcJue+sC+dENuSVTA0VMyIlLpSYtS+/Duhv/mUyPY4vVCJSkK5z72/98VcmBRCYOlCyAdxvVLdorKvfuUa7I0kqyQeGAE="
           }
         }
       },
       {
         "type": "text",
-        "text": "{\"summary\":\"Dana from Northwind asks whether the Thursday 3pm meeting is still on and offers to move it if Ivan's week is busy.\",\"intent\":\"meeting_confirmation\",\"proposal\":{\"action\":\"draft_reply\",\"params\":{\"body\":\"Hi Dana,\\n\\nYes, still on for Thursday at 3pm. See you then.\\n\\nIvan\"}},\"requested\":\"none\"}"
+        "text": "{\"summary\":\"Dana from Northwind asks whether their Thursday 3pm meeting with Ivan is still on, and offers to move it.\",\"intent\":\"meeting_confirmation\",\"proposal\":{\"action\":\"draft_reply\",\"params\":{\"body\":\"Hi Dana,\\n\\nYes, still on for Thursday at 3pm. Thanks for checking in.\\n\\nIvan\"}},\"requested\":\"none\"}"
       }
     ],
     "finishReason": {
@@ -370,15 +370,15 @@
         "cacheWrite": 0
       },
       "outputTokens": {
-        "total": 373,
-        "text": 137,
-        "reasoning": 236
+        "total": 376,
+        "text": 138,
+        "reasoning": 238
       },
       "raw": {
         "input_tokens": 3348,
-        "output_tokens": 373,
+        "output_tokens": 376,
         "output_tokens_details": {
-          "thinking_tokens": 236
+          "thinking_tokens": 238
         },
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,

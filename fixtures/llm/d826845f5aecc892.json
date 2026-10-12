@@ -349,13 +349,13 @@
         "text": "",
         "providerMetadata": {
           "anthropic": {
-            "signature": "CAQSwgsKEAgSGAI4AUIIdGhpbmtpbmcSDPX90/kjJIkMgBXkXhoMciMQEHSribd8wvY8IjCnkcYgAr9OxN1e5bPe62KJMwa+fNua6up65eB6Q69fhBh5HzEtAn18+toQoYkwG4cq3wrCFpwB+gASljj5s3M1sECJB/0sslmNHez4SEiE6wr9lsZvIOhnUFs86yuzqSB0gd63Fcy+AMXA/gJLygEbc2CBVMvOj1sejmcemDQnPQAvnMzsonaktcL1kI+nj9BABJKBHgYtVma6X4KPMb2jzIwy8mE+KAMP/M85Tou6OqlsvzPJteLWUFHhzeA/B/042a80/HXN5ggGhhoD6jQrJiiEt/LtBz5lOWUp7pD/YfPocewTKwADc1aCiCqnJiHZMerXZEP+5GiIEKhdNb9q9eZ6VQHiVWLlq8JwE3NjUi2QOirC+awuh5jmC/dFZJrit/M0NcS70nq/KboEOeTXoOWLkDq0JPXveKgsyBeLdbcDPaL5MfSyuaVJWx1zuS5XZdtlFKlzRMdT5gWj4cUstoDCs3srUzjB0SecgLM+RDKXXMG3nJDh33iSCQsKzDPCpy1quyCj0zmxLznmxpWhhcjSBpMrI4CHQd3piHEBNG2a15xP66/vlVzHVz0YDEkT7wRk38y2yVvzfxVQc/DDHPSvSd64En/UztGDrIZskuy1J6PCBw7adxmTHXb7Gzb+PQDfd8zxlPJB8qaq6d4JpyPbXuCN77yQEcOhgbaIeIb8CicywiTsfdNhjaP8GxqhYao8Jqgc0Ay9iuKTMZJPqsc66hPUt2Ev5lAih8WV1PLyA9gn1V8qXTMEC6YZlcRZYk0Nmhhk05TDXWzr80V28LGh5go5Fq18QJ31jXuILc+wtj5ilpkGsNY1cVJGk/hIn7rbtqCUaEv3qKOM5ixRlXOzr3b62TSzCrrcey6BM7Gj1/IaHgBik/u6xuUGd9elGpAm1XZprl+IFyE6cdTewRcRoiPfaspFNsbZPTAlXR29DTXpyiAofs9PBSwOnk/YptOv60gU9hIx5GXJV6999cu2DUlpBEPIyR0P+JSqyYpeROeloMN7SKD3w1UuXWIafDoBqLvhBKhIvJYaOE//h+pJXL8FDv8ohT8GRjTwcbNdKgEYqh4Uh4su2O9MVGYBLUztv/BiYIxDUcwLTlgu7WCpRhNTzN4uR+pDGQ91Q+goKzrMiUlp9Lzy3CtGhIppBaFpBKq1HyffbPAneU3FUera3GgV+lOZYR2N4uSbiuaK9RfTZAhp27lu01COX6xXc25XITwA416c6XiyYYPuasIFjV2vgqfQmQElgqKSIUjaPd5pFfOyLs9nhomn3qhWmkWWbsqPG+Wc4Y9cS4GqyaBVr8l3iIekXxt+BEzFbgILaRaNr4BEsaK45Uf/z1OFvMY403OpaZo10xOpiF3BmUm0y9rjmb/slYpUBtKRjGKlJ4rqKuayKCv6+aGo7zRzGvFVjpmX0+5WxtPSs4OxCJQKHClde56iL6EOPL49vn3Zx63JSoMSrn4atknSMxEA6i9KttQe9wfmtqkwhKin4yhHwYdIA3TPVNBYIif3WRaY9iL7lIvG/kURsCpq20XIwth+pXRCBPxE+gSQdAW0vyht8awqB3dbWibSBD+z6flRVZZWeZKwjahPCcGQYO+u3vqvlUUf4zPeM37cTukYv8SAoZhoZo84458Jmvvco4ewsGRDJxiufbaP4/d5TQVSdZ/EkxMbZA/Sb0bxR8Wlc/7YX6q5RKZAcfph9EsiWoDtwGcImC6ONbF426Zm9WR0VBqkEYrXndfVcd8/I/FEtYrL7J7QDEYDaHspyF08B02ejiNc+DydkE9THpFPes4OsrMTKminWzLN77dQln6j+0qdJqj+jJfL7kEpvN4Z1pvCrJY+MMTqG+Y2oSoWtGqS1aV/37DXjX5+aQZgUSDELBwJ6YMEhT8zrui3O2P4hPGHGAE="
+            "signature": "CAQShgsKEAgSGAI4AUIIdGhpbmtpbmcSDEuJXAE1Ulth6XovXhoMyVpfZLzxBLKY/WH6IjAYPguKo36h3L+avcl3N+Dz0aczeP21iztPrsVjkdwNF4fEdBGPaHWYNDxZmvSg+sMqowpYyE18L+dnY974XVBbZiQWW7bSkGOBqmh52WkOhxhMQeq8OnG30UXYthDbHIpTH+Bz9eYjkf9aI3VkvUS9UuBQHoV77/UeWkkrdZ43LSpnZuKo3UScl+50UEgrMT6oJOYE9Q0m3FI1BDjxDR9WnF/eNubdbw6TpDSSoCKJmXmz4A6Mzos48sPp7e9KYRqqYyK1XMnq4LPsL3bNnC8UV2uMzJP8nEQAkTAWLcUaHDh/llFSurw5/MxwFEs7MsHTimUkyjYX03oNTC2QGjedAT/vb03cGIg+fYu1hJWdbgqcqvWvIdEgVecf2T8mlYvWj2q8P+99QrFrxv76x4b8aMRjPmzKRJrXMWJQh1axrIniPpoAXtrg2Cv2yI63ciAE49kdAlpo5LiKiC/wGfied9LfvIA/30ZFCu5ZLgL2AySW+GafjFTi55f9uyIi+nwP00Biw2LlCp2gYqbkVftQlIjEVfsfIayd3/x7P2uRhTa+Xejooh2jIRzP9U5Btmn5navzjHk6CfO2shzs2mtDxY6E/lQ7u/0aOFx8LFyuxX5wGtTxbwKvv1rxHkgve5iF3Qa/PEEPTOZSfpvO2NHuX4htQ1JEqqan5O6+WWx2xoNoJ8g3tihGXBQTzZkckk5uQlLqM2OjjOpyGSYx+qTsDBpoJO5qNzLvlEkdEoyKw108JroJx4l/Nys56sYqSagGz7Bx1fibw9PS7yLf1XyS7/ulnYML07hDNsuoaidhzrf9WQfhj0MPiQlgtCOnQkIzcvcmoXJ3zSGtgG72z1hi8q4Z7ZyVvwPV9jmzrXBVxBKwgTggnocj97mTofefeVbQy3kI3c4In7eEYQ2oFGIQL+U8EJc8AxZu2YK1z6AkUxEd4ib2RFdJMTV41Ckc2FwfsGPTUhvnGRg4pirTB4SmBA/OcRETDZJ0GCEdhdZm3Jm8m90BIrO/P+1jn/2pFyqbqqXzwaGF9lvT9rUlGVsLL552j7+1yxUg/qZ6J+vfL07APnkUDaOki8t6XFisKMmMudmdcEM7ngDUS/7XKHnVG/DTeoef/9Eks4v7f7mH1GUTFdRDlrfXd7Hi8fL8hdo/qsCZpRY1UA7+VHzVoLky63aaabtNLJObLHLXMT6dEvJswfBwOuX3RNCe1RHgLGLlnb9hyLHyTvbz3W7JjqbTKxdE+D0iwwUCahI0Wsz8aeA5kGbTnWf4tfMTuWRH5FmL91wXofLmdiuZt803VDS82QhYwzVCH8/pw3zfJkJtXCNPR7IV1/iYQ9+3rzglrtB7nFrks44wLeMSYXyeVSXhiq+aZ3uRrjtXbpQzMAkPFbIm2OBzReQ4Badg0uq5TdOlTaEYpFUqYPS+eG0CWuzR+9yfdpQVqx6IBxexjEPYcFFAULth4BNE12066NFfN/6frs9FmzTmoVpKFJ2dvDUKX2JElmHsbbm+OUG44NqaVRXDj8BI3Zgfc2qeF3gsJE1JSSXYKbhwugi42yaceQPpm4WOSdVOdKS07muFXschnmY6QLpi6/aJ4Dc46FAUJFyZc23+Mno3K/q2wH+JyIy8Rk6307Je+oFwVmch60eOGEaztnJ11sNxE7eAB2c8UtmohL/8spVFWDvPeGo4I15mPuj8gsLVg1qxmxdoTtK6b1VNfRsmrUlm9UEmPROglLP7rPIqZ1KdzjeMuCj83nDB2yCs4ZVNAoa2e8BzHDjIyX7Pm2wSTC+c9JjK9coAZENBVe1FajqGKCOVwZMfAaLHSuFQLMIEGAE="
           }
         }
       },
       {
         "type": "text",
-        "text": "{\"summary\":\"Elena from Quarry Analytics asks Ivan for a short note on SLA changes this year and any incidents, for their Q4 vendor review, due end of next week.\",\"intent\":\"information_request\",\"proposal\":{\"action\":\"draft_reply\",\"params\":{\"body\":\"Hi Elena,\\n\\nThanks for reaching out. I'll put together a short note on what changed in our SLA this year and any incidents you should be aware of, and send it over by the end of next week.\\n\\nBest,\\nIvan\"}},\"requested\":\"none\"}"
+        "text": "{\"summary\":\"Elena from Quarry Analytics asks Ivan for a short note on SLA changes this year and any incidents, for their Q4 vendor review, by the end of next week.\",\"intent\":\"information_request\",\"proposal\":{\"action\":\"draft_reply\",\"params\":{\"body\":\"Hi Elena,\\n\\nThanks for the note. I'll put together a short write-up on what changed in our SLA this year and any incidents you should know about, and send it over before the end of next week.\\n\\nBest,\\nIvan\"}},\"requested\":\"none\"}"
       }
     ],
     "finishReason": {
@@ -370,15 +370,15 @@
         "cacheWrite": 0
       },
       "outputTokens": {
-        "total": 487,
-        "text": 177,
-        "reasoning": 310
+        "total": 455,
+        "text": 176,
+        "reasoning": 279
       },
       "raw": {
         "input_tokens": 3384,
-        "output_tokens": 487,
+        "output_tokens": 455,
         "output_tokens_details": {
-          "thinking_tokens": 310
+          "thinking_tokens": 279
         },
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,
