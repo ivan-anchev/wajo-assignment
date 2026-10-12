@@ -117,7 +117,7 @@ describe("correct", () => {
   });
 
   it("corrects a notified execution: closes its item as undone, undoes it, records redirect and notes a preference", async () => {
-    const notified = await notifiedExecution(agent, deliver);
+    const notified = await notifiedExecution(deliver);
 
     const { transcript, preference } = await agent.correct(notified.decision.id, LABEL_EDIT);
 
@@ -134,7 +134,7 @@ describe("correct", () => {
 
 describe("correct refusals", () => {
   it("refuses a notified decision whose item is already dismissed", async () => {
-    const notified = await notifiedExecution(agent, deliver);
+    const notified = await notifiedExecution(deliver);
     agent.dismiss(notified.item!.id);
     const feedbackBefore = feedbackCount(store);
 
@@ -178,13 +178,11 @@ describe("correct refusals", () => {
   });
 });
 
-// Two approvals then two dismissals bring the proposal's newsletter bucket to silent; the fifth
-// delivery executes with no item.
+// Two dismissals bring the proposal's newsletter bucket to silent; the third delivery executes
+// with no item.
 async function silentExecution(proposal: Proposal = ARCHIVE) {
-  for (const respond of [(id: number) => agent.approve(id), (id: number) => agent.dismiss(id)]) {
-    for (let n = 0; n < 2; n++) {
-      respond((await deliver(proposal)).item!.id);
-    }
+  for (let n = 0; n < 2; n++) {
+    agent.dismiss((await deliver(proposal)).item!.id);
   }
   const silent = await deliver(proposal);
   expect(silent).toMatchObject({

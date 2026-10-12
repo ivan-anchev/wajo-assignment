@@ -21,7 +21,7 @@ describe("runEpisodes", () => {
 
     expect(sales).toHaveLength(5);
     expect(episodes.map(levels)).toEqual([
-      ["ask", "ask", "notify", "notify", "silent"],
+      ["notify", "notify", "silent", "silent", "silent"],
       ["silent", "silent", "silent", "silent", "silent"],
     ]);
   });
@@ -29,7 +29,7 @@ describe("runEpisodes", () => {
   it("decides every baseline email at cold start, answers nothing, and writes no feedback", async () => {
     const { baseline } = await runEpisodes(modelProposing(ARCHIVE), sales, 1);
 
-    expect(levels(baseline)).toEqual(sales.map(() => "ask"));
+    expect(levels(baseline)).toEqual(sales.map(() => "notify"));
     expect(baseline.map(({ transcript }) => transcript.item!.status)).toEqual(
       sales.map(() => "open"),
     );
@@ -39,20 +39,24 @@ describe("runEpisodes", () => {
   it("decides a held-out email at the level its bucket learned on train, and never answers it", async () => {
     const { baseline, episodes } = await runEpisodes(modelProposing(ARCHIVE), salesBucket, 3);
 
-    expect(levels(outcomesIn(baseline, "test"))).toEqual(["ask"]);
+    expect(levels(outcomesIn(baseline, "test"))).toEqual(["notify"]);
     expect(episodes.map((episode) => levels(outcomesIn(episode, "test")))).toEqual([
-      ["ask"],
       ["notify"],
-      ["notify"],
+      ["silent"],
+      ["silent"],
     ]);
     expect(
       episodes.flatMap((episode) =>
         outcomesIn(episode, "test").map(({ transcript }) => [
-          transcript.item!.status,
+          transcript.item?.status ?? null,
           transcript.feedback,
         ]),
       ),
-    ).toEqual(Array.from({ length: 3 }, () => ["open", null]));
+    ).toEqual([
+      ["open", null],
+      [null, null],
+      [null, null],
+    ]);
   });
 
   it("pairs every outcome with its scenario, in scenario order, under a labelled email id", async () => {

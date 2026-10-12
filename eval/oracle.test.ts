@@ -117,9 +117,6 @@ describe("oracle on a notify", () => {
     const deliver = newsletterInbox(store);
     const llm = modelProposing(ARCHIVE, { preferences: ["Keep it short."] });
     const agent = new Agent({ store, model: llm });
-    for (let n = 0; n < 2; n++) {
-      agent.approve((await deliver(ARCHIVE)).item!.id);
-    }
     return { llm, agent, delivered: await deliver(ARCHIVE) };
   }
 

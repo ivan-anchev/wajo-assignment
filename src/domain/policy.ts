@@ -36,7 +36,7 @@ const LADDER: Record<
   ask: { positives: ["approve"], up: "ask", down: "notify" },
 };
 
-const COLD_START: LearnedLevel = "ask";
+const COLD_START: LearnedLevel = "notify";
 const NEGATIVES: readonly FeedbackKind[] = ["reject", "undo", "edit"];
 const STREAK_TO_PROMOTE = 2;
 

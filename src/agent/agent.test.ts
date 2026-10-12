@@ -49,22 +49,22 @@ describe("run", () => {
           "001",
           "mark_read",
           false,
-          "ask",
-          "ask",
+          "notify",
+          "notify",
         ],
         [
           "002",
           "archive",
           false,
-          "ask",
-          "ask",
+          "notify",
+          "notify",
         ],
         [
           "003",
           "draft_reply",
           false,
-          "ask",
-          "ask",
+          "notify",
+          "notify",
         ],
       ]
     `);
@@ -99,7 +99,7 @@ describe("run", () => {
     );
   });
 
-  it("asks before a reversible proposal while its bucket is cold", async () => {
+  it("acts on a reversible proposal and notifies while its bucket is cold", async () => {
     const [first] = await agentWith(
       mockModel({
         analysis: {
@@ -113,11 +113,13 @@ describe("run", () => {
     ).run(INBOX);
 
     expect(first).toMatchObject({
-      decision: { level: "ask" },
-      item: { kind: "ask", status: "open" },
-      executions: [],
+      decision: { level: "notify" },
+      item: { kind: "notify", status: "open" },
+      executions: [{ proposal: ARCHIVE, undoneAt: null }],
     });
-    expect(store.emails.getState(first!.email.id).archivedAt).toBeNull();
+    expect(store.emails.getState(first!.email.id).archivedAt).toBe(
+      first!.executions[0]!.executedAt,
+    );
   });
 
   it("writes nothing when the judge fails, so the email is retried next run", async () => {

@@ -62,15 +62,10 @@ export function newsletterInbox(
   };
 }
 
-// Two approvals bring archive/newsletter to notify; the third archive executes and opens a notify
-// item.
+// A reversible action's first delivery runs and opens a notify item.
 export async function notifiedExecution(
-  agent: Agent,
   deliver: ReturnType<typeof newsletterInbox>,
 ): Promise<Transcript> {
-  for (let n = 0; n < 2; n++) {
-    agent.approve((await deliver(ARCHIVE)).item!.id);
-  }
   const notified = await deliver(ARCHIVE);
   expect(notified).toMatchObject({
     decision: { level: "notify" },

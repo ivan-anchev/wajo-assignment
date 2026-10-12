@@ -17,16 +17,8 @@ beforeEach(() => {
   agent = new Agent({ store, model: replayModel() });
 });
 
-async function learnNotify() {
-  for (let n = 0; n < 2; n++) {
-    agent.approve((await deliver(ARCHIVE)).item!.id);
-  }
-}
-
 describe("pins (§7.3)", () => {
   it("wins over a lower learned level", async () => {
-    await learnNotify();
-
     expect(agent.pin("archive", "newsletter", "ask")).toEqual({
       action: "archive",
       senderClass: "newsletter",
@@ -41,7 +33,6 @@ describe("pins (§7.3)", () => {
   });
 
   it("never lowers the learned level", async () => {
-    await learnNotify();
     agent.pin("archive", "newsletter", "silent");
 
     expect((await deliver(ARCHIVE)).decision).toMatchObject({
@@ -59,15 +50,15 @@ describe("pins (§7.3)", () => {
   });
 
   it("lets learning climb behind it, unannounced, and unpin reports the learned level", async () => {
-    agent.pin("archive", "newsletter", "ask");
+    agent.pin("archive", "newsletter", "notify");
     const promotions: (string | null)[] = [];
     for (let n = 0; n < 2; n++) {
-      promotions.push(agent.approve((await deliver(ARCHIVE)).item!.id).promotion);
+      promotions.push(agent.dismiss((await deliver(ARCHIVE)).item!.id).promotion);
     }
 
     expect(promotions).toEqual([null, null]);
-    expect(agent.unpin("archive", "newsletter")).toMatchObject({ pin: null, level: "notify" });
-    expect((await deliver(ARCHIVE)).decision).toMatchObject({ pin: null, level: "notify" });
+    expect(agent.unpin("archive", "newsletter")).toMatchObject({ pin: null, level: "silent" });
+    expect((await deliver(ARCHIVE)).decision).toMatchObject({ pin: null, level: "silent" });
   });
 
   it("accepts a pin at the floor, and pin and unpin write no feedback", () => {
@@ -99,7 +90,7 @@ describe("pins (§7.3)", () => {
       action: "archive",
       senderClass: "newsletter",
       pin: null,
-      level: "ask",
+      level: "notify",
     });
   });
 });

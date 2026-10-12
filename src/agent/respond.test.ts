@@ -108,7 +108,7 @@ describe("edit", () => {
     const deliver = newsletterInbox(store);
     const agent = new Agent({ store, model: modelProposing(ARCHIVE) });
     for (let n = 0; n < 2; n++) {
-      agent.approve((await deliver(ARCHIVE)).item!.id);
+      agent.dismiss((await deliver(ARCHIVE)).item!.id);
     }
     const asked = await deliver(ARCHIVE, { requested: "forward" });
     const another = await deliver(ARCHIVE, { requested: "forward" });
@@ -251,5 +251,5 @@ describe("notify items", () => {
 
 async function notifiedArchive() {
   const agent = new Agent({ store, model: replayModel() });
-  return { agent, notified: await notifiedExecution(agent, newsletterInbox(store)) };
+  return { agent, notified: await notifiedExecution(newsletterInbox(store)) };
 }

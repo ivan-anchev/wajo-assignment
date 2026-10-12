@@ -56,56 +56,46 @@ const twice = (response: FeedbackKind) => [response, response];
 
 describe("learned level (§7.1)", () => {
   it.each<[string, FeedbackKind[], Level]>([
-    ["starts at ask", [], "ask"],
-    ["needs two consecutive positives", ["approve"], "ask"],
-    ["moves to notify after two approves", twice("approve"), "notify"],
-    ["needs two dismisses at notify", [...twice("approve"), "dismiss"], "notify"],
-    ["resets the streak on edit", ["approve", "edit", "approve"], "ask"],
-    ["resets the streak on reject", ["approve", "reject", "approve"], "ask"],
-    ["keeps ask on a reject at cold start", ["reject"], "ask"],
+    ["starts at notify", [], "notify"],
+    ["needs two consecutive positives", ["dismiss"], "notify"],
+    ["moves to silent after two dismisses", twice("dismiss"), "silent"],
+    ["ignores dismisses at silent", [...twice("dismiss"), "dismiss"], "silent"],
+    ["steps silent back to notify on undo", [...twice("dismiss"), "undo"], "notify"],
+    ["needs a fresh streak after a step back", [...twice("dismiss"), "undo", "dismiss"], "notify"],
+    ["ignores approves at notify, without resetting", ["dismiss", "approve", "dismiss"], "silent"],
+    ["steps notify back to ask on reject", ["dismiss", "reject"], "ask"],
+    ["steps notify back to ask on edit", ["dismiss", "edit"], "ask"],
+    ["steps notify back to ask on undo", ["undo"], "ask"],
+    ["keeps ask on a reject at ask", ["undo", "reject"], "ask"],
+    ["needs two approves at ask", ["undo", "approve"], "ask"],
+    ["moves to notify after two approves at ask", ["undo", ...twice("approve")], "notify"],
     [
-      "moves to silent after two dismisses at notify",
-      [...twice("approve"), ...twice("dismiss")],
+      "climbs the whole ladder after a step back",
+      ["undo", ...twice("approve"), ...twice("dismiss")],
       "silent",
     ],
-    ["ignores dismisses at ask", [...twice("dismiss"), "approve"], "ask"],
-    [
-      "ignores approves at notify, without resetting",
-      [...twice("approve"), "dismiss", "approve", "dismiss"],
-      "silent",
-    ],
-    [
-      "steps silent back to notify on undo",
-      [...twice("approve"), ...twice("dismiss"), "undo"],
-      "notify",
-    ],
-    [
-      "ignores dismisses at silent",
-      [...twice("approve"), ...twice("dismiss"), "dismiss"],
-      "silent",
-    ],
-    ["steps notify back to ask on reject", [...twice("approve"), "reject"], "ask"],
-    ["steps notify back to ask on edit", [...twice("approve"), "edit"], "ask"],
-    ["needs a fresh streak after a step back", [...twice("approve"), "reject", "approve"], "ask"],
+    ["ignores dismisses at ask", ["undo", ...twice("dismiss"), "approve"], "ask"],
+    ["resets the streak on edit", ["undo", "approve", "edit", "approve"], "ask"],
+    ["resets the streak on reject", ["undo", "approve", "reject", "approve"], "ask"],
   ])("%s", (_, history, expected) => {
     expect(learned(...history)).toBe(expected);
   });
 
   it("an edit to another action leaves the standing unchanged", () => {
-    expect(learned("approve", "redirect", "approve")).toBe("notify");
-    expect(learned(...twice("approve"), "redirect")).toBe("notify");
-    expect(learned(...twice("approve"), "dismiss", "redirect", "dismiss")).toBe("silent");
+    expect(learned("dismiss", "redirect", "dismiss")).toBe("silent");
+    expect(learned(...twice("dismiss"), "redirect")).toBe("silent");
+    expect(learned("undo", "approve", "redirect", "approve")).toBe("notify");
   });
 
   it("a param-only edit is still a negative", () => {
-    expect(learned("approve", "edit", "approve")).toBe("ask");
-    expect(learned(...twice("approve"), "edit")).toBe("ask");
+    expect(learned("dismiss", "edit", "dismiss")).toBe("ask");
+    expect(learned(...twice("dismiss"), "edit")).toBe("notify");
   });
 });
 
 describe("levelFor", () => {
   it("raises the floor to the requested action, never lowers it", () => {
-    const promoted = [...twice("approve"), ...twice("dismiss")];
+    const promoted = twice("dismiss");
 
     expect(levelFor(analysisOf("label", "pay_invoice"), [], promoted, null)).toMatchObject({
       floor: "escalate",
@@ -142,7 +132,7 @@ describe("levelFor", () => {
     ["escalate", "escalate"],
     [null, "notify"],
   ])("joins pin %s with learned", (pin, level) => {
-    expect(levelFor(analysisOf("archive"), [], twice("approve"), pin)).toMatchObject({
+    expect(levelFor(analysisOf("archive"), [], [], pin)).toMatchObject({
       learned: "notify",
       level,
     });
@@ -169,24 +159,22 @@ describe("levelFor", () => {
 
 describe("promotion (§7.2)", () => {
   it("fires only on the response that crosses the threshold", () => {
-    expect(promotion("archive", [], "approve", null)).toBeNull();
-    expect(promotion("archive", ["approve"], "approve", null)).toBe("ask");
-    expect(promotion("archive", twice("approve"), "approve", null)).toBeNull();
+    expect(promotion("archive", [], "dismiss", null)).toBeNull();
+    expect(promotion("archive", ["dismiss"], "dismiss", null)).toBe("notify");
+    expect(promotion("archive", twice("dismiss"), "dismiss", null)).toBeNull();
   });
 
   it("is not announced when the floor hides it", () => {
-    expect(promotion("send_reply", ["approve"], "approve", null)).toBeNull();
+    expect(promotion("send_reply", ["reject", "approve"], "approve", null)).toBeNull();
   });
 
   it("is never a demotion", () => {
-    expect(
-      promotion("archive", [...twice("approve"), ...twice("dismiss")], "undo", null),
-    ).toBeNull();
+    expect(promotion("archive", twice("dismiss"), "undo", null)).toBeNull();
   });
 
   it("is not announced while a pin holds the bucket at or above the old level", () => {
-    expect(promotion("archive", ["approve"], "approve", "ask")).toBeNull();
-    expect(promotion("archive", ["approve"], "approve", "notify")).toBe("ask");
+    expect(promotion("archive", ["dismiss"], "dismiss", "notify")).toBeNull();
+    expect(promotion("archive", ["dismiss"], "dismiss", "silent")).toBe("notify");
   });
 });
 
