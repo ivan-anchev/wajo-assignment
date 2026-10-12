@@ -4,6 +4,7 @@ import type { Execution, Executions } from "./executions.ts";
 import type { Feedback, FeedbackLog } from "./feedback.ts";
 import type { Item, Items } from "./items.ts";
 import type { Mailbox } from "./mailbox.ts";
+import type { Preferences } from "./preferences.ts";
 
 export type Transcript = {
   email: Email;
@@ -19,6 +20,7 @@ type ReadTables = {
   items: Items;
   executions: Executions;
   feedback: FeedbackLog;
+  preferences: Preferences;
 };
 
 export class Reads {
@@ -46,5 +48,9 @@ export class Reads {
 
   recentTranscripts(limit: number): Transcript[] {
     return this.tables.decisions.listRecent(limit).map((decision) => this.transcript(decision));
+  }
+
+  preferences(): string {
+    return this.tables.preferences.get();
   }
 }

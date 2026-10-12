@@ -36,13 +36,6 @@ export class Executions {
     return toExecution(row);
   }
 
-  findByItem(itemId: number): Execution {
-    const row = this.db
-      .prepare<[number], ExecutionRow>(`SELECT ${COLUMNS} FROM executions WHERE item_id = ?`)
-      .get(itemId)!;
-    return toExecution(row);
-  }
-
   listByDecision(decisionId: number): Execution[] {
     return this.db
       .prepare<[number], ExecutionRow>(

@@ -10,7 +10,6 @@ import {
 import {
   floor,
   isBelow,
-  levelFor,
   proposalOf,
   type FeedbackKind,
   type ItemResponse,
@@ -21,42 +20,35 @@ import type { Item, ItemStatus } from "../db/items.ts";
 import type { Transcript } from "../db/reads.ts";
 import type { Store } from "../db/store.ts";
 import { readInbox, type Email, type InboxSource, type SenderClass } from "../inbox/inbox.ts";
-import { analyze } from "../agent/analyze.ts";
-import { checkInjection } from "../agent/check-injection.ts";
-import { checkPayment } from "../agent/check-payment.ts";
+import { Agent, type Event, type Learned, type Teaching } from "../agent/agent.ts";
 import { Learner, type BucketStanding } from "../agent/learner.ts";
-import { extractPreferences, PreferenceMemory } from "../agent/preferences.ts";
+import { PreferenceMemory } from "../agent/preferences.ts";
 import { execute, refuseIfFloorEscalates, undoExecution } from "./execution.ts";
 import { Refusal } from "./refusal.ts";
 
-export type ResponseResult = {
-  transcript: Transcript;
-  promotion: Level | null;
-  preference: string | null;
-};
+export type ResponseResult = Learned & { transcript: Transcript };
 
-// A union with one member: a second event kind turns `const { email } = event`
-// in decide into a compile error, which is where the dispatch then belongs.
-type Event = { kind: "incoming_email"; email: Email };
+type OpenItem = Transcript & { item: Item };
 
 export class App {
   private readonly store: Store;
-  private readonly model: LanguageModel;
+  private readonly agent: Agent;
   private readonly learner: Learner;
-  private readonly memory: PreferenceMemory;
 
-  constructor(config: { store: Store; model: LanguageModel }) {
-    this.store = config.store;
-    this.model = config.model;
-    this.learner = new Learner(config.store);
-    this.memory = new PreferenceMemory(config.store.preferences);
+  constructor({ store, model }: { store: Store; model: LanguageModel }) {
+    const learner = new Learner({ feedback: store.feedback, pins: store.pins });
+
+    this.store = store;
+    this.learner = learner;
+    this.agent = new Agent({ model, learner, memory: new PreferenceMemory(store.preferences) });
   }
 
   async run(source: InboxSource): Promise<Transcript[]> {
     const transcripts: Transcript[] = [];
 
     for (const event of this.intake(source)) {
-      transcripts.push(await this.decide(event));
+      const decided = await this.agent.decide(event);
+      transcripts.push(this.recordAndAct(event.email, decided));
     }
 
     return transcripts;
@@ -75,56 +67,41 @@ export class App {
   }
 
   approve(itemId: number): ResponseResult {
-    return this.respondToItem(itemId, "approve", (item, decision) =>
-      this.executeApprovedProposal(item, decision, item.proposal),
-    );
+    return this.respond(itemId, "approve", (asked) => this.approveItem(asked, asked.item.proposal));
   }
 
   async edit(itemId: number, changes: ProposalEdit): Promise<ResponseResult> {
-    const item = this.openItemAcceptingEdit(itemId, changes);
-    const edited = proposalAfterEdit(item.proposal, changes);
-    const preferences = await extractPreferences(
-      this.model,
-      this.transcriptOf(item),
-      { kind: "edit", changes },
-      this.memory.text(),
-    );
+    const asked = this.openItemAccepting(itemId, "edit");
+    const edited = proposalAfterEdit(asked.item.proposal, changes);
+    refuseIfFloorEscalates(asked.decision, edited);
+    const preferences = await this.agent.reflect(asked, { kind: "edit", changes });
 
-    return this.respondAndNotePreferences(preferences, () =>
-      this.respondToItem(
-        itemId,
-        "edit",
-        (current, decision) => this.executeApprovedProposal(current, decision, edited),
-        editFeedback(item.proposal, edited),
-      ),
-    );
+    return this.respond(itemId, "edit", (current) => this.approveItem(current, edited), {
+      feedback: editFeedback(asked.item.proposal, edited),
+      preferences,
+    });
   }
 
   async reject(itemId: number, reason?: string): Promise<ResponseResult> {
     const preferences = reason
-      ? await extractPreferences(
-          this.model,
-          this.transcriptOf(this.openItemAccepting(itemId, "reject")),
-          { kind: "reject", reason },
-          this.memory.text(),
-        )
+      ? await this.agent.reflect(this.openItemAccepting(itemId, "reject"), {
+          kind: "reject",
+          reason,
+        })
       : null;
 
-    return this.respondAndNotePreferences(preferences, () =>
-      this.respondToItem(itemId, "reject", (item) => this.closeItem(item, "rejected")),
-    );
-  }
-
-  undo(itemId: number): ResponseResult {
-    return this.respondToItem(itemId, "undo", (item, decision) => {
-      this.closeItem(item, "undone");
-
-      undoExecution(this.store, decision, this.store.executions.findByItem(item.id));
+    return this.respond(itemId, "reject", ({ item }) => this.closeItem(item, "rejected"), {
+      feedback: "reject",
+      preferences,
     });
   }
 
+  undo(itemId: number): ResponseResult {
+    return this.respond(itemId, "undo", (notified) => this.undoWhatRan(notified));
+  }
+
   dismiss(itemId: number): ResponseResult {
-    return this.respondToItem(itemId, "dismiss", (item) => this.closeItem(item, "dismissed"));
+    return this.respond(itemId, "dismiss", ({ item }) => this.closeItem(item, "dismissed"));
   }
 
   // A decision that ran without asking, silently or with a notification, is corrected after the
@@ -132,23 +109,16 @@ export class App {
   // Like an edit at ask, changing the action is a redirect that says nothing about the level the
   // proposed action deserves.
   async correct(decisionId: number, changes: ProposalEdit): Promise<ResponseResult> {
-    const transcript = this.uncorrectedDecision(decisionId);
-    const corrected = proposalAfterEdit(proposalOf(transcript.decision.analysis), changes);
-    const preferences = await extractPreferences(
-      this.model,
-      transcript,
-      { kind: "correct", changes },
-      this.memory.text(),
-    );
+    const ran = this.uncorrectedDecision(decisionId);
+    const proposed = proposalOf(ran.decision.analysis);
+    const corrected = proposalAfterEdit(proposed, changes);
+    const preferences = await this.agent.reflect(ran, { kind: "correct", changes });
 
-    return this.respondAndNotePreferences(preferences, () => {
-      const promotion = this.undoCorrected(transcript, corrected);
-      return {
-        transcript: this.store.reads.transcript(transcript.decision),
-        promotion,
-        preference: null,
-      };
-    });
+    return this.answer(
+      () => this.uncorrectedDecision(decisionId),
+      (current) => this.undoWhatRan(current),
+      { feedback: editFeedback(proposed, corrected), preferences },
+    );
   }
 
   pin(action: ActionName, senderClass: SenderClass, level: Level): BucketStanding {
@@ -162,7 +132,7 @@ export class App {
   }
 
   prefs(): string {
-    return this.memory.text();
+    return this.store.reads.preferences();
   }
 
   private intake(source: InboxSource): Event[] {
@@ -171,30 +141,6 @@ export class App {
     return readInbox(source)
       .filter((email) => !decided.has(email.id))
       .map((email) => ({ kind: "incoming_email", email }));
-  }
-
-  private async decide(event: Event): Promise<Transcript> {
-    const { email } = event;
-    // Guard first: a suspected email never reaches the analysis prompt, so nothing it steered is stored.
-    const injection = await checkInjection(this.model, email);
-    const payment = checkPayment(email);
-    const analysis = injection.suspected
-      ? null
-      : await analyze(this.model, email, this.memory.text());
-    // An unanalyzed email proposes no action, so it has no bucket to look up.
-    const action = analysis?.proposal.action;
-    const { history, pin } = action
-      ? this.learner.bucket(action, email.senderClass)
-      : { history: [], pin: null };
-
-    return this.recordAndAct(email, {
-      emailId: email.id,
-      analysis,
-      injection,
-      payment,
-      pin,
-      ...levelFor(analysis, [injection, payment], history, pin),
-    });
   }
 
   private recordAndAct(email: Email, decided: NewDecision): Transcript {
@@ -218,42 +164,32 @@ export class App {
     }
   }
 
-  // The LLM call has already run, so a failed extraction wrote nothing. The response and the
-  // updated preference list commit together.
-  private respondAndNotePreferences(
-    preferences: string[] | null,
-    response: () => ResponseResult,
-  ): ResponseResult {
-    return this.store.transaction(() => {
-      const result = response();
-      const preference = preferences && this.memory.note(preferences);
-      return { ...result, preference };
-    });
-  }
-
-  private respondToItem(
+  private respond(
     itemId: number,
     response: ItemResponse,
-    takeEffect: (item: Item, decision: Decision) => void,
-    feedback: FeedbackKind = response,
+    takeEffect: (opened: OpenItem) => void,
+    teaching: Teaching = { feedback: response, preferences: null },
+  ): ResponseResult {
+    return this.answer(() => this.openItemAccepting(itemId, response), takeEffect, teaching);
+  }
+
+  private answer<Answered extends Transcript>(
+    open: () => Answered,
+    takeEffect: (answered: Answered) => void,
+    teaching: Teaching,
   ): ResponseResult {
     return this.store.transaction(() => {
-      const item = this.openItemAccepting(itemId, response);
-      const decision = this.store.decisions.get(item.decisionId);
+      const answered = open();
 
-      takeEffect(item, decision);
+      takeEffect(answered);
 
-      const { senderClass } = this.store.emails.get(decision.emailId);
-      const promotion =
-        item.kind === "escalate"
-          ? null
-          : this.learner.recordResponse(decision, senderClass, feedback);
+      const learned = this.agent.learn(answered, teaching);
 
-      return { transcript: this.store.reads.transcript(decision), promotion, preference: null };
+      return { transcript: this.store.reads.transcript(answered.decision), ...learned };
     });
   }
 
-  private openItemAccepting(itemId: number, response: ItemResponse): Item {
+  private openItemAccepting(itemId: number, response: ItemResponse): OpenItem {
     const item = this.store.items.find(itemId);
 
     if (!item) {
@@ -270,37 +206,7 @@ export class App {
       );
     }
 
-    return item;
-  }
-
-  // Every refusal `edit` can raise, checked without writing anything.
-  private openItemAcceptingEdit(itemId: number, changes: ProposalEdit): Item {
-    const item = this.openItemAccepting(itemId, "edit");
-
-    refuseIfFloorEscalates(
-      this.store.decisions.get(item.decisionId),
-      proposalAfterEdit(item.proposal, changes),
-    );
-
-    return item;
-  }
-
-  private transcriptOf(item: Item): Transcript {
-    return this.store.reads.transcript(this.store.decisions.get(item.decisionId));
-  }
-
-  private executeApprovedProposal(item: Item, decision: Decision, proposal: Proposal): void {
-    this.closeItem(item, "approved", proposal);
-
-    execute(this.store, decision, proposal, item.id);
-  }
-
-  private closeItem(
-    item: Item,
-    status: Exclude<ItemStatus, "open">,
-    proposal: Proposal = item.proposal,
-  ): void {
-    this.store.items.update(item.id, { status, proposal });
+    return { ...this.store.reads.transcript(this.store.decisions.get(item.decisionId)), item };
   }
 
   // Every refusal `correct` can raise, checked without writing anything.
@@ -332,21 +238,26 @@ export class App {
     return transcript;
   }
 
-  private undoCorrected(
-    { decision, email, item, executions }: Transcript,
-    corrected: Proposal,
-  ): Level | null {
+  private approveItem({ item, decision }: OpenItem, proposal: Proposal): void {
+    this.closeItem(item, "approved", proposal);
+
+    execute(this.store, decision, proposal, item.id);
+  }
+
+  private undoWhatRan({ decision, item, executions }: Transcript): void {
     if (item) {
       this.closeItem(item, "undone");
     }
 
     undoExecution(this.store, decision, executions[0]!);
+  }
 
-    return this.learner.recordResponse(
-      decision,
-      email.senderClass,
-      editFeedback(proposalOf(decision.analysis), corrected),
-    );
+  private closeItem(
+    item: Item,
+    status: Exclude<ItemStatus, "open">,
+    proposal: Proposal = item.proposal,
+  ): void {
+    this.store.items.update(item.id, { status, proposal });
   }
 }
 

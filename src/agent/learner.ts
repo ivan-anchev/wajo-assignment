@@ -1,5 +1,6 @@
-import type { Decision } from "../db/decisions.ts";
-import type { Store } from "../db/store.ts";
+import type { FeedbackLog } from "../db/feedback.ts";
+import type { Pins } from "../db/pins.ts";
+import type { Transcript } from "../db/reads.ts";
 import type { ActionName } from "../domain/actions.ts";
 import {
   promotion,
@@ -18,32 +19,34 @@ export type BucketStanding = {
 };
 
 export class Learner {
-  constructor(private readonly store: Store) {}
+  constructor(private readonly tables: { feedback: FeedbackLog; pins: Pins }) {}
 
-  recordResponse(
-    decision: Decision,
-    senderClass: SenderClass,
-    response: FeedbackKind,
-  ): Level | null {
-    const feedback = {
+  record({ decision, email }: Transcript, kind: FeedbackKind): Level | null {
+    if (decision.level === "escalate") {
+      return null;
+    }
+
+    const action = proposalOf(decision.analysis).action;
+    const { history, pin } = this.bucket(action, email.senderClass);
+
+    this.tables.feedback.insert({
       decisionId: decision.id,
-      action: proposalOf(decision.analysis).action,
-      senderClass,
-      kind: response,
-    };
-    const { history, pin } = this.bucket(feedback.action, feedback.senderClass);
-    this.store.feedback.insert(feedback);
-    return promotion(feedback.action, history, feedback.kind, pin);
+      action,
+      senderClass: email.senderClass,
+      kind,
+    });
+
+    return promotion(action, history, kind, pin);
   }
 
   pinBucket(action: ActionName, senderClass: SenderClass, level: Level): BucketStanding {
-    this.store.pins.upsert(action, senderClass, level);
+    this.tables.pins.upsert(action, senderClass, level);
 
     return this.bucketStanding(action, senderClass);
   }
 
   unpinBucket(action: ActionName, senderClass: SenderClass): BucketStanding {
-    this.store.pins.delete(action, senderClass);
+    this.tables.pins.delete(action, senderClass);
 
     return this.bucketStanding(action, senderClass);
   }
@@ -53,8 +56,8 @@ export class Learner {
     senderClass: SenderClass,
   ): { history: FeedbackKind[]; pin: Level | null } {
     return {
-      history: this.store.feedback.listByBucket(action, senderClass),
-      pin: this.store.pins.find(action, senderClass),
+      history: this.tables.feedback.listByBucket(action, senderClass),
+      pin: this.tables.pins.find(action, senderClass),
     };
   }
 
