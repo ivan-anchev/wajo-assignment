@@ -1,8 +1,9 @@
 import { beforeEach, describe, expect, it } from "vitest";
+import { injectionInbox, NONE, SEND_REPLY } from "../agent/test-agents.ts";
 import { Store } from "../db/store.ts";
 import { replayModel } from "../llm/test-models.ts";
-import { App } from "../app/app.ts";
-import { agentProposing, injectionInbox, NONE, SEND_REPLY } from "./test-agents.ts";
+import { App } from "./app.ts";
+import { agentProposing } from "./test-apps.ts";
 
 let store: Store;
 

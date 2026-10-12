@@ -1,9 +1,5 @@
 import { beforeEach, describe, expect, it } from "vitest";
-import { Store } from "../db/store.ts";
-import { App } from "../app/app.ts";
 import {
-  agentProposing,
-  feedbackCount,
   inboxOf,
   modelProposing,
   PAY_INVOICE,
@@ -11,7 +7,10 @@ import {
   requestsNamed,
   SEND_REPLY,
   SUMMARY,
-} from "./test-agents.ts";
+} from "../agent/test-agents.ts";
+import { Store } from "../db/store.ts";
+import { App } from "./app.ts";
+import { agentProposing, feedbackCount } from "./test-apps.ts";
 
 const IGOR = "Replies to Igor are informal, no sign-off.";
 const IGOR_FORMAL = "Replies to Igor are formal, signed with my full name.";

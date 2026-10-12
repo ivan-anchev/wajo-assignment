@@ -1,23 +1,20 @@
 import type { MockLanguageModelV4 } from "ai/test";
 import { beforeEach, describe, expect, it } from "vitest";
-import { Store } from "../db/store.ts";
-import type { Proposal } from "../domain/actions.ts";
-import { replayModel } from "../llm/test-models.ts";
-import { App } from "../app/app.ts";
-import { Refusal } from "../app/refusal.ts";
 import {
-  agentProposing,
   ARCHIVE,
-  feedbackCount,
   injectionInbox,
   LABEL,
   modelProposing,
-  newsletterInbox,
   NONE,
-  notifiedExecution,
   requestsNamed,
   SEND_REPLY,
-} from "./test-agents.ts";
+} from "../agent/test-agents.ts";
+import { Store } from "../db/store.ts";
+import type { Proposal } from "../domain/actions.ts";
+import { replayModel } from "../llm/test-models.ts";
+import { App } from "./app.ts";
+import { Refusal } from "./refusal.ts";
+import { agentProposing, feedbackCount, newsletterInbox, notifiedExecution } from "./test-apps.ts";
 
 const LABEL_NEWSLETTERS = "Newsletters from Northwind get the finance label.";
 const LABEL_EDIT = { action: LABEL.action, ...LABEL.params };

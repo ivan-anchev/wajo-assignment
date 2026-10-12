@@ -1,7 +1,8 @@
 import { Command } from "commander";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { App } from "../app/app.ts";
-import { agentProposing, modelProposing, SEND_REPLY } from "../agent/test-agents.ts";
+import { modelProposing, SEND_REPLY } from "../agent/test-agents.ts";
+import { agentProposing } from "../app/test-apps.ts";
 import { Store } from "../db/store.ts";
 import { addItemCommands } from "./items.ts";
 

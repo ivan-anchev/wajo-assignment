@@ -1,12 +1,13 @@
 import { beforeEach, describe, expect, it } from "vitest";
+import { ARCHIVE, MARK_READ } from "../agent/test-agents.ts";
 import { Store } from "../db/store.ts";
 import type { ActionName } from "../domain/actions.ts";
 import type { Level } from "../domain/policy.ts";
 import type { SenderClass } from "../inbox/inbox.ts";
 import { replayModel } from "../llm/test-models.ts";
-import { App } from "../app/app.ts";
-import { Refusal } from "../app/refusal.ts";
-import { ARCHIVE, MARK_READ, feedbackCount, newsletterInbox } from "./test-agents.ts";
+import { App } from "./app.ts";
+import { Refusal } from "./refusal.ts";
+import { feedbackCount, newsletterInbox } from "./test-apps.ts";
 
 let store: Store;
 let deliver: ReturnType<typeof newsletterInbox>;

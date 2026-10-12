@@ -1,13 +1,7 @@
 import type { LanguageModel } from "ai";
 import { beforeEach, describe, expect, it } from "vitest";
-import { App } from "../app/app.ts";
-import { Store } from "../db/store.ts";
-import { readInbox, writeInbox } from "../inbox/inbox.ts";
-import { mockModel, observedReplayModel, replayModel } from "../llm/test-models.ts";
 import {
-  agentProposing,
   ARCHIVE,
-  feedbackCount,
   INBOX,
   injectionInbox,
   LABEL,
@@ -16,7 +10,12 @@ import {
   requestOrder,
   requestsNamed,
   SEND_REPLY,
-} from "./test-agents.ts";
+} from "../agent/test-agents.ts";
+import { Store } from "../db/store.ts";
+import { readInbox, writeInbox } from "../inbox/inbox.ts";
+import { mockModel, observedReplayModel, replayModel } from "../llm/test-models.ts";
+import { App } from "./app.ts";
+import { agentProposing, feedbackCount } from "./test-apps.ts";
 
 let store: Store;
 

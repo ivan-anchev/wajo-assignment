@@ -1,21 +1,18 @@
 import { beforeEach, describe, expect, it } from "vitest";
-import { Store } from "../db/store.ts";
-import { replayModel } from "../llm/test-models.ts";
-import { App } from "../app/app.ts";
-import { Refusal } from "../app/refusal.ts";
 import {
-  agentProposing,
   ARCHIVE,
-  feedbackCount,
   injectionInbox,
   MARK_READ,
   modelProposing,
-  newsletterInbox,
-  notifiedExecution,
   PAY_INVOICE,
   PAY_INVOICE_EDIT,
   SEND_REPLY,
-} from "./test-agents.ts";
+} from "../agent/test-agents.ts";
+import { Store } from "../db/store.ts";
+import { replayModel } from "../llm/test-models.ts";
+import { App } from "./app.ts";
+import { Refusal } from "./refusal.ts";
+import { agentProposing, feedbackCount, newsletterInbox, notifiedExecution } from "./test-apps.ts";
 
 let store: Store;
 

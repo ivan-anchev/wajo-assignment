@@ -1,16 +1,15 @@
 import { beforeEach, describe, expect, it } from "vitest";
 import { App } from "../src/app/app.ts";
 import {
-  agentProposing,
   ARCHIVE,
   INBOX,
   modelProposing,
-  newsletterInbox,
   NONE,
   PAY_INVOICE,
   requestsNamed,
   SEND_REPLY,
 } from "../src/agent/test-agents.ts";
+import { agentProposing, newsletterInbox } from "../src/app/test-apps.ts";
 import type { ActionName, Proposal } from "../src/domain/actions.ts";
 import { Store } from "../src/db/store.ts";
 import { readScenarios, type Scenario } from "./scenarios.ts";
