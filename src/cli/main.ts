@@ -2,11 +2,12 @@ import { Command } from "commander";
 import { existsSync } from "node:fs";
 import { ACTIONS } from "../domain/actions.ts";
 import { evaluate } from "../../eval/eval.ts";
-import { Agent, Refusal } from "../agent/agent.ts";
+import { App } from "../app/app.ts";
+import { Refusal } from "../app/refusal.ts";
 import { Store } from "../db/store.ts";
 import { DEFAULT_MODEL, languageModelFrom } from "../llm/llm.ts";
 import { addItemCommands } from "./items.ts";
-import { liveOption, positiveInteger, type OpenAgent } from "./options.ts";
+import { liveOption, positiveInteger, type OpenApp } from "./options.ts";
 import { addPinCommands } from "./pins.ts";
 import { renderDecisionLine, renderInboxLine, renderTranscript } from "./render.ts";
 
@@ -21,8 +22,8 @@ const config = {
   model: process.env.MODEL ?? DEFAULT_MODEL,
 };
 
-const openAgent: OpenAgent = ({ live }) =>
-  new Agent({ store: Store.open(config.dbPath), model: languageModelFrom(config.model, { live }) });
+const openApp: OpenApp = ({ live }) =>
+  new App({ store: Store.open(config.dbPath), model: languageModelFrom(config.model, { live }) });
 
 const program = new Command("agent")
   .description("Inbox agent: learns when to act, notify, ask, or escalate")
@@ -33,7 +34,7 @@ program
   .description("Process every new email in the inbox and print one decision per email")
   .addOption(liveOption())
   .action(async ({ live }: { live: boolean }) => {
-    const transcripts = await openAgent({ live }).run({
+    const transcripts = await openApp({ live }).run({
       inboxDir: config.inboxDir,
       contactsPath: config.contactsPath,
     });
@@ -47,7 +48,7 @@ program
   .argument("<emailId>", "id of a processed email")
   .description("Show the decision chain for one email")
   .action((emailId: string) => {
-    const transcript = openAgent({ live: false }).transcript(emailId);
+    const transcript = openApp({ live: false }).transcript(emailId);
     if (!transcript) {
       console.error(`No transcript for email "${emailId}".`);
       process.exitCode = 1;
@@ -60,20 +61,20 @@ program
   .command("inbox")
   .description("List open asks, notifications, and escalations with the responses each takes")
   .action(() => {
-    const transcripts = openAgent({ live: false }).inbox();
+    const transcripts = openApp({ live: false }).inbox();
     console.log(
       transcripts.length ? transcripts.map(renderInboxLine).join("\n") : "Inbox is empty.",
     );
   });
 
-addItemCommands(program, openAgent);
+addItemCommands(program, openApp);
 
 program
   .command("log")
   .description("List the most recent decisions, silent ones included, oldest first")
   .option("--limit <n>", "how many decisions to list", positiveInteger("a count such as 20"), 20)
   .action(({ limit }: { limit: number }) => {
-    const transcripts = openAgent({ live: false }).log(limit);
+    const transcripts = openApp({ live: false }).log(limit);
     console.log(
       transcripts.length ? transcripts.map(renderDecisionLine).join("\n") : "No decisions yet.",
     );
@@ -83,10 +84,10 @@ program
   .command("prefs")
   .description("Print the preference lines learned from edits and reject reasons")
   .action(() => {
-    console.log(openAgent({ live: false }).prefs() || "No preferences learned yet.");
+    console.log(openApp({ live: false }).prefs() || "No preferences learned yet.");
   });
 
-addPinCommands(program, openAgent);
+addPinCommands(program, openApp);
 
 program
   .command("eval")

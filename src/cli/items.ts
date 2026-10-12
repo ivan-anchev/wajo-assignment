@@ -1,7 +1,7 @@
 import { InvalidArgumentError, type Command } from "commander";
-import type { Agent, ResponseResult } from "../agent/agent.ts";
+import type { App, ResponseResult } from "../app/app.ts";
 import type { ProposalEdit } from "../domain/actions.ts";
-import { liveOption, positiveInteger, type OpenAgent } from "./options.ts";
+import { liveOption, positiveInteger, type OpenApp } from "./options.ts";
 import { renderResponse } from "./render.ts";
 
 const SET_HELP =
@@ -10,40 +10,40 @@ const SET_HELP =
 type ItemOptions = { set: ProposalEdit; reason?: string; live?: boolean };
 
 type Respond = (
-  agent: Agent,
+  app: App,
   itemId: number,
   options: ItemOptions,
 ) => ResponseResult | Promise<ResponseResult>;
 
-export function addItemCommands(program: Command, openAgent: OpenAgent): void {
+export function addItemCommands(program: Command, openApp: OpenApp): void {
   const itemCommand = (name: string, description: string, respond: Respond): Command =>
     program
       .command(name)
       .description(description)
       .argument("<itemId>", "item id from `agent inbox`", positiveInteger("an item id such as 3"))
       .action(async (itemId: number, options: ItemOptions) => {
-        const agent = openAgent({ live: options.live ?? false });
-        console.log(renderResponse(await respond(agent, itemId, options)));
+        const app = openApp({ live: options.live ?? false });
+        console.log(renderResponse(await respond(app, itemId, options)));
       });
 
-  itemCommand("approve", "Execute an ask's proposal (the floor is re-checked first)", (agent, id) =>
-    agent.approve(id),
+  itemCommand("approve", "Execute an ask's proposal (the floor is re-checked first)", (app, id) =>
+    app.approve(id),
   );
-  itemCommand("edit", "Change an ask's proposal, then approve it", (agent, id, { set }) =>
-    agent.edit(id, set),
+  itemCommand("edit", "Change an ask's proposal, then approve it", (app, id, { set }) =>
+    app.edit(id, set),
   )
     .requiredOption("--set <key=value>", SET_HELP, collectPair)
     .addOption(liveOption());
   itemCommand(
     "reject",
     "Close an ask without executing it; a reason may teach the agent a preference",
-    (agent, id, { reason }) => agent.reject(id, reason),
+    (app, id, { reason }) => app.reject(id, reason),
   )
     .option("--reason <text>", "why you rejected it; one preference line may be learned from it")
     .addOption(liveOption());
-  itemCommand("undo", "Revert a notified action", (agent, id) => agent.undo(id));
-  itemCommand("dismiss", "Mark a notification or escalation as reviewed", (agent, id) =>
-    agent.dismiss(id),
+  itemCommand("undo", "Revert a notified action", (app, id) => app.undo(id));
+  itemCommand("dismiss", "Mark a notification or escalation as reviewed", (app, id) =>
+    app.dismiss(id),
   );
 
   program
@@ -59,8 +59,8 @@ export function addItemCommands(program: Command, openAgent: OpenAgent): void {
     .requiredOption("--set <key=value>", SET_HELP, collectPair)
     .addOption(liveOption())
     .action(async (decisionId: number, { set, live }: ItemOptions) => {
-      const agent = openAgent({ live: live ?? false });
-      console.log(renderResponse(await agent.correct(decisionId, set)));
+      const app = openApp({ live: live ?? false });
+      console.log(renderResponse(await app.correct(decisionId, set)));
     });
 }
 

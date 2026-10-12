@@ -2,9 +2,7 @@ import type { LanguageModel } from "ai";
 import { z } from "zod";
 import {
   actionFor,
-  executeProposal,
   proposalSchema,
-  undoProposal,
   type ActionName,
   type Proposal,
   type ProposalEdit,
@@ -14,24 +12,22 @@ import {
   isBelow,
   levelFor,
   proposalOf,
-  requestOf,
   type FeedbackKind,
   type ItemResponse,
   type Level,
 } from "../domain/policy.ts";
 import type { Decision, NewDecision } from "../db/decisions.ts";
-import type { Execution } from "../db/executions.ts";
 import type { Item, ItemStatus } from "../db/items.ts";
 import type { Transcript } from "../db/reads.ts";
 import type { Store } from "../db/store.ts";
 import { readInbox, type Email, type InboxSource, type SenderClass } from "../inbox/inbox.ts";
-import { analyze } from "./analyze.ts";
-import { checkInjection } from "./check-injection.ts";
-import { checkPayment } from "./check-payment.ts";
-import { Learner, type BucketStanding } from "./learner.ts";
-import { extractPreferences, PreferenceMemory } from "./preferences.ts";
-
-export class Refusal extends Error {}
+import { analyze } from "../agent/analyze.ts";
+import { checkInjection } from "../agent/check-injection.ts";
+import { checkPayment } from "../agent/check-payment.ts";
+import { Learner, type BucketStanding } from "../agent/learner.ts";
+import { extractPreferences, PreferenceMemory } from "../agent/preferences.ts";
+import { execute, refuseIfFloorEscalates, undoExecution } from "./execution.ts";
+import { Refusal } from "./refusal.ts";
 
 export type ResponseResult = {
   transcript: Transcript;
@@ -43,7 +39,7 @@ export type ResponseResult = {
 // in decide into a compile error, which is where the dispatch then belongs.
 type Event = { kind: "incoming_email"; email: Email };
 
-export class Agent {
+export class App {
   private readonly store: Store;
   private readonly model: LanguageModel;
   private readonly learner: Learner;
@@ -123,7 +119,7 @@ export class Agent {
     return this.respondToItem(itemId, "undo", (item, decision) => {
       this.closeItem(item, "undone");
 
-      this.undoExecution(decision, this.store.executions.findByItem(item.id));
+      undoExecution(this.store, decision, this.store.executions.findByItem(item.id));
     });
   }
 
@@ -218,31 +214,8 @@ export class Agent {
         : this.store.items.insert({ decisionId: decision.id, kind: decision.level, proposal });
 
     if (decision.level === "silent" || decision.level === "notify") {
-      this.execute(decision, proposal, item?.id ?? null);
+      execute(this.store, decision, proposal, item?.id ?? null);
     }
-  }
-
-  private execute(decision: Decision, proposal: Proposal, itemId: number | null): Execution {
-    refuseIfFloorEscalates(decision, proposal);
-
-    const now = new Date().toISOString();
-
-    executeProposal(proposal, { emails: this.store.emails, emailId: decision.emailId, now });
-
-    return this.store.executions.insert({
-      decisionId: decision.id,
-      itemId,
-      proposal,
-      executedAt: now,
-    });
-  }
-
-  private undoExecution(decision: Decision, execution: Execution): void {
-    const now = new Date().toISOString();
-
-    this.store.executions.update(execution.id, { undoneAt: now });
-
-    undoProposal(execution.proposal, { emails: this.store.emails, emailId: decision.emailId, now });
   }
 
   // The LLM call has already run, so a failed extraction wrote nothing. The response and the
@@ -319,7 +292,7 @@ export class Agent {
   private executeApprovedProposal(item: Item, decision: Decision, proposal: Proposal): void {
     this.closeItem(item, "approved", proposal);
 
-    this.execute(decision, proposal, item.id);
+    execute(this.store, decision, proposal, item.id);
   }
 
   private closeItem(
@@ -367,7 +340,7 @@ export class Agent {
       this.closeItem(item, "undone");
     }
 
-    this.undoExecution(decision, executions[0]!);
+    undoExecution(this.store, decision, executions[0]!);
 
     return this.learner.recordResponse(
       decision,
@@ -391,15 +364,6 @@ function proposalAfterEdit(proposal: Proposal, changes: ProposalEdit): Proposal 
 
 function editFeedback(proposed: Proposal, edited: Proposal): FeedbackKind {
   return edited.action === proposed.action ? "edit" : "redirect";
-}
-
-function refuseIfFloorEscalates(
-  { analysis, injection, payment }: Decision,
-  proposal: Proposal,
-): void {
-  if (floor([proposal.action, requestOf(analysis)], [injection, payment]) === "escalate") {
-    throw new Refusal(`${proposal.action} must be escalated; nothing was executed.`);
-  }
 }
 
 function refusePinBelowFloor(action: ActionName, level: Level): void {

@@ -3,7 +3,8 @@ import { beforeEach, describe, expect, it } from "vitest";
 import { Store } from "../db/store.ts";
 import type { Proposal } from "../domain/actions.ts";
 import { replayModel } from "../llm/test-models.ts";
-import { Agent, Refusal } from "./agent.ts";
+import { App } from "../app/app.ts";
+import { Refusal } from "../app/refusal.ts";
 import {
   agentProposing,
   ARCHIVE,
@@ -24,20 +25,20 @@ const LABEL_EDIT = { action: LABEL.action, ...LABEL.params };
 let store: Store;
 let deliver: ReturnType<typeof newsletterInbox>;
 let llm: MockLanguageModelV4;
-let agent: Agent;
+let app: App;
 
 beforeEach(() => {
   store = Store.open(":memory:");
   deliver = newsletterInbox(store);
   llm = modelProposing(ARCHIVE, { preferences: [LABEL_NEWSLETTERS] });
-  agent = new Agent({ store, model: llm });
+  app = new App({ store, model: llm });
 });
 
 describe("correct", () => {
   it("undoes a silent execution, records redirect feedback under its bucket and notes a preference", async () => {
     const silent = await silentExecution();
 
-    const { transcript, promotion, preference } = await agent.correct(silent.decision.id, {
+    const { transcript, promotion, preference } = await app.correct(silent.decision.id, {
       action: "label",
       label: "finance",
     });
@@ -55,13 +56,13 @@ describe("correct", () => {
     });
     expect(promotion).toBeNull();
     expect(preference).toBe(LABEL_NEWSLETTERS);
-    expect(agent.prefs()).toBe(LABEL_NEWSLETTERS);
+    expect(app.prefs()).toBe(LABEL_NEWSLETTERS);
   });
 
   it("shows the extractor the change and the original proposal", async () => {
     const silent = await silentExecution();
 
-    await agent.correct(silent.decision.id, { action: "label", label: "finance" });
+    await app.correct(silent.decision.id, { action: "label", label: "finance" });
 
     const [extraction] = requestsNamed(llm, "preferences");
     expect(extraction).toContain("proposed");
@@ -71,7 +72,7 @@ describe("correct", () => {
   });
 
   it("leaves the bucket where it was when the action changes", async () => {
-    await agent.correct((await silentExecution()).decision.id, { action: "none" });
+    await app.correct((await silentExecution()).decision.id, { action: "none" });
 
     expect((await deliver(ARCHIVE)).decision).toMatchObject({ learned: "silent", level: "silent" });
   });
@@ -79,7 +80,7 @@ describe("correct", () => {
   it("demotes the bucket when only the params change", async () => {
     const silent = await silentExecution(LABEL);
 
-    const { transcript } = await agent.correct(silent.decision.id, { label: "reading" });
+    const { transcript } = await app.correct(silent.decision.id, { label: "reading" });
 
     expect(transcript.feedback).toMatchObject({ action: "label", kind: "edit" });
     expect((await deliver(LABEL)).decision).toMatchObject({ learned: "notify", level: "notify" });
@@ -87,13 +88,13 @@ describe("correct", () => {
 
   it("corrects once when corrected twice", async () => {
     const silent = await silentExecution();
-    const corrected = (await agent.correct(silent.decision.id, { action: "none" })).transcript;
+    const corrected = (await app.correct(silent.decision.id, { action: "none" })).transcript;
     const feedbackBefore = feedbackCount(store);
 
-    await expect(agent.correct(silent.decision.id, { action: "none" })).rejects.toThrow(
+    await expect(app.correct(silent.decision.id, { action: "none" })).rejects.toThrow(
       `Decision #${silent.decision.id} is already corrected.`,
     );
-    expect(agent.transcript(silent.email.id)).toEqual(corrected);
+    expect(app.transcript(silent.email.id)).toEqual(corrected);
     expect(feedbackCount(store)).toBe(feedbackBefore);
     expect(requestsNamed(llm, "preferences")).toHaveLength(1);
   });
@@ -102,14 +103,14 @@ describe("correct", () => {
     const nothing = await deliver(NONE);
     expect(nothing.decision.level).toBe("silent");
 
-    const { transcript, preference } = await agent.correct(nothing.decision.id, LABEL_EDIT);
+    const { transcript, preference } = await app.correct(nothing.decision.id, LABEL_EDIT);
 
     expect(transcript).toMatchObject({
       executions: [{ proposal: NONE, undoneAt: expect.any(String) }],
       feedback: { action: "none", senderClass: "newsletter", kind: "redirect" },
     });
     expect(preference).toBe(LABEL_NEWSLETTERS);
-    await expect(agent.correct(nothing.decision.id, LABEL_EDIT)).rejects.toThrow(
+    await expect(app.correct(nothing.decision.id, LABEL_EDIT)).rejects.toThrow(
       `Decision #${nothing.decision.id} is already corrected.`,
     );
     expect(feedbackCount(store)).toBe(1);
@@ -119,7 +120,7 @@ describe("correct", () => {
   it("corrects a notified execution: closes its item as undone, undoes it, records redirect and notes a preference", async () => {
     const notified = await notifiedExecution(deliver);
 
-    const { transcript, preference } = await agent.correct(notified.decision.id, LABEL_EDIT);
+    const { transcript, preference } = await app.correct(notified.decision.id, LABEL_EDIT);
 
     expect(transcript).toMatchObject({
       item: { id: notified.item!.id, status: "undone" },
@@ -135,10 +136,10 @@ describe("correct", () => {
 describe("correct refusals", () => {
   it("refuses a notified decision whose item is already dismissed", async () => {
     const notified = await notifiedExecution(deliver);
-    agent.dismiss(notified.item!.id);
+    app.dismiss(notified.item!.id);
     const feedbackBefore = feedbackCount(store);
 
-    await expect(agent.correct(notified.decision.id, LABEL_EDIT)).rejects.toThrow(
+    await expect(app.correct(notified.decision.id, LABEL_EDIT)).rejects.toThrow(
       `Decision #${notified.decision.id} has notify item #${notified.item!.id}, already dismissed.`,
     );
     expect(feedbackCount(store)).toBe(feedbackBefore);
@@ -154,7 +155,7 @@ describe("correct refusals", () => {
   });
 
   it("refuses every injection escalation without writing feedback", async () => {
-    const guarded = new Agent({ store, model: replayModel() });
+    const guarded = new App({ store, model: replayModel() });
     const transcripts = await guarded.run(injectionInbox());
 
     for (const { decision } of transcripts) {
@@ -168,11 +169,11 @@ describe("correct refusals", () => {
   it("refuses an invalid edit and an unknown decision without calling the extractor", async () => {
     const silent = await silentExecution();
 
-    await expect(agent.correct(silent.decision.id, { action: "label" })).rejects.toThrow(
+    await expect(app.correct(silent.decision.id, { action: "label" })).rejects.toThrow(
       /Invalid edit/,
     );
-    await expect(agent.correct(999, LABEL_EDIT)).rejects.toThrow(Refusal);
-    await expect(agent.correct(999, LABEL_EDIT)).rejects.toThrow("There is no decision #999.");
+    await expect(app.correct(999, LABEL_EDIT)).rejects.toThrow(Refusal);
+    await expect(app.correct(999, LABEL_EDIT)).rejects.toThrow("There is no decision #999.");
     expect(store.emails.getState(silent.email.id).archivedAt).not.toBeNull();
     expect(requestsNamed(llm, "preferences")).toHaveLength(0);
   });
@@ -182,7 +183,7 @@ describe("correct refusals", () => {
 // with no item.
 async function silentExecution(proposal: Proposal = ARCHIVE) {
   for (let n = 0; n < 2; n++) {
-    agent.dismiss((await deliver(proposal)).item!.id);
+    app.dismiss((await deliver(proposal)).item!.id);
   }
   const silent = await deliver(proposal);
   expect(silent).toMatchObject({

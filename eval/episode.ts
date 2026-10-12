@@ -1,6 +1,6 @@
 import type { LanguageModel } from "ai";
 import { fileURLToPath } from "node:url";
-import { Agent } from "../src/agent/agent.ts";
+import { App } from "../src/app/app.ts";
 import type { Transcript } from "../src/db/reads.ts";
 import { Store } from "../src/db/store.ts";
 import { byArrival, writeInbox } from "../src/inbox/inbox.ts";
@@ -21,12 +21,12 @@ export async function runEpisodes(
   count: number,
 ): Promise<Run> {
   const baseline = await runBaseline(llm, scenarios);
-  const agent = new Agent({ store: Store.open(":memory:"), model: llm });
+  const app = new App({ store: Store.open(":memory:"), model: llm });
   const episodes: Episode[] = [];
   for (let n = 1; n <= count; n++) {
-    episodes.push(await runEpisode(agent, scenarios, `e${n}`));
+    episodes.push(await runEpisode(app, scenarios, `e${n}`));
   }
-  return { baseline, episodes, preferences: agent.prefs() };
+  return { baseline, episodes, preferences: app.prefs() };
 }
 
 export function labelledEpisodes({ baseline, episodes }: Run): LabelledEpisode[] {
@@ -42,34 +42,30 @@ export function outcomesIn(episode: Episode, split: Scenario["split"]): Episode 
 
 // Decides every scenario of both splits on a fresh database and answers nothing, so nothing is learned.
 async function runBaseline(llm: LanguageModel, scenarios: readonly Scenario[]): Promise<Episode> {
-  const agent = new Agent({ store: Store.open(":memory:"), model: llm });
-  await agent.run(writeInbox(emailsOf(scenarios, BASELINE), CONTACTS));
-  return outcomesOf(agent, scenarios, BASELINE);
+  const app = new App({ store: Store.open(":memory:"), model: llm });
+  await app.run(writeInbox(emailsOf(scenarios, BASELINE), CONTACTS));
+  return outcomesOf(app, scenarios, BASELINE);
 }
 
 // Prequential on train: each email is decided, then answered, before the next one arrives.
 // The held-out test emails are then decided on what train taught and never answered.
-async function runEpisode(
-  agent: Agent,
-  scenarios: readonly Scenario[],
-  tag: string,
-): Promise<Episode> {
+async function runEpisode(app: App, scenarios: readonly Scenario[], tag: string): Promise<Episode> {
   for (const scenario of scenariosIn(scenarios, "train").toSorted(byArrival)) {
-    await deliverAndAnswer(agent, scenario, tag);
+    await deliverAndAnswer(app, scenario, tag);
   }
-  await agent.run(writeInbox(emailsOf(scenariosIn(scenarios, "test"), tag), CONTACTS));
-  return outcomesOf(agent, scenarios, tag);
+  await app.run(writeInbox(emailsOf(scenariosIn(scenarios, "test"), tag), CONTACTS));
+  return outcomesOf(app, scenarios, tag);
 }
 
-async function deliverAndAnswer(agent: Agent, scenario: Scenario, tag: string): Promise<void> {
-  const [transcript] = await agent.run(writeInbox(emailsOf([scenario], tag), CONTACTS));
-  await answer(agent, scenario, transcript!);
+async function deliverAndAnswer(app: App, scenario: Scenario, tag: string): Promise<void> {
+  const [transcript] = await app.run(writeInbox(emailsOf([scenario], tag), CONTACTS));
+  await answer(app, scenario, transcript!);
 }
 
-function outcomesOf(agent: Agent, scenarios: readonly Scenario[], tag: string): Episode {
+function outcomesOf(app: App, scenarios: readonly Scenario[], tag: string): Episode {
   return scenarios.map((scenario) => ({
     scenario,
-    transcript: agent.transcript(emailIdOf(scenario, tag))!,
+    transcript: app.transcript(emailIdOf(scenario, tag))!,
   }));
 }
 

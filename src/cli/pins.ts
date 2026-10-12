@@ -2,10 +2,10 @@ import { Argument, type Command } from "commander";
 import { ACTIONS, type ActionName } from "../domain/actions.ts";
 import { LEVELS, type Level } from "../domain/policy.ts";
 import { SENDER_CLASSES, type SenderClass } from "../inbox/inbox.ts";
-import type { OpenAgent } from "./options.ts";
+import type { OpenApp } from "./options.ts";
 import { renderStanding } from "./render.ts";
 
-export function addPinCommands(program: Command, openAgent: OpenAgent): void {
+export function addPinCommands(program: Command, openApp: OpenApp): void {
   const actionArg = new Argument("<action>").choices(ACTIONS.map((a) => a.name));
   const senderClassArg = new Argument("<senderClass>").choices(SENDER_CLASSES);
   const levelArg = new Argument("<level>").choices(LEVELS);
@@ -17,7 +17,7 @@ export function addPinCommands(program: Command, openAgent: OpenAgent): void {
     .addArgument(senderClassArg)
     .addArgument(levelArg)
     .action((action: ActionName, senderClass: SenderClass, level: Level) => {
-      console.log(renderStanding(openAgent({ live: false }).pin(action, senderClass, level)));
+      console.log(renderStanding(openApp({ live: false }).pin(action, senderClass, level)));
     });
 
   program
@@ -26,6 +26,6 @@ export function addPinCommands(program: Command, openAgent: OpenAgent): void {
     .addArgument(actionArg)
     .addArgument(senderClassArg)
     .action((action: ActionName, senderClass: SenderClass) => {
-      console.log(renderStanding(openAgent({ live: false }).unpin(action, senderClass)));
+      console.log(renderStanding(openApp({ live: false }).unpin(action, senderClass)));
     });
 }

@@ -1,4 +1,4 @@
-import type { ResponseResult } from "../agent/agent.ts";
+import type { ResponseResult } from "../app/app.ts";
 import type { BucketStanding } from "../agent/learner.ts";
 import type { Decision } from "../db/decisions.ts";
 import type { Execution } from "../db/executions.ts";

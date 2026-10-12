@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from "vitest";
 import { Store } from "../db/store.ts";
 import { replayModel } from "../llm/test-models.ts";
-import { Agent } from "./agent.ts";
+import { App } from "../app/app.ts";
 import { agentProposing, injectionInbox, NONE, SEND_REPLY } from "./test-agents.ts";
 
 let store: Store;
@@ -12,9 +12,9 @@ beforeEach(() => {
 
 describe("inbox", () => {
   it("lists every open ask with the responses its kind allows, oldest first", async () => {
-    const agent = await agentProposing(store, SEND_REPLY);
+    const app = await agentProposing(store, SEND_REPLY);
 
-    const inbox = agent.inbox();
+    const inbox = app.inbox();
 
     expect(inbox.map((t) => t.email.id)).toEqual(["001", "002", "003"]);
     expect(inbox.map((t) => t.item)).toMatchObject(
@@ -28,11 +28,11 @@ describe("inbox", () => {
   });
 
   it("lists escalations with dismiss as the only response", async () => {
-    const agent = new Agent({ store, model: replayModel() });
-    await agent.run(injectionInbox());
+    const app = new App({ store, model: replayModel() });
+    await app.run(injectionInbox());
 
     expect(
-      agent.inbox().map((t) => ({
+      app.inbox().map((t) => ({
         kind: t.item?.kind,
         allowedResponses: t.item?.allowedResponses,
         suspected: t.decision.injection.suspected,
@@ -47,16 +47,16 @@ describe("inbox", () => {
   });
 
   it("drops an item once it is resolved", async () => {
-    const agent = await agentProposing(store, SEND_REPLY);
+    const app = await agentProposing(store, SEND_REPLY);
 
-    agent.approve(1);
+    app.approve(1);
 
-    expect(agent.inbox().map((t) => t.item!.id)).toEqual([2, 3]);
+    expect(app.inbox().map((t) => t.item!.id)).toEqual([2, 3]);
   });
 
   it("is empty when every decision was silent", async () => {
-    const agent = await agentProposing(store, NONE);
+    const app = await agentProposing(store, NONE);
 
-    expect(agent.inbox()).toEqual([]);
+    expect(app.inbox()).toEqual([]);
   });
 });

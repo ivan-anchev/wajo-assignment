@@ -1,7 +1,7 @@
 import { InvalidArgumentError, Option } from "commander";
-import type { Agent } from "../agent/agent.ts";
+import type { App } from "../app/app.ts";
 
-export type OpenAgent = (options: { live: boolean }) => Agent;
+export type OpenApp = (options: { live: boolean }) => App;
 
 export function liveOption(): Option {
   return new Option(

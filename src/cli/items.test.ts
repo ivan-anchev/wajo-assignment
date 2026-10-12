@@ -1,6 +1,6 @@
 import { Command } from "commander";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { Agent } from "../agent/agent.ts";
+import { App } from "../app/app.ts";
 import { agentProposing, modelProposing, SEND_REPLY } from "../agent/test-agents.ts";
 import { Store } from "../db/store.ts";
 import { addItemCommands } from "./items.ts";
@@ -27,20 +27,20 @@ describe("agent edit --set", () => {
   it("keeps a value that is not JSON as a string", async () => {
     await edit("action=label", "label=reading list");
 
-    expect(agent().transcript("001")!.item!.proposal).toEqual({
+    expect(app().transcript("001")!.item!.proposal).toEqual({
       action: "label",
       params: { label: "reading list" },
     });
   });
 });
 
-function agent() {
-  return new Agent({ store, model: modelProposing(SEND_REPLY) });
+function app() {
+  return new App({ store, model: modelProposing(SEND_REPLY) });
 }
 
 async function edit(...pairs: string[]): Promise<void> {
   const program = new Command();
-  addItemCommands(program, agent);
+  addItemCommands(program, app);
   await program.parseAsync(["edit", "1", ...pairs.flatMap((pair) => ["--set", pair])], {
     from: "user",
   });

@@ -1,4 +1,4 @@
-import type { Agent, ResponseResult } from "../src/agent/agent.ts";
+import type { App, ResponseResult } from "../src/app/app.ts";
 import type { Decision } from "../src/db/decisions.ts";
 import type { Item } from "../src/db/items.ts";
 import type { Transcript } from "../src/db/reads.ts";
@@ -17,14 +17,14 @@ type Reply =
   | { response: "reject"; reason?: string };
 
 export async function answer(
-  agent: Agent,
+  app: App,
   scenario: Scenario,
   { decision, item }: Transcript,
 ): Promise<ResponseResult | null> {
   if (needsCorrection(decision, item, scenario)) {
-    return agent.correct(decision.id, goldEdit(scenario));
+    return app.correct(decision.id, goldEdit(scenario));
   }
-  return item ? send(agent, item.id, replyTo(item, scenario)) : null;
+  return item ? send(app, item.id, replyTo(item, scenario)) : null;
 }
 
 export function replyTo(
@@ -83,17 +83,17 @@ function takesNoParams(action: ActionName): boolean {
   return Object.keys(actionFor(action).params.shape).length === 0;
 }
 
-async function send(agent: Agent, itemId: number, reply: Reply): Promise<ResponseResult> {
+async function send(app: App, itemId: number, reply: Reply): Promise<ResponseResult> {
   switch (reply.response) {
     case "approve":
-      return agent.approve(itemId);
+      return app.approve(itemId);
     case "edit":
-      return agent.edit(itemId, reply.edit);
+      return app.edit(itemId, reply.edit);
     case "reject":
-      return agent.reject(itemId, reply.reason);
+      return app.reject(itemId, reply.reason);
     case "dismiss":
-      return agent.dismiss(itemId);
+      return app.dismiss(itemId);
     case "undo":
-      return agent.undo(itemId);
+      return app.undo(itemId);
   }
 }

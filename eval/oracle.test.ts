@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it } from "vitest";
-import { Agent } from "../src/agent/agent.ts";
+import { App } from "../src/app/app.ts";
 import {
   agentProposing,
   ARCHIVE,
@@ -97,10 +97,10 @@ describe("oracle on an ask", () => {
     },
   ])("$name", async ({ scenario, status, feedback, executed, extractions }) => {
     const llm = modelProposing(SEND_REPLY, { preferences: ["Keep it short."] });
-    const agent = new Agent({ store, model: llm });
-    await agent.run(INBOX);
+    const app = new App({ store, model: llm });
+    await app.run(INBOX);
 
-    const { transcript } = (await answer(agent, scenario, agent.inbox()[0]!))!;
+    const { transcript } = (await answer(app, scenario, app.inbox()[0]!))!;
 
     expect(transcript.item!.status).toBe(status);
     expect(transcript.feedback!.kind).toBe(feedback);
@@ -108,7 +108,7 @@ describe("oracle on an ask", () => {
       executed ? [executed] : [],
     );
     expect(requestsNamed(llm, "preferences")).toHaveLength(extractions);
-    expect(agent.prefs()).toBe(extractions ? "Keep it short." : "");
+    expect(app.prefs()).toBe(extractions ? "Keep it short." : "");
   });
 });
 
@@ -116,8 +116,8 @@ describe("oracle on a notify", () => {
   async function notifyItem() {
     const deliver = newsletterInbox(store);
     const llm = modelProposing(ARCHIVE, { preferences: ["Keep it short."] });
-    const agent = new Agent({ store, model: llm });
-    return { llm, agent, delivered: await deliver(ARCHIVE) };
+    const app = new App({ store, model: llm });
+    return { llm, app, delivered: await deliver(ARCHIVE) };
   }
 
   it.each<{
@@ -153,9 +153,9 @@ describe("oracle on a notify", () => {
       extractions: 0,
     },
   ])("$name", async ({ scenario, status, feedback, undone, extractions }) => {
-    const { llm, agent, delivered } = await notifyItem();
+    const { llm, app, delivered } = await notifyItem();
 
-    const { transcript } = (await answer(agent, scenario, delivered))!;
+    const { transcript } = (await answer(app, scenario, delivered))!;
 
     expect(transcript.item!.status).toBe(status);
     expect(transcript.feedback!.kind).toBe(feedback);
@@ -166,9 +166,9 @@ describe("oracle on a notify", () => {
 
 describe("oracle on an escalation", () => {
   it("dismisses it even when the proposal matches gold, and teaches nothing", async () => {
-    const agent = await agentProposing(store, PAY_INVOICE);
+    const app = await agentProposing(store, PAY_INVOICE);
 
-    const { transcript } = (await answer(agent, scenarioWith("pay_invoice"), agent.inbox()[0]!))!;
+    const { transcript } = (await answer(app, scenarioWith("pay_invoice"), app.inbox()[0]!))!;
 
     expect(transcript.item!.status).toBe("dismissed");
     expect(transcript.feedback).toBeNull();
@@ -179,24 +179,24 @@ describe("oracle on an escalation", () => {
 describe("oracle on a silent decision", () => {
   async function silentNone() {
     const llm = modelProposing(NONE, { preferences: ["Keep it short."] });
-    const agent = new Agent({ store, model: llm });
-    const [silent] = await agent.run(INBOX);
+    const app = new App({ store, model: llm });
+    const [silent] = await app.run(INBOX);
     expect(silent).toMatchObject({ decision: { level: "silent" }, item: null });
-    return { llm, agent, silent: silent! };
+    return { llm, app, silent: silent! };
   }
 
   it("leaves a silent decision alone when its action matches gold", async () => {
-    const { llm, agent, silent } = await silentNone();
+    const { llm, app, silent } = await silentNone();
 
-    expect(await answer(agent, scenarioWith("none"), silent)).toBeNull();
+    expect(await answer(app, scenarioWith("none"), silent)).toBeNull();
     expect(requestsNamed(llm, "preferences")).toHaveLength(0);
   });
 
   it("corrects a silent decision to gold with the corrected params, executing nothing", async () => {
-    const { llm, agent, silent } = await silentNone();
+    const { llm, app, silent } = await silentNone();
 
     const { transcript } = (await answer(
-      agent,
+      app,
       scenarioWith("label", { params: { label: "reading" } }),
       silent,
     ))!;
@@ -204,14 +204,14 @@ describe("oracle on a silent decision", () => {
     expect(transcript.executions).toEqual([expect.objectContaining({ proposal: NONE })]);
     expect(transcript.feedback!.kind).toBe("redirect");
     expect(requestsNamed(llm, "preferences")[0]).toMatch(/action.*label.*reading/);
-    expect(agent.prefs()).toBe("Keep it short.");
+    expect(app.prefs()).toBe("Keep it short.");
   });
 
   it("leaves a wrong silent decision alone when gold takes params it cannot supply", async () => {
-    const { llm, agent, silent } = await silentNone();
+    const { llm, app, silent } = await silentNone();
 
-    expect(await answer(agent, scenarioWith("draft_reply"), silent)).toBeNull();
+    expect(await answer(app, scenarioWith("draft_reply"), silent)).toBeNull();
     expect(requestsNamed(llm, "preferences")).toHaveLength(0);
-    expect(agent.transcript(silent.email.id)!.executions).toMatchObject([{ undoneAt: null }]);
+    expect(app.transcript(silent.email.id)!.executions).toMatchObject([{ undoneAt: null }]);
   });
 });

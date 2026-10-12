@@ -9,7 +9,7 @@ import type { MockLanguageModelV4 } from "ai/test";
 import { expect } from "vitest";
 import { mockModel } from "../llm/test-models.ts";
 import { readScenarios } from "../../eval/scenarios.ts";
-import { Agent } from "./agent.ts";
+import { App } from "../app/app.ts";
 
 const CONTACTS = "fixtures/contacts.json";
 export const INBOX = { inboxDir: "fixtures/inbox", contactsPath: CONTACTS };
@@ -41,9 +41,9 @@ export async function agentProposing(
   proposal: Proposal,
   requested: ActionName = "none",
 ) {
-  const agent = new Agent({ store, model: modelProposing(proposal, { requested }) });
-  await agent.run(INBOX);
-  return agent;
+  const app = new App({ store, model: modelProposing(proposal, { requested }) });
+  await app.run(INBOX);
+  return app;
 }
 
 export function newsletterInbox(
@@ -55,7 +55,7 @@ export function newsletterInbox(
   return async (proposal, analysis) => {
     const id = `n${++delivered}`;
     writeFileSync(join(inboxDir, `${id}.json`), JSON.stringify({ ...newsletter, id }));
-    const [transcript] = await new Agent({ store, model: modelProposing(proposal, analysis) }).run({
+    const [transcript] = await new App({ store, model: modelProposing(proposal, analysis) }).run({
       inboxDir,
       contactsPath: CONTACTS,
     });

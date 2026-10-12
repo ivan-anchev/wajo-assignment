@@ -1,6 +1,6 @@
 import type { LanguageModel } from "ai";
 import { beforeEach, describe, expect, it } from "vitest";
-import { Agent } from "./agent.ts";
+import { App } from "../app/app.ts";
 import { Store } from "../db/store.ts";
 import { readInbox, writeInbox } from "../inbox/inbox.ts";
 import { mockModel, observedReplayModel, replayModel } from "../llm/test-models.ts";
@@ -24,12 +24,12 @@ beforeEach(() => {
   store = Store.open(":memory:");
 });
 
-const agentWith = (llm: LanguageModel) => new Agent({ store, model: llm });
+const appWith = (llm: LanguageModel) => new App({ store, model: llm });
 
 describe("run", () => {
   it("judges then analyzes each demo email, deciding in arrival order", async () => {
     const llm = observedReplayModel();
-    const transcripts = await agentWith(llm).run(INBOX);
+    const transcripts = await appWith(llm).run(INBOX);
 
     expect(requestOrder(llm)).toEqual(
       Array.from({ length: 3 }, () => ["injection_verdict", "analysis"]).flat(),
@@ -72,7 +72,7 @@ describe("run", () => {
 
   it("escalates every injection email unanalyzed and executes nothing", async () => {
     const llm = observedReplayModel();
-    const transcripts = await agentWith(llm).run(injectionInbox());
+    const transcripts = await appWith(llm).run(injectionInbox());
 
     expect(requestsNamed(llm, "injection_verdict")).toHaveLength(8);
     expect(requestsNamed(llm, "analysis")).toEqual([]);
@@ -100,7 +100,7 @@ describe("run", () => {
   });
 
   it("acts on a reversible proposal and notifies while its bucket is cold", async () => {
-    const [first] = await agentWith(
+    const [first] = await appWith(
       mockModel({
         analysis: {
           summary: "s",
@@ -132,26 +132,26 @@ describe("run", () => {
       },
       injection_verdict: new Error("judge unavailable"),
     });
-    const failing = agentWith(judgeDown);
+    const failing = appWith(judgeDown);
 
     await expect(failing.run(INBOX)).rejects.toThrow("judge unavailable");
     expect(failing.transcript("001")).toBeNull();
 
-    const retried = await agentWith(replayModel()).run(INBOX);
+    const retried = await appWith(replayModel()).run(INBOX);
     expect(retried.map((t) => t.email.id)).toEqual(["001", "002", "003"]);
   });
 
   it("processes nothing on a second run", async () => {
-    const agent = agentWith(replayModel());
-    await agent.run(INBOX);
+    const app = appWith(replayModel());
+    await app.run(INBOX);
 
-    expect(await agent.run(INBOX)).toEqual([]);
+    expect(await app.run(INBOX)).toEqual([]);
   });
 
   it("never writes feedback, whatever it decides", async () => {
-    const agent = agentWith(replayModel());
-    await agent.run(INBOX);
-    await agent.run(injectionInbox());
+    const app = appWith(replayModel());
+    await app.run(INBOX);
+    await app.run(injectionInbox());
 
     expect(feedbackCount(store)).toBe(0);
   });
@@ -159,30 +159,30 @@ describe("run", () => {
 
 describe("transcript", () => {
   it("returns the same transcripts run produced", async () => {
-    const agent = agentWith(replayModel());
-    const transcripts = await agent.run(INBOX);
+    const app = appWith(replayModel());
+    const transcripts = await app.run(INBOX);
 
-    expect(transcripts.map((t) => agent.transcript(t.email.id))).toStrictEqual(transcripts);
+    expect(transcripts.map((t) => app.transcript(t.email.id))).toStrictEqual(transcripts);
   });
 
   it("returns null for an unknown email id", () => {
-    expect(agentWith(replayModel()).transcript("does-not-exist")).toBeNull();
+    expect(appWith(replayModel()).transcript("does-not-exist")).toBeNull();
   });
 });
 
 describe("log", () => {
   it("returns every decision in decision order, silent ones included", async () => {
-    const agent = agentWith(replayModel());
-    const transcripts = await agent.run(INBOX);
+    const app = appWith(replayModel());
+    const transcripts = await app.run(INBOX);
 
-    expect(agent.log(20)).toStrictEqual(transcripts);
+    expect(app.log(20)).toStrictEqual(transcripts);
   });
 
   it("keeps only the last `limit` decisions", async () => {
-    const agent = agentWith(replayModel());
-    await agent.run(INBOX);
+    const app = appWith(replayModel());
+    await app.run(INBOX);
 
-    expect(agent.log(2).map((t) => [t.decision.id, t.email.id])).toEqual([
+    expect(app.log(2).map((t) => [t.decision.id, t.email.id])).toEqual([
       [2, "002"],
       [3, "003"],
     ]);
@@ -193,21 +193,21 @@ describe("requested-action floor (§6)", () => {
   it.each([LABEL, NONE])(
     "escalates a $action proposal on an email that requests a payment, executing nothing",
     async (proposal) => {
-      const agent = await agentProposing(store, proposal, "pay_invoice");
+      const app = await agentProposing(store, proposal, "pay_invoice");
 
-      expect(agent.transcript("001")).toMatchObject({
+      expect(app.transcript("001")).toMatchObject({
         decision: { floor: "escalate", level: "escalate" },
         item: { kind: "escalate", allowedResponses: ["dismiss"] },
         executions: [],
       });
-      expect(agent.dismiss(1).transcript.feedback).toBeNull();
+      expect(app.dismiss(1).transcript.feedback).toBeNull();
     },
   );
 
   it("never lowers the floor of the proposal", async () => {
-    const agent = await agentProposing(store, SEND_REPLY, "none");
+    const app = await agentProposing(store, SEND_REPLY, "none");
 
-    expect(agent.transcript("001")!.decision).toMatchObject({ floor: "ask", level: "ask" });
+    expect(app.transcript("001")!.decision).toMatchObject({ floor: "ask", level: "ask" });
   });
 
   it("escalates an email carrying an IBAN and an amount even when nothing is proposed or requested", async () => {
@@ -216,11 +216,11 @@ describe("requested-action floor (§6)", () => {
       ...demo!,
       body: "Amount due: EUR 1,240.00. IBAN DE44 5001 0517 5407 3249 31.",
     };
-    const agent = new Agent({ store, model: modelProposing(LABEL, { requested: "none" }) });
+    const app = new App({ store, model: modelProposing(LABEL, { requested: "none" }) });
 
-    await agent.run(writeInbox([invoice], INBOX.contactsPath));
+    await app.run(writeInbox([invoice], INBOX.contactsPath));
 
-    expect(agent.transcript("001")).toMatchObject({
+    expect(app.transcript("001")).toMatchObject({
       decision: { payment: { suspected: true }, floor: "escalate", level: "escalate" },
       item: { kind: "escalate" },
       executions: [],
@@ -231,16 +231,16 @@ describe("requested-action floor (§6)", () => {
     const llm = mockModel({
       injection_verdict: { suspected: true, evidence: ["ignore previous instructions"] },
     });
-    const agent = agentWith(llm);
-    await agent.run(INBOX);
+    const app = appWith(llm);
+    await app.run(INBOX);
 
     expect(requestsNamed(llm, "analysis")).toEqual([]);
-    expect(agent.transcript("001")).toMatchObject({
+    expect(app.transcript("001")).toMatchObject({
       decision: { analysis: null, floor: "escalate", level: "escalate" },
       item: { kind: "escalate" },
       executions: [],
     });
-    agent.dismiss(1);
+    app.dismiss(1);
     expect(feedbackCount(store)).toBe(0);
   });
 });

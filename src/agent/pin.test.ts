@@ -4,22 +4,23 @@ import type { ActionName } from "../domain/actions.ts";
 import type { Level } from "../domain/policy.ts";
 import type { SenderClass } from "../inbox/inbox.ts";
 import { replayModel } from "../llm/test-models.ts";
-import { Agent, Refusal } from "./agent.ts";
+import { App } from "../app/app.ts";
+import { Refusal } from "../app/refusal.ts";
 import { ARCHIVE, MARK_READ, feedbackCount, newsletterInbox } from "./test-agents.ts";
 
 let store: Store;
 let deliver: ReturnType<typeof newsletterInbox>;
-let agent: Agent;
+let app: App;
 
 beforeEach(() => {
   store = Store.open(":memory:");
   deliver = newsletterInbox(store);
-  agent = new Agent({ store, model: replayModel() });
+  app = new App({ store, model: replayModel() });
 });
 
 describe("pins (§7.3)", () => {
   it("wins over a lower learned level", async () => {
-    expect(agent.pin("archive", "newsletter", "ask")).toEqual({
+    expect(app.pin("archive", "newsletter", "ask")).toEqual({
       action: "archive",
       senderClass: "newsletter",
       pin: "ask",
@@ -33,7 +34,7 @@ describe("pins (§7.3)", () => {
   });
 
   it("never lowers the learned level", async () => {
-    agent.pin("archive", "newsletter", "silent");
+    app.pin("archive", "newsletter", "silent");
 
     expect((await deliver(ARCHIVE)).decision).toMatchObject({
       learned: "notify",
@@ -43,27 +44,27 @@ describe("pins (§7.3)", () => {
   });
 
   it("replaces the previous pin", async () => {
-    agent.pin("archive", "newsletter", "escalate");
+    app.pin("archive", "newsletter", "escalate");
 
-    expect(agent.pin("archive", "newsletter", "ask")).toMatchObject({ pin: "ask" });
+    expect(app.pin("archive", "newsletter", "ask")).toMatchObject({ pin: "ask" });
     expect((await deliver(ARCHIVE)).decision).toMatchObject({ pin: "ask" });
   });
 
   it("lets learning climb behind it, unannounced, and unpin reports the learned level", async () => {
-    agent.pin("archive", "newsletter", "notify");
+    app.pin("archive", "newsletter", "notify");
     const promotions: (string | null)[] = [];
     for (let n = 0; n < 2; n++) {
-      promotions.push(agent.dismiss((await deliver(ARCHIVE)).item!.id).promotion);
+      promotions.push(app.dismiss((await deliver(ARCHIVE)).item!.id).promotion);
     }
 
     expect(promotions).toEqual([null, null]);
-    expect(agent.unpin("archive", "newsletter")).toMatchObject({ pin: null, level: "silent" });
+    expect(app.unpin("archive", "newsletter")).toMatchObject({ pin: null, level: "silent" });
     expect((await deliver(ARCHIVE)).decision).toMatchObject({ pin: null, level: "silent" });
   });
 
   it("accepts a pin at the floor, and pin and unpin write no feedback", () => {
-    expect(agent.pin("send_reply", "known", "ask")).toMatchObject({ level: "ask" });
-    expect(agent.unpin("send_reply", "known")).toMatchObject({ pin: null, level: "ask" });
+    expect(app.pin("send_reply", "known", "ask")).toMatchObject({ level: "ask" });
+    expect(app.unpin("send_reply", "known")).toMatchObject({ pin: null, level: "ask" });
     expect(feedbackCount(store)).toBe(0);
   });
 
@@ -72,21 +73,21 @@ describe("pins (§7.3)", () => {
     ["delete_permanently", "first_contact", "silent"],
     ["pay_invoice", "internal", "ask"],
   ])("refuses to pin %s/%s below the floor at %s (invariant 4)", (action, senderClass, level) => {
-    expect(() => agent.pin(action, senderClass, level)).toThrow(Refusal);
-    expect(() => agent.pin(action, senderClass, level)).toThrow(/a pin can only raise it/);
+    expect(() => app.pin(action, senderClass, level)).toThrow(Refusal);
+    expect(() => app.pin(action, senderClass, level)).toThrow(/a pin can only raise it/);
     expect(store.pins.find(action, senderClass)).toBeNull();
   });
 
   it("holds only its own action and sender class", async () => {
-    agent.pin("archive", "newsletter", "ask");
+    app.pin("archive", "newsletter", "ask");
 
-    expect(agent.unpin("archive", "known")).toMatchObject({ pin: null });
+    expect(app.unpin("archive", "known")).toMatchObject({ pin: null });
     expect((await deliver(MARK_READ)).decision).toMatchObject({ pin: null });
     expect((await deliver(ARCHIVE)).decision).toMatchObject({ pin: "ask" });
   });
 
   it("treats unpinning an unpinned bucket as a no-op", () => {
-    expect(agent.unpin("archive", "newsletter")).toEqual({
+    expect(app.unpin("archive", "newsletter")).toEqual({
       action: "archive",
       senderClass: "newsletter",
       pin: null,
