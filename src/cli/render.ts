@@ -44,6 +44,7 @@ export function renderInboxLine({ email, decision, item }: Transcript): string {
     `"${email.subject}"`,
     decision.analysis ? `-> ${describeProposal(open.proposal)}` : notAnalyzed(decision.injection),
     `[${open.allowedResponses.join(", ")}]`,
+    ...(open.kind === "notify" ? [`or correct ${decision.id} --set key=value`] : []),
   ].join("  ");
 }
 
