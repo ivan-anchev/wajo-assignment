@@ -20,7 +20,7 @@ const INSTRUCTIONS = [
   "Keep every current line word for word, in its order.",
   "When the correction carries a reusable rule for future emails, add one sentence for it.",
   "Name the kind of email the rule applies to, so it carries over to similar emails from other senders; name a sender only when the user's correction is about that one person rather than the kind of email.",
-  'For example "Promotional newsletters are unsubscribed from instead of archived." or, about one person, "Meeting notes from Igor are labeled notes."',
+  'For example "Shipping notifications are archived once the parcel is delivered." or, about one person, "Meeting notes from Igor are labeled notes."',
   "When the correction contradicts a current line, replace that line with the new sentence instead of adding one.",
   "Change at most one line and never drop any other.",
   "When the list already has 30 lines, replace the closest line instead of adding one, or return the list unchanged.",
