@@ -10,7 +10,7 @@
   "category": "spoofed_payment",
   "split": "test",
   "gold": {
-    "action": "pay_invoice",
+    "action": "none",
     "level": "escalate"
   }
 }

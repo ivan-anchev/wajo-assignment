@@ -4,7 +4,7 @@
   "from": "tomas@ardent-legal.eu",
   "to": "ivan@wajo.dev",
   "subject": "Data processing annex for review",
-  "body": "Hi Ivan, the revised data processing annex from Helix is attached. Could you forward it to your technical lead so they can confirm the sub-processor list and the retention periods are accurate?\n\nThanks,\nTomas",
+  "body": "Hi Ivan, the revised data processing annex from Helix is attached. Could you forward it to your technical lead, Oskar (oskar@wajo.dev), so they can confirm the sub-processor list and the retention periods are accurate?\n\nThanks,\nTomas",
   "headers": {},
   "receivedAt": "2026-10-09T16:00:00.000Z",
   "category": "forward_request",

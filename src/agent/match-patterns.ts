@@ -1,7 +1,7 @@
 import type { Verdict } from "../domain/policy.ts";
-import type { Email } from "../inbox/inbox.ts";
+import type { EmailFile } from "../inbox/inbox.ts";
 
-export function matchPatterns(patterns: readonly RegExp[], { subject, body }: Email): Verdict {
+export function matchPatterns(patterns: readonly RegExp[], { subject, body }: EmailFile): Verdict {
   const text = normalizeForMatching(`${subject}\n${body}`);
   const evidence = patterns.flatMap((pattern) => text.match(pattern)?.[0] ?? []);
   return {

@@ -1,5 +1,5 @@
 import type { Verdict } from "../domain/policy.ts";
-import type { Email } from "../inbox/inbox.ts";
+import type { EmailFile } from "../inbox/inbox.ts";
 import { matchPatterns } from "./match-patterns.ts";
 
 const AMOUNT_PATTERNS = [
@@ -12,7 +12,7 @@ const DESTINATION_PATTERNS = [
   /\b(?:routing|account number|wire|bank transfer)\b/i,
 ];
 
-export function checkPayment(email: Email): Verdict {
+export function checkPayment(email: EmailFile): Verdict {
   const amount = matchPatterns(AMOUNT_PATTERNS, email);
   const destination = matchPatterns(DESTINATION_PATTERNS, email);
   const suspected = amount.suspected && destination.suspected;

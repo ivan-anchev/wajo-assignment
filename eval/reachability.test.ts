@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { checkPayment } from "../src/agent/check-payment.ts";
 import type { Proposal } from "../src/domain/actions.ts";
 import { levelFor, type ItemResponse, type Level } from "../src/domain/policy.ts";
 import { correctedParams, readScenarios, type Scenario } from "./scenarios.ts";
@@ -27,7 +28,7 @@ function levelsUnderOracle(scenario: Scenario): Level[] {
   const history: ItemResponse[] = [];
   const levels: Level[] = [];
   for (let round = 0; round < ROUNDS; round++) {
-    const { level } = levelFor(analysis, [injection], history, null);
+    const { level } = levelFor(analysis, [injection, checkPayment(scenario)], history, null);
     levels.push(level);
     history.push(...feedbackAt(level, proposal, scenario));
   }
