@@ -1,7 +1,7 @@
 import type { Agent, ResponseResult } from "../src/agent/agent.ts";
 import type { Decision } from "../src/db/decisions.ts";
 import type { Item } from "../src/db/items.ts";
-import type { Transcript } from "../src/db/store.ts";
+import type { Transcript } from "../src/db/reads.ts";
 import {
   actionFor,
   type ActionName,

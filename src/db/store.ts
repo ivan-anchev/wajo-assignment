@@ -1,21 +1,13 @@
 import Database from "better-sqlite3";
 import { readFileSync } from "node:fs";
-import type { Email } from "../inbox/inbox.ts";
-import { Decisions, type Decision } from "./decisions.ts";
-import { Executions, type Execution } from "./executions.ts";
-import { FeedbackLog, type Feedback } from "./feedback.ts";
-import { Items, type Item } from "./items.ts";
+import { Decisions } from "./decisions.ts";
+import { Executions } from "./executions.ts";
+import { FeedbackLog } from "./feedback.ts";
+import { Items } from "./items.ts";
 import { Mailbox } from "./mailbox.ts";
 import { Pins } from "./pins.ts";
 import { Preferences } from "./preferences.ts";
-
-export type Transcript = {
-  email: Email;
-  decision: Decision;
-  item: Item | null;
-  executions: Execution[];
-  feedback: Feedback | null;
-};
+import { Reads } from "./reads.ts";
 
 const SCHEMA = readFileSync(new URL("./schema.sql", import.meta.url), "utf8");
 
@@ -27,6 +19,7 @@ export class Store {
   readonly feedback: FeedbackLog;
   readonly pins: Pins;
   readonly preferences: Preferences;
+  readonly reads: Reads;
 
   static open(path: string): Store {
     const db = new Database(path);
@@ -43,33 +36,10 @@ export class Store {
     this.feedback = new FeedbackLog(db);
     this.pins = new Pins(db);
     this.preferences = new Preferences(db);
+    this.reads = new Reads(this);
   }
 
   transaction<T>(work: () => T): T {
     return this.db.transaction(work)();
-  }
-
-  transcript(decision: Decision): Transcript {
-    return {
-      email: this.emails.get(decision.emailId),
-      decision,
-      item: this.items.findByDecision(decision.id),
-      executions: this.executions.listByDecision(decision.id),
-      feedback: this.feedback.findByDecision(decision.id),
-    };
-  }
-
-  findTranscript(emailId: string): Transcript | null {
-    const decision = this.decisions.findByEmail(emailId);
-
-    return decision ? this.transcript(decision) : null;
-  }
-
-  openTranscripts(): Transcript[] {
-    return this.decisions.listOpen().map((decision) => this.transcript(decision));
-  }
-
-  recentTranscripts(limit: number): Transcript[] {
-    return this.decisions.listRecent(limit).map((decision) => this.transcript(decision));
   }
 }

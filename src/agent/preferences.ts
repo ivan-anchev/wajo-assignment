@@ -1,7 +1,8 @@
 import { generateText, Output, type LanguageModel } from "ai";
 import { z } from "zod";
 import type { ProposalEdit } from "../domain/actions.ts";
-import type { Store, Transcript } from "../db/store.ts";
+import type { Transcript } from "../db/reads.ts";
+import type { Store } from "../db/store.ts";
 import { untrustedJson } from "./untrusted-email.ts";
 
 const MAX_LINES = 30;
@@ -82,7 +83,7 @@ export class PreferenceMemory {
     decisionId: number,
     correctionOf: (transcript: Transcript) => Correction,
   ): Promise<string[]> {
-    const transcript = this.store.transcript(this.store.decisions.get(decisionId));
+    const transcript = this.store.reads.transcript(this.store.decisions.get(decisionId));
     const { context, correction } = correctionOf(transcript);
     const { output } = await generateText({
       model: this.model,

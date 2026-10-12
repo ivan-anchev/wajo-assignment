@@ -22,7 +22,8 @@ import {
 import type { Decision, NewDecision } from "../db/decisions.ts";
 import type { Execution } from "../db/executions.ts";
 import type { Item, ItemStatus } from "../db/items.ts";
-import type { Store, Transcript } from "../db/store.ts";
+import type { Transcript } from "../db/reads.ts";
+import type { Store } from "../db/store.ts";
 import { readInbox, type Email, type InboxSource, type SenderClass } from "../inbox/inbox.ts";
 import { analyze } from "./analyze.ts";
 import { checkInjection } from "./check-injection.ts";
@@ -66,15 +67,15 @@ export class Agent {
   }
 
   transcript(emailId: string): Transcript | null {
-    return this.store.findTranscript(emailId);
+    return this.store.reads.findTranscript(emailId);
   }
 
   inbox(): Transcript[] {
-    return this.store.openTranscripts();
+    return this.store.reads.openTranscripts();
   }
 
   log(limit: number): Transcript[] {
-    return this.store.recentTranscripts(limit);
+    return this.store.reads.recentTranscripts(limit);
   }
 
   approve(itemId: number): ResponseResult {
@@ -135,7 +136,7 @@ export class Agent {
     return this.respondAndNotePreferences(preferences, () => {
       const promotion = this.undoCorrected(transcript, corrected);
       return {
-        transcript: this.store.transcript(transcript.decision),
+        transcript: this.store.reads.transcript(transcript.decision),
         promotion,
         preference: null,
       };
@@ -193,7 +194,7 @@ export class Agent {
       this.store.emails.insert(email);
       const decision = this.store.decisions.insert(decided);
       this.actOn(decision);
-      return this.store.transcript(decision);
+      return this.store.reads.transcript(decision);
     });
   }
 
@@ -261,7 +262,7 @@ export class Agent {
           ? null
           : this.learner.recordResponse(decision, senderClass, feedback);
 
-      return { transcript: this.store.transcript(decision), promotion, preference: null };
+      return { transcript: this.store.reads.transcript(decision), promotion, preference: null };
     });
   }
 
@@ -320,7 +321,7 @@ export class Agent {
       throw new Refusal(`There is no decision #${decisionId}.`);
     }
 
-    const transcript = this.store.transcript(decision);
+    const transcript = this.store.reads.transcript(decision);
     const { item } = transcript;
     if (item && item.kind !== "notify") {
       const { id, kind, allowedResponses } = item;

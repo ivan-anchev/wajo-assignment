@@ -1,6 +1,6 @@
 import type { Feedback } from "../src/db/feedback.ts";
 import type { Item } from "../src/db/items.ts";
-import type { Transcript } from "../src/db/store.ts";
+import type { Transcript } from "../src/db/reads.ts";
 import type { ActionName, Proposal } from "../src/domain/actions.ts";
 import type { Level } from "../src/domain/policy.ts";
 import { readScenarios, type Scenario } from "./scenarios.ts";

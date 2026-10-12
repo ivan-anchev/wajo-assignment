@@ -4,7 +4,7 @@ import type { Decision } from "../db/decisions.ts";
 import type { Execution } from "../db/executions.ts";
 import type { Feedback } from "../db/feedback.ts";
 import type { Item } from "../db/items.ts";
-import type { Transcript } from "../db/store.ts";
+import type { Transcript } from "../db/reads.ts";
 import type { Proposal } from "../domain/actions.ts";
 import { proposalOf, requestOf, type Verdict } from "../domain/policy.ts";
 import type { Email } from "../inbox/inbox.ts";
