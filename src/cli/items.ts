@@ -54,7 +54,7 @@ export function addItemCommands(program: Command, openAgent: OpenAgent): void {
       positiveInteger("a decision id such as 7"),
     )
     .description(
-      "Say what a silent decision should have done: undoes its action and teaches, never executes",
+      "Say what a silent or notified decision should have done: undoes its action and teaches, never executes",
     )
     .requiredOption("--set <key=value>", SET_HELP, collectPair)
     .addOption(liveOption())

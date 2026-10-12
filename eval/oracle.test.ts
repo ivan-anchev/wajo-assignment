@@ -115,23 +115,55 @@ describe("oracle on an ask", () => {
 describe("oracle on a notify", () => {
   async function notifyItem() {
     const deliver = newsletterInbox(store);
-    const agent = new Agent({ store, model: modelProposing(ARCHIVE) });
+    const llm = modelProposing(ARCHIVE, { preferences: ["Keep it short."] });
+    const agent = new Agent({ store, model: llm });
     for (let n = 0; n < 2; n++) {
       agent.approve((await deliver(ARCHIVE)).item!.id);
     }
-    return { agent, delivered: await deliver(ARCHIVE) };
+    return { llm, agent, delivered: await deliver(ARCHIVE) };
   }
 
-  it.each([
-    { gold: "archive", status: "dismissed", undone: false },
-    { gold: "label", status: "undone", undone: true },
-  ] as const)("answers $status when gold is $gold", async ({ gold, status, undone }) => {
-    const { agent, delivered } = await notifyItem();
+  it.each<{
+    name: string;
+    scenario: Scenario;
+    status: string;
+    feedback: string;
+    undone: boolean;
+    extractions: number;
+  }>([
+    {
+      name: "dismisses a proposal that matches gold",
+      scenario: scenarioWith("archive"),
+      status: "dismissed",
+      feedback: "dismiss",
+      undone: false,
+      extractions: 0,
+    },
+    {
+      name: "corrects a wrong action to gold with the corrected params",
+      scenario: scenarioWith("label", { params: { label: "reading" } }),
+      status: "undone",
+      feedback: "redirect",
+      undone: true,
+      extractions: 1,
+    },
+    {
+      name: "undoes a wrong action when gold takes params it cannot supply",
+      scenario: scenarioWith("draft_reply"),
+      status: "undone",
+      feedback: "undo",
+      undone: true,
+      extractions: 0,
+    },
+  ])("$name", async ({ scenario, status, feedback, undone, extractions }) => {
+    const { llm, agent, delivered } = await notifyItem();
 
-    const { transcript } = (await answer(agent, scenarioWith(gold), delivered))!;
+    const { transcript } = (await answer(agent, scenario, delivered))!;
 
     expect(transcript.item!.status).toBe(status);
+    expect(transcript.feedback!.kind).toBe(feedback);
     expect(transcript.executions[0]!.undoneAt !== null).toBe(undone);
+    expect(requestsNamed(llm, "preferences")).toHaveLength(extractions);
   });
 });
 
@@ -173,7 +205,16 @@ describe("oracle on a silent decision", () => {
     ))!;
 
     expect(transcript.executions).toEqual([expect.objectContaining({ proposal: NONE })]);
+    expect(transcript.feedback!.kind).toBe("redirect");
     expect(requestsNamed(llm, "preferences")[0]).toMatch(/action.*label.*reading/);
     expect(agent.prefs()).toBe("Keep it short.");
+  });
+
+  it("leaves a wrong silent decision alone when gold takes params it cannot supply", async () => {
+    const { llm, agent, silent } = await silentNone();
+
+    expect(await answer(agent, scenarioWith("draft_reply"), silent)).toBeNull();
+    expect(requestsNamed(llm, "preferences")).toHaveLength(0);
+    expect(agent.transcript(silent.email.id)!.executions).toMatchObject([{ undoneAt: null }]);
   });
 });

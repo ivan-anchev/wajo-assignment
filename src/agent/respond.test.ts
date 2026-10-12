@@ -10,6 +10,7 @@ import {
   MARK_READ,
   modelProposing,
   newsletterInbox,
+  notifiedExecution,
   PAY_INVOICE,
   PAY_INVOICE_EDIT,
   SEND_REPLY,
@@ -248,18 +249,7 @@ describe("notify items", () => {
   });
 });
 
-// Two approved archives move archive/newsletter to notify, so the third is executed and notified.
 async function notifiedArchive() {
-  const deliver = newsletterInbox(store);
   const agent = new Agent({ store, model: replayModel() });
-  for (let n = 0; n < 2; n++) {
-    agent.approve((await deliver(ARCHIVE)).item!.id);
-  }
-  const notified = await deliver(ARCHIVE);
-  expect(notified).toMatchObject({
-    decision: { level: "notify" },
-    item: { kind: "notify", status: "open" },
-    executions: [{ undoneAt: null }],
-  });
-  return { agent, notified };
+  return { agent, notified: await notifiedExecution(agent, newsletterInbox(store)) };
 }

@@ -5,6 +5,7 @@ import type { ActionName, Proposal, ProposalEdit } from "../domain/actions.ts";
 import type { Store, Transcript } from "../db/store.ts";
 import { readInbox, writeInbox, type InboxSource } from "../inbox/inbox.ts";
 import type { MockLanguageModelV4 } from "ai/test";
+import { expect } from "vitest";
 import { mockModel } from "../llm/test-models.ts";
 import { readScenarios } from "../../eval/scenarios.ts";
 import { Agent } from "./agent.ts";
@@ -59,6 +60,24 @@ export function newsletterInbox(
     });
     return transcript!;
   };
+}
+
+// Two approvals bring archive/newsletter to notify; the third archive executes and opens a notify
+// item.
+export async function notifiedExecution(
+  agent: Agent,
+  deliver: ReturnType<typeof newsletterInbox>,
+): Promise<Transcript> {
+  for (let n = 0; n < 2; n++) {
+    agent.approve((await deliver(ARCHIVE)).item!.id);
+  }
+  const notified = await deliver(ARCHIVE);
+  expect(notified).toMatchObject({
+    decision: { level: "notify" },
+    item: { kind: "notify", status: "open" },
+    executions: [{ undoneAt: null }],
+  });
+  return notified;
 }
 
 export function feedbackCount(store: Store): number {

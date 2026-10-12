@@ -1,6 +1,7 @@
 import type { MockLanguageModelV4 } from "ai/test";
 import { beforeEach, describe, expect, it } from "vitest";
 import { Store } from "../db/store.ts";
+import type { Proposal } from "../domain/actions.ts";
 import { replayModel } from "../llm/test-models.ts";
 import { Agent, Refusal } from "./agent.ts";
 import {
@@ -12,6 +13,7 @@ import {
   modelProposing,
   newsletterInbox,
   NONE,
+  notifiedExecution,
   requestsNamed,
   SEND_REPLY,
 } from "./test-agents.ts";
@@ -32,8 +34,8 @@ beforeEach(() => {
 });
 
 describe("correct", () => {
-  it("undoes a silent execution, records undo feedback under its bucket and notes a preference", async () => {
-    const silent = await silentArchive();
+  it("undoes a silent execution, records redirect feedback under its bucket and notes a preference", async () => {
+    const silent = await silentExecution();
 
     const { transcript, promotion, preference } = await agent.correct(silent.decision.id, {
       action: "label",
@@ -48,7 +50,7 @@ describe("correct", () => {
         decisionId: silent.decision.id,
         action: "archive",
         senderClass: "newsletter",
-        kind: "undo",
+        kind: "redirect",
       },
     });
     expect(promotion).toBeNull();
@@ -57,23 +59,34 @@ describe("correct", () => {
   });
 
   it("shows the extractor the change and the original proposal", async () => {
-    const silent = await silentArchive();
+    const silent = await silentExecution();
 
     await agent.correct(silent.decision.id, { action: "label", label: "finance" });
 
     const [extraction] = requestsNamed(llm, "preferences");
     expect(extraction).toContain("proposed");
-    expect(extraction).toMatch(/should have done .*finance.* instead; nothing was executed/);
+    expect(extraction).toMatch(
+      /should have done .*finance.* instead of what ran, which was undone/,
+    );
   });
 
-  it("steps the bucket back to notify", async () => {
-    await agent.correct((await silentArchive()).decision.id, { action: "none" });
+  it("leaves the bucket where it was when the action changes", async () => {
+    await agent.correct((await silentExecution()).decision.id, { action: "none" });
 
-    expect((await deliver(ARCHIVE)).decision).toMatchObject({ learned: "notify", level: "notify" });
+    expect((await deliver(ARCHIVE)).decision).toMatchObject({ learned: "silent", level: "silent" });
+  });
+
+  it("demotes the bucket when only the params change", async () => {
+    const silent = await silentExecution(LABEL);
+
+    const { transcript } = await agent.correct(silent.decision.id, { label: "reading" });
+
+    expect(transcript.feedback).toMatchObject({ action: "label", kind: "edit" });
+    expect((await deliver(LABEL)).decision).toMatchObject({ learned: "notify", level: "notify" });
   });
 
   it("corrects once when corrected twice", async () => {
-    const silent = await silentArchive();
+    const silent = await silentExecution();
     const corrected = (await agent.correct(silent.decision.id, { action: "none" })).transcript;
     const feedbackBefore = feedbackCount(store);
 
@@ -85,7 +98,7 @@ describe("correct", () => {
     expect(requestsNamed(llm, "preferences")).toHaveLength(1);
   });
 
-  it("records undo feedback on the none bucket and corrects a silent none only once", async () => {
+  it("records redirect feedback on the none bucket and corrects a silent none only once", async () => {
     const nothing = await deliver(NONE);
     expect(nothing.decision.level).toBe("silent");
 
@@ -93,7 +106,7 @@ describe("correct", () => {
 
     expect(transcript).toMatchObject({
       executions: [{ proposal: NONE, undoneAt: expect.any(String) }],
-      feedback: { action: "none", senderClass: "newsletter", kind: "undo" },
+      feedback: { action: "none", senderClass: "newsletter", kind: "redirect" },
     });
     expect(preference).toBe(LABEL_NEWSLETTERS);
     await expect(agent.correct(nothing.decision.id, LABEL_EDIT)).rejects.toThrow(
@@ -102,21 +115,32 @@ describe("correct", () => {
     expect(feedbackCount(store)).toBe(1);
     expect(requestsNamed(llm, "preferences")).toHaveLength(1);
   });
+
+  it("corrects a notified execution: closes its item as undone, undoes it, records redirect and notes a preference", async () => {
+    const notified = await notifiedExecution(agent, deliver);
+
+    const { transcript, preference } = await agent.correct(notified.decision.id, LABEL_EDIT);
+
+    expect(transcript).toMatchObject({
+      item: { id: notified.item!.id, status: "undone" },
+      executions: [{ proposal: ARCHIVE, undoneAt: expect.any(String) }],
+      feedback: { action: "archive", senderClass: "newsletter", kind: "redirect" },
+    });
+    expect(store.emails.getState(notified.email.id).archivedAt).toBeNull();
+    expect(preference).toBe(LABEL_NEWSLETTERS);
+    expect(requestsNamed(llm, "preferences")).toHaveLength(1);
+  });
 });
 
 describe("correct refusals", () => {
-  it("refuses a notified execution, naming the responses its item takes", async () => {
-    for (let n = 0; n < 2; n++) {
-      agent.approve((await deliver(ARCHIVE)).item!.id);
-    }
-    const notified = await deliver(ARCHIVE);
+  it("refuses a notified decision whose item is already dismissed", async () => {
+    const notified = await notifiedExecution(agent, deliver);
+    agent.dismiss(notified.item!.id);
     const feedbackBefore = feedbackCount(store);
 
     await expect(agent.correct(notified.decision.id, LABEL_EDIT)).rejects.toThrow(
-      `Decision #${notified.decision.id} has notify item #${notified.item!.id}; it takes dismiss, undo.`,
+      `Decision #${notified.decision.id} has notify item #${notified.item!.id}, already dismissed.`,
     );
-    expect(agent.transcript(notified.email.id)).toEqual(notified);
-    expect(store.emails.getState(notified.email.id).archivedAt).not.toBeNull();
     expect(feedbackCount(store)).toBe(feedbackBefore);
     expect(requestsNamed(llm, "preferences")).toHaveLength(0);
   });
@@ -142,7 +166,7 @@ describe("correct refusals", () => {
   });
 
   it("refuses an invalid edit and an unknown decision without calling the extractor", async () => {
-    const silent = await silentArchive();
+    const silent = await silentExecution();
 
     await expect(agent.correct(silent.decision.id, { action: "label" })).rejects.toThrow(
       /Invalid edit/,
@@ -154,20 +178,19 @@ describe("correct refusals", () => {
   });
 });
 
-// Two approvals then two dismissals bring archive/newsletter to silent; the fifth archive
-// executes with no item.
-async function silentArchive() {
+// Two approvals then two dismissals bring the proposal's newsletter bucket to silent; the fifth
+// delivery executes with no item.
+async function silentExecution(proposal: Proposal = ARCHIVE) {
   for (const respond of [(id: number) => agent.approve(id), (id: number) => agent.dismiss(id)]) {
     for (let n = 0; n < 2; n++) {
-      respond((await deliver(ARCHIVE)).item!.id);
+      respond((await deliver(proposal)).item!.id);
     }
   }
-  const silent = await deliver(ARCHIVE);
+  const silent = await deliver(proposal);
   expect(silent).toMatchObject({
     decision: { level: "silent" },
     item: null,
-    executions: [{ undoneAt: null }],
+    executions: [{ proposal, undoneAt: null }],
   });
-  expect(store.emails.getState(silent.email.id).archivedAt).not.toBeNull();
   return silent;
 }

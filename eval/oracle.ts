@@ -1,4 +1,5 @@
 import type { Agent, ResponseResult } from "../src/agent/agent.ts";
+import type { Decision } from "../src/db/decisions.ts";
 import type { Item } from "../src/db/items.ts";
 import type { Transcript } from "../src/db/store.ts";
 import {
@@ -15,18 +16,15 @@ type Reply =
   | { response: "edit"; edit: ProposalEdit }
   | { response: "reject"; reason?: string };
 
-// Answers the item a delivery opened; a silent decision has none, so a wrong action is corrected.
 export async function answer(
   agent: Agent,
   scenario: Scenario,
   { decision, item }: Transcript,
 ): Promise<ResponseResult | null> {
-  if (item) {
-    return send(agent, item.id, replyTo(item, scenario));
+  if (needsCorrection(decision, item, scenario)) {
+    return agent.correct(decision.id, goldEdit(scenario));
   }
-  return proposalOf(decision.analysis).action === scenario.gold.action
-    ? null
-    : agent.correct(decision.id, goldEdit(scenario));
+  return item ? send(agent, item.id, replyTo(item, scenario)) : null;
 }
 
 export function replyTo(
@@ -41,6 +39,16 @@ export function replyTo(
     case "escalate":
       return { response: "dismiss" };
   }
+}
+
+// A wrong action that ran without asking is corrected on its decision, when the oracle can name the
+// gold proposal; a wrong notified action it cannot name is undone on its item.
+function needsCorrection(decision: Decision, item: Item | null, scenario: Scenario): boolean {
+  return (
+    (item === null || item.kind === "notify") &&
+    proposalOf(decision.analysis).action !== scenario.gold.action &&
+    canNameGold(scenario)
+  );
 }
 
 function replyToAsk(proposal: Proposal, scenario: Scenario): Reply {
@@ -61,11 +69,18 @@ function goldEdit(scenario: Scenario): ProposalEdit {
   return { action: scenario.gold.action, ...correctedParams(scenario) };
 }
 
+function canNameGold({ gold, correction }: Scenario): boolean {
+  return correction !== undefined || takesNoParams(gold.action);
+}
+
 // A proposal whose gold is inert is rejected: editing to an inert action would execute nothing
 // and cost a needless extraction.
 function editableWithoutCorrection(action: ActionName): boolean {
-  const { inert, params } = actionFor(action);
-  return !inert && Object.keys(params.shape).length === 0;
+  return !actionFor(action).inert && takesNoParams(action);
+}
+
+function takesNoParams(action: ActionName): boolean {
+  return Object.keys(actionFor(action).params.shape).length === 0;
 }
 
 async function send(agent: Agent, itemId: number, reply: Reply): Promise<ResponseResult> {

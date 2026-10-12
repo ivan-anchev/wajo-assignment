@@ -51,7 +51,7 @@ export class PreferenceMemory {
   extractAfterCorrection(decisionId: number, changes: ProposalEdit): Promise<string[]> {
     return this.extract(decisionId, (transcript) => ({
       context: aboutProposal(transcript),
-      correction: `The user said the assistant should have done ${JSON.stringify(changes)} instead; nothing was executed.`,
+      correction: `The user said the assistant should have done ${JSON.stringify(changes)} instead of what ran, which was undone.`,
     }));
   }
 

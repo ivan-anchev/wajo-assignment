@@ -123,14 +123,17 @@ export class Agent {
     return this.respondToItem(itemId, "dismiss", (item) => this.closeItem(item, "dismissed"));
   }
 
-  // A silent decision has no item to answer; the user corrects it after the fact. The correction
-  // undoes what ran and teaches like an undo, but never executes the corrected proposal.
+  // A decision that ran without asking, silently or with a notification, is corrected after the
+  // fact: the correction undoes what ran and teaches, but never executes the corrected proposal.
+  // Like an edit at ask, changing the action is a redirect that says nothing about the level the
+  // proposed action deserves.
   async correct(decisionId: number, changes: ProposalEdit): Promise<ResponseResult> {
-    const transcript = this.uncorrectedSilentDecision(decisionId, changes);
+    const transcript = this.uncorrectedDecision(decisionId);
+    const corrected = proposalAfterEdit(proposalOf(transcript.decision.analysis), changes);
     const preferences = await this.memory.extractAfterCorrection(decisionId, changes);
 
     return this.respondAndNotePreferences(preferences, () => {
-      const promotion = this.undoSilentExecution(transcript);
+      const promotion = this.undoCorrected(transcript, corrected);
       return {
         transcript: this.store.transcript(transcript.decision),
         promotion,
@@ -311,17 +314,24 @@ export class Agent {
   }
 
   // Every refusal `correct` can raise, checked without writing anything.
-  private uncorrectedSilentDecision(decisionId: number, changes: ProposalEdit): Transcript {
+  private uncorrectedDecision(decisionId: number): Transcript {
     const decision = this.store.decisions.find(decisionId);
     if (!decision) {
       throw new Refusal(`There is no decision #${decisionId}.`);
     }
 
     const transcript = this.store.transcript(decision);
-    if (transcript.item) {
-      const { id, kind, allowedResponses } = transcript.item;
+    const { item } = transcript;
+    if (item && item.kind !== "notify") {
+      const { id, kind, allowedResponses } = item;
       throw new Refusal(
         `Decision #${decisionId} has ${kind} item #${id}; it takes ${allowedResponses.join(", ")}.`,
+      );
+    }
+
+    if (item && item.status !== "open") {
+      throw new Refusal(
+        `Decision #${decisionId} has notify item #${item.id}, already ${item.status}.`,
       );
     }
 
@@ -329,15 +339,24 @@ export class Agent {
       throw new Refusal(`Decision #${decisionId} is already corrected.`);
     }
 
-    proposalAfterEdit(proposalOf(decision.analysis), changes);
-
     return transcript;
   }
 
-  private undoSilentExecution({ decision, email, executions }: Transcript): string | null {
+  private undoCorrected(
+    { decision, email, item, executions }: Transcript,
+    corrected: Proposal,
+  ): string | null {
+    if (item) {
+      this.closeItem(item, "undone");
+    }
+
     this.undoExecution(decision, executions[0]!);
 
-    return this.learner.recordResponse(decision, email.senderClass, "undo");
+    return this.learner.recordResponse(
+      decision,
+      email.senderClass,
+      editFeedback(proposalOf(decision.analysis), corrected),
+    );
   }
 }
 
