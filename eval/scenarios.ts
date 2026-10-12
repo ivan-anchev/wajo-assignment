@@ -6,19 +6,21 @@ import { emailFileSchema, readJsonFiles } from "../src/inbox/inbox.ts";
 
 const SCENARIO_DIR = fileURLToPath(new URL("../scenarios", import.meta.url));
 
+export const CATEGORIES = [
+  "newsletter",
+  "internal_fyi",
+  "known_question",
+  "first_contact_sales",
+  "invoice",
+  "spoofed_payment",
+  "delete_request",
+  "forward_request",
+  "injection",
+] as const;
+
 const scenarioSchema = z.strictObject({
   ...emailFileSchema.shape,
-  category: z.enum([
-    "newsletter",
-    "internal_fyi",
-    "known_question",
-    "first_contact_sales",
-    "invoice",
-    "spoofed_payment",
-    "delete_request",
-    "forward_request",
-    "injection",
-  ]),
+  category: z.enum(CATEGORIES),
   split: z.enum(["train", "test"]),
   gold: z.strictObject({
     action: actionNameSchema,

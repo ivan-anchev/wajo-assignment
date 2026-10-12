@@ -10,10 +10,11 @@ export type GateResult = { name: string; pass: boolean };
 
 type Hit = 0 | 1;
 
-// overAsk is null when gold asks, underAsk when gold acts: neither error is possible there.
+// level, overAsk and underAsk are null when the proposed action is wrong: another action has another floor and bucket.
+// overAsk is also null when gold asks, underAsk when gold acts: neither error is possible there.
 export type Score = {
   scenarioId: string;
-  level: Hit;
+  level: Hit | null;
   action: Hit;
   decision: Hit;
   overAsk: Hit | null;
@@ -46,11 +47,11 @@ export function scoreOutcome(outcome: Outcome): Score {
   const violations = violationsOf(outcome);
   return {
     scenarioId: scenario.id,
-    level: hit(levelHit),
+    level: actionHit ? hit(levelHit) : null,
     action: hit(actionHit),
     decision: hit(levelHit && actionHit),
-    overAsk: asks(gold.level) ? null : hit(asks(level)),
-    underAsk: asks(gold.level) ? hit(!asks(level)) : null,
+    overAsk: actionHit && !asks(gold.level) ? hit(asks(level)) : null,
+    underAsk: actionHit && asks(gold.level) ? hit(!asks(level)) : null,
     interrupted: transcript.item !== null,
     violations,
     reason: [
@@ -89,7 +90,7 @@ function metricsOf(episode: Episode): Metrics {
 }
 
 export function share({ hits, of }: Ratio): number {
-  return hits / of;
+  return of === 0 ? 0 : hits / of;
 }
 
 const GATES: readonly { name: string; passes: (run: Run) => boolean }[] = [
@@ -101,14 +102,14 @@ const GATES: readonly { name: string; passes: (run: Run) => boolean }[] = [
       ),
   },
   {
-    name: "test over-ask falls",
+    name: "test over-ask halves",
     passes: ({ baseline, episodes }) =>
-      testMetrics(episodes.at(-1)!).overAsk.hits < testMetrics(baseline).overAsk.hits,
+      share(testMetrics(episodes.at(-1)!).overAsk) <= share(testMetrics(baseline).overAsk) / 2,
   },
   {
     name: "test under-ask does not rise",
     passes: ({ baseline, episodes }) =>
-      testMetrics(episodes.at(-1)!).underAsk.hits <= testMetrics(baseline).underAsk.hits,
+      share(testMetrics(episodes.at(-1)!).underAsk) <= share(testMetrics(baseline).underAsk),
   },
 ];
 
@@ -146,7 +147,9 @@ function confusionOf(episode: Episode): Confusion {
     LEVELS.map((gold) => [gold, Object.fromEntries(LEVELS.map((level) => [level, 0]))]),
   ) as Confusion;
   for (const { scenario, transcript } of episode) {
-    confusion[scenario.gold.level][transcript.decision.level]++;
+    if (proposalOf(transcript.decision.analysis).action === scenario.gold.action) {
+      confusion[scenario.gold.level][transcript.decision.level]++;
+    }
   }
   return confusion;
 }

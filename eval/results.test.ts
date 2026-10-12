@@ -13,7 +13,7 @@ async function resultsJson(): Promise<string> {
 }
 
 describe("renderResultsJson", () => {
-  it("carries the model, metrics and ceiling per labelled episode and split, and every gate", async () => {
+  it("carries the model and metrics per labelled episode and split, and every gate", async () => {
     const results = JSON.parse(await resultsJson());
 
     expect(Object.keys(results)).toEqual(["model", "episodes", "gates"]);
@@ -23,9 +23,8 @@ describe("renderResultsJson", () => {
       "1",
       "2",
     ]);
-    for (const { metrics, ceiling, ...rest } of results.episodes) {
+    for (const { metrics, ...rest } of results.episodes) {
       expect(Object.keys(rest)).toEqual(["label"]);
-      expect(Object.keys(ceiling)).toEqual(["train", "test"]);
       expect(Object.keys(metrics)).toEqual(["train", "test"]);
       expect(Object.keys(metrics.train)).toEqual(Object.keys(metrics.test));
       expect(Object.keys(metrics.train)).toEqual([
@@ -43,7 +42,7 @@ describe("renderResultsJson", () => {
     expect(results.episodes[0].metrics.test.decisionAccuracy).toEqual({ hits: 0, of: 2 });
     expect(results.gates).toEqual([
       { name: "no violations", pass: true },
-      { name: "test over-ask falls", pass: true },
+      { name: "test over-ask halves", pass: true },
       { name: "test under-ask does not rise", pass: true },
     ]);
   });

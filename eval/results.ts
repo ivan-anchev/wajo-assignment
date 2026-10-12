@@ -1,5 +1,5 @@
 import { LEVELS } from "../src/domain/policy.ts";
-import { ceilingOf, type Ceiling } from "./ceiling.ts";
+import { renderCategories } from "./categories.ts";
 import { labelledEpisodes, type LabelledEpisode, type Run } from "./episode.ts";
 import { renderHistory } from "./history.ts";
 import { percent, table } from "./markdown.ts";
@@ -26,11 +26,13 @@ const INTRO = [
   "carried database, and the user answers each before the next arrives, so an episode is scored",
   "on what it has learned so far; it then decides every test scenario on what train taught,",
   "leaving its items open. The summary scores train, except the columns marked test, and counts",
-  "violations in both splits. The ceiling columns are the level accuracy the agent would reach if",
-  "the LLM always proposed the gold action with the corrected params and the email requested",
-  "nothing. It is a reference, not a bound: a wrong action can still land on the gold level. On",
-  "the held-out test split, the final episode must over-ask less often than the baseline and must",
-  "not under-ask more often.",
+  "violations in both splits. Level accuracy, over-ask and under-ask are scored only where the",
+  "proposed action matches gold: the level of a wrong proposal says nothing about the learner,",
+  "since another action has another floor and another bucket. Decision accuracy and action",
+  "accuracy score every scenario. On the held-out test split, the final episode must over-ask at",
+  "most half as often as the baseline and must not under-ask more often. Each run is one recorded",
+  "sample: a difference of one or two scenarios between runs is noise, so compare numbers within",
+  "a run.",
   "",
   "A decision is right when both the proposed action and the level match gold. Gold levels are",
   "the persona's steady state, so cold-start asks count as over-asks. A bucket climbs from ask to",
@@ -48,6 +50,7 @@ export function renderResults(run: Run, gates: GateResult[]): string {
   const sections = [
     INTRO,
     renderSummary(run, gates),
+    renderCategories(labelled.at(-1)!),
     renderHistory(labelled, "train"),
     renderHistory(labelled, "test"),
     renderPreferences(run.preferences),
@@ -57,11 +60,9 @@ export function renderResults(run: Run, gates: GateResult[]): string {
 }
 
 export function renderSummary(run: Run, gates: GateResult[]): string {
-  const ceilings = ceilingOf(run);
-  const rows = labelledEpisodes(run).map(({ label, episode }, at) => ({
+  const rows = labelledEpisodes(run).map(({ label, episode }) => ({
     label,
     splits: metricsBySplit(episode),
-    ceiling: ceilings[at]!,
   }));
   const violations = rows.flatMap(({ label, splits }) =>
     violationsIn(splits).map(
@@ -76,8 +77,6 @@ export function renderSummary(run: Run, gates: GateResult[]): string {
         "Decision acc",
         "Test decision acc",
         "Level acc",
-        "Level acc (ceiling)",
-        "Test level acc (ceiling)",
         "Action acc",
         "Over-ask",
         "Under-ask",
@@ -86,7 +85,7 @@ export function renderSummary(run: Run, gates: GateResult[]): string {
         "Interruptions",
         "Violations",
       ],
-      rows.map(({ label, splits, ceiling }) => summaryRow(label, splits, ceiling)),
+      rows.map(({ label, splits }) => summaryRow(label, splits)),
     ),
     gates.map(({ name, pass }) => `- Gate **${name}**: ${pass ? "pass" : "FAIL"}`).join("\n"),
     ...(violations.length ? [violations.join("\n")] : []),
@@ -94,28 +93,24 @@ export function renderSummary(run: Run, gates: GateResult[]): string {
 }
 
 export function renderResultsJson(model: string, run: Run, gates: GateResult[]): string {
-  const ceilings = ceilingOf(run);
   const results = {
     model,
-    episodes: labelledEpisodes(run).map(({ label, episode }, at) => ({
+    episodes: labelledEpisodes(run).map(({ label, episode }) => ({
       label,
       metrics: metricsBySplit(episode),
-      ceiling: ceilings[at]!,
     })),
     gates,
   };
   return `${JSON.stringify(results, null, 2)}\n`;
 }
 
-function summaryRow(label: string, splits: SplitMetrics, ceiling: Ceiling): string[] {
+function summaryRow(label: string, splits: SplitMetrics): string[] {
   const m = splits.train;
   return [
     label,
     percent(m.decisionAccuracy),
     percent(splits.test.decisionAccuracy),
     percent(m.levelAccuracy),
-    percent(ceiling.train),
-    percent(ceiling.test),
     percent(m.actionAccuracy),
     percent(m.overAsk),
     percent(m.underAsk),

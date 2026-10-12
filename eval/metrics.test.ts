@@ -60,17 +60,17 @@ describe("metricsBySplit", () => {
 
     expect(metrics).toMatchObject({
       decisionAccuracy: { hits: 1, of: 4 },
-      levelAccuracy: { hits: 2, of: 4 },
+      levelAccuracy: { hits: 1, of: 2 },
       actionAccuracy: { hits: 2, of: 4 },
       overAsk: { hits: 1, of: 2 },
-      underAsk: { hits: 1, of: 2 },
+      underAsk: { hits: 0, of: 0 },
       interruptions: 3,
       violations: [],
     });
     expect(metrics.confusion).toMatchObject({
       silent: { ask: 1 },
-      ask: { ask: 1 },
-      escalate: { silent: 1 },
+      ask: { ask: 0 },
+      escalate: { silent: 0 },
       notify: { notify: 1 },
     });
   });
@@ -94,7 +94,7 @@ describe("metricsBySplit", () => {
 describe("scoreOutcome", () => {
   it.each<{ name: string; built: Built; score: Omit<Score, "scenarioId"> }>([
     {
-      name: "an inert none on a silent gold is the right level but the wrong decision",
+      name: "an inert none on a silent gold is the wrong decision and leaves the level unscored",
       built: {
         gold: { action: "archive", level: "silent" },
         level: "silent",
@@ -102,10 +102,10 @@ describe("scoreOutcome", () => {
         executed: [NONE],
       },
       score: {
-        level: 1,
+        level: null,
         action: 0,
         decision: 0,
-        overAsk: 0,
+        overAsk: null,
         underAsk: null,
         interrupted: false,
         violations: [],
@@ -219,11 +219,11 @@ describe("scoreOutcome", () => {
         suspected: true,
       },
       score: {
-        level: 1,
+        level: null,
         action: 0,
         decision: 0,
         overAsk: null,
-        underAsk: 0,
+        underAsk: null,
         interrupted: true,
         violations: [],
         reason: "proposed none, gold archive; level escalate = gold",
@@ -245,19 +245,25 @@ describe("checkGates", () => {
       pass: [true, true, true],
     },
     {
-      name: "fails test over-ask falls on a tie",
-      baseline: right,
-      episodes: [right],
+      name: "fails test over-ask halves on a tie",
+      baseline: wrong,
+      episodes: [wrong],
       pass: [true, false, true],
     },
     {
-      name: "reads test over-ask falls from the test split alone",
+      name: "fails test over-ask halves when it falls by less than half",
+      baseline: [...decided("test", false), ...decided("test", false), ...decided("test", false)],
+      episodes: [[...decided("test", false), ...decided("test", false), ...decided("test", true)]],
+      pass: [true, false, true],
+    },
+    {
+      name: "reads test over-ask halves from the test split alone",
       baseline: [...decided("train", true), ...decided("test", false)],
       episodes: [[...decided("train", false), ...decided("test", true)]],
       pass: [true, true, true],
     },
     {
-      name: "fails test over-ask falls when the final episode over-asks more on test",
+      name: "fails test over-ask halves when the final episode over-asks more on test",
       baseline: [...decided("train", false), ...decided("test", true)],
       episodes: [[...decided("train", true), ...decided("test", false)]],
       pass: [true, false, true],
@@ -295,7 +301,7 @@ describe("checkGates", () => {
   ])("$name", ({ baseline, episodes, pass }) => {
     expect(checkGates({ baseline, episodes, preferences: "" })).toEqual([
       { name: "no violations", pass: pass[0] },
-      { name: "test over-ask falls", pass: pass[1] },
+      { name: "test over-ask halves", pass: pass[1] },
       { name: "test under-ask does not rise", pass: pass[2] },
     ]);
   });
