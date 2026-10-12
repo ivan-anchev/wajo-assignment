@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it } from "vitest";
+import { renderPromotion } from "../cli/render.ts";
 import { Store } from "../db/store.ts";
 import type { Level } from "../domain/policy.ts";
 import { mockModel, replayModel } from "../llm/test-models.ts";
@@ -27,7 +28,7 @@ async function respondTwice(respond: (itemId: number) => ResponseResult) {
   for (let n = 0; n < 2; n++) {
     const { decision, item } = await deliver(ARCHIVE);
     levels.push(decision.level);
-    promotions.push(respond(item!.id).promotion);
+    promotions.push(renderPromotion(respond(item!.id)));
   }
   return { levels, promotions };
 }
@@ -123,7 +124,7 @@ describe("learning (§7.1)", () => {
 
     expect(promotion).toBeNull();
     expect(transcript.feedback).toMatchObject({ action: "archive", kind: "redirect" });
-    expect(agent.approve((await deliver(ARCHIVE)).item!.id).promotion).toBe(ASK_TO_NOTIFY);
+    expect(renderPromotion(agent.approve((await deliver(ARCHIVE)).item!.id))).toBe(ASK_TO_NOTIFY);
     expect((await deliver(ARCHIVE)).decision).toMatchObject({ learned: "notify", level: "notify" });
     expect((await deliver(MARK_READ)).decision.learned).toBe("notify");
   });
@@ -143,7 +144,7 @@ describe("learning (§7.1)", () => {
   it("words mark_read as proper English", async () => {
     const promotions: (string | null)[] = [];
     for (let n = 0; n < 2; n++) {
-      promotions.push(agent.dismiss((await deliver(MARK_READ)).item!.id).promotion);
+      promotions.push(renderPromotion(agent.dismiss((await deliver(MARK_READ)).item!.id)));
     }
 
     expect(promotions).toEqual([

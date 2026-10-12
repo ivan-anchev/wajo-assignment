@@ -5,9 +5,21 @@ import type { Execution } from "../db/executions.ts";
 import type { Feedback } from "../db/feedback.ts";
 import type { Item } from "../db/items.ts";
 import type { Transcript } from "../db/reads.ts";
-import type { Proposal } from "../domain/actions.ts";
-import { proposalOf, requestOf, type Verdict } from "../domain/policy.ts";
-import type { Email } from "../inbox/inbox.ts";
+import type { ActionName, Proposal } from "../domain/actions.ts";
+import { proposalOf, requestOf, type Level, type Verdict } from "../domain/policy.ts";
+import type { Email, SenderClass } from "../inbox/inbox.ts";
+
+const SENDERS: Record<SenderClass, string> = {
+  internal: "emails from colleagues",
+  known: "emails from your contacts",
+  newsletter: "newsletters",
+  first_contact: "emails from first-time senders",
+};
+
+const WORDING: Partial<Record<ActionName, (senders: string) => string>> = {
+  mark_read: (senders) => `mark ${senders} as read`,
+  draft_reply: (senders) => `draft replies to ${senders}`,
+};
 
 export function renderDecisionLine({ email, decision, item, executions }: Transcript): string {
   return [
@@ -21,12 +33,18 @@ export function renderDecisionLine({ email, decision, item, executions }: Transc
   ].join(" ");
 }
 
-export function renderResponse({ transcript, promotion, preference }: ResponseResult): string {
+export function renderResponse(result: ResponseResult): string {
+  const promotion = renderPromotion(result);
+
   return [
-    renderDecisionLine(transcript),
+    renderDecisionLine(result.transcript),
     ...(promotion ? [promotion] : []),
-    ...(preference ? [`Noted preference: ${preference}`] : []),
+    ...(result.preference ? [`Noted preference: ${result.preference}`] : []),
   ].join("\n");
+}
+
+export function renderPromotion({ transcript, promotion }: ResponseResult): string | null {
+  return promotion && promotionSentence(transcript.feedback!, promotion);
 }
 
 export function renderStanding({ action, senderClass, pin, level }: BucketStanding): string {
@@ -127,4 +145,16 @@ function describeFeedback({ kind, action, senderClass }: Feedback): string {
 
 function describeProposal({ action, params }: Proposal): string {
   return `${action} ${JSON.stringify(params)}`;
+}
+
+function promotionSentence({ action, senderClass }: Feedback, from: Level): string {
+  const involvement = from === "ask" ? "asking" : "notifying you";
+  return (
+    `I will now ${actionPhrase(action, SENDERS[senderClass])} without ${involvement}. ` +
+    `\`agent pin ${action} ${senderClass} ${from}\` keeps ${involvement}.`
+  );
+}
+
+function actionPhrase(action: ActionName, senders: string): string {
+  return WORDING[action]?.(senders) ?? `${action} ${senders}`;
 }

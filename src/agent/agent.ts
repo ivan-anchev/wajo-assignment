@@ -35,7 +35,7 @@ export class Refusal extends Error {}
 
 export type ResponseResult = {
   transcript: Transcript;
-  promotion: string | null;
+  promotion: Level | null;
   preference: string | null;
 };
 
@@ -346,7 +346,7 @@ export class Agent {
   private undoCorrected(
     { decision, email, item, executions }: Transcript,
     corrected: Proposal,
-  ): string | null {
+  ): Level | null {
     if (item) {
       this.closeItem(item, "undone");
     }
