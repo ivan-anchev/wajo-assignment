@@ -349,13 +349,13 @@
         "text": "",
         "providerMetadata": {
           "anthropic": {
-            "signature": "CAQSvwYKEAgSGAI4AUIIdGhpbmtpbmcSDB2yUAmPtqZRoOydIxoMWJALS+PW8z920WOBIjASYaM6oKLMNuGtxo5pDU98sjXxPkaO8Hin4QSClu3aQ/AquVjihja8Y8uqEqECzKcq3AVLpqF/enzLmaZ1vo9stgHfrQ43jieUq+9yBiURHW+OlMNU9CZLl7Gu/U4fS8XRL8hVkIGKPGo1cEk1StzkFDDqcd07lCVwl+F+i/mv7kLbtIKxRbiMSQtjQf41ThswdzEP4rJI+0Rp1RfSIno6B/4PEfAS4mcX/j/i7VyFuE895/VKtfPntpgbmhf3jx6fHf8tlTbMxJRK1y6PJXIjk+kOLnuiFTFyAs4mIrPDzgSfhpcGojfCuxsrr6yS29DWgNi1vLDqx1a4lrqhyg7Yarji+V+LRtPFkX6cSKEXeTJVsKISs00l96lZJ03KXNHaOQWWATvcfUwIhicSA1M8kN2C1tDLhTBiyEK3gz8z4sY/bx8TKOs5Ow8TfIEoUD8vneg1IQn7StJ+NK+ruXkyjZ93mqhQHexcir64TGHEOwLksmr1JSDAVSqaMUqevHmy25mB7Yioupv2M5+9WK0bTAX+Eup0RCWRdzpim+9hW9YUod/0Qu2uxm2Z8TCRWrqHaPQEMQHSwDiPzsaya/6mkwckM7iG2AYMSzh8dpgmKZpOARSASpn5SLvbMvd6uux58l79X8IWiHxU9OclB6OsRUcGDuslkK56WRC5aNfr1x9+FwKfoQBo+J7V6NLRUkBm7Ox8GHx2V/+TODOKiGjua2lJ34xGkVKCk+Fa/ssVvwRsdtW9YiAiBvD03yzNMENCLP8Dcz3PgfB9tLIadb+agHflDybo3YoztXd8F1gYNAumUolYCZfNPK6UNPiS93QVSLncUYgFhCuVhL99R2VgRU8D9mF4nZgV3OVmy2J9286VQnUkg4BaPMxqvgPq4k/EbCNyeuXDSy3t4d80QjEst8A+Viny2ReGj1owIbIe8tMLUW6IujJo2LV/tPO6/fAEo02NieKoUuFbJKIrs1JzrteIFhPrGnQ1qz24cZZPV1aEAW7oLemXTX9L9ske+vL5QFO3xLgy5bSs0k+a7N4YAQ=="
+            "signature": "CAQS7wUKEAgSGAI4AUIIdGhpbmtpbmcSDCN7Qu1YKih8nfQJRhoMTsBigLI7i8ehD0GrIjAy3kicc4Rbm0RY11ZUcCIzghpN39T5NCCpFa1N9q/nvXA4p0F0HZ5LdIV3BH5w14EqjAV4kpPoEleJwK+jDA2XZGEMDvMSTUy4NZfQqtMrcLBJ1cqr9u7wc105IWVboxJ8xDHUC5yXYKElLyZslSLNykgkno2I9+5Yyb/FHXnFRW23+mFeKiJh/rb89/UiF7Lb5Xj3fSic5EO5jfO5MaxND+CJwuj9jSOmvwdWDPa/vlh2/hR5taA8zc8VuKkyxUKCZN2hGBI903vfl1ctBFHADDVoJoXVXvGLLYrD+FBOZdoK+1iJJ235YUMOyzP2NYPRJpC4B44Oaj5ePvLl2/a+7BLMa8jSPRUuITsaOe7K2yR5/w4JEgheKWNhkbF8v5s2L/0PksBLo+lA0fCjqykP3vOklt+IRjEn90z4/LbQIek7t+iWRqZDGOHONErY5K2dEfVS0Fk3w0BpS9y1SwsLpLkxB1hMDUi+cryuiWck1ih18Owdud83GQs2zluF5pN40IUHEkpEa/Rt0kgNfBZ+6jQCCJCbex3tigXHFPIoW0hMZYw+By8p9sB9EF4gm96JVVTbESX/q2Qw0uY6oK3omUmg0pdEPCiNvJRkykaoM+AVzTKLSLl3MBTObLrX8nxnqT0COik41YB0xAmy3kdHG6fQn19WS7Zp4vMFNfsONWvn7elwny6yG5OSs7wBnDNvWQDF6R1U4OdOxz419NSXn3IUFmg5b5tGtp6KZgyBVC6t15Yyyj3y60PI13Drp1/fnCelvmx8wCTKa5swGw5w+EGPY9mjVG+KfxUV0KeRqYwz8aIBhMt3ByCTpfxDXrqmvs4SIwnaPEQ5SKSMtWfwlxrAxT1K9dSxZKlpTI4iyVXcSunKsXDubnJvbpcWogwpkbguWezoc4pFOZmMnhG+ZReXy5hEfIofCo9cXUFYGAE="
           }
         }
       },
       {
         "type": "text",
-        "text": "{\"summary\":\"Oskar reports that Helix Labs countersigned the MSA this morning and attaches the PDF for the record, with nothing needed from Ivan.\",\"intent\":\"fyi\",\"proposal\":{\"action\":\"mark_read\",\"params\":{}},\"requested\":\"none\"}"
+        "text": "{\"summary\":\"Oskar tells Ivan that Helix Labs countersigned the MSA this morning and attaches the PDF for the record, with nothing needed from Ivan.\",\"intent\":\"fyi\",\"proposal\":{\"action\":\"mark_read\",\"params\":{}},\"requested\":\"none\"}"
       }
     ],
     "finishReason": {
@@ -370,15 +370,15 @@
         "cacheWrite": 0
       },
       "outputTokens": {
-        "total": 190,
-        "text": 92,
-        "reasoning": 98
+        "total": 157,
+        "text": 96,
+        "reasoning": 61
       },
       "raw": {
         "input_tokens": 3452,
-        "output_tokens": 190,
+        "output_tokens": 157,
         "output_tokens_details": {
-          "thinking_tokens": 98
+          "thinking_tokens": 61
         },
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,

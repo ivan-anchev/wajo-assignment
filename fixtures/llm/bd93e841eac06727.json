@@ -349,13 +349,13 @@
         "text": "",
         "providerMetadata": {
           "anthropic": {
-            "signature": "CAQSwwcKEAgSGAI4AUIIdGhpbmtpbmcSDA+/zPaSadpmNGoSUhoMLSJKZY0RhKOztUFWIjDVTvwJnKeLTOvaLU+7ZtjO5D4AteZ5AeFdj1Vs7FTAUDCDDKByw/tpak96C9BgpFQq4AZrdaoeovHUd0poQlF+5QeZit40xC7BmakyJZ89cvH56JvLptLs5jPut6FQJoGhsKblTtWmx2149HuNhSuMk5JDpcf5P47yXcOfq6YmIzkaWK1kDjGtlRbT2UcIcnwNxpDhHKHfDEI+QNyIGLbZ3C8fWWRjAGXRBSzak0oseT+7yMvqL4kAaHa9azLaqja5pObM9YGYaJ80/PuGR3kAwBulJFZFLP7IFc9ij86EFhR4iWrlW17tw9UoxlCOt8vbX8PzxvwQZg2ZhD0kFoYExCUsZtilmp7OY6l8cL86FEFr5WlgrYUX63yxYz4pN1v7azFOiv65S/bN2hGY8bPqp43YX8Nd2yK5XHgw5EP1wX3zquyZ6SoALO/7aHdab4UxMXpVTK1sa2Q58oHlEpeADhsDkwUedMRQYfwgGt9bW4lZjBsmnH7xZ2Tpd8THiSPByHhZn4MsC+ByGCapnVnYhdzSWOTZ9XmE2nt3W/7XdN2G/DwogkfSBared7R6X/vQrMuB30F1PdnbS20jTTNuksdayJsB4cIgCISHxVHFZjZu9dDcLjqbE7SZsdp0ZDPCv5lxDay7kjlxC4AfjyJ6HBjErPHb/XlboYQz+aMUnzFr7273YmE7Ra27dwU0qxJ7kMODGS9YriiC0z5HQY8OlRNydTM111QKUiEqlIuOrmWVtCtLKw/D18M6sTMS9KXNpYNvo6mx6NpXBcCpOfeUU/fJqTHeiHKHISFf6dxU8ZfZMnTzRXhki2cnfGdrIY0ixVCrcOlF3EhWiRDDM19lQe3MiLRljbg46b/xf6ga6/7Hj5KvQEwcNQgS+IPy8svQBsvCIKo+MsOkzqQN6PakcXcpsNTbCfMm18GsyP5voJyh+RjnQGwUeSIeEeYffTGUi796WuRNpClabmlO1P2OFUVUkKbv9Nm9WCFfZo3S0Uh1faFgfPmgsysIB3J+hqw3dL1OEsOUgvsEL3PZ49VntshjD4UZFqmYRO72ntF0t/smWf6dGNC6HoinM3be0Wsp97lpEg3Usm9SUPeEegZtyy7wBPH7PdQMUVrIZI+05gRX6QXGpVnLFrklX97R6y8YGobe5yxpNfbnBIEqjYumvliTbbvT7zP0Smu5bncAYPECuEol+Jcbec4SUd9QxelJWAsYAQ=="
+            "signature": "CAQS6wYKEAgSGAI4AUIIdGhpbmtpbmcSDNPAFs7Uc0GTZpvtHBoM/14kHrqhQfJxo1zEIjDa0SFUe9dIZIfMGTGkrXzFcJajNFNuOmAOXr9FF4i1kA0SUaS3wvg6bS7TJbctW+0qiAb52FREBFdQ/8mmt0FScbtZlrAlSKFrDfg24mcplW+V2NTWwYYQ94dNGTiiR/L0vSqT5DVXSYaosdJMmAtV4aiLTVrxJsgUeBq3aSXPNIxWktCVLbBiNr/ZnuXMvb4a6pT43YuFDPSQG+2GFRMzci49GeCAL2n055JqbkrKdhyGgONhIl+4h1MlzDxUiMTBTpc/yxDPPX3xKkRDU2sQ9zyPDHAZKWICogN/LQNh5eqMdr3FYAPjgkOySNqqBLWz6MZlIpTJ4HdJQ7VQL5NDijGA5XyfSNuXANAGTB5DyejI859n3fBLs4nmZwNeG2TT6XMyyz0FQu3B8QXp6jZtFAzAIfV1eMsft0oX5szU61xclaXhpW5OG9GMkhPICGDKrfOVM+RdkcQhIFMiIQLQL7Z95SVfqfDdlFw0r7b1yqu4kpVJ6IxWgBgsw+DH4hH3S19t5Vl+0xYMOut9XU6qP+U4jh2+yJocOWdRDrY8ju6luXj2OjAqnX4shK9ogyySanPIjyLkeEhfX8guE4lWkqMWBFe6BotTaScqi5oJtndlnXhmrmS3P49K/U/4tpV8KXv0hB+QzDIP+B5rCYqCgqDvwY0HlGTVlDCxvIhAICdjkRbWrk7lIBuo75j1N1d69nF7EWgLsen5ppGTcbdVUmChBvcXb7nSVC1T1/NFrrr8HyyWXAHREUSeLS59rbvz3O/Vo8SgwcIzfh8URQ98U4inZG7jHh5/prQPhzvH7nYS0USgA/6kATYT6u8FatS8GvsYeB6d49vUlOQGmrKPYFTJKc6Emv6acOZUU3r1cGEPqa3VVTgKncf5FMYzchUAWYyCH6aEp+6Da5nhcI8Q3XkwNTb6W84ho6y0MfPt0kYZE36pde7LWfWDpAQSCeCTqlP1yhpgX+MhVu4n4eHqX6V5VHPQTRxfpP/R3X28NCUpbbjtYLrwKCBTs5sBb6WYy9gJKh7BsAExjQU99QFkwaoz+ETIyi7fePpnka8A/xNHKIAQ5xbxi9tNP8sYanbIikljXpAuRleDpBgB"
           }
         }
       },
       {
         "type": "text",
-        "text": "{\"summary\":\"Chris from PipelinePro is following up for the third time, asking whether Ivan has looked at his earlier emails about PipelinePro.\",\"intent\":\"sales_outreach\",\"proposal\":{\"action\":\"archive\",\"params\":{}},\"requested\":\"none\"}"
+        "text": "{\"summary\":\"Chris from PipelinePro is following up for the third time to ask whether Ivan has looked at his earlier emails about PipelinePro.\",\"intent\":\"sales_follow_up\",\"proposal\":{\"action\":\"archive\",\"params\":{}},\"requested\":\"none\"}"
       }
     ],
     "finishReason": {
@@ -370,15 +370,15 @@
         "cacheWrite": 0
       },
       "outputTokens": {
-        "total": 224,
-        "text": 89,
-        "reasoning": 135
+        "total": 199,
+        "text": 90,
+        "reasoning": 109
       },
       "raw": {
         "input_tokens": 3457,
-        "output_tokens": 224,
+        "output_tokens": 199,
         "output_tokens_details": {
-          "thinking_tokens": 135
+          "thinking_tokens": 109
         },
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,

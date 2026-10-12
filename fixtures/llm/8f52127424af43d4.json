@@ -346,7 +346,7 @@
     "content": [
       {
         "type": "text",
-        "text": "{\"summary\":\"CI reports that api v2.14.0 deployed to production at 09:42 UTC with 7 commits, triggered by Oskar.\",\"intent\":\"fyi\",\"proposal\":{\"action\":\"archive\",\"params\":{}},\"requested\":\"none\"}"
+        "text": "{\"summary\":\"CI reports that api v2.14.0 deployed to production at 09:42 UTC with 7 commits, triggered by Oskar.\",\"intent\":\"automated_notice\",\"proposal\":{\"action\":\"archive\",\"params\":{}},\"requested\":\"none\"}"
       }
     ],
     "finishReason": {
@@ -361,13 +361,13 @@
         "cacheWrite": 0
       },
       "outputTokens": {
-        "total": 85,
-        "text": 85,
+        "total": 87,
+        "text": 87,
         "reasoning": 0
       },
       "raw": {
         "input_tokens": 3475,
-        "output_tokens": 85,
+        "output_tokens": 87,
         "output_tokens_details": {
           "thinking_tokens": 0
         },

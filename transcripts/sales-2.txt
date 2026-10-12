@@ -4,7 +4,7 @@ Email sales-2@e5: "Cut your AWS bill by 40%"
 1 intake     sender class: first_contact
 2 injection  not suspected
 3 analyze    intent: cold_outreach
-             summary: A first-time vendor sends cold sales outreach offering AWS cost savings and asks to send a free savings report.
+             summary: A cold sales pitch from cloudsaver.io offering to cut Ivan's AWS bill by 40% and send a free savings report.
              proposal: archive {}
 4 floor      silent (proposed archive, requested none)
 5 learned    silent for archive/first_contact

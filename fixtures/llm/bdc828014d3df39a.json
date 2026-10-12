@@ -345,17 +345,8 @@
   "answer": {
     "content": [
       {
-        "type": "reasoning",
-        "text": "",
-        "providerMetadata": {
-          "anthropic": {
-            "signature": "CAQSvgUKEAgSGAI4AUIIdGhpbmtpbmcSDB3unVvs86Nu5IYWABoMCpnz4ESMb31ekRT6IjDvSDDcDqofa5YtSsUA76w+QM1pYxmeserWFTAcZA0m0LIboIT84hhGflv0wgqg8H8q2wS33jxBF0nIzGqYrJTjUoAcjSCJ8+k96+xcZc06ZeHzd8l2PCUma6VfSpkQb1p2AsmZsc11UjTDxhhopzFPRGwftLPyxShC8P15T2RGW/6vmkCp1DwAKdcmgGe7zmK+MDjFdwVu+Z0QzeUB8tYFOMO468Q+yW7doJU3Hv0OSjgun7fLl11pXMU0YvnfZe7WDtKgR20CTQk4qFkZz+Qk9yYM5A6lHD1f4pV2Hjigg63i2r/hXm5fWoaQyRPDYwXUgfa0hVkDGqBGU7KmOvpT1WaQJGhcdyMEbmmIKNp8Ftxn48wQ2tA41eqE85awi3KQe1SZhIWkbhPUktXklqQprOXL8RP/UekMIOI7K/4/HH9+fNcbVBBmzUoW6XmFtvJb3jqH+OWkjq04ZEencmhJ4mNL6+oqvkxohJAjT5PKuSAHlnrpDQwAKnJ1p8VdFo5xF7GeeqG08fP7HMJh/Ei9F0x9nU1a11a2G+8O0LIKChD4jMUYzypstT90lbMzVt8bRrBRSwVhWBU4U0L8xnDd2Yt0ErXnKutEPCeV2Uy646IyN3C/6O1LkWPU2VjVizDL4U/eaVdV6DAZcu1Po7Ob49MwtkBY0t4tFTGRsiztl0f9vRzom+mkIgT0VmmqOtmlKWcr+FoIEKyjbgQLvxwVSXaaBL5c5NJb8XaYslw4cwxqRYNQVapLGZFK7ZtOYwFQPZj5UyuDTGi/Ham7Y40N+gvSXvR9TeTD3/EG+jpBbY62TmDA15SPXmoMvLgoZBT5StPMg3mTp+KiHUZgOtQjGrWHo3K+pEH4Ci6IMicYAQ=="
-          }
-        }
-      },
-      {
         "type": "text",
-        "text": "{\"summary\":\"Maya says today's retro has moved to the Atlas room, still at 16:00, and asks Ivan to disregard her earlier email about the room.\",\"intent\":\"fyi\",\"proposal\":{\"action\":\"mark_read\",\"params\":{}},\"requested\":\"none\"}"
+        "text": "{\"summary\": \"Maya from Wajo says today's retro has moved to the Atlas room, same time at 16:00, and asks Ivan to disregard her earlier email about the room.\", \"intent\": \"fyi\", \"proposal\": {\"action\": \"mark_read\", \"params\": {}}, \"requested\": \"none\"}"
       }
     ],
     "finishReason": {
@@ -370,15 +361,15 @@
         "cacheWrite": 0
       },
       "outputTokens": {
-        "total": 140,
-        "text": 90,
-        "reasoning": 50
+        "total": 100,
+        "text": 100,
+        "reasoning": 0
       },
       "raw": {
         "input_tokens": 3440,
-        "output_tokens": 140,
+        "output_tokens": 100,
         "output_tokens_details": {
-          "thinking_tokens": 50
+          "thinking_tokens": 0
         },
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,

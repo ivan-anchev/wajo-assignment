@@ -346,7 +346,7 @@
     "content": [
       {
         "type": "text",
-        "text": "{\"summary\":\"Linearly's monthly newsletter announces keyboard triage, faster search, and a refreshed mobile app.\",\"intent\":\"newsletter\",\"proposal\":{\"action\":\"archive\",\"params\":{}},\"requested\":\"none\"}"
+        "text": "{\"summary\":\"Linearly's October newsletter announces keyboard triage, faster search, and a refreshed mobile app.\",\"intent\":\"newsletter\",\"proposal\":{\"action\":\"archive\",\"params\":{}},\"requested\":\"none\"}"
       }
     ],
     "finishReason": {
@@ -361,13 +361,13 @@
         "cacheWrite": 0
       },
       "outputTokens": {
-        "total": 79,
-        "text": 79,
+        "total": 77,
+        "text": 77,
         "reasoning": 0
       },
       "raw": {
         "input_tokens": 3448,
-        "output_tokens": 79,
+        "output_tokens": 77,
         "output_tokens_details": {
           "thinking_tokens": 0
         },

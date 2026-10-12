@@ -349,13 +349,13 @@
         "text": "",
         "providerMetadata": {
           "anthropic": {
-            "signature": "CAQS2gcKEAgSGAI4AUIIdGhpbmtpbmcSDG0KGX4y2nXuXEbv6RoM2wGo8k+4DOIoCU6WIjCCpBEfObMU7k6Be6GEWRTvh22NayaROHYhgzi31j3A1cxyCtOijFr56xNTWaptVFoq9wbbrFjodlajsNO/xVxjDHZO3Uy8U8ElkzKqwZDKMPAwAIjyLwSBkkx5sTkb7gu/irIV1d3fdIr1LO4W+XzpJsaYt6pc/dWTe6TmH6QPqMtqrhzkz6Bz9HJGI0jRxWzwQlAbMr/GudE+BFPH7D/PMqBNn1yag4Cf3Xw00o+ZSBzmBxPYBL/kKxCXF9p8/pwX8zmWcVHuuIveR0kxI2YZWiIfdlQiFITNSeIEHIkU2b7NtZwcupGMaxPClbon4TcrfIGXTXyTI/p49OLcV4sSzK22O7vzxihVJ+rrZplG0vyY2fLXqfZJP0YYg7GqwAVBPtKwEdhVXsU/Eev8n6AGGZiILFtDAJzi5zymZeG/1x0szNwKPZarVY2tu9zAdNL+p6NArt8ACVb6sfsGWEOsbY3jcLx+31tiCZgBsEaq1kc57y+snTRtuBD1ChZMOfm9BcixzY7juRCLNbtnccbBIyOTb0Prid1lte+dJrpHOIJab/A3mj8Bro8XfRpqykPmXTF19S2JqsfYwn8nelTnBm0kCVEqkaqCOAjvwfJkCXw8yYkaTQiprcc0TTPSrgi0F+q/wbM2I6usGB+lnEDdY86PqD5lZadVl6wq2h5DkoUFv8rj2bW1Um9th9mXJqO4YseZVZuLCgY2vOtS0MgRmVylS/0vmH7fxvreKPoZmPHRmUxio5+aPJIgnBxdx5UO4je5ZiLWNbgubvtkYjH0rpZn40c2QS6rD/C8EsWi3TPGlp8ckOU2rAO2YdOuILO7wPOUPd1L+5UM2jYrsvchLArqQNkKdweZDXb2KW+veYOv0JnAIrl21VTja3ieNasCtuHRu+ynF80EWyT0AcwVCIZZsdrc5/RWtHsJjRSFWL7pedmkoP8rtQTczCfqD6qA7x2puXBClx0J2WP+Qf88u/QDiRhR3GitDxBg2WuJMlBdZFUz6VYkH4pZIfKzIT+Su3WAqqqja9GgEpT8oaaUVOM95BCNdbt5KeELeMg4WnsucHW90EdadHddDscQ+Gruo+nE6kWojLJJxRj4QMdkpuRWbLcguF+xbgc1AhgxJ/PmhZgu+J0BCO2YPw0209Z25jtodu4XBUPvWUMtEwXQv91UiK+9DijX8UvI5SZa/aid3cG+DVLJWXG5oNxgRYo+JRqv+fJV/3Z2tePyEi0wY4u8yYxwxZfqtRgB"
+            "signature": "CAQSigkKEAgSGAI4AUIIdGhpbmtpbmcSDEZdX+evy9HEy8ru0hoMFZ3ka6a+3PmGh869IjCzGa2/D+nRTjbj/RjpXlwm8+TaKpKvmgdNqI3hCs2wm8jKhg3ZEifEWizTkrtyEmMqpwjL42MQE6I0gFmO8gPeAppQsNOioOnUtorlOeOfEqwOZXw5qn+utiwBdOpwGHmOMp5lVL+sL9kqG0msA4J7MVG0TDF0r8fbhccjuqzokassRjGJkjtNzTqNOwaYUspTmQc6L4X0cCguHLy9gy7OyMj+AKkOm7+z2DECAyjUjmyWnt94UQ2WEiSWnYpNokKiNtUREmGX5Jk+H668ceICF9OER/tCgpGjuwgEVqz8Yn1u5gsurj1Ke4aHPoAg5lKkOx10TsMDLwvF4n5p2g0Z+P0KYNT2sZOB5fo73QR1w+mpSGX5rGsMp+ba2/mg+n2wF933dZAPBNgdTFASRjnkxLO7gDGeOw2ZbUdw+cDyHBpROy4jqVBa9g2qaTfX5AF8BVLLpAZF0V8sHNeM6vhxy8kz3ROlwYnGE7tSbEUHjbwavNZIhqYLBrx4iN17+3YEZfjNh3y6uT4FODYyPu4WCfsoamx+2PQNaOhyWyNd2hEmwP00Iw6VX+dbpSWifEppUPhsKlm1q15KaT0cjr2L9hFxHc8TI7MYTzSYDIMIkNBGej+MZZnhFchpJ+J2071o990vuFwBKkFZ+K8cFW2q2aXZVUrQUJKgc+K1V34Xok7B0O0WhnV0klVilHqZqtPS/p0FEqEWiO1JMnLGiICr8sRJmLqccmWyvPMgA4GL1bWNfRR1Pnb9ksvL8mb3X9/JDj/CE5Jfrbhccg8B/YuMO15PQPKdCyooNX29olua1vSgwHx1Bwy1Fi2WJBMqV2LJv+GwsmAj//RQLxaJv3o72mz/DdxfPXl8HXKzLsdqSHiM0Yo8X4v/wUz6aodMBHwtIfURYIUyQnYk8mzfS/1tmXbfRmMTLMbR8wLSkmTdKgwmE/Ad++ta2z0+fRjWrieaH1aJg+zBx6EV7a3WQFydTQgz6o+SdSlQe42pQSkK54VuHBnPn9AwcaTmaK/f91GDrOCF8LLojIBIvPBFOfUkat5y4aHwrOkX3DWHeVa1k/HMcTDM0Aax4ClPcC0rmfhKKM5SrZCEYlZ40zMqmFXdlIrcUHtHsA/7WoMFDKh9y61TThkY6ooRtxBnY4qV797p7ewt5CKFpf7dPfnEHBYOIa4NyWjKBINAsdptnwk19q+tTYmXOav2BwkEB0/1I3PoZUH4bpnK5IbcBKogYe4wHAx7LTX8DMWKGyYEktvL7ncMj4KKI3ZiXeVMpH3IqTJ8mk5IALyOSPPxp3x0qjGPL06hMqwVk8abaP1rOXzfmQeVo8xPD8VMvHCADn7NUrxkY10+PvCr5svJ0K5tdlLx6i1LjGCv24gU068Glvns2G8Rg2ewhw0GSeHuXs34Lvz4rCn/lhBYQBLNXOjpA6hDgnci7Q3CrxPMsdI/zPabUBpsR1I/BxL6Wt+CzBgwhi5QZZUFKkVtc+ViGAE="
           }
         }
       },
       {
         "type": "text",
-        "text": "{\"summary\":\"Sam from Lumen Startup, referred by Dana, asks whether Ivan has 20 minutes next week to talk about his inbox agent.\",\"intent\":\"meeting_request\",\"proposal\":{\"action\":\"draft_reply\",\"params\":{\"body\":\"Hi Sam,\\n\\nThanks for reaching out, and good to hear from Dana. I'm happy to find 20 minutes next week. Could you share a few times that work for you? I'll confirm one.\\n\\nBest,\\nIvan\"}},\"requested\":\"none\"}"
+        "text": "{\"summary\":\"Sam, introduced by Dana, asks whether Ivan has 20 minutes next week to talk about his inbox agent.\",\"intent\":\"meeting_request\",\"proposal\":{\"action\":\"draft_reply\",\"params\":{\"body\":\"Hi Sam, thanks for reaching out, and good to hear from Dana. I'm open to a short call next week. Could you send me a few times that work for you?\\n\\nIvan\"}},\"requested\":\"none\"}"
       }
     ],
     "finishReason": {
@@ -370,15 +370,15 @@
         "cacheWrite": 0
       },
       "outputTokens": {
-        "total": 328,
-        "text": 177,
-        "reasoning": 151
+        "total": 363,
+        "text": 149,
+        "reasoning": 214
       },
       "raw": {
         "input_tokens": 3448,
-        "output_tokens": 328,
+        "output_tokens": 363,
         "output_tokens_details": {
-          "thinking_tokens": 151
+          "thinking_tokens": 214
         },
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,

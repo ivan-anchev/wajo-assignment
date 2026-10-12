@@ -3,8 +3,8 @@ Email t-sales-1@e5: "3 ideas to grow Wajo's pipeline"
 
 1 intake     sender class: first_contact
 2 injection  not suspected
-3 analyze    intent: cold_sales_outreach
-             summary: Sam from LeadForge pitches three pipeline-growth ideas for Wajo and asks for a short call on Tuesday.
+3 analyze    intent: cold_outreach
+             summary: Sam from leadforge.io offers three ideas for growing Wajo's pipeline and asks for a short call on Tuesday.
              proposal: archive {}
 4 floor      silent (proposed archive, requested none)
 5 learned    silent for archive/first_contact

@@ -349,13 +349,13 @@
         "text": "",
         "providerMetadata": {
           "anthropic": {
-            "signature": "CAQSvAYKEAgSGAI4AUIIdGhpbmtpbmcSDGMgFomQsPu5Xv01jxoMl/Ho4qGrRSNsJVriIjB9zaXT+rfdtjpaIJ/AremuPgztEcqlg0/0Dfx6W0oZIvIIsN0MSVY+WESWZTnXO78q2QWeW6Iz+DyuyiTclXf+LkcrI6gshiooH5zb87VnIi6Qy11IZp2zRq1R1kW0I/EeKVG0sr9iXK6Le9OVPLLp18UqlOQpFTqLA/fmWxES1wklY/V7zfFBv3k2Tet62q4djfcifhmRKKBpx/AHIf+I+Fk2IuHFkMGGrRMt01EHCuy1LxhxFzMk5ci+dXxs7g6UzC7xOs6oNxq39ArFLYfXR/mODS5UZCQq1L60vOol0bkXX+SwFYjn1o/b9i3aLG+MChGpyI+VhUgx7sMkv9PU8ZJmkYVCCxGcqpoD1uDhEAIPiieSoNVyatWJ0rsE73pwO//F1izicCWZ0fbY/LL/GqXFQakgF6B5gEyOvFQJ8+xy/ZA4kUtVl6Ye4msFFY75NW3SMVakJP70UZ7z+bb1L645uOehfF2y7uqFK+69yDaAR6KCeTu2e95hxl2sr7OVwKEfEWW9oWG5t0DKt8rg5xRYIyuXOS1/NpmZJzzNrc1kRJgOBL6dm+kx9boVUG3cU5e8o9j1aQtYzZcy6aFsiWMLowJuNzoLfG7w291tjX58/BmmovX9rilfq5fECOZ+OehLtPYWGDOTKineMQrrr4eb4/xjR9mD/qeSGGHlQQ0RN0/HoyhG27+hCLfhyIVYTRIWNwEz9sP4Mv4BiWuhIGEp8RKKiCFauwlfKxWeMDfHjTTF1T6uxER47LwZ3oL8c/nojC+zYuD1jtedMQ0I4TTQva9I3JG0UGXea5wraFUhTiUCkGkvQ0f4XRvhaDwGpxTHdb5o0jhN5NYQokoVrlf8ldaL592dj5dODlTDSN3deJ3wO5av/WMB0zRlqYBcJ86CRQ/FPmVPYrBQ5FNAC9crmcUH2HqabQaUc9Mi0kukhF/fFOrQvqQg6bZjt2CsyI388vnLPN1/uPyC65yzc8/DiDTGBtT2gTErcj2Dp9O4zyRKR7WXZWXFlLLGS4r823JchVmnnvHUZkEYAQ=="
+            "signature": "CAQSqgYKEAgSGAI4AUIIdGhpbmtpbmcSDD+rmsLCsC0SvPbWoRoML53Aj7GV5FK9jLbyIjA8E9tSYV3xfj+CfyEQvZ7C0DUt2M19P9KMKDvG1gPKpYf7motCa0jFINaxibbtgrkqxwUjDpyBg65Tyqw4xoeparxm5qWv/NUtugtAnLH2S8tJC6+BWNZUC4nvVAZp6kz2geB+CAL/JBLD9hKqX0dRpYzDiqQDw7QFCA3hxT3KmjMdEZh1QF5VtuhyGbmgdPqb6GrxApl2q1cWcTVm2wI2WjpdSVncNZ2kZnrS/tOSEz/s0Rgf5du2Vu4uwQ+1iZnrY2PAB15LDJZgK1ndumkJ8QXccSobms1gyQQtSztWN1RrYDBfykGqL986a7Ua8Fq/qCR9RxV3xvYXwsYafKe45+J5qB3sjgdb7gynsAZymLAJBJslEaYNyr5+4XXjp3pRvrkheS326KSQqk32GkHDbFbxBo2P/PwlilRZ5b9rFVUakZ+cQ3BEfylJE824Xgq950v1Z1xczJP532OQMT8bpfjYxVd+bbJwhxRf6Oybom3fXY1/vkj/1HNUiWscKWCWN0Mkn9qsNvHrLEskPJAXO0CUN8yzBC3RxDVDFl5Uj4XBvCnDzdc0ZliWGnDiYen2HZ//iYKznFqoOwwpMlMoR5+mqrERGxTgeJ6fEfE/nY0gX+6MF+sKw/a7TYtPQVE8eoIbK8ST5Otmknm9DsSRgZqKZzanXE7alO08+Tjsc7XKoKbNjaAhlEq0XFOYadz4XPgvrdbmvLh8v5N4FLeKYmDIgVhi9N5KSXpzHQP7URn7XfuoDYZRzJW+HdzZmvZJMdAAAadJjadLOEBfsKQw36uFU4T73v2frOaluMOQerIkHtwQ5nnUL+WfTkLRVlXLVoYdUCM1YYCNzpA0Vhvik6i7HQKQBE/TewKwRla/jLyQlBJwTEObuvtDCAAqcrjjAGeyqgGJOnG05CTxIW9Lm8Y1Liqsid2XnJxeAsVHbWM+kfPgsYuiDW4RfBdHaKhWdQRE2RDygSLOHauohOnrPV6+KSPCfX5jSj3uPtU+14EWgZH4rsIamecYAQ=="
           }
         }
       },
       {
         "type": "text",
-        "text": "{\"summary\":\"A first-time vendor, cloudsaver.io, offers an AWS reserved-instance tool that claims 40% savings and asks to send a free savings report.\",\"intent\":\"cold_outreach\",\"proposal\":{\"action\":\"archive\",\"params\":{}},\"requested\":\"none\"}"
+        "text": "{\"summary\":\"A first-contact vendor, cloudsaver.io, pitches an AWS reserved-instance tool that claims 40% savings and offers a free savings report.\",\"intent\":\"sales_pitch\",\"proposal\":{\"action\":\"archive\",\"params\":{}},\"requested\":\"none\"}"
       }
     ],
     "finishReason": {
@@ -370,15 +370,15 @@
         "cacheWrite": 0
       },
       "outputTokens": {
-        "total": 191,
+        "total": 181,
         "text": 95,
-        "reasoning": 96
+        "reasoning": 86
       },
       "raw": {
         "input_tokens": 3462,
-        "output_tokens": 191,
+        "output_tokens": 181,
         "output_tokens_details": {
-          "thinking_tokens": 96
+          "thinking_tokens": 86
         },
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,

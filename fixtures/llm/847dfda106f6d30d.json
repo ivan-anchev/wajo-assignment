@@ -349,13 +349,13 @@
         "text": "",
         "providerMetadata": {
           "anthropic": {
-            "signature": "CAQS1QkKEAgSGAI4AUIIdGhpbmtpbmcSDOlF2h8Z6I8Y6uRS0xoMTgcAz+K2db8hoi/3IjC2UFk9TnVe/NxrrfKSnGwH8MMIuFIxQl/79ohunmzXK4al/bzBeqz0C9g9DeQTOrkq8ggeONoIP14JD78gqVsZeXjuUPHvigP4ouAUAX0SWazu1b42+QexqshLqG7tTkD6I+AJe00v6LXU1AGxbJ4szGi1JOcW4CcBJnQW93GiZN9AtnF+Pw3GS7NiLLm2DWrgFREdZyJfd983/kG8w3C6rzLp4umbVUZ5wDkj6OMLIA+oiZu3yZXPMZetvQMogQD4ruRyosP3RsDR8jCLSsqIIMeOQQx2RwmSQg89HapicI/D1oRSs90zXuOTJ8KrraD9rXobcM/jvAKCCyabMhXjAkfdqGZ3jNNqcrYOh/T+qBaH3NJN0myHQ4dptJVgFlzzsNeiPacGaMzmvkPJH28BwmuPm8kzDUPl24M8lHl8GN4Ivr4Udp/YAYRT4WdMRGvwBU49CAz5Ujgdv8XARUp/nw90BGb8aoSxPkz+1cGuN7skAcoZN6o2CsLnGTFCfIqyZmVvLApRyVTrlNI6Wpgm7V1w7STnAyp48Lc0tKkc29BQTFwSsfGqVw1BCLOCKC/hfXCeQc2iMOIaotaNzYZqXU5HnyIdYixu96kxPyB4+gLX1/5GFELd/K7Re1XXu0778MAFrc2B5ov+FIhD76baevjMDZ+QEWoRNZ/JvlHw8w6RH/0QIkckHP0ngIDcTZGuMyPako1XQ83Df0G8c0dwmQfW1txlWL3utIr+HqCH+dXx0n8UlbRZmEZzLz/K1RVV2ej3vFksZqqz8hKHmUXfp5WIa3QrK3gGw4NShpoJrXgmvMzn9oE/0deDZaWkI30KqXU5VDy2W19ZukR3XYprty7cu39wHgnKuqyuo2i+mavzaRf3dFKij+CI0CVmsRMT7I+weDE+zZejbjPJi2ptmwxElMvHElBDdP0m0e+9zbW7a4OaakR3HweX4qowdcGQZRodTFDtX1RJke+bLIZn0oQ0hK6Piof9hSLRaqEnTpeaA/gRPTce0a/xC8tYUVKs74X2R3xczUpR64EUEw/jA70pZ6SMBTEoxp42MZ5HfZDWJCOxcVaqkms3X1fIFlFIZvo+FIvAoVzJ/hudsNYf04hCb1qRKAkYdHvxxu56F4dvXRAqgIpczYsN23+wwB8QdwrP42mYKBzbUOfeqb6MVf/UP/bIIUPQICEAbqtF8eIAwCYI1ZM7SMSu2FmInBli4t9JAUf5/bPbHax7EivkmT3TtnJCDVG2D2GxBaNBzVtWYyOwvMNQynRbfugVgolWguyvwTzJmXqt2cBKne291Zs1XkOiwXGT6HoHI/AtwhmvZxFNSuBin1edtxQn0mE7CQR5MTvw1y7A6kiWLmEsKt32JccCsqXN13EC5hG9HPil+hhoF8qS72dWGnV51GezAa5a99Je/WoIXMVi5/YRX3jIdI5WbrGUjd2DRp3oT8GUnpGsOo8cswS1xIbpFSBw0GDde/1ZycDh5VUhe61luVj1r6ZLSDfVTa5l/qN8T4RiA+x4u8UMReHqKuF2kH2LKAteke/0wRHIUazPO8WWfEUUoSwkF35fXMTOlA+7gOUHP4gEGAE="
+            "signature": "CAQS5AcKEAgSGAI4AUIIdGhpbmtpbmcSDEvbyPGDVjbYRs1s8RoMjX3jQ18kYv38X6PZIjBvubrRxrtEq/T3QQQAB2C+dFtYRBP+ZIrljhjlQWqRtNgCY5YS1MMg+rE3pCObnqwqgQfsPnO+wYnvMUl6AjcF7Iyo4/UkNav13hbl8vsVPnyPBfKTwOdJulNN/az+Iw083C2av6TZWrLNd9ImDciUmRCB6b8FxtOOkzEXA8FkOZhYtYwmKmAE2UCKrtk3GNyxh4JzBXpYGGWD1wC+3yh+o1P7krxl6mcEEb8UVlHsEARYuvEZpd6Tx2LYSS0rb8Ef8O/Zdg1gF63fgL9t4aEgZkzeVJanBXVnTNOqityGmp2+JrfbBP1PHru3NTegr3HpeCM2AYCAe/k1v7Tf8v9RCSPBJp+NLMtib1z2xdc0tQHhIdERkByAzJyWav8dYOITI8fAx9ZvRbgYNvYrmu1QRrufBkvWHLZGX0wr42chJSNc3UUy0N28Y+0tAF9BWKh0gVutA68VEL9WKRH4n64AaC2hcQ/A2K0CWncynRYA8xwOJu4CCDQIHIL2sX8NBqQiit7wkFcUGVtar1yM1fG7P/TcVcq3kjjts1FBxdYxs9lbfafc+kKgsYGnm4/PWEag7KpupJTRDZYtKZKoi9T/sS78KkCB8wnRd0KTerTEnpJE0+bo4upOwlmLufmzM8SryTzZzdveYCZ4sfKp0qrOc46QO+Xb85V9xNcd1iF8Nm2s2n0THJugU+fWeNqVpcHblJkzOAUxZK+VVJBs8urffdXMkybY+U2hObpM0EzH+kBdgKAW51GsDea7kYDBvnEjvNejMK2n+km/sHu3/0xV0dqfnEd+ygI9zJBltfVgxwihLWllXGfHZwQAhcEGSrjspaBdI4vNUMpEOMXINSe+QxzPLkuP12cmk1DkcbeHkZvBmdc+ZuWyakAVdNarvpbEXdWnuI7EP/7fgGd+xQdgyeJd5Rdb0v++j4s8cjwXy7iX2RvK+ZlESjs4gOtzbp3kRWxDSqQlJvp9Nph5OnLOtZ1M5gSeaAF7c7kmSmSdu/wRbKQQkazSvTxRFIc6ViwH0NA7odVMRsCnmOxXhvcqYkUih5bV/kZ1FY+nQE0m+29l5gltWtbbBKX2n/8wQAKzJluve6Uqa73gZIlSeyC6TglXhDjdwxagQSc6inWFPeU9lP0aTf5NhVD19zZk3w/bYgx8RAf+13uf18TqXX7l16rWnWBwcMrAOfaIQmlSzLOaSpKpYLCEFuNLOVJujm2se0P8pkwJCFZMPVJNrYQhGfxUlZ1nIHKbsuBjDh/+vH9Ui/sYAQ=="
           }
         }
       },
       {
         "type": "text",
-        "text": "{\"summary\":\"The People team reminds everyone to submit Q4 goals in the people portal by Tuesday, October 20, which takes about 15 minutes.\",\"intent\":\"reminder\",\"proposal\":{\"action\":\"snooze\",\"params\":{\"until\":\"2026-10-20T00:00:00Z\"}},\"requested\":\"none\"}"
+        "text": "{\"summary\":\"The People team reminds everyone to submit Q4 goals in the people portal by Tuesday, October 20, which takes about 15 minutes.\",\"intent\":\"reminder\",\"proposal\":{\"action\":\"snooze\",\"params\":{\"until\":\"2026-10-20T09:00:00Z\"}},\"requested\":\"none\"}"
       }
     ],
     "finishReason": {
@@ -370,15 +370,15 @@
         "cacheWrite": 0
       },
       "outputTokens": {
-        "total": 390,
+        "total": 275,
         "text": 107,
-        "reasoning": 283
+        "reasoning": 168
       },
       "raw": {
         "input_tokens": 3479,
-        "output_tokens": 390,
+        "output_tokens": 275,
         "output_tokens_details": {
-          "thinking_tokens": 283
+          "thinking_tokens": 168
         },
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,

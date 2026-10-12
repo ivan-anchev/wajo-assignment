@@ -4,7 +4,7 @@ Email news-2@e5: "Today's top launches: an AI calendar, a Rust ORM, and more"
 1 intake     sender class: newsletter
 2 injection  not suspected
 3 analyze    intent: newsletter
-             summary: Launchboard's daily digest lists three new product launches: an AI calendar, the Ferrite ORM 1.0 release, and Pagelight site analytics.
+             summary: A daily newsletter from Launchboard listing today's top product launches: an AI calendar, the Ferrite ORM 1.0 release, and Pagelight analytics.
              proposal: archive {}
 4 floor      silent (proposed archive, requested none)
 5 learned    silent for archive/newsletter

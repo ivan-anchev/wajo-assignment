@@ -346,7 +346,7 @@
     "content": [
       {
         "type": "text",
-        "text": "{\"summary\": \"Marco from Helix Labs asks what the API rate limits per workspace are and whether they can be raised for the first two weeks of the pilot while they backfill.\", \"intent\": \"question\", \"proposal\": {\"action\": \"draft_reply\", \"params\": {\"body\": \"Hi Marco,\\n\\nThanks for reaching out. I'll check the current per-workspace API rate limits and whether we can raise them for the first two weeks of the pilot while you backfill, and get back to you with specifics.\\n\\nIvan\"}}, \"requested\": \"none\"}"
+        "text": "{\"summary\":\"Marco from Helix Labs asks what the API rate limits per workspace are and whether they can be raised for the first two weeks of the pilot while they backfill.\",\"intent\":\"question\",\"proposal\":{\"action\":\"draft_reply\",\"params\":{\"body\":\"Hi Marco,\\n\\nThanks for checking before the pilot starts. I'll confirm the current per-workspace API rate limits and whether we can raise them for the first two weeks of your backfill, and get back to you shortly.\\n\\nIvan\"}},\"requested\":\"none\"}"
       }
     ],
     "finishReason": {
@@ -361,13 +361,13 @@
         "cacheWrite": 0
       },
       "outputTokens": {
-        "total": 181,
-        "text": 181,
+        "total": 178,
+        "text": 178,
         "reasoning": 0
       },
       "raw": {
         "input_tokens": 3467,
-        "output_tokens": 181,
+        "output_tokens": 178,
         "output_tokens_details": {
           "thinking_tokens": 0
         },

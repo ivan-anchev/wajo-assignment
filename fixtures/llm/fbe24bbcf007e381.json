@@ -349,7 +349,7 @@
         "text": "",
         "providerMetadata": {
           "anthropic": {
-            "signature": "CAQSrQsKEAgSGAI4AUIIdGhpbmtpbmcSDO4LeEtvlSDgTCpBrRoMPf/8S1t6JqiZe0tiIjCV9dj3W0xdWz/7YDsYIiuqyW4N7vQcxcNDwCYdxU6Gd4JkUEg16X5RZH4FTw04jCIqygoNHpnm8S+MgvMHuICTatfGJSPw4TlQZbx5DHSBRGdNmdGDYqBE6cstCUxsoeaibjrWeh6E9kn1i8KeAzg3qGHx43ay7KJTWIChTySjm/euuD6W6z5LduWF8+hG8aLGHLIJY8pNHPt1japi66FgnyZQg1VrSTiR8nNeqRvnB/WPpktQLknnVLX5nGBRp/MtNWjLW6y95GWBweMSDOvam4QQDIfrJPsAjIJec5JGCJWNEWcOOZ5TtHvnyv837YLRu2Pmi5b9+lsh6oUTACT1tvJKMGSHyFi6lK5IEKcnheEkp7DzA0xLEYgXzSC62eWjdv4G0fZRQSVS3HSavPqqrP58HdwlMLBHHec58muYQYs72A8s/DWtu1bIrTa2OPXMrrqNgwpTow2vNpF0rYSr7jWS1vEPjWdosNDpAxj+N/yCZdmbBdvhENsu7PXx/E0RdG0Iy6IpbAa+Mw+dNuBZ0POpDL++TsUIcRwjWR/waUqldR06ByHhWA6ZaRvYYm/Z/GjDV/1Sa5DFGP5GZRaG/YM/5IkuId2cQomn8Pc9J4XUH1sWgSAW1jT268mX2ZlvHvFAlQWQuxn05edwsWkRnuPexUyz7D0p0c/KFiZq0qU6Psz7H8eu6HtkDpJGjz5ku6rsFqtiT3A6tklqIjZuooFtcwCI3Ai55BeGmbIOwB2JuJOs7ePGq2FkxmxEldO/tSuCQ+rm36TIZFoHv7L1BeXKqERl97j/kmhhXy9YJcS7yzB9ObMVd5JQiAWNYQb2b7A2GhaJSbiU/CumWtErKO+BTd80oiquQbvjDP1LjIgc5KwJs9eee7oqh9dQqwLbKx0PVggnQkE6/uApIB8XiPtvELOBJohR/150rZJMr5Ux5lxquSmHXfZkPqlJjW9aX8YrHxM1yG3qCt1hbz6A/eVYZNZWkUIDXUb2yWnvhDbTQ6nbk8rgh9/h66Y4rhB3v+zdVUvYjszU808xNMaEM+naC0Gj9G5I8tAld9ODUn5J3cV5+kHIE5qeN507K51oZMyTCYLy9C3bY2adZ/GQNhlPUjONo8gt5oigPuHH9W2MVkl+0JhPqsnEw91ANwER4EttZPwSgpXOl47rNYQs8AnQBCd8O0G2qsVVCEHlIxNtiAcOIzIwLA+At0L+q7XrRu4BL+KMZqUP+w8CNEF/X07OTDMeZMrix0nQj9tbjoaZDJw/hP0MY/0dkRCNdU2QM7JIsRfZLrBcGk7+TeKEsGj6tRwk16Y3UdwwWOkC1JFwqzv1TRP+F0fL0ObyR0616xCrwwCReG81QyE9fnHLWFr0YXeppbvZ7FOCSl6B399xkFsUg4Xa3rVbPQcfXEtQwdwwQ+mE4K0ZlchvQ2tEuEPUDl9q2RpgXxuiBickHNMR/gRnrYQB/0i/b9feddRMBdUQKOlW/l96TANA1GRBo1zl6MYX0fyGZNaa9rQ/E0ELVogFvr26DB/6x56vqCKeeXZeBIPG9le0zN6INyBea5ABZmGQ93UIusbjCzqqH+qTjgzcmnn1xh61yIJRNW+dqcc1s6HR6gesj5FdqWGfpuxvaIgHbrLwlXbSkDWMYOa6mh9Y9MAaOQg9nXx48xyuE280/iV8yXzDncYoEeXeTjVmUEf8lEGWOVoWiZUDu0gRN9R67KBbV3SX3aStxkl+7T7rmdRjVO9k6Ek2LFhm435CtaQhF5DTCcLWNKwIo178UI09O7Is5hbpjLtkgntLpt2TLHXCKoJEzImg8xuFPS8N3EQVsfRKVgs9N3S1MRPeBPfzngik4uQl0OwjNZw05tnljDAghOgp4WTWGAE="
+            "signature": "CAQSugoKEAgSGAI4AUIIdGhpbmtpbmcSDMiw+4+F1vPuzgtGJxoM/+K3AaJU81Telm/BIjDyZoIU0Jl5Nm18OtTwHX2cQlC7cB+p4NXmO1wQOj0zgL4jk1ffrNcc9RxDd4gDvEEq1wkGJ6RuiMd/Lm/p+49uVhWaZ5Bfstgqxtx0aAxSagCRJdkFH9uiFFt4Vr9eg7Wlc60K+A9/aIRGUN8WXxlk/BpXwSccTNY1/sDoDSo4YbMb8dUDsV4X79u+b2GHXLz6jOL+IveOveR9G6xzby45EdrwqpRBe7rRi0kc4rs58oDM8tZJQfEhxpttuJ/zx2IU6g0PzGRyUAQlP8iVLx3AVy8wo9Qdy+GGTRqEFuc/dYCztTtAgWtU81g2UnQHLFLSh/x5gyr7q4omwK24JCJegkN9OGB/cutkYRyOFfmxjf9RA7AgrE7YJ5XYbdzstMRkROSY2yqOXiClQD1NrH0ySQjJFpcq5xlakPDy1ioJhNmdHlI7riO+Lj94Bz/A7I4r/bFNCbuPWaV616HYlE1oS23Ylxk72ERXQ7NwXtt+qVp6diPdyy4la2q//0meGGOPMMz2MS6TrDw/FO2DFczHTAAIr9P652lTWey4KlqIXWyydfSfpNNB24rvc3MeyUEIOUHNXRHr2Dyde7Rml5O0oyQd1C7t78iW0b/Oi3nl/GTV/5q97UZmd+jDXuvGDpCj7ROThR9khH/tsZvQKpBT/jBG4cNTJ0XxgKBvtWyox+0oiAae7VgCak4a3i8n8lpii1lb2fco9PgplZMIL7H5fWPZZqD8SfonW5Z3IDWL5I/gHH4oF3f14IS8jCFxTujsEiBAvgAipHZbG4pxLpg0GQWk+E1nh6jH6/tqoZlThfJsAkv/Qx7ZSC030+NYGZCAJqLwrjbVWARLbDPDhY+XNcs7NvbXAQ6gaLK/zDD9Us0snrrJZmOdV/8BP94Jpts9J98/Q9kSN1ZbhHL/I0+9dso/YF34uleviUWrHW3rHo0ysHsJ3oc2/mTK9qEn8NYY6EnN39OO1utOjiu8xJThx5Z6K6jSKmYig6XvHLWQwsKqpThv6jLiKPIYFBw8DK5JcH7SlzReo7qSlpCCwaXpnIIeQxhzmZOHNLfWqkbarRxatoivl86haKmxphCgKDBU8F0ViFYxQGMt3BQ2znD6FVVyOnnicYH52TfVQai4Qo+0LZ9ipwOsgPPvX5e3teVqKjI2zUlLuvwANaprv3O2R5mEIR4q18RI/bbssGsp++Ev4diPgsBXfSpwbjqdEEaFO3qcAHwmxDCCvkFUyYAjE6FKUe8pHMIuShA3nfdrLAFX6tjE41DkmcWlLglKDejM3wU1Nrlow5powlFSeU0YeJN6XRF+EjmTm5FE/+jcK5oTH++fmnncH0Eo6YummlAIKZJRmpVs/gmKjJbtooA0nn7KwnT1JFmj/cdSX2Nx9vbJCyGYwGm32Z+BPLdluXXq3rvCZh8d9Pbif8b/qmIjQPEnfKGZr4wxpkNiTelGDIji0Fp8Zipy5FIL9dzAtrIBiCi8GWV3Vs7ssuYYBEkjzQFlOOfdOgoDrnEQZuDTwj8Yg/TJtc7L3+kQfJLbSTyQb8hZZsXb1oFK9aT2Jzh1VasKc6R7WXKp4znQ4dqMMe2DO7nwbbNH6CRrGAKxio8wzoy7ZMVFJPbJP3QgsUakDuWDA45yWfmrLuzZFDW/oIwOCqTcfluePLdlTEXgNwffy/vTASmZmMr2TTtPRWG4LTuUQLkEIYLeVwKHvRbVtbTs39VgGshd4UcYAQ=="
           }
         }
       },
@@ -370,15 +370,15 @@
         "cacheWrite": 0
       },
       "outputTokens": {
-        "total": 471,
+        "total": 440,
         "text": 93,
-        "reasoning": 378
+        "reasoning": 347
       },
       "raw": {
         "input_tokens": 3447,
-        "output_tokens": 471,
+        "output_tokens": 440,
         "output_tokens_details": {
-          "thinking_tokens": 378
+          "thinking_tokens": 347
         },
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,

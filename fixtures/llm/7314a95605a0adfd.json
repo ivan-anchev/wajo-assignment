@@ -349,13 +349,13 @@
         "text": "",
         "providerMetadata": {
           "anthropic": {
-            "signature": "CAQSiQgKEAgSGAI4AUIIdGhpbmtpbmcSDLzCStALnyBjBT5XzhoM8vvwTqvrrEs9Io9vIjCw+6V2i90ULBkBb7FuB419ZiiOvEHOgmNGPvgNJpPGacTmsynkqZsJ+1pH/plSbtQqpgcdgxsbgDUHyJoX6RRqOh3QlVFhw6jj4XxjNxjWztWaX29uZjUvPQtb300A9bmZ1AmjfIhfCTS/iXqrKpYkpp4cG/6hhJ9vzXzF67l5f3R0boM/OBjvA7rx/0nzv8H4a7trjWRfPYQdLN11SmA8oTYg7NgfCJUfDaZarHxtfHK8XkECBhtbejyfNhvWZ33EQbOPiyZoIiUzRBy87Mr1b0zvFfDQatdQDU43qPqQQGCdcrvwuqvl1c6YxXHrk7MbSmq2++DG9MnglWYC4oPMMd62yOZ4A0dlahxnUQKaN9GjefTpGdK7Wg7KeYGmW37cZOovaUsv/xZgYmJo1GMcuFlywzmQeDPnmigm+hW8f0DdSQ7gSwTQ2SzJudO2jNFNgm9qXpbNcjE+XjtqiLmTpsAZbVfMpOnQqkja4Zt9nxCKZpMfnvsI+xna/hPuwD+KKKRvTyg14mon7eBkjhul36I+4wyouslmc5R8I3JxwwzlUU9grHMMYjFWtxTzk/G/mysiFoBpANf51/MdrEFdRu9Sc6rlsgSoeC2FcA2fQKO11XwbiXyX2E2sTyvEMZ1h62xgqG02rpW+KaQSmRnixxSynYEsvA1iDzbRdlBLCE5fnAu6CR8XuAcmi9G6htp8oaYCnj3fwEXYjI7WotCzgsOkNCLE51YyI9TqYgY36LBi8EIBz8Fpv8Y+5jfxRC3cFcCIqwBhJ/Ibw4O8o0L43mliD1cJd9DIgfk/Wa/sVjS6hc+ZxjN/14ebaTwNq5+MTStPEopM4q4TVGwupZmhBjWE8MNB39Hr87gKFoqxysLvHXzY5QZW1l/cvnBBH1g8Q/hH2xfbxHnN+36nbKgnxx6fQLlHTLgIXF6l/DBIezi5SlLqs52nmP+/zEqUysqoP5EH8OK21YUiHXkSlSBRURt+zfmEaOSr1RgTAwuWgu7E2RsriQj7KECbYv8NjvfCCi5OyLblKoqFy49REYcLw5tfOdF10q/FrYD9Qf5YJxrxWXYVXZ/zCIZIZFChM1HdZzDDhVCfR2apM8268MlpB7Jye64G2rNbVwSrgWXWfZS/YrJXVmpKxNBFvVxZRdn3J7sTPzq9hsLyruHnWJAbD+gewnmJitmSLWH3fqTnzcDVwN7JviCgs1qAw8MDl2N1WrKAmLpHTZ7+CcsVJ0VChTH1K8Kqxqpeubwj7pC9noC1zsy5cATlC6Yi1g31gDAK7mKat6cSvbEzBYkii5TIEq1vxAhrNEF3GAE="
+            "signature": "CAQS7QgKEAgSGAI4AUIIdGhpbmtpbmcSDLd0e18sVuWi0ls2SRoMZI57beg4S9tCcsfSIjCIE9Gx5BPU+PpXuMkoE6fU2/xdAWZH/VWHkqB6jGdrpDeaeK5ISiwfVvO9J787N9IqighZOzb0tYd4GPO4U+59428hCcEQneduPxOIDSJe3MToLyd1EALcjbbyGc+7WKUG7T1CxVGVIWhl8Jys3xY6sOTkVE19LS7Jph1piRc28mFkeIWUkUtxwWcIGU+VfbzRulr/FOau0Z+a+SZNLinY4UvrkHxDTwK1U8vCCcuH9ODeQxH3XD/3IjUo8j52IDFx89k1BaUgGz/V7Nm3klaQtyMLO4cw/jLmXFEbrWt7Jbahh9wLQHEVWL4rn2M3vV9vdgviIRbpCmWTgFHkVjPIo83sCijERxlyU90OX5XeooJszVba5PzxXgoaMXNzKwpz+za7uj474OLWDSZZI0UaN0Kq+0w7sR4mLXp4sHqtDreESsGybXOGCehawdAWOKSVIhQaSh98P0Rpp7WTXUiZa65MefTcT+LTxBS1spxs2Ssy1P0kFmuD0e8Ln2F0ndedQVXWjicQHAuupHNCQI85Dfoscl7JT1cRkFlA+YDQlQVapDOOXm9ilfUHqQCyQetBrG9epV2nV6yYhWIvogKfCCc+kbOOo+Jogz0gQu2NTJdUizwLHbrt+s8mhEbU9f5nVBi8MkTpGkd6Yrb0HcZ67XnetucP+d0mpbB8pG+Q6aUs8qDkGf3K09a87ruCXhWySWzODi2Seom9GcnTdVG4gOGjAJ4dZrYKYcuSR6ssE6mhjj4GpzlfTgcQtdlYAx0AboN4oYKbYWQAewZ8S+FlRTYxBzJpakLnmQqWxTaIdVg6/gmVpAhC64V8mRFrDFOG6SrhXyiK1YyB1VyiXUaC1JWWOCLigM6PS/MLySeeONSr7/U/So+4JKcL1KPUT7ho3j1ytIe41ZfCSK/T+jXCOtZZxbrm9HfJ/pqIrTGVlcCuRNOzG7QwS8/VqAcZrBGSOG9FMQrwH1PxURB5cdO1uYSxzC99BOZYhQtvJAci9ZxIhPSUpuEtZuDFum8G+HUAQG990o9tig41gZCkj5c8M31/tVN764hlZqE3dNmIXGyReSW/mt8BMDWEIiPZgybcMvXo3pjVmYrxZljZuSOHYzH0LL3Nl7SR4UuR5xirT03mA018/oY+9vALqyOXTVVAcvS+Vlh5qBuI98hOI125a/rdVZ3BYUCKIoxTQSSGMSoYbDiNVPNyzF3Co0jXoE0UohmP4q659BNkmyLH/+n3rPJF3s693Mg8Rk0rM1oDTns2Bp2SDMXYSMOyWh2DIJeJUGJJnRMETZxbcCuHfH/Ti3f5AlbMIy0cj5pDtyhVeONSiM58kbU+mmxF0TkMnXwd8x5+Fufgjd6Wsxm3fiLZXE1yRIyAVsNW478UJ1mywuiS+E8u5uKpX6fqSsA2UTitjxJ0aE9S7icjqJC9/dbX377a1WjjMe5vlshyIBgB"
           }
         }
       },
       {
         "type": "text",
-        "text": "{\"summary\":\"Oskar sends staging database credentials for tomorrow's migration and asks Ivan to permanently delete the email once they are saved in 1Password.\",\"intent\":\"request_delete\",\"proposal\":{\"action\":\"delete_permanently\",\"params\":{}},\"requested\":\"delete_permanently\"}"
+        "text": "{\"summary\":\"Oskar sends staging database credentials for tomorrow's migration and asks Ivan to delete the email permanently once they are saved in 1Password.\",\"intent\":\"request_delete\",\"proposal\":{\"action\":\"delete_permanently\",\"params\":{}},\"requested\":\"delete_permanently\"}"
       }
     ],
     "finishReason": {
@@ -370,15 +370,15 @@
         "cacheWrite": 0
       },
       "outputTokens": {
-        "total": 250,
+        "total": 273,
         "text": 99,
-        "reasoning": 151
+        "reasoning": 174
       },
       "raw": {
         "input_tokens": 3495,
-        "output_tokens": 250,
+        "output_tokens": 273,
         "output_tokens_details": {
-          "thinking_tokens": 151
+          "thinking_tokens": 174
         },
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,

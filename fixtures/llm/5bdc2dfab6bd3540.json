@@ -349,13 +349,13 @@
         "text": "",
         "providerMetadata": {
           "anthropic": {
-            "signature": "CAQS4QcKEAgSGAI4AUIIdGhpbmtpbmcSDHgPIj2ITVWXLIIDthoMSYDsjb8SMNLfFm53IjDtePAXFEFF3xB/W/cpHTgiKdR3tyEpC5/mw46GhGpXv6CePY8x35Zdz9lz4GK1KxQq/gZ+ha+Wy/ApbQTuEG3CPQA1zockb4fBoURyXAGqBLkvMeszOQ9jl6HYWjbGjV/iEkLybFq6VlqtKAGFrLyzB8ts5g1/PKFtgRUu5Yb4xlujqNyETWF5oC4dcr5cLXiycHFcFEu467e+HuZjvkX5rREtaNITQWJqIM8tCMulSStvCl5eAJWDBLbUJ1h5BhyPIQAS2eGUOnlYU5hlp2Bw3DjbJ7t4keqfRltnIVQNbjIoidxIFhV3akovnhlwi3+rRhtgcXsshouAu8rmp+sYPCDzyU9FIs+wq7TOr2eCjswwV3PCoX53XQaNmouYsvKnhVTtvD++j8jKMwGxt5Yo9LN7AOhT/uI39pBjsFxP+3pH8lS7ULWmyU6+Tz2U1Q6uwCxbhjvgGI28Ryy1N0LfhcZDGnQgXKAVMqJKZETQgEvf3bm8IywHmDijZrKNymvAReaZ64hiO0UUblc0F4Q04UuJe9mq6jbVj2B9dwHj1eNCvp8eJZFpP9YFiNxGHJs2XKhBM+cILzaxTUSNl/tSyOCG2n8kv6TZkhVH+jVgWMhBwkjthu4nksMUBHOT6LNg7QMPDdkrT/niDjEu0fTBk9fS9GGJbidyqhwBaV8prSIHMrn0X1Px2+vtyiG82jfxKtrPyrK8resipHaYFUgG95e4rrvPGtq/jVf79n145NmJvuJK6AJkmXB+PBWftV8rkG/xJNrghSCqCRDlAhBaewRhlH2lJbQlCHOIS+ILIkGL+4RXOeXvQd/fbO1lVeRDJUFakJCwBXS7Azula//Bkpxllx1sz7X0coXtFWape7SZGgezQzHn8vCgum5hNhTq8gGXcoNn8snyl1k0dFkFNAG1AKm9z99m+MWvSbeL9KX4wVRkvDGy0hltonv/j3a3OXrvuOBqOxg8vvsc0g8UZ1TBgnE6knNizJ6D2sCmclAk914sklwWYq/6uEf/DlU7E024oHJPWAsm7Q9wP57ahYJDs70TJuxkUotM5jtf9N0CSg2SabKboDFl+/uK0TpHFfTM8g3ZT5zbslXRj1GTprOiVnvvUFTmY7G0ZjoKrDz8IvXoJkLNA59xXDE6imuKzCSU7xdVoKsAZF22vpEW+E5B6PkDccD0SLtdN8UViMD1VmAvIMlu22WImUK9TB5VSIJ/0rKg6tJwl3qOXCALJeRy+J62jpWjgwbbS94wEWsYAQ=="
+            "signature": "CAQS4AcKEAgSGAI4AUIIdGhpbmtpbmcSDOcVzJ3vrhBEWCIrTBoMHb6dkri75m9Ev3YWIjD1/m2EVosFy+y3NIdL3vBESM/mg6GBzkcPYbqn4n0zy3E6cRnAWRKNXo2eld5Lvaoq/QZNVXzlu/Zbk3Opp1o1F6zqWioB35YGQpt4EHLsAC1aawXlXlmI6kNVCcUvD/UjcdtR+NR6GfdxdoL27x9K9Q+bpeciVKnhj7uVJNW3EnRqFDJCbVNGkhvWkF2GOMvZBuSrkxrBG0vdCEHxOoObLqVIoKOvADGu9uwxb7akTDPH6B1bGNnr1h09mL9vI7tCRPMSdlwFtzT84u49zgNCmjQ5Jad4xZrfAHvP1CilYkvvqOzlODGLVZMSKoGJxr37PFW0VQDFz4eOkdKYyTGcAGhbG9v/CDmRYUtCT94rm08zCfDvquKBcNx7LCt1Miahm1oL6hNco5iBLwwtNko7tPRkYr9u0b2BSo0jddr80xCHy3eFi89s8/OqbRoPS3wcPhj0vb37uEi4zbMqkuCECKzzucPxh2yfpxVUj/nX6jFC1pfCVg9p9nPvZlVciJbI4KFeUtt5L2h7bZ5aKW5/qeD+IqLo3WmmrNdMrzScRrAnJlks7IvS6qcHxj0kfxFnMVvcajRU7A9QTEaQebsC6XITXf6zrPNhGJNh8Z/fhK3ODf0eFSuvHv44vouTWEBgDNmYOAMbjBgFLyvBmhdsOtAA+aJ57v8Ir9SqFTcBDR+ZCVsX7DdyIpNFykimg2dNW5g258dzCUFdr3XjsUsMbmQcsqSytxL2L8FahXiaH4Vg7yTm/RRoLsVZtuJvecjvUXKxgiwW0SNv0gaCq79UqQVhGNJdsfbe36qav2XiWamvY3hdRsoD25XEvNMwHWKzNMzrYgUhPti4CLaLbPb/bOfgHX/Fxqb9bc5TQBzBdSf5y4CnjQhD3c9bmDEIA9ZRV/Mw5N4teU2eVB03HAMmkJVxwXIxtp5KZVUXJ5g/EbaqZO2A45qwTftzh85pxG29RVcc0+3qO842gXHJgNyD2SkRWK14dKbZLEto39tjcc6/4wryY8n+u3icmEEG1f3wjN6NPkuEosr1CP/fr5T1HOyKK7416NMCNYqqBZylXBuskMuSkmMJYyXnUuyrAmSRxJZDhXNBp8pVQGWwS29gdp1wQTZdm+u5Fk7RT18CWKD56bj4Pqm9sN04nedXdNUpNecAQ70YpZF0kU13+xHaNSwszDj/EVQElTGYjnRkSMi51ilDiqfpbCjp8NCvEM7jq+RYMxX0qbBjNovEuSP0TGenC6SB4MbcC5ze5xKkYBgB"
           }
         }
       },
       {
         "type": "text",
-        "text": "{\"summary\":\"Dana from Northwind asks whether the Thursday 3pm meeting is still on and offers to reschedule if Ivan's week is busy.\",\"intent\":\"meeting_confirmation\",\"proposal\":{\"action\":\"draft_reply\",\"params\":{\"body\":\"Hi Dana,\\n\\nYes, Thursday at 3pm still works for me. See you then.\\n\\nIvan\"}},\"requested\":\"none\"}"
+        "text": "{\"summary\":\"Dana from Northwind asks whether the Thursday 3pm meeting is still on and offers to move it if Ivan's week is busy.\",\"intent\":\"meeting_confirmation\",\"proposal\":{\"action\":\"draft_reply\",\"params\":{\"body\":\"Hi Dana,\\n\\nYes, Thursday at 3pm still works for me. See you then.\\n\\nIvan\"}},\"requested\":\"none\"}"
       }
     ],
     "finishReason": {
@@ -370,13 +370,13 @@
         "cacheWrite": 0
       },
       "outputTokens": {
-        "total": 295,
-        "text": 140,
+        "total": 293,
+        "text": 138,
         "reasoning": 155
       },
       "raw": {
         "input_tokens": 3450,
-        "output_tokens": 295,
+        "output_tokens": 293,
         "output_tokens_details": {
           "thinking_tokens": 155
         },

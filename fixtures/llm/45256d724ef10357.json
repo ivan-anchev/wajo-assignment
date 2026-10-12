@@ -345,17 +345,8 @@
   "answer": {
     "content": [
       {
-        "type": "reasoning",
-        "text": "",
-        "providerMetadata": {
-          "anthropic": {
-            "signature": "CAQS5wUKEAgSGAI4AUIIdGhpbmtpbmcSDA82nEx6ImnX9sCE9RoMr6X0dW4cM8H07KVZIjC758mINgI0tsRj+C9cCDGSp7ms1R/506SqEV1O0Z1C1rYngOmpwugxGJAAF++Dz4QqhAVKnC4eOBufDnGrbfr16LVi4OnnNmey6vw3h+2aGcGOWYYMNiKgTm2IcgpPcwQh8IFDbAtvVeRaXE2GCwk36gP2kU6qxOKFCLNOF2GfiGTh6ZiuvFoQjCTx9sMMFA7D3pBeVo8+vN7CGJb164Y/LCIO1mojZYOSmMQGa3R7cEQdHxBClrq00PlZTw0IURqA/CfJVaoUySburREujpM6knnBULXepGLexA6yGEQk5d6+z3FsfWOaGzDnkIx/KxzNCy2Y6zKdNanYq4lh4GWerukg5+ORPjmJa0aW6gOf0+GiUfxrbi5MfOtnkSbtizk+Xurno4hyenvTr5xRylQd8o8wINPdi8MWGb5les5bjOcJmJmrdUPlf3QEOm/+3HeZyL+1IVj5r0ZMkbg4N2oDo8yuZ5PEHkF563vK6P9fY8n7eRK1z0mAsjebpxB5wUzNywt3oANLk6RpTzMPD+HIJuiocnKlmAr6Jv9XDeDki0Wrl1Z4oqeyOdqHiIuUf4Ytjgkfcq+KOqSbgCqlGWP13t2IpMF7vHPDqRrBTYazSDq+rAsIbEcgvnrjvbFhceSf3hEnZ97sz9aah997D9uquGLe2w7BfgoATuDLYiynkXIFcGXK8spVFwmThVKgp0Toa0BNuoE9x/0v3CvAwXWAYIOIgkkWN8KOB/nLejpm46WZtNEb7ieJf3CXVlHH1cwIC42TWHhKrSkuTS7BuySwGMr3WJ5ukW20y/74/RrMPAQ7FkQApDExfuFhA55Gt45M54JgaHkbPO/W8TvaswbLOv/n02Oa0/m/0YJwsCjt9DO6nIApkR8Snpj4eyDlYMyROLVTMjrR2IY/V1o8tkfQ8mPyBeKObhgB"
-          }
-        }
-      },
-      {
         "type": "text",
-        "text": "{\"summary\":\"TypeScript Weekly issue #42 covers the native compiler reaching beta, a deep dive on satisfies, and five tsconfig flags.\",\"intent\":\"newsletter\",\"proposal\":{\"action\":\"archive\",\"params\":{}},\"requested\":\"none\"}"
+        "text": "{\"summary\":\"A TypeScript weekly newsletter (issue 42) lists top stories on the native compiler beta, satisfies, and tsconfig flags.\",\"intent\":\"newsletter\",\"proposal\":{\"action\":\"archive\",\"params\":{}},\"requested\":\"none\"}"
       }
     ],
     "finishReason": {
@@ -370,15 +361,15 @@
         "cacheWrite": 0
       },
       "outputTokens": {
-        "total": 151,
-        "text": 91,
-        "reasoning": 60
+        "total": 90,
+        "text": 90,
+        "reasoning": 0
       },
       "raw": {
         "input_tokens": 3474,
-        "output_tokens": 151,
+        "output_tokens": 90,
         "output_tokens_details": {
-          "thinking_tokens": 60
+          "thinking_tokens": 0
         },
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,

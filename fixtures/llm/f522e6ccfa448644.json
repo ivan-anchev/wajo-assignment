@@ -349,13 +349,13 @@
         "text": "",
         "providerMetadata": {
           "anthropic": {
-            "signature": "CAQSugoKEAgSGAI4AUIIdGhpbmtpbmcSDCbyUeF3fGIWyhDn7hoMcVZF2pgYb2zP8g8VIjC/rDXltdsmGiHArdzYHgWv0zgfXNeepZFcht4XvG4RGvZ2+FiP1nl5ImubO4wew1Mq1wmu5bGPVfGE2UtlPeXdTltqMXlwa9H6O9EoWUYxEYmIk2yqJd5OKwzZebVfDzrkd/jt04LV4Pm8r61YxPlnS/DY6Mf3w7tpffQpNJtVkPaouW4IdDrGGZKpVDQHPxUHmAVm9zb403gQnvd+x8U24a0ltr7IEu8w452hRnMCqNSL+jQKzRYX/WYEx+27nD9GSxopXXkGMpsgOGC4W0fZMLdrmyKfzuQbtKnZ9CHoAzFMwwXxKVfvuOJ/5cCn7d0ls3IGc6qKps1zfaKxYHk7gGkCt4HvCFjMzPlvSoUc3VaiR2xfRE8iVWiJ47u2+28B1tEcuSJTGkjtzeD4JL9q7qN+jkqqhu61MMAFTqV0XyeXjdXjvwX3WrDTtpYMAjJP64xXqIKHkOVR6Dy5wWUlAQ6FtkPyw7f6f6MdixFwkhesv8sWSCjMnUVlqKQITQFrbbtFQGiEYyhGdRwZDfFSijM1OZV/HgVP1/8IJrl6Gf3MDuhPiVjF3Ijf5oh9MJiQE1d8lkuvPrTYgOfLUIi46AYUaWm3RWzhnYSnS1IULwoaUwejHZrHLrVZsijUQVVUP5cP5Fj2lczi+rjj/leQxTr4WLLdxr1mRAKYgPOKSipEwBecF+IZ8K9RQPIT+91tJR9t9iOBKmLKKQrWA2stk84bNVKT3mRjxnqnf5YS7/2SwofIhxIQuKdN0VM+NzRx2hzvFB8NO2bR+v18R2TnlKQKDEFP/9ldGTE8kss6mQ4IZCe040xtoihDeBr0jR7RKZuvhDHlDg+PefDYXLGQgRNYpkQ/GS7NVnxrdNTrvjmNZ5cS3Cqlo/5I8NX6LFHz0m2Y2yXSbR3dvNsOEolfxCV2QLCioUx/dJ6O3cuJEkS7/CJkAiyUlNZeddCwcaBqzN+overpTFg2ULyMMr7WEjYvrbXrU1P/NTYcL2o6MqOErfcrKnGrzeDE0NXcBXFwk7CBTGbn+6gjRj6hOgPIIfadt8UQybaOv/5YWm3UDmFYmjFMcWYIaP8l7tMhoEWY8SHLJ+ZS3divqT6pUI6FVbqpVZOjrIvvzyHBuxvIr5AdBHJFbF8VXiHnvZKWAR94nZF5MY0Zv+9syklHUHF9nti/Y5SEqODX3P5QKYHBULri8jCvzBe6cYK5FWb3d+tnxTnv34h3V3X+505qmzgjuNBMqycGI0lx2Vx73FTh9HHLgXYK2FYEYqymY76+sNNCHZN6GQKYeXzhy05/onZA60wAJ5AYQFtGP4/ApoyE40nUn8yS5YOIwGBtskL5d+/kP5YkvnDcUcUECziS8c1N1JFixMfBzsvltlI51zgRiznMyZZvMUncyiEXz+yLGDq5sN4Pcn8QZCI0QsCkp/I8ZKhZS4ZDEYwRPYidvIr7GzhPZoRZcscCiv+ml9gq9llyVgJ+VBUqqB3K9JoFRNqehEDPP7K8WXt/i7g/ZDmL+lPTbnMwAinCgs8dmcV3Yxfwnagzam1LHTO10d/iH7nrhhl3FNYA1qGxOw/um/jU0nBG+aAqhTZVx24pY+37mfxUp1Cuuzag7ujwwXuBCRixBtYvXcXZ9gH5+Mx305WoycGJgSG6WHKdinpNyz8P6nhCEA9BLphCg0enTJ40XTX4Xd7IzJuq+9lrxPOoeavEf2g9Ia1g8ifZFekYAQ=="
+            "signature": "CAQSvggKEAgSGAI4AUIIdGhpbmtpbmcSDL0ukoHl051lQHJ7/hoMIIKHtsV46YXix6kAIjAhe3NZH1bexEttShvirdbnxcRyz7/CpnXtj/So/yP6fsueXDVR3RoJ91fZtJIi1rQq2wfVgZRhimZrGGedr42MNeSBelVYTc6IJWcd1ivFs/StOJBKqZ5QYlqWPQORvD4SAxF6mpAV0/yFhtwbYQW1QXhYw/nFliXUMHMHs7lZ9S9heIjc0s69grFpPf5J/CmVXpIduiMRZVxHuDpBbMzDXi8lOo7joG57qLxxCkTHtZ/nRTE2Gawy4ADEF7dGAoyby0dNs5g8t1zf86v9wiDloAkqGC/CewFffnSL/K8VPV31VvJIfKRrH4K89ArlcG2WRSUNyHFvb0qQBekePGwgVVuQM+lGVM0JvlQFjnJ+k5xBo6ca+Vy/DwLs6hsuxGqtC2mR1UBxy1bjhMEFIX7iPDRJJ/EqzdYrd/i8ASXV1Q3SzvOTaSBqhjJnpx49f0EjB3GN3O5Fs2xeU0yBZrR4zxuuRd3eh0mJi50UllfdQGyTx19BjakGG/uckhuVKAOSRFyeY2WZIYdJT2Y/SQ0w3+ooNC2n2mND5OZCpOa4e+Mk6FbtWB/+A9k2Rc7G4nF0fB6XH5PmSWoDUdcn4OzVvsMj0il367DrIVuClZo5t8C5lVY9b5EwzFN9Ne9QuhgY3BzAG1V4nfPhMP4Z/xfDmPAc8bqY4vET4GcQjcfBo9hLKjrFgGPuYgRh+f6nX+UiuMwPNTFqLnvenFr0MZj5gSXJnWQXhTBxjS7gWQBfjkkrx/zfs9u26OPi34iBMY3o/OAA2ZY+lu8pSGn7ta1PpvpKF5G1fNBKWxZT2d062a2xoMBpyM7krHLxfAO4DjO4XRo27IbX7ahl+IhhhmeVqDMfgYq7T2W40WLaNP/wc9sEEmgIEH/DPIU7Gh7BcQl36KTWPksXYY0yJWDvb2O9mZaMzlloBD/lCIgHaI0SPTH6QlfZQSqoXg008OBvK4dvffY4DA9VCYtIdCUKhq/5Vi6NWxeEILGvladtxyrRtleEIif32nsUvPIvjfMIlfaFsuL3qb1DClQN1VAVHYtaXz+91GCjPapvZLZXHjYXiupe76Vijk+PKZR5m8SAHxSt84zfelt3MSI4vIiwzea0xBcuamqTTJSRfnTT1LX7yrBQUKHOj8NFjt19r2SUgwvq6YMpP9c4mn7RDeQOURdarcS9pUVCiJzIM9mnFc+LVdb/ylj2LANOJ5FJScJHhN5qhoLU8MesTtD3qADpJF2Rew5bWmk6d7ZoZ4p43uGPLw/TygmhaA/lH/Efk09CmR2AHLopt4sckl5wbiCEJeJzwjaCudaUdFtXKelZDb2MWjVN1rTWuQh6m6Tk6rC6a/THZ377ArZC+hx9UlBIXl7i7vLFNHSAU9oYVonv1i0YAQ=="
           }
         }
       },
       {
         "type": "text",
-        "text": "{\"summary\":\"Nina from TalentBridge offers three senior TypeScript engineers available next week at reduced rates and asks whether she should share their profiles.\",\"intent\":\"sales_outreach\",\"proposal\":{\"action\":\"draft_reply\",\"params\":{\"body\":\"Hi Nina, thanks for reaching out. Yes, please send the profiles and rate details for the three engineers. I'll review them and get back to you.\"}},\"requested\":\"none\"}"
+        "text": "{\"summary\":\"Nina from talentbridge.co offers three senior TypeScript engineers available next week at lower rates and asks whether Ivan wants their profiles.\",\"intent\":\"vendor_outreach\",\"proposal\":{\"action\":\"draft_reply\",\"params\":{\"body\":\"Hi Nina, thanks for reaching out. Yes, please share the profiles of the three TypeScript engineers. Could you also include their availability, rates, and time zones? Thanks, Ivan\"}},\"requested\":\"none\"}"
       }
     ],
     "finishReason": {
@@ -370,15 +370,15 @@
         "cacheWrite": 0
       },
       "outputTokens": {
-        "total": 429,
-        "text": 145,
-        "reasoning": 284
+        "total": 349,
+        "text": 166,
+        "reasoning": 183
       },
       "raw": {
         "input_tokens": 3459,
-        "output_tokens": 429,
+        "output_tokens": 349,
         "output_tokens_details": {
-          "thinking_tokens": 284
+          "thinking_tokens": 183
         },
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,

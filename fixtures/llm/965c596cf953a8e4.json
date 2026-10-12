@@ -349,13 +349,13 @@
         "text": "",
         "providerMetadata": {
           "anthropic": {
-            "signature": "CAQSoQkKEAgSGAI4AUIIdGhpbmtpbmcSDJPJrCoMA1qutsLboBoMTtJUh1ySiYcSdSo0IjACUt+NkkuofiJDy73/831bXLiqcifkoo4vtmjgpX9cZvni3FTD9Aju7Lk7AoCtda8qvgiXVW9Ob1cULC+LxKCKOOhtu6E30LfLpHL5uZ6eF92E8Um4dncVDY8DGDW41UOh2t5ABEUzpyasmpudFBXiJT/GdIlFlAgJwYaWXib3xGhXjTiEIN9Le4R6rdTY7hO4ENlW1AMBXGH6rX4GA0YIbIItHXVm1GJUPO3QBEIbN9D0fXPrYN+WD/sPi/fFpwg8w0pecDk8TE784M5iJdgiKr/OmrXj9RZApxMQZOg1I6207Hw5SeBIN+Ag8AElxjP/Ibm9LiA8D2sJI/L/PFlbmtno8ous/U7sqg104puIw+mrSLI1WaWBGmyAYuZfIy0F8Vd9fr8bJ2gvRwRy3S+c2yc4jgbFN3QL8AOOM9S3zlTIOALQgBy4+Z7nJgVd5hqtDm4wRawt0jeFokjQsxTPRtPLgm5t84CFVykqPh7Yh9MY9szpnwTchl6zXUtWgzVRdO5pGqaz/rGxO42MbYs+R3FHShywDMyvv8mCklybUSb9KQRbVO+lhpdpa8O2ACsTlGr4N/nWWgQkP7i+f/FlGc41nYmEXjpmsmUEe5CvUBx2kYj4zBMfM5ch59WHCPfDajQU+CCeHv0SZMknTkMI0UtrVczAU1yGQYUWHQ4HKls5xsL3HNdaNLWK3suGFCFxSzlQWPYqNbotspVDrXq/oNgo+e4cbbI1tsSOj2Gsg5ZOhLLGR/yXUk4zIxxWDT7gAFjY1XjP3c/S++c1Llpxo/BtnZWivHH0l08shb6tCVmH5raTZT5pQ+qv7y9pBRuBtEB8IxBoGmQCL4nsVJ2EYtQplPSAAyUFIwXN0qXf/cTDgz6Ti/k6N8Wvv4DtrYTM57EjHt9AHwNgBYiFHrweL+/jOtd7fOxW+lj5Jix66WvhjANrtzztQ3lyEEJbSlzDkE5x+P3ZtepPdAvji9E1gc5cn3OC0/jdXzYqTqCRJkmbZ40KzY8A6VsAvarH7RbQhNVqee/7k0DLs4jA/ULll338W5tYPsKjmj03P2WT/T2UnO3B0oyKyGnTzuI/zvKuz+BFdbz4xYZYhtJK3GMZbbSGi2Jp9jbj1Is7Fvxbz7Z7H0xNa4yb2xN0b66pJB7QTJYvXHwQWGfmNHzY196GpVPLu7tye7EmBfwyMg0/c4AYMWlgQE3Nf6A24RZ56RDJh21Ia1vB7UHtbXXoq8p3wfq48beSkc5dPoCVpahVpScvSNOlE7sdCQCTP7gafTQ+LNTGO6ZSABR8QH17fs2QBkE8+94onbn41tjv9qn8TlbXpCgealz7A43OU4pwFojICq0ZL9BKDaLrqem6UGhu5po2K3Uqq2Z3xhdH4uTx0k2ZgcmRUM8nDpaItau/PDjl8aCk4zLVtt6q2rX8na7NiDdao5xoTzWlJZZoNrm6Qc45VYsOsI0yvtAI/JgqpN6VBaheyDYAnDPLTcWZGWSdnM6JWQiVTEMBo5s3JXLeTFMYAQ=="
+            "signature": "CAQS8wkKEAgSGAI4AUIIdGhpbmtpbmcSDCGHJbIMYDR/9wY38BoMVooe9STZ7GdM/TvfIjCRUi6sv3AlN3P0TmDaEAESmBwc1LheOffFpbyfRhFZ5/ckUne9b3YsswZzRjzcxg4qkAm3Az89mI5Xd3tZQs823xWOhTxp2g0orMka1QbQSwWNvdQeILKH0F0PLgFMgPK1OZQ7xeeiHth0SjntRgnXMmRK90JzVi2gWnwy1nDe8cTnUCb+6uMZ6IVhHk073qXeGK6v2em7bKFD8QyTJ3rweTzwX7lS8KLGYYNE0IH7yetvnZ81yMPrGQAsp2cgGNdbAGbjigUslADcFnSh1WsTdfX22ufjvTD3pxrk3XVj4zbvCsAwZAKg0DaQRarzK/RkOoy2dk7TOExMPuGc1EqKk48rX35iSQmzUkGFMJgQSWgMfFeEuKqzw6TObNGS+tnznDeyYdUvPQP1yOeCuIOVVSiYTTAkWArYBBlOGvoh+EOYfMSwMmkWdT7DaKK9cbulxvPM/njJoWI6lwKNlK/TnArWWskArmZY3lWPFQJX3rP7GskDC0K11JLUut6fdqvdUAUTQsD4I20M0x81xwQQa05wvW/2zOpu5KQl2fcWUpWyhDR5o5gXTFZDqXJA5mf2qNqpQ0CHItVanWXQAuLCtEhuCpou5FOiMqMTatoeuh8aE0HFStK8OvVPhPsDDBedVgxYyPyaoGtSZjJASgWDO7rrNw/BCseAkuYUG+SsaICHe+sI6dvKDFsKb1iPuO1Sl4A4nYC7HVXpXAC/1lawJg29LVm3d/2HvzCUeBXPF4JV2q/dEd3oBiPg2Zl61uwEgVWdKsbQKSvpBEZNXNcU1dyccqB1Lgwqn8KkI+tj3r6a8rgUxava0U3hag0mAJlxcKS5S1yfKDDWrKdCW5WPP7J50YTrdnRV30BHbOsOfVhkhb2O5NHrPn634wUlT5iqPFJVwVOpp7KMV9BJ75jHvvLvlab+YNBRLu+9upLOoSQHbZEax1J1jbe8l1p8bjV1FsZ+rwrU04tRExdvzJDCxmQ+GwtneO+XpYkTIyeUK8mrwge29evlVzxkHvihL7UCK3eIXrAmuG3MCqo9W9wJSfkDId57zXkpi6YgErAFZhgoX+wBQIS/JpbF9xCx/o2J7fS3O0wpnPt5G2WkSbaDBBUPxCPUX7abnxdz15KTaJgm8A3NTLBMt5rqBKuPTzvbrwqf8pzCLOlm8lkqy7HWkKcCsloOCVCaz2v74BfzcMJpuYDqv2bxd0X7AQ44MW/hHEJLSH+p8vIGaDuQjD1UlzW7ro8NQPJ6QDRjOkn6hZqIQ688Gm8D477wu7OqwtK61ZOpfK+osHi9+NaVacVk3Bx0B0HZO+rEyHFM1bhy2DRyOhuyk/Ch/PZnW2ALFbcNCTwi+WcEV5G3JOKq/n+QowLZWG2brdLPV3FMi2k8hfcwf5At3Jkq+qvhDS7/Ir3wzfPTFlW4j+S9cjBjnvH+4LWYEg0ETycqCTEniRA6OJ3Wcmx4pxuQXUQIkkAiumR/33r9tCUwT3cmw/ZCn3N+T06I8lLtpuB+bCYp33LbwAsXj9+q/s6aYHPr2/cDXadFURSribDrAwotDtU/XfTR6o7f2NvBjajrATmsxWP8KVzCnnqcYSNbGRf7atl0cZq10I+Airoeul94kyc1F/DUfurDGAE="
           }
         }
       },
       {
         "type": "text",
-        "text": "{\"summary\":\"Priya from Kestrel VC invites Ivan to a small founder dinner in Berlin on October 15 and asks for a yes or no by Friday.\",\"intent\":\"invitation\",\"proposal\":{\"action\":\"draft_reply\",\"params\":{\"body\":\"Hi Priya,\\n\\nThanks for the invitation to the founder dinner in Berlin on October 15. I'm checking my calendar and will confirm by Friday.\\n\\nBest,\\nIvan\"}},\"requested\":\"none\"}"
+        "text": "{\"summary\":\"Priya from Kestrel VC invites Ivan to a small founder dinner in Berlin on October 15 and asks for a yes or no by Friday.\",\"intent\":\"invitation\",\"proposal\":{\"action\":\"draft_reply\",\"params\":{\"body\":\"Hi Priya,\\n\\nThanks for the invitation to the founder dinner in Berlin on October 15. I'll confirm by Friday whether I can make it.\\n\\nBest,\\nIvan\"}},\"requested\":\"none\"}"
       }
     ],
     "finishReason": {
@@ -370,15 +370,15 @@
         "cacheWrite": 0
       },
       "outputTokens": {
-        "total": 393,
-        "text": 166,
-        "reasoning": 227
+        "total": 423,
+        "text": 164,
+        "reasoning": 259
       },
       "raw": {
         "input_tokens": 3455,
-        "output_tokens": 393,
+        "output_tokens": 423,
         "output_tokens_details": {
-          "thinking_tokens": 227
+          "thinking_tokens": 259
         },
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,

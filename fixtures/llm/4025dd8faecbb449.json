@@ -349,13 +349,13 @@
         "text": "",
         "providerMetadata": {
           "anthropic": {
-            "signature": "CAQSzwcKEAgSGAI4AUIIdGhpbmtpbmcSDIrwDAjBPrBhBgZnOBoMPV7ozWiKB9S4x+kHIjCmx3K2gNjCOJ6P+lpJFdEAGPlPsaAWRxLc5m5BTy9yTqLMIY8STdq7HfBXskRvCC8q7AaTydJYvKap0o9FiqJLrb+8WzZZHC16PDtSpFG6X95PCVmE1FZVCfrSbgD1w4twBjIP/nhf9EW7ELVLqtg8wY0f53tlxoh4mt3tfmhdy/ixR5Ao1oPOpypEpWlJ1Y3SGDPKtEYoaW94MxGEdIGYgbWpDV7aMygxHr8OjHh2q/9JjIBRRTB/xRRaWHXvJKjq/XcMoG9yBcD7LyNstc6/+oQwFlwJiwUmgprNvCPLFcxfbk5l2jxo9PVzBFsv/ZVG01oAOFpAYg3bCUFAYhQ4ZcBYJNosNC05BirZCNwSIwe4bgamgJWtD2VewERiQIS3LixQTnxwww1jSJVBmsoJmX2/omGoccyD/q71J3buXPMjxIJ0tZFjPlRGgJ9eSmDt/jQdXNIxe41sqqe2VRaM0X2bQRshv+wM3+GlKdzPbqDs4lBf0yqlyDn2hP06oRflqdtmnC4H3tZ1C7AXSezT05D3Woh9VNcQThpXQG9Mm7iVrCiLfa2AUCuEMjFH9Mv41GSk/hc8cuqvOFGsnhQjD61Wme87UNXx9tpbtzP0D5CoqCpM2Sk2ldie01jtczBTt1FRh8wLxWNx95uecEXTQH22Ix9KyWrp/R9n0ZqWPq6RrhHzwQzqtdf9Anu+TB0XCMEyB2WY017mLCUlj2TVrsyRDA520capB9f2LmBjg8rZcVKnc6f0NSGZ9fy6SqND9TlVmPFXEmLwTCYSY7w/YKhSvIXphR1aTywXsCzX2aPmN8zJF7avU0uIUBs/wGix6Cwxb+NtydXIl2dpSUhUCuECF+KeAt65h2JOXfW9zffdrohPPamTUgqRsBToaJ0NemrXHvQqCRfCMccC2+Na0OHF7uO9dd4qaEEraOwZWxR7GwTaimGkbX5qnEU2rH9NmrsIX9DOUW3UY++dzzCiRlPNO+SyGP79FTU9C3Q+tYA/5BgvlpHXi+VKVxYgyGZGKrY3Ni0Gzy1Oh/z7hZfqSLtlXxdPVIsvSB3UYl2oYrn/EM2fKNHcxrsUouGdxJr7hVMptYhU2J6gTWSh/cLpBME9GWNPnj119acqKOU9SqZ/2GHboHD3MkmK0jiUK6ItrW6i7d4saTD39twd5zV1iWM+yIA7BFObWLoAGhifpUnyd84Fzeusr2I5CcXHunFT8E4kKcHVB3yLXMfsb5wYAQ=="
+            "signature": "CAQS7AYKEAgSGAI4AUIIdGhpbmtpbmcSDGtf2sFcFccosz0bkxoM/RE24Lh7y8ARpJezIjAnvCqw9cJGZ+faV4nAW6xoUArTAuwAPirHd4avy/7Ai66yPwyGgAiFa3Hp+WuA8ZIqiQZaGTHnlamfzw/xCDFlzn1OUdokzklgTAYFNEWUT9yQg67EV8BIuKsjIb7y8hyEhmvqW2dDBYxGcr1T5uKdBho7VTcCy8ddt8J1/iqu0ECzsUTIq9PCrBIBO7081HmB9RodyQchFCeGFtPx+kox3nYWoR/PJwlSAsa+4SGaLOCt9A7D0iHQqcEJoKliYWl8N4N4KiCJrzb3NgekLNbeVVTxLFzof5xIkcL6qELobFFCZjOQti5E0ukIZ169DciROF2LsviZo3Dn4CuP/SmbLEBy3v77XemhiOPjw6Zwx+qYJN83p2lxeHG1WYchYgGlweY7Oa2kf/6qWZYehCnDjPmc8R3QFDsAjPUe1EkHO+5/vIoZIelAeP4XnRHLdQe4Yq8MDdiKqohnwD/hHe6aWS8pKhA/JVYg6EU3GO1X/s2mnXbiCQsBAZliUeOC/mSafXPGkCg3Uv+ntHsLKX3L0qHkZd9aZtseQBhRCDFDJIaZlphflNsfK4ohEkEttebUnfLSLZcZHscTmWCtnFSmOLxvjRF05LQ2yTGaetakNrrIUOwQ+hS83CKfUWsbJZzvh4sgEdrma7iyMo7e1m9DY8nVOBv8GYgCQqkAP0Ltt0pht6gQx2WUFVCRun/DOBONGrkqwLO2U+iuj/lA1we64VZL7bBWQg54RQv1VfAQfHT+lpeF6WQ9R3VxlXgOPTvupqB/x6WHanarzNgwuunTMcnP0RIzWFGJAdyV83QxFIcz33gcCUaI6dRVVrNaCzEdJtmRjylt+cN9FUR4+Hhjd+/GAzG8Zr7Ne2lMrUnxen00CXXBvQUiT8snlRrqTHvnF4OboBT7cIf4IsyK1Mxun95PAV9Bl81To8Q9Z0iTnkzK8i21ZtJjsa17S+GkM7vBQ9GEwLhlleGgdVt1SvHaTv4aUYbxJKw/usAfM/yRvCtc0iBpa1ANh4+0bcSf/J1pbJTQS9OpTcDakywDWQR2mcLDjrsJXCvphGQPAzV5u3o8D5nQkD5b94g2Kfu5iUEzTxsc21Q3J1lwYEIYAQ=="
           }
         }
       },
       {
         "type": "text",
-        "text": "{\"summary\": \"Olivia from Greendesk offers office plant care and delivery for Wajo, starting at EUR 4 per plant a month, and asks whether to send options.\", \"intent\": \"sales_pitch\", \"proposal\": {\"action\": \"archive\", \"params\": {}}, \"requested\": \"none\"}"
+        "text": "{\"summary\":\"Olivia from Greendesk, a plant-care vendor, offers to deliver and maintain office plants for the Wajo office from EUR 4 per plant a month and asks whether to send options.\",\"intent\":\"sales_outreach\",\"proposal\":{\"action\":\"archive\",\"params\":{}},\"requested\":\"none\"}"
       }
     ],
     "finishReason": {
@@ -370,15 +370,15 @@
         "cacheWrite": 0
       },
       "outputTokens": {
-        "total": 243,
-        "text": 99,
-        "reasoning": 144
+        "total": 207,
+        "text": 106,
+        "reasoning": 101
       },
       "raw": {
         "input_tokens": 3475,
-        "output_tokens": 243,
+        "output_tokens": 207,
         "output_tokens_details": {
-          "thinking_tokens": 144
+          "thinking_tokens": 101
         },
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,

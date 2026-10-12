@@ -349,13 +349,13 @@
         "text": "",
         "providerMetadata": {
           "anthropic": {
-            "signature": "CAQSlwgKEAgSGAI4AUIIdGhpbmtpbmcSDHfyWOfAv4NscxoJVxoMj2Bm4d4JDwK6Y/uNIjDAZYkbHF6vcp/RaBWZpqMbmqpf/Lkfgm0fFaBFkQssaZrs/R4/7+2F5pA1c0qYj/MqtAfhj7dNHaWmrP8vtF9u3wpT39XkPfbfNuVdxseygeVZ48+BpZ7vv/SQaAWeOlE3BpVA+G3TB/wSliFDHFExEuxe4UVaz6/gqAZZ3vdwr3Q3Mvc/kLEhvIc4OvhGuAJ92gSMh2QEsq0ehSu2lZAxKsfzlQ3/6IQP2kTtePL/gi9znXoku+g6V7DiPALCEisXr7lfNq3pLnKZYdylSrsth9ZK0QiOD9cVvpRL7EL9JgtG55WFH43qIcoFv+Jj8fPFq/LAtx26Ef0TETJMUusPs5vW0h+x6RuO25GeeqSFA3ZvGJuju9VKhXxdLASIGSoFSjWAWKSVUq5t1Ku6SLyJxx3hjxQBqtOQi0WgjlEtrXjzadVx150Z3KNVkwdyBGT44Wm0uN2VBJ113ws83ej5Qo2U5+QGWP9chq26n3Pb7lPdXUQXvnuClVp/oS0lUFB9wf+fgTp77vQsfyY4iPm25SONk1Bj0VjBzhxapU65IQn+TrPNvp1TbJdv0FEK5WACM4bGys6/bBZ7hI1RPbUSi5mEH5ozBlIfJKr/9p5y2Pg2/oGjVxHB1pr2OdzA8wuNOrvCd6DMHi+D9wRXUF3XI9/ZL3EuhnJgJ1HG7Njo4FlSx77rHjiuoLP4XN8bGNL6OGUNWSmyWIOjkfSGtqQMSj9ksH5mYAIH8j3W/0NuGyapra5MhgBWKjBkClSY5WqBKigZcJVlaDvURU/oyD7o2vGro6N08iOCQwRshHUdz0Nff5gD8RxgVFVl4JFVUT2XN10rKhI/4m/lqhCMqepIyt2YaWMWXmXpEDqbXqpFPWlCVyMT7HTyp16By/C+B1R8OEorMaLI+geKGwtzq7323XsEdjJrws708BqSx06YEdRqpSGTwVw7iwG5an/Kuw7ioSl0yPwbWgO2kfaiFDIY9rxSRCos8sXe7lTsoaIa4JkeJkE9eOIhS8Ju+9W+steiEI40YOYKtb6wTTbnFzTICm12oWNQX9dlvnDBLM8ITKb1nbm3oGgxLrSXIiLlGdmm3iOMdFMcAHLV6/MSHfNCu4iQKu+vOPTZZagUNxQl3k1gpx20jmQUn1lNombuB0Pg9ptAMjmRqsQp/ATGsQT7VR9Lnv6XXuyweFypuEJtnttOKd5g/ohpWZoCnbZw8J7AwlXvzUllqB1RGDnPDYMpym/ukucqeMZ1TTOLWnT8pggyu+DHttkaDWR0PqpN4oCaC/eoxCxObbPRpGgg4Fh3A9DJAoa+Ij9BqQ6eV10E6M86XVqsP98YAQ=="
+            "signature": "CAQS5woKEAgSGAI4AUIIdGhpbmtpbmcSDOKXDb2sDpYxp+I//xoMlL8lGqMBpNF+t2GgIjC6E0KXlKhTAeKEDfnKLqOpPY5Sx62+MZPxWMdWSNwbCY0CwkImDWZuOThCX+o5UkkqhAq4es6MooKvF3Mfz1tM63jFjMZfUIqGXxajEL/FecePaK+mZR/Chjxey58YjZXSKTlR5gEJ61vwMq+6YZTr54HBJssKFkTSrP9In9exoxW/G1t47KSq8oggaFZaZJ3O9xsEq0/ZTj+EFPgwi2oaOhJSoaPjQrW3s0wRB2YXa3EqCa8vpxjiaULkMGzsI1iATpaCeZAaSizycZZBuV4Tm4+LLTP2a7BJzB/4W2NCqWiMp2l/UiEAtqZzWBwRDCHn6Ch+69q39SdLfKXVe3sSOR9HTQKiGRuXHt4Eer6j75I/IkHCpxGpyZgKTtDSKH7G/QD7MnVCDv+711U3w6M8gYrbYDOB5IYorzKAkp3iQTpmr4xJjcFOITtuOxyqbEYo0L/2xta4iOn7b9FNAzdwoYkHMFZMn4ew7iaElVtaW39kyNlIlt6Fp7aTScLYY8N51g6a/vVdp1ce01X58bH6hH+ESwBKbxldVYDBwskWT9UkZD4S6viRM5OblESdyL1yw2Vzs9B3ga6GDtUfSp/h+NQT+AJ84c+xn5VXzs6mj6P9M5k5HfmT1+u3mur34w5ZtoS4k3PoGRUVyBx5jpa7mBdSMRDALAk7zwlGrCUKhCDXwPXUoyO2SVz/fdAEoZ41tcJz7FZ6JbVfA0X7JjsUcbvra24ZNztO86RHvdjOjg4U38nP48A7GseMuLkslVKzbO7FN24G50hczt0vkPRoknz8DTDRsGFnr7FokpkI0OqVuRLS0wUZcrtQN4fUGdlSWdr6Cr4QudbKIFdAvi+XvPh+rCPILlgUcn7Xhj/CHFd/E2zBmq7lXJlBbgAvUZcz1CAiRHRsew+jAmJpblPwc1bDhKoMNnTjVmwVmnnbC8isNvt6sJ3nAJuZs9YgoZ0vcAahhcCUaZ6EIXCORGSGPy0/jrPWhdCEaszrFgrFO2zGQ4u7TjvZtI8xyzkanPj6fVQx1Yi+Ec3rADTOKAZx43RE7fznoPT+zMiH/OXx9AaCOgtqfKmY7EXaAzIXkDLvUT+l8j7wsWeWvQj+4UU93NDiUAsQ+fdrzi5u/yIsv0lgJ6YyvY7Fdv/iJyloteB+Lioh2+hyLI7luv/TkRKP3GPaT5ozyU3RDOFZYff3KVSRHbIx9UliOAsiYKKErylAJ2bCy0NWfnny6xNjkyllyVXAdPpXPK+BZkEjYNbERnxFqmeRiIyAk+sj7QpLQ7lq7HcG0chuKGt0DCWy4HlAkSxunsz+sCoDMGrNC26XpI/+QY1UKeWmxAWylgteWqedQ3Srly6XgB7ndNFVkBgpugTR7Sj8vUMyosVWitdCamiJXgQN28F9iHub0wPvrBFJxIZmbRgC2sQMNqS4tBHXllV7gS94AtlOEM+TcePUE/3NzxUWczXtPWhXDEGFSwWpagSBTy1M+WklyAMNjKsy9hBNmUtgA3RtajYmjerfEZ6HgiVzjtY2GtLUrauAL2htWq/gCHolq/HLN+VJOcOSMjz8/72ABb/TkHfsVIOInSI6XnpXsyGknFDVmKC4EBqUJ0sU8s4HkyktFsvpe/pRIuHmIoTw0ma+Z4Vgy8E8FH/Lh3vDtY2cDhB/77+8J1nx1/Wf6cLPghP0ZsQFUUK1bwlvzvC65+AZrjw08Fki8JNq6JWhAGNM2kmiBeaFsdxvJnKrniiL165YU1CVnCkT/g4kJSNFSdwzOBPMTEJDZ9NEolABgCsYAQ=="
           }
         }
       },
       {
         "type": "text",
-        "text": "{\"summary\":\"Tomas from Ardent Legal sends the revised data processing annex from Helix and asks Ivan to forward it to his technical lead to confirm the sub-processor list and retention periods.\",\"intent\":\"forward_request\",\"proposal\":{\"action\":\"none\",\"params\":{}},\"requested\":\"forward\"}"
+        "text": "{\"summary\":\"Tomas from Ardent Legal sent the revised Helix data processing annex and asks Ivan to forward it to his technical lead to check the sub-processor list and retention periods.\",\"intent\":\"action_request\",\"proposal\":{\"action\":\"none\",\"params\":{}},\"requested\":\"forward\"}"
       }
     ],
     "finishReason": {
@@ -370,15 +370,15 @@
         "cacheWrite": 0
       },
       "outputTokens": {
-        "total": 254,
-        "text": 103,
-        "reasoning": 151
+        "total": 366,
+        "text": 99,
+        "reasoning": 267
       },
       "raw": {
         "input_tokens": 3483,
-        "output_tokens": 254,
+        "output_tokens": 366,
         "output_tokens_details": {
-          "thinking_tokens": 151
+          "thinking_tokens": 267
         },
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,

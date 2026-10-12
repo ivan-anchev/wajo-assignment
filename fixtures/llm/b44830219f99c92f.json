@@ -349,13 +349,13 @@
         "text": "",
         "providerMetadata": {
           "anthropic": {
-            "signature": "CAQSwQcKEAgSGAI4AUIIdGhpbmtpbmcSDCHbaGTidzYXjLwLEhoM5OMPK8eFbWYDXE/yIjCrNbiehEYZEca+LDTaqW/3TcrlbV36TVTg3wDP0RpauDJZQkhfqcROkA/k2SJZDdYq3gbrLngExBdfKV6vQUmpe3W3Ga/xIvJePHve+f9ceZ0NMd2Gr0DtjwuzVthclEFcPSQxkWv6GJ/QFoCAE37860hI+ccpOduiMCsj/dn4l71Rc8IG/WHZOUWjoeNbENxdwTUe5xGhyU3Mm5rmACLmh7V0PereCFK7G0tvLcKgPqXyWcJekiBOlXknDTEaOYjb42ZRSv4lOyk3ZA4lp/WcB7xvGqcGHqvmdoRNwPPmz0SzWjbRMytv3bS8U9mnixmR7uOllSr3ShnLBFnwOPo/R9S6YRA5pwBXn2ldNSa5oPql+4b8dhPKfelVXGh9FCiCMu4rhvDBYAQtDnVb1HV0qamzpjfiEnUwr7BD9CwODaff3VIYu7l1wnfvKqX7OLjBAIxVw/cXEJE7uAT36wT/98fYUzlHsMivOoxecmdiD/epvgeBt7yviHiLXBQs7NNIqsZwirJVf5M04mphYIjnJPhBcQ4rYxgLoAdB26At+jFySzA0RMeUvWtob44p9NssJ1kntKr2kVXu9FArPztCJsQ0yvam8PbzAwdYUl5rlSLRuH1Dvox/Gi0rzEL4Zrvc5W9IT0pH/0LnesX0E4drsK1m9dirdY1s9lQjbcs9UYu4C+xBjhZBDtlm7hu875ReUhKdTM/ywTt58zDY1kCHhyXfl3wheXRJ30R1F8fUbP7em7qDU1BTnsKQV6QTZ2LC1sOjkTvexnISZEgwaStmu2VXJ3WCXdRZ01M0tdbU0siLucufwU2QOQ8mgw9cSOYjXeoZSW0sUz2PpB8d5HyzbP90k+z3GTAmqvMR/NmReZMy7K3sSFIhH77esiLN4Zkbg5HHUSRDpQgF9WyMqEmUDsgokbIV3LcpYP093qJ6NdCWcoqRkrp6RII9mUwu8mfl9InR/gsYPWEIqzujPIIOaNfFtPddKTA65z1v+6IuDJVFCUtmPsifetHVGPmlAkqLHDdD599q4IjW6r7h/rvkgG7J9cptWdI9KpkPzqLXweKTVQ+8+ZhVGVZ02KHaVOe8jSFP1uPjMVppA41+d3gubiXIwZm+bYhlbVByV5UqwTzW3bcoZZjzSHLHw4yeBrOqX96DjcC68IdKJ35mlWS5zC1z0iE97Uax/L+mthIAzXH05gERbWm3G/8JFhsXbfnEGAE="
+            "signature": "CAQSjQkKEAgSGAI4AUIIdGhpbmtpbmcSDJhrFNwiueTl3m8x2xoMnPTQxcih+mBh2jG0IjDDmwMeb+HzDfegOjdtIxePsLJW8FRtdj8V37XTmy1Vn8enmt+6hj2T2E2qSoU/Kscqqgga43KTdNvlcqxk3rSrF/DkhQoTft7oiSnkTyI5ztpJtWqkkgz3nhwct7NtLq+yaolwlAaqWnP4Ik07FOZQGYhvBoVTwZ5hvHfjnXxPT/f7sTOvsvPzGVSNUmtdpcZRfNuByirhuzCPC3NsWzCVl6v99bV1mQF3TCBqbQNhnSC/1hRluKkNRI2qyQl7wwukLmRko7MmND4dLn0iEFrkHxYH2joVtZIimiCJOWl7aHnTfr2qlX2wCkyHpaVMp1Ppgrg54IJhUUJkkvgNc7/M/H7esgKupRLPIFHJlfYk4ioYroXUWLZ+955qBaWS6TgPzHrfYRC4ZH7YHoOu0AUAu18m5VSy+JH+7HGyhsvm57GTTo1luRBNvF2S9n3jeTXavv2SxDVp0+PVOxtcp717ZJCa4dbWYX9n1D91spsnQFbF7q7d0IuRFglBu6mVr2cveakgfN99L59saJiazm4eRH2qN7VmUb9w89m7BDqX/vFcTkK3kSitJmKlOuZ6Qy2oxnzP4tj1Ey/Yb0dWyCpUBZd1JN45/gnlkapAs7xBNO697Lc5OODtNl28USGWM4yyeDs7B+0gybrKpmnzSpc1N2Eo5GenfbQAHrH5TXyF2kow6DwuLUpRLaGi+EJZ3qE3kXykZB2f0948TG96RPSuj3Zd35rT87h5jYCD/j8Cj5k92vPNLga44jhm+5+D4ckFximy1d63hO4JLkcn1UcsB/LAYw11mFiGf8Pf2RuvB3G1Rg1B2xDM5HDOP20ztAuIsYE7MJHyJ6dpv2dDeJMBuspo6eTXghdjzhmsml4F2gWpH83AXpSK3j8hRvbSU0eLsUFpEuCBRREtl1UwZh2p+XAnkF8RCLALu3Qy0pc4IgoFBFQxYCgBEhtvn69r6iqbbshRIXulzVRfEDma/VYbF6KwgOW3ggIHSJVOJwMBDowp+g3rJWIiJmh3XvJG3SOozm8uYPiiimbP1rVWjwVI+VM02sHNNxn0dz8kGjd7OBkOCfTkKHze7r/sRz4YZN1WcO+uH2pEMwFIaKVK0su96UoOo1XyWM9/zRhGQIYNSl7KjSprNeOPT+7vcythwEdVC3M6xYUCUJAP1V17XQyz73OL2k/0Hy0405YTkf3m/NuUz/HzqxAigWu0FqDn0fIXJf1CGw1NUPSWB0VN/FePeIpv7l1sOGhbkP9fR57HW+9gN4fbzXtXLlcrGOq9Ox6ZfH1Y6SfviN9e+b1t24CaGImVplPmddN6I9mxCP5Z5U+Mxs3lVAKmMJa9tbBsSSf0EeBgBWWoKTvjZY4DocUeaDWze594NksmDhqEvlammzjOf8cZIM+9N9+EXdIHFV0fKn3yvZQqhRafCrNlR8+f85eFk7FKKmj1XWKqE7Nz653UNCdF/ef/QmghyQfzMFaIQeRoRrFa8BrwOEPyGAE="
           }
         }
       },
       {
         "type": "text",
-        "text": "{\"summary\":\"PixelForge Studio sent invoice PF-118 for EUR 3,600.00 for the phase 2 brand refresh, payable within 14 days.\",\"intent\":\"invoice\",\"proposal\":{\"action\":\"pay_invoice\",\"params\":{\"amount\":3600,\"currency\":\"EUR\",\"payee\":\"PixelForge Studio\"}},\"requested\":\"pay_invoice\"}"
+        "text": "{\"summary\":\"PixelForge Studio sent invoice PF-118 for EUR 3,600.00 for phase 2 of the brand refresh, payable within 14 days.\",\"intent\":\"invoice\",\"proposal\":{\"action\":\"pay_invoice\",\"params\":{\"amount\":3600,\"currency\":\"EUR\",\"payee\":\"PixelForge Studio\"}},\"requested\":\"pay_invoice\"}"
       }
     ],
     "finishReason": {
@@ -370,15 +370,15 @@
         "cacheWrite": 0
       },
       "outputTokens": {
-        "total": 274,
-        "text": 130,
-        "reasoning": 144
+        "total": 354,
+        "text": 131,
+        "reasoning": 223
       },
       "raw": {
         "input_tokens": 3517,
-        "output_tokens": 274,
+        "output_tokens": 354,
         "output_tokens_details": {
-          "thinking_tokens": 144
+          "thinking_tokens": 223
         },
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,

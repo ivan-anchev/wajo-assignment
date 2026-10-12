@@ -349,13 +349,13 @@
         "text": "",
         "providerMetadata": {
           "anthropic": {
-            "signature": "CAQS1QYKEAgSGAI4AUIIdGhpbmtpbmcSDD9hGTicBnEO2vN4aRoMPntUXECCA0lRCeeLIjCPfwrtSA9/24/cp28VlNB/hij31Xo7Zlci7ctERvaJUwYJS9AtQwkELqSQ/k/0Oi4q8gXJJfGXkrNEZFLbPaMVknbKn7Slg/GzfzgJ58w6XwJYaPqyEDbAV6aJuJRddL+i417sXSA8V0Ptt++WG7/bUNpngdZ3YfMMgMFpy4snptCDyILhdyLedOnMtWcx0bfvpHrqr9sy+P17zRk6fgzxYRuDhC/ao6QiRGHEJoc4eop6B/K88tSAlIU1KSCVIBuvOkDkXbYAynd7W2kf/i4FPWu3TXO7vDsRbji4hNcSOgbaDZkSteibWtHrdUl0d4GjupVegqgyGaVqWpFThDIIXcUzPaK7+JpokeGPsebr4iz5cVrJK7oDLw7L0xcHRla4/CaZDGfOwS2FbwTkfyh77/u4wd8kASV2a78oURK1lD0Ungxj3b9ehCGW/eWtcaZ4PC13/ughxUbBiotB0CGUjySLoDKBLtJNxi11HiZjH2AgbcQvgp4A9QkiUqbk5WpcH3DEziZeWhzGuD4Z88C8kQbswoWOsOb+pc1O5xNSBiHpvNrfzUYWNa1J+0SEq1h7dM0SoVxhVN6yi0A4/0+rmFfDRh54iLTeUjP/Bf8/2gbQWnzofX/ESmHZVega633eI40B5Z4VbMFO4syUnxSXDutNCiK/IwwJPdbIg+jLJej3QGZSYsukRbBDphBLoHHUjNSb49c9D39sprq4ITbEnp2aRJQ6QLuYZIWx+3gLd6ijtKwbFE9+M5ptjZt8mv1ro9j9/ZHxAIRDo+2JboQx1pM4dLZkj/kew81g+E3fVuTzhopJnyYYnqX84zQ2RkP6wtFxBo0AHd0hJRA4c1FiLxOwyR0xMstFA0yiJ0KAPklFHLxQDNiTQng7nAbCYeiLHq8g2WTnGS2GD8E1VTthGhUTAqzoNUz3rQ1FefozLGbmQKfYTYUfzSw3kZFgbnzB4lcy3VtsSnsimlN8RpOJxLU0P3nIuPKpQXtw8EA+St+2prbom46kOpIK8pc4WQdss7xBMK+dqRC4AtEe9DdE1Lt797fzXuXGt/QIPOaysI7Bjmt/GAE="
+            "signature": "CAQStggKEAgSGAI4AUIIdGhpbmtpbmcSDEs0OlUfZpxoZyTYCRoMsxVS/26oyinBcNXnIjAsDG6eWY8QEhUl2Ms9yYbB3Ml6gqqZfTrv6VXr2hePinGlkRN2e7Gl9M7QiYyQ1JEq0wfo5qwBSpXPo0vgJu9ON9zHRuKIJSpz/Go7DTGG6wBRysO7x4giEvSAJ8ZAe+Re9aRsQ0UvzMIDiRUILUqo178Vi4pHecHHv8PVa+uzmuElbiLFaKZYXygb1X50X0LskRsfUsvuBu/j3jFZ26wTm4oQprjBJdu43y7yboYjwYMVDcUrIaJDuucN00EGIvBynP/TwBSp2k/1LJmYsUgAWmogae1rqoDPTVYO739ioPrpx1JXdSzoC7SjetPMxGz0UjApuXTaShbvGD4ZBQOMGVsLwz880wJNAaOmcNA9O5yzszarpKpaW2picswGxoe/T70K/9cAQsHh0DLDpG7eEpgYx9lvHvDv3NMzTel+SfVx0GE7SieDV0IDMmmiJO12z+Aq5+fVqBV9aH0K+j+/aANlPEuPSuZo7/Jo6zeN+s3chpJYDpwTLaXFwU7Yw8ZKVbPtpmW2YwubK0mxf3tYkkb6wFOJfKJ7YrFjIUT6jYzPi7zFZVsepm/Eupq07dpKEpCcDGU/uxbiFMzDgPO0FZoEPNoKHWRQn4KW/ZlJ59YU7hOR5SLd13t87NclVhN/P+RWpCrPbwJQCOw6YPTVHEe4RXDyMUydHAxyrSQQcpZHWFTe5jgo/+yAyZSagxQ+fUPduNIdKuOCU9Q94OwaijnzXa5BNdTo0vLQp3jIJefrLHE8B2YJaZ11W0tW0zh9pZa3h/Yi3/2Thc05HO5j3/kmPT8wcvY2nCVXKoT8Pu5BA7o82YJqEAlXCB6mRZZFEWGgiuyZ7XFyLTq3dUWfgGuGU84vWynCC98bGieNQjZFYzh4bnluYG26qgxcCKKXNn7B/oZDG7rjGd3ib2Hw63t6BCsW9/MaOGqLHo3pcpypJb32Jd3Wivcy0riZygHjLK/G5YGlYEmDxIumXj7EcC1nQqisbeMae2WoedhCFwKZS5IeOFUSDKBeLZLrDNJ1o/1GTXn2kTIQvGhs0XkcY3c7Hist2KKPrIrw2gppQlcxfmTPQE7sue5wl6jnxc3vvDKbNb8ikeGbY3kqd/aioRr128C2LGqxpV+5eICrXiAdx4TGrB+ef+qYla7EPvLiXhGV4zBJs5ZXMpAbioszZNBa8OcVygzZiZcKtYbXMF1EM1fvaJr6KfHXrOrOB7mfomIEkZTrBi67+MoupA0fbLJrwwjs4GbiM0meuS4W0PYGFqIwQKXghg0cJ1NTcem1S484HDqqSHS6slsvDkHZWEjezj76PBFNc7l5S7Ww3np/Qren4dbFYxukMCcVhCdl+cPmCigsokomMiDKKk5FeVlemEq/GAE="
           }
         }
       },
       {
         "type": "text",
-        "text": "{\"summary\":\"Alex from GrowthLoop, a first-time sender, pitches an outbound lead-generation service and asks for a 15-minute call this week.\",\"intent\":\"cold_outreach\",\"proposal\":{\"action\":\"archive\",\"params\":{}},\"requested\":\"none\"}"
+        "text": "{\"summary\":\"Alex from GrowthLoop, a first-time sender, pitches an outbound lead-generation service and asks for a 15-minute call this week.\",\"intent\":\"sales_outreach\",\"proposal\":{\"action\":\"archive\",\"params\":{}},\"requested\":\"none\"}"
       }
     ],
     "finishReason": {
@@ -370,15 +370,15 @@
         "cacheWrite": 0
       },
       "outputTokens": {
-        "total": 202,
+        "total": 277,
         "text": 91,
-        "reasoning": 111
+        "reasoning": 186
       },
       "raw": {
         "input_tokens": 3486,
-        "output_tokens": 202,
+        "output_tokens": 277,
         "output_tokens_details": {
-          "thinking_tokens": 111
+          "thinking_tokens": 186
         },
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,

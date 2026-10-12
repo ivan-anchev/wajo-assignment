@@ -349,13 +349,13 @@
         "text": "",
         "providerMetadata": {
           "anthropic": {
-            "signature": "CAQS/wgKEAgSGAI4AUIIdGhpbmtpbmcSDJ/knyD+arZwme4VqRoMTfRI4vCW5iDLs5TGIjAPqZREQxYUTBbCkHY8xI6FldBYdiou6HcLs8UnESDpS0FWKsZug1OnXScGyGubt2kqnAgPqWtZUUvlziDg60Ahqa3IfB7NURSSTi5QtSWbnznajboHB5iiqvsW5TzjPrDFcGy6SyovfOaQY3A8V1mp14YppwLZQe8YxEZ4sQwziMloaXRO+rKjBv8hm7H1r+BIymST/fsgBpQvEhpTJng/YNwOmLIkfs7/8GPkqzzdW9GlFkNhAycMCE4pYmGGpMwp/AC+Op60/EoHDzNGnHJYLH/q0qUeKSd5Yg59tgwsk5b/4xdo/JAr83I1SQkspOdqgYWHYo30Vo9d+BiZK4JVE31uYqhQIxwXiT0d7v6BFVvngJxul/SaVAHt2yWJO3s2qDAhDDIR5Q7x4JvQZg0PZpJmXCnmVk+C/3b/jVcsOy16hQ4nJ/56yEs2juPWxWJByQjR4NXfQs16Yq8WyrnYSETpXbKEe/g5TO/2yOdjrS0fxjNDTshAHXkpvbOZJf+Ot3xqCcz4cjPd4E5WZUxH9b9/VTGOarMSIcjfbQgREg+hUBUCTOZsDcaqvjvxQE1945cBlmsMmWxqclkTFy10wjM+0+47cRseIdmjFjrhc5HSNpTnCgdmzkI5n/7DhiP+1GJ8J2e09CgoP21dWXTXYRZx1/t13aSLGgy8iW31UEWObHveIUm9iep4rrsK2Ek6FQ4EBRNkDITiAVQLl92SjVXAZRC4+1xkJKxTR8RCmsyM2/94dbtLJfj+yBE7FnoqTrbcz/Y6IjvQsP0cC1RvdvFfAoYqK4i9ny1CdrxBgE+jwMBEX+lLBgLi36v+iN7DxA1w/ifeufMzUn+iG38Q4tmDYkCBVlLq3mZBE0vgTiDBXmAfywUAj0Z9EsUqc2uCpZ5T/7AdiBlDst82S0TIhvb4jN3GXcDysEc13B3/M2kJZOb19cie0cIWHAqb7n7Kg1yBhIZ3gvWSj2vGFJkRcVGKY8jFV1ojBkmRthCQLIp1DixN1sS3KTrjUdUPJ7ykmVukI0PxoFiefL+uHk2pjFWsup7XDgjOCJEWvR+EW8cZ9hmMtgJWHSyX6tjpyvW2GDnlNpc5MRwYwfgtXYYlBgPTi79JDqJwYMHUQnG2Pqtil9WbsE8suaeC2q2tSs+ctcdXoqeUWLjOCbgSeBSBH6soN79FVWfQNsJyfblDxv/50WixRI9XjwM3jDzJbN3JOW3xyB1AA8tJ0TwzYQpJewagg3q3QndaqLa0qvdQGfuUv1kcITy7WsY1YVkhbK7g/JfpsD7COxeR5Kz9Yr0It+B9oYX3KQxZvOs9YmaU2l9Y5vuV5KylJmgBiAPZKppu8TEWJIw145VL5Y3Vu71fWLM2E6335zqjHrjpK7sRRasafdKAxRomsqxLUgKa64QslWdh6UwBqqVoLNzMSDkwXSwA6B5tIG9y9hNpY6/QhMxITduvykeftUS8ACpE+RgB"
+            "signature": "CAQSowkKEAgSGAI4AUIIdGhpbmtpbmcSDMP00n6P0IbyX7Sg2BoMSMhmLg8uoMQLXh10IjBszo2evktlgQSrQvd2hsXKZSeeYdhBjJRHCbgmI6omcuSxBoAnIdtHPWLRZt+uc54qwAhMXwXsCgzok87g945MaBI8bXaKMoZFCS2dJXsngtxURzts1iExJD88vFV4601Fy4/YkdN8I3SpcjJ5LA7gj1gnqDijFHlgLqVvVWQVo31oqOQb0lbw2ax2mZAk9HXCDn2RuAcBxsYXfuS6ixmwsnwRl3HgwL58QPRZOyfqzFhM7Be0hRLZbER1uH/jnChToc2ik4WuCw2ml3kvVZ7ZdRHtbCugvri99qGYAn9at3SzTNoaLod25dZUayMCEsVXZNuR4N38dDDRT0qwCzz0nRod5RA9zqZ4bOVr2sxPjjsgRubeUVGohQx9oGiq7OV5oe+mrwoTUFFFPJAU0NS1YuubrmgX8w1EJduQwDJbON2QhVe9aBdNGPZQ9Ip2786h9zKSyxPMD9nzfvZntk7mPO+Jl6NPK8oI+85KGjKgrNYzyffsiiMxo9HasBWpgHomGSmDnQOBTrm3n7O3H2DBJMI4LZib2BUiU00mwafISmqYI3kknMDagVXvARaOVJPQT5RGi0CaGt4TYu+256uRbS2L0VsJmIA6a6WRgskmMOXq3beV73CTFj2YR4AedAQjOH0hBVrCOJmBWdtsgJvTlNYntCEA8nFZ8cvtAnpmHzKaXgOBB8ug7Q4z0pVaUWzDBKRPB2eI6vzqVpzQYBH0RSwGQjGhn+qN5r+ItZIzVw9e5PrWtG23vuPMhWJSIqluZ1mQJtJEJ+8MXRCw8pmIfifUwasdoG/MCcHyml8jGuLxOqzYidDwXCu5iooXJZw6GeC35BPAVv4cXZ0jJg9F6s29jglvvTknlZtGroejaHPQbS/ncqAu2aanp0uSF7hR2B7Bl6b660AqESValjZ+NI5j2VbD1+V9S+8JWK3r43wpmxYbxmahallttZJxRDUo2phZboM2eW69/vB2kNxw4W2loERxVbBwgdzynaFxHE79oQV4FeAg9q+awAJU7n8TFNC7Pkt0UxR5MOuc2b68ZIXqLyWDUW7gGtNcr2d6RrY4WDG5Ae+JcUgIUT5FV5aSCa/7jz0nAslRG2gPX52mG0AUQr/+5dOG6fWi5YuCF36tQDrjt+EgISvszXvNacKJSiQT1rSu5HihW3EF0mzggL+uR+RST4AkDOYAmcjl+hl0lPV36O2h+X8Z1PnmzUv8gy5D5s/XNX0tkccI1mklNCOiPlIu9vS96cdB45qXaWrYq3tc2s6f1AY9Ev1JSPMcZCtTD4Esgt9CGAwPkaFPrqMvzpjOTPektuwcyrMSZxdTwUE2C7aNkRLZkXO+WjAubvrVBIW7RGrqtPl7owCNeMFXCG3mfLMUq3NM3Gbw+h9ebCiVAuxGEp/BEWEfD6I8JmdpWDX88ZWIGBYerBLtBoH6QExTYYmoCf1UzhzjyQ3PQZUAD4+fP6Cj5zdZKRbgi2fsM2BUE1YnKB1jI8B/N9DmdBcCYg9rsMc76fXnzmR8EBgB"
           }
         }
       },
       {
         "type": "text",
-        "text": "{\"summary\":\"Tomas Ardent-Legal asks whether Ivan or Oskar should sign the Helix MSA amendment for Wajo so he can set up the e-signature envelope.\",\"intent\":\"question\",\"proposal\":{\"action\":\"draft_reply\",\"params\":{\"body\":\"Hi Tomas,\\n\\nThanks for checking. I'll confirm who signs for Wajo on the Helix amendment and get back to you shortly.\\n\\nBest,\\nIvan\"}},\"requested\":\"none\"}"
+        "text": "{\"summary\":\"Tomas from Ardent Legal asks whether Ivan or Oskar should sign the Helix MSA amendment on Wajo's side, so he can set up the e-signature envelope.\",\"intent\":\"question\",\"proposal\":{\"action\":\"draft_reply\",\"params\":{\"body\":\"Hi Tomas,\\n\\nThanks for checking. I'll confirm with Oskar who should sign the Helix MSA amendment on Wajo's side and get back to you shortly.\\n\\nBest,\\nIvan\"}},\"requested\":\"none\"}"
       }
     ],
     "finishReason": {
@@ -370,15 +370,15 @@
         "cacheWrite": 0
       },
       "outputTokens": {
-        "total": 382,
-        "text": 167,
-        "reasoning": 215
+        "total": 392,
+        "text": 180,
+        "reasoning": 212
       },
       "raw": {
         "input_tokens": 3476,
-        "output_tokens": 382,
+        "output_tokens": 392,
         "output_tokens_details": {
-          "thinking_tokens": 215
+          "thinking_tokens": 212
         },
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,

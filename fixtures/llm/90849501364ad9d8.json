@@ -349,13 +349,13 @@
         "text": "",
         "providerMetadata": {
           "anthropic": {
-            "signature": "CAQSvQgKEAgSGAI4AUIIdGhpbmtpbmcSDEsZrO13A8rcoRcshBoMREiaIdD1P7+i0LTWIjBOAfHXgLVAlgcln7cFWmifsbcqfXweKwZDmsOU8EgGJmxSq63nd8d66PaJ+8Ua0U4q2gdaXnreMIUTMZobNpjSsD+II5Lrwjk6bDsOjOv2weMtJPqjSXKotoUligh+pUb6iOn8IpF2lpbvTEtxEH8cM48Ftn5vkPpWUPDZYlrY+z9CvJ9+1zvcPBMm8000NYmQVheYLu1qJRbjlk2h2D+EnNGA2ejP3ott3ViArBadWw4VlahlaiHsTFeouQyIqDL4wikINllKL25ADxu73o93FKJMdZfWvTNQI3YS1A6nrtht/gmPc26LIgpJMCJE9PIE6vRi+jlVnxbExr3uVLiIzDVajic415dwcZn4eQJtwQ4sIRmuTC8c4IP9Ocs/IeyXHBI2u/aEaeZBqEkOrIf4f1fk5iBMpgIWky2ExBABVbN0S6Pp/le/ficQh+b7F0QPqhIvDX+GwWoafx8PisZt02LKfoihuAufMkOeJ8L01gGzwcSiYyurwkJVKmNi5/srA2KDrwAVuKl+TKHkh1iJcWXtwog0+RsCMj9zM/ZaYoof/WZ/epTqvA+uLYTAqaQ75fi8sWZJHtnZv4vOfwaTCO3RaGCkyZHVlCwF0zTNBgjPc3jribR3Tdvge9YOIADVVnTB50nH/MrBSElh7kbuzlMMKJ6htvAdOTDyHmqvPn/36Z+3Ux3DNJNJPB1xC6HOs00Q8ZCePWgsG4gHS9311DwuyMPRpB5qbuiaTzmD4lnhsWL+A8zT+7WLxL+V3ANVoeU1Tp0K/0mfJK/NMoIWrg9MAyMm772ahsLRE3GUJ5FaB/rcdZFEJ6j8QXDXGRJs0ldlrCZwy8HNMllQJuR5V5ijuQ80X0PI3QHBK+0EW4+pPu3V/BxGD1Q7r/PY8uDmwul4W5CNM1OahQinXBW0JRNfkmzI1t2KjBAz0+covq4mvb/IInXCS21apDGnAbQ+cDsZYea8OYpqiieX/lRG+DLROvWbvy5ESDcUY93bltFP22kafcPgIYJdhA1YcCknOGQu1sqhmvzzxqpDLzrMOsaJYLlvh49vhXgz2Yf2Y2Iv2lt/v13WGbcN/6IB1572hsxWLE+Mqns7zGXj17yp8465ikuhqaBpAi/in4OdBUpdlqaY6GFfhyUufg2hrG7jOKnbB9ui+XmK9ezGWhGEaW5FmARfSTmhHITY3CRGNEHwFVVT6tAFFjsjYNjKcu2PIf7vTzTU5m9us+oz4JvQ32hyJdqldcJglCm0RmwnZzuEuaf9FyBG2nStJVdClM7Dtzv6naLX3bxBv23TmR2z8zB3oHuaNMwUJoQSNrniOFOJzKc04wywvSWH4OEJKHg6PQCiqZDbPkCM3vrAPBb0Vd6q20SmhyURZeoJsxgB"
+            "signature": "CAQSyQcKEAgSGAI4AUIIdGhpbmtpbmcSDDGv7Czf7ocXNq8ClxoMzI4zUMUWxENL7V1YIjAkYjn8O8xrHr9tPi3BcZTZQTjfclnMm1BfyfXkdgg7RLB6VRjkCmAsXVSuu9wVISkq5gYSG3LA7nRfQq8pgI/lzkIssg+AOC4lkHwUbcoOyeIwLDgJ1B27JLmMnxNjLIGMEnKlwUtUp9ogBOA5UGKJz7meUlbiEksFZeAcOUDgsODsmur8ciPU0dkIZZwDjSkEJUFvG958KsRoi7d5a79KUHD5Je7T6LTgMYve63O01Z8VxoDzdC7UQGQFn/O5bsOPysofPAKpau44bz9m5adGnv5R6ikQ/TamtMIhWJGUOoVVDJtLL3naxMVkdKJ1VjFDOvnIm0/b85Xi2/hAKAWEQ22wqH+a+1rYIdSMsu8lrH2XScJIwyWS7LKg8el3QRMTrhI3dTQpL3Zg7DE62RAwMMeikJyhz7LV4wXiF5O1rtOO1fOamE+tqOGKhvMY58ji2+C+nzym+9xqE7eeb+yyjPGzX7C4pKsFHAwfNi/2jx3k/e128wZP1emly/AK4ksUHAlcGxFJmSRCjCMoREcIP1zaHaSCxXvvlODASLFyDTo7U1HFl2rfTYKaQeC0bZh9uMRXG1e1mKKik60wltX4D6fYihkR28zSwDdhRXD+KZafn2V0zNVXwiQXicdjCRUrJCnue0EK5zDI6WoneyfhGa4JUCf+uu3DucbRvDcvz0pOGkytpG7QzYBFKGWnkDbJPdrUZRD76B1mJI8WnOrIvtgx8KkY0yqKVNPcLjKjpYCDtGFcy1IA/UOkzphwtoppvb4radyx9B6N/A6rkj7YVYHAsqXdujGUcIcCyihoQNaJoPLN3bM5HiE2mh758Qms/+uGUnRW9tPolPz+zQ+7ZkKlMLod+Ku9EWfPRgUM+MLioHJmKtQJEUNvcWBdrBLqnlIKzMXK1PoT69nabfLRIwPTnpmU2lzoha/nWtWggkIoJCb330+r2GL5uCerPHCNCVQd//hwJOwQJ+9dwIqqGkp1NOZUhr4ZixDMkD1hqqjrbzHsPP+rD+uYwdtB8cbpPG599HFoRhaImgeNP6cpt2cPQkV8PVA2aXShmH+0g8qeoSmtFn+XyTrAj9Fx8BPrPHopub1UUYgmMTayENUcAXDYcKTlwH106qbnKyQZRyPA689jZ7/nEtfKNjrPufTS618C2CrdrCmIabU9pabZaeov8k67+5ZpUY5jC+SGw1Vc7WiMiOc260EmzvvwS4ycCDpMEs3XmLoYAQ=="
           }
         }
       },
       {
         "type": "text",
-        "text": "{\"summary\":\"Cobalt Cowork invoices Ivan EUR 1,180.00 incl. VAT for four October desks, due October 25, 2026.\",\"intent\":\"invoice\",\"proposal\":{\"action\":\"pay_invoice\",\"params\":{\"amount\":1180.00,\"currency\":\"EUR\",\"payee\":\"Cobalt Cowork GmbH\"}},\"requested\":\"pay_invoice\"}"
+        "text": "{\"summary\":\"Cobalt Cowork is invoicing Ivan EUR 1,180.00 incl. VAT for four October desks, due October 25, 2026.\",\"intent\":\"invoice\",\"proposal\":{\"action\":\"pay_invoice\",\"params\":{\"amount\":1180.00,\"currency\":\"EUR\",\"payee\":\"Cobalt Cowork GmbH\"}},\"requested\":\"pay_invoice\"}"
       }
     ],
     "finishReason": {
@@ -370,15 +370,15 @@
         "cacheWrite": 0
       },
       "outputTokens": {
-        "total": 331,
-        "text": 134,
-        "reasoning": 197
+        "total": 292,
+        "text": 136,
+        "reasoning": 156
       },
       "raw": {
         "input_tokens": 3547,
-        "output_tokens": 331,
+        "output_tokens": 292,
         "output_tokens_details": {
-          "thinking_tokens": 197
+          "thinking_tokens": 156
         },
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,

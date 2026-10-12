@@ -349,13 +349,13 @@
         "text": "",
         "providerMetadata": {
           "anthropic": {
-            "signature": "CAQS9gcKEAgSGAI4AUIIdGhpbmtpbmcSDB3GkxW92QJGIA+Y2hoMqAJ60HoY4RHabJfmIjC/DTdp/rPhwKOhz1E0wfXNenWyfjgchcFUeS5H9C740kHqIqZq/JJuxKzzeUiqq14qkwdyjwX3uQaXDBkJbxC+NhesufFQGPVb2eTVSPxTnbawD5p05IJ4b+3F9yUpcQGGam/Y93ceJU5sjRjtWG2vbNjrmiXU7Z3MEy5ZDPMLkY4zSOISrIVMsx/jO13FEF6/K0Cd5J0o3RblXthBF0NBY7Eb2OygDFcFCVgqqYYgMXLMYq5KnSvLp19/RLdFLWcpmVTRyALW9T2jLz+gr4ZykXSzTORrzgu3slPCUgrcuzCVNMzFoARjTDoJHLYVLIGooUmy+GxQRrq6JYBZFmjiDgEBISeC4jVdyu6e1CJ2g/+PZFWFbG2oDnffluOIDXwiG2zdTM1LJd8LyjgVLmAlIGO9fPRxC8ILouR8OvFxLoMJhARBGCyMCySIwXmySWYxxELH1kweZePs7QpTjwspdmdMF49Lw0FXqH6tiFWkYOUTSqdCE2tGVxGSoY5uE54oAa4nTFu5b4oSGv08tVQwrrLhF2NQwoWz71uGryvbBxTZMHV9BVziHk/MW2/TgRWdlp/dQI3f5WmvxJTIHbGlCCrIWjT9/4SBmQrT3hS39u9mi+Ffg24uBvQCjATnQjEPK8VMno9ptXnutoV4Kr/y819CSrsTa3AvhlTCKzoEzrKsjQANsCu5ctoA1jNksnc8Q5Vmp1UaY3Ph9Up0XbSxmwZRpLn/dF9N2IESCN4d27WhwVFuQ6f8UEdVE0+NW0DUZOScgxOhAYA3h971JD0KR8ZnkD4NaEdOsyDpzsHGTWIffclqjYVTJQGFVZXCjG//a+oX2XFGPHCC3gmiuOhf9TGlnJQ/BOs+T4Y+Bgr7+JDNVleVAEnF1HOTxyzI2cBSmDtG2bfunm1XTozwBuAEMKJSLN2aAF/qgT40UqcoflfC9Inr/vILvvWDRBJfug9Yq+vO/KWrh64KCjt9OkdDpEArhWRHXuOa/gDhzn3LACayB6J++yNT5nSXiw5ly7+Gvm/PauLWHvtiJfKkSSwbCco+8exNmjwjJRGPU9NurwDToqX/tBxMcrqkWX8BkUAlLYmszbFSczdijg1BhacyAbpYih26Zzp681yNd+RP9PXGludvqhhLUDtyJEtbZ77J8TufPeOiB0XKO/LKCTyZ+aMrrV3OVUFITUuVYzzIqEaKp9R/8u+D+BZus4AbtvY/Qg5ApOOs2HmWZcxWfzA8IBtjkdbau8kGmjgeYqeZdz2RX9AJ2LD4FLJR0T8u8i/mOz2lkNQYAQ=="
+            "signature": "CAQSiAcKEAgSGAI4AUIIdGhpbmtpbmcSDPMsJ7kvbPrbR1muShoM0Zajz1aatZs4NpNTIjAZgRR34iK3kqvlDwFRvw/7jwvc0iaXvhFlJfJzVeosGQN1CF9Xi2Qk54wZCjE2NS8qpQa8EDskZq7pYLzZeat/ljLr1EwkMy9IiTtEXKVW3dMcg8P76yIGYurS7NqFmGgUCQx9orIMdide4CN25iZ0tohLIyuzPhJvqyqGsHX2d+7rGkWevfQi5G1JJhvmbeL/+NE/ZqN2eerA4GWUvW9obUj8UkffW8XhQxJOA2k0htD9mDGerBEg4PxUJVLrm9bOLbW13MDVNGVn6KUe3zzwOSl4JlwQTK7kwbRtSv7p5t8lWBQnLt0gX+dL9/J6dYG/x5w4QIKTHMTR6UNARM8/MVfiwyGXeAKJf1+1PQSC0XA4UT6fYhHKGVoVpNP11KVwRDUkZGEzRcpX+TFk3z3myx9vFe79Lo1ZCSf3zAu0vD1KxPzdqA4DX3a5LORxVUMpqmgjV6Hz7Fk4Ge+nNZc8ftk739F5P9CNdw0d1Gx52CT6il6G9YhkUo0LvDU7NdwFzi0C5ROYXN2h2B0LzSRCYXVzRjsFt2BXN+FplsAvjgmyXNQO/LlNvv8TTsttdn8jGRCSuutPT2P9XY36DpQZZ9F8XTi9m1nz0F1W8U/c/buc8QF5t5oqKDzUZO6Ttn2xF6UBJMPjIwE0QiFrJoCZfs1Aq22NK5PXyAf32RAtFLsuoCBptjc16EuboOIdvPgp2BJcoaIY3jH9EnBVFUmkoXsVd/QTbXYeFtHQPBqA3pfY+3hfeCjBG6FdAQURlTbYTztZ9VPVOd9WTUq0c8teAwDNbXNMOUyKdBfI+D0w+WoL0xIT4KYovs0CSWY82G7DYxZtJtGle5gf4YUG8r9a/oMeHBFggydus/wmHV8eMf96YEJjbM2uo/ClMAHA3CJZbPHXQRcyKm9Zn2JDnjrSntciGX+9QkXHa5ChaqZFGkpWmqa1bN7PJ5ZZI7hUlj7NXqITUzNzowqyMAVaO5XowaW+WCvTO539P2a243YN/2E6CpyCt+DaTqI1ca4WcjB18AP6bUybuv9xRpjxxk8p4iBNNtc6lrtbyAQx+X4N644QG7xsjP7BhaBkvFuB67FFjjPT1DL3UyU7fZ+FyCfHRfMCXj1xrtl2bicF5TLgwnPKLt972zmnGAE="
           }
         }
       },
       {
         "type": "text",
-        "text": "{\"summary\":\"Brightline Cloud billing sends invoice BL-3391 for September hosting, EUR 1,240.00 due October 20, 2026.\",\"intent\":\"invoice\",\"proposal\":{\"action\":\"pay_invoice\",\"params\":{\"amount\":1240,\"currency\":\"EUR\",\"payee\":\"Brightline Cloud GmbH\"}},\"requested\":\"pay_invoice\"}"
+        "text": "{\"summary\":\"Brightline Cloud is billing Ivan EUR 1,240.00 for September hosting under invoice BL-3391, due October 20, 2026.\",\"intent\":\"invoice\",\"proposal\":{\"action\":\"pay_invoice\",\"params\":{\"amount\":1240.00,\"currency\":\"EUR\",\"payee\":\"Brightline Cloud GmbH\"}},\"requested\":\"pay_invoice\"}"
       }
     ],
     "finishReason": {
@@ -370,15 +370,15 @@
         "cacheWrite": 0
       },
       "outputTokens": {
-        "total": 298,
-        "text": 130,
-        "reasoning": 168
+        "total": 262,
+        "text": 136,
+        "reasoning": 126
       },
       "raw": {
         "input_tokens": 3535,
-        "output_tokens": 298,
+        "output_tokens": 262,
         "output_tokens_details": {
-          "thinking_tokens": 168
+          "thinking_tokens": 126
         },
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,

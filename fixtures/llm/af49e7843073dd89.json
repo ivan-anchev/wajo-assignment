@@ -52,13 +52,13 @@
         "text": "",
         "providerMetadata": {
           "anthropic": {
-            "signature": "CAQSlQcKEAgSGAI4AUIIdGhpbmtpbmcSDBKnNWK/VnUS5ONkJBoMcMXDwmH10TKoWXjHIjBSMjWpO5czT0voGt/pfDdI7YizVHu86IEuMkWab+rdL49BJ7/w/Af8hap96TvpFVUqsgZGSGwcj5nyUwL2PTsUBHutv6AgavOoTV7cZeOC6I+Mb8kzoair3CSNX3PmWVHaizKFQ31L/wSfHG49GLkdGCiy0WmFtR4xiqGx+Ti+uN6TiwdyHi6IDLcX6sZVQlyADVzNe6+rA66KVmKAcoS40Cs7XlSCziJvByAD0fMb0vERAZtMuYpZuHaWL9alYsSN8/VBdXGeoA0HqB0E9okDMEUxuUEveEB3DbOrHY9GvBfbwI0hzk3MODlfEXR8KcVGbVwHusl/2ydCgECeF/+O4IoOb0Bb3qDA+d5tgo0qu5OJyv+NsrnRGJKt5jtXGC0AYcjMtRvXIT2m4K4xTNYfrnNXXmFEh2FRiA5GFdbn6VcYGXOkYG+5/xXwFVO4UMrtL1QC0pskjCpbloLOSyJuUoFsoin+KXhkNmVxncyezr48O054Bhrhucjs+KquBZ71TxpBGsezZmtu2w5uCtFfFdbr8PaOANZXhcTlz8o/wNRzdYTWwHWe5qIPLPWTVcXorK+zzbXTGmnPNs4mxahi7D0sZdCgdyS8AEcujaeFYFn+AR5rOtLP7GKQM6o9K3g9GKnmZGq5O5JMYlk3He8kSHIAdVD9wGzLEV2ikdlW9ocVGSuGKB0flrOmVvJeD/KgkxuaKP5MXyHJ1H2gzLjXB8+2cuoKDHe/DWu4NtOJizfymr+ZmS0s5H74uxqInpzgh9bQVG7wHKtit5TGygKuwaEdsFf1aOSXbt9jwFiKs+EzaqrREPMUoTwcZS4QJuTSV9X/YVgwLCfVZ0QfGBSWD2ZZz7XCIUUGlrXLE0OKlP6tMmx048omxUUFVF1FFSPm0m4BckN4HiCsbO1Mqe8ORccHscTiPWRyPmEd1aXR4pzatmyTI30Rvyg4FKe27mK6bvo411bykleY5BCNwuurClvnnvTw0D61HV99KMrQyAmpjIymNQUnhBkBXcrmsJaBSdCtuNco4KU84pEAIZhgpyyu2wAcrPCl9HnXsp1ziG6JLBS9tfDDVzPzSV/+DBlog7vLkPvMBEcfpxU+dFYz8DNM9fivf3KaVjv6tmVwdNd8gigHQBtE10Tw7wrjDSYkSFJNvRgB"
+            "signature": "CAQSpQcKEAgSGAI4AUIIdGhpbmtpbmcSDLEvojusIDEyKe8RghoMG2X1bBFP3uu0klhxIjDadb/GrJwiGo3iz9h7jDCyPMtY+REWDpmimdegNJcufDghves1euv8WCTJ3h9eFAcqwgZWzWxTyoKYEBN8Pa3tVRCNHVHngUc2fAp703wLYj0Auv7cyWo10OVgTonjtIt8AMwPTyVYscStW3anvSCbOqgA4HwqDIREtPqJ7c9Xnl5KstVVPqYkZuKAONsekJ7iud0ulVLi60YV2AK3Ute8zsziUPcBi9hUXZ7gkI8LHi7sslj5Rje5QX9SoQqGSCaloTGrR7TXYAvZULIZ6gnm4TW8LQpWt4Xrsp919sDMolNdlQ9D7Lr4mjutvH/SF4w8taVDN6stmgpdSlYqZK1OJp5Ib3dJocqbe3bebzgjTrm3jRPA4lrSZZVYp3m0u7SsnunAQ4XSjrgjTuHkUF4K66DefqZzuDOZkdwL1yv9Y8iGa1ysVsP1ajNEmEmNatCGYcybmUz36RsP5VH/J1/2+w1RdvST6KdsJVlO+MVGCTKNILR1PLUMVeUBHHhsYGgHcJbm9vE+Ke+AGbNM4qQ4uSndx43KRb6AtN0j2WX+U+9S60dwhtPoGaoLkwBw8VBPi/DgRJJzBNPkCgDky0J6g0e4jzfu58Cy/vIDjHQiZd1mdL6ovizr6j9g/88Xh9rsHPCaaRQdjp4I9snnj2wAypgrT3qALVijzz2eEvodh0XB7yL5fBWHBN7pZazrJd6VbZPGbenXc5C814g9N17szIeFDYZWCZDCDzsaeSfADcj9SWDSRH/eLX60CGjHLo1gfx3NTDoqbhkuk1su9c+ARSnrrpNPwbop5B8bYBS0s4ON7spvO6D07hA4wO0r3DxS1Ld5n5LC9C15vAtnGg/q/eQvCWWAfZYZFlTfjDF5K/FVQ/XOAgz0ecQxbUmIrg08R/XKvszJ7Q5l0zq+F5ny09/vS2nyIgmTJ8WJ66hwydIXqyNgFwCVi7nHW8RjEBQbDMdKhCCbU69jR9JA58R+8pGrdt2RH7opUsMzm06chpmLJ6T52R84jT2i1ccIFkarPmNjBQ9AJEcq2+oy4ZLNDlfRqti7gryOWUDaG/a4AI2pJzSdx3oaofHJw6RnnKQ5x47x3u9s99AU5d3rP+i8nnjk3NjfEbB2puMNbn6WT/PDwiPjmn0V3EQbWOjlUenClZukoIGVPjTGZn6vOf0PPamfuFYYAQ=="
           }
         }
       },
       {
         "type": "text",
-        "text": "{\"suspected\": false, \"evidence\": []}"
+        "text": "{\"suspected\":false,\"evidence\":[]}"
       }
     ],
     "finishReason": {
@@ -73,15 +73,15 @@
         "cacheWrite": 0
       },
       "outputTokens": {
-        "total": 131,
-        "text": 17,
-        "reasoning": 114
+        "total": 152,
+        "text": 18,
+        "reasoning": 134
       },
       "raw": {
         "input_tokens": 706,
-        "output_tokens": 131,
+        "output_tokens": 152,
         "output_tokens_details": {
-          "thinking_tokens": 114
+          "thinking_tokens": 134
         },
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,

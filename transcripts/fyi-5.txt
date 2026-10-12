@@ -4,7 +4,7 @@ Email fyi-5@e5: "Standup notes, Oct 8"
 1 intake     sender class: internal
 2 injection  not suspected
 3 analyze    intent: fyi
-             summary: Maya, a colleague, shares standup notes saying she shipped webhook retry backoff, is working on inbox search and billing export, and has no blockers.
+             summary: Maya sends internal standup notes for Oct 8: webhook retry backoff shipped, inbox search and billing export in progress, no blockers.
              proposal: mark_read {}
 4 floor      silent (proposed mark_read, requested none)
 5 learned    silent for mark_read/internal

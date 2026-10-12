@@ -349,13 +349,13 @@
         "text": "",
         "providerMetadata": {
           "anthropic": {
-            "signature": "CAQS2wkKEAgSGAI4AUIIdGhpbmtpbmcSDHj5lIjSQr7wk7PS2RoMUYQVLuNQW9YKscUfIjBljx0ngNujggHnO9g6viMlP8e4Pfnk7wCAWy+K44Qc5z8SYpw3kLhG1e8JQG5VMLwq+Aiu8mLZJxLG/1AlfoI5/uiAO8wJwcSvpQNaAmeA/qSfybZ0o1oPhcVyuA+QskaeMGS/pMJUG8gUf/k7SexBMlyaVMkej6z3/y2Uf7owzISwPdSEfqsTR39TbxQCHhkcyTuEY6tEKHtDklu2zFQwrcbiZeeW5CdhPiwLbg1Q81iHeKozbMugQpJ7+FBgHcpt3eIXTKr5IQeUbwWWOKu4+PmJ8CBIBsBJjitFggSo+/qhGh6BtcxWTGneClyBaqo45YNCrvuKxz/eoFedNAEKAgvn7qgjeNijxAKdHf7g9djbjN30NwardKMIHeD1uIMnOLMhktSpI9tYEw8Q7HZBzw+lg5lVMEL19tNOqJjmW+omb+SRENABhSJtMwIMfZwbzSZMi+VQYNXoAAhVpZXts3RUirabNKo4zUAeGrKtLV4kKgpdrdHt2WCth+sT3+qQIIC/sxIuouqC6wM2vT3fWPIN88C5DOHgW7owi/+A6pkQr+1qJIl8Mn9i/rY/+oxK20m8X1XBqK2w9jJtXQ2IWqio8N1G1E7ubh4gtXPUKhn36cP0BpurZZyaLS8vAI/8xcHTkYS2HTyTPVSCMwT9Uj/I7Q+4UujWQL36Lpfue8u97reBIR6yuPZ81Q7OXzJM77Lg1sNrzMoMXnT5Kd54pYlw64rR4sq/bAmAsbmDOKvPZimNwU2y2V1lD0dY1HSCbDgcw6cjA/Sr5touo1UfjNrZr+gZWktvxbESmFp71vQQlg8SZvgEFuaVRwkMxt27xUizdREsopWv+nn3ZdPn5Fzyt/YO56OdQEQY8UvgBPMgauzYaKrqueDRT2HrmLsVEgBs/5OunwQALKhAdxefpChxcW4u4w7NjzO+4i/XwzgMuWJPINqofB419j9j3NZxebZo4cPOoGN/lD9aj+byUpWhvuD1ojSpyZjKjUo9dIHqASxqybo6HlIhgDdQADICzHB02rJsJHkX/AtZdEZao//CAwbwzqQI0DVm/4isPeiahJ7Ud3J214y3t2RNVXJ7cT+ou/Uo0Ej2qIu57YWJF5ZCaBeQbQ5j521Cvt7V+SDtDm65u/F0w7gOawuZRWrJJaA8sxuMn9fboiozVVlC9gOvEEoG9UWtKTCfYm6C7Vf3Cyw0JbmhsPcyjHxrpE4dfK19bQAeitoMJgsfZlGHDwNC4Fw1/JMa7F45appytLemVHfr/6fQ7Rdqc+DqaZ3H4QgbfFlfVXU1KU1HGZwMiRZDGrdbJXus+Of0d+9yCcW4DLeyOrg1keY/YLrXC6BE8Tiw4idLcSH0RbSY4maFfR9WCpIpuw0u/jwVFbaHlGW4j+x5M53IGb5XyXh4omFmVxhlrAG0H+UuAkpAxK/g2Y94/gxMqsBaNdqkVse5GmuVjhUK34msA1c5UcAnHJo7SB+2n+oo+zqpoLbSiPzizZKXWNuwMhvMAq0OjZKao4krXIHQx3Arl+SWc4h2sIdZ8eQc8vZTtwFW8eXfh14vxgWO1MrlTfSEhqCqJ69VqPlkTZMIgSvshAsgGAE="
+            "signature": "CAQSsQkKEAgSGAI4AUIIdGhpbmtpbmcSDFEln3UL38iQzrT/HBoMi/xWyjXIRF4ZV0kRIjCEVMAQJmMgAV2HidiBRPtjA6PTOm0RCQAW8QrP8EZya4ysqEl3cKHN8QibaZQnN+Qqzgj1hj7FijTz4VGkTgS69RLPqBxglPSioOxQIQHIR+GA0epTygpi61XEEqgYp24ECkoYRGYkPNNmL4eWxY99Sde9LrlxGR22KxaDBpcvWNB91M5ESiJ/BvdiWl5lysuZRhhYgEqzbHw+Ckc6f0F3cOi6/riO9S/vxT43EUm/5sHBQ7hjH1599p4sJIRA/b1T9fy1QBJXSKrMIKZGm2KF3Locnwhd3mrSWdiEti0yHOHcRBqZzxj9SHpz2zsNVhxH+TrpsYys6OUNpdzxKUpNmvTFqYXKprBPi6E2HZ//tyfTV3wOlEtLoZXkKMxg6hZ5XymD7RQYJkcHG8vS1QbcDug7Mz6819QZpwUfBHih2Kjk9y7G0foDAHXqJxF1SRYX1zAOQP3J09dKm5tGBXW7JN5H32cZNSmz9rVLyHs0JAAAdyV2fYRPL6TBL8ucM9PflsO42K70T1w9Sjwq18eeUDNCPG9ZIir5iGveYSJdyBpCYgW4XZNYvS+9i0oSZZ9fT3NMNJw8ppGGvAQ0rGtl2pIdr9R7LNI9A4H6/XIYs+cNZZ9oN/H+ymMngHHlKVTrmZNVUlV+hPeGq3jyeDvfn7BYXjwwl9vjRdc1+3UH4NwyV67xzm8CN5wCKUr0DG7RdGrEO2lKtrbqwB7Vow2ywqafPez4v9YFMYSMaKQmaaAnvEXWyMCwWBlI2eqanm/AQrOftHPqLxDMUi9x5Ijtn1btSccFRFKmUpbCiDbE4Lie1juFRUeNA492r+8uGAiZ/ikGOQBA6fKgaXnK+hFgG4wb9fJrllSGnEKnLAoaJkAq3BnDLMBsZJ1Z9DjolYPdUV2UScMMOSQ1qvwKVnvQE/QJYWQ41TFco4imqF2E+acD6QayM+gfTwZGJX29LujHvJwlFtJm1t4jQWezRtXwi3dmSWlpkrFnZCYVztg6toANR1FK750y0VP1sbLeph/0V8FOAeoC08htiG5ZuVYLYsNafGIxIl1qrdYLHXfhQB8j7KJOIV3xWk6hc2SYsvjtKOh//RtZ/PfOI/aeA9QXFS6TiC3xHgGssNpsnXmCP+gM+5JYFpor1pnSf4eCa54PzHV2nd1jQ8QnoJZKM4kVPaK9rrk6AA+CAvduLHs4saB366eLJ53FNK1pYGglzTUbfR7dvJGHQZ0QO72Q7zjHk2ptarM/FUhO1k3zJZaAArhDg0kIxGjhuGxrMHtiivKyiLNgRXkqH9Qau2hOGoYVDTX25OYoavsJtbFkaEb3f5fRUrtFBU4aPdvTGKWMBIAdjB7bgiQFMypy6LT8Su0N2P8rsH+SG7A79F5/pNReMlSAnCD1fLxjIRz49myxadgHzwRcZos4VLPxC2EeohqHWW0ZnIiplZAx6E1wx5XrnHYfh7+m+ORtwlEGrKXH/hM270aampW7lhps0GqbVHjbK4OvwWnBH66gKdY8oR9xWCwyPg6VnFOUvHIjBoMl9/YsGAE="
           }
         }
       },
       {
         "type": "text",
-        "text": "{\"summary\":\"Elena from Quarry Analytics asks Ivan for a short note on SLA changes this year and any incidents, for their Q4 vendor review, by the end of next week.\",\"intent\":\"information_request\",\"proposal\":{\"action\":\"draft_reply\",\"params\":{\"body\":\"Hi Elena,\\n\\nThanks for the note. I'll put together a short summary of what changed in our SLA this year and any incidents you should be aware of, and send it over by the end of next week.\\n\\nBest,\\nIvan\"}},\"requested\":\"none\"}"
+        "text": "{\"summary\":\"Elena from Quarry Analytics asks Ivan for a short note on SLA changes this year and any incidents for their Q4 vendor review, due end of next week.\",\"intent\":\"information_request\",\"proposal\":{\"action\":\"draft_reply\",\"params\":{\"body\":\"Hi Elena,\\n\\nThanks for including us in the Q4 vendor review. Here is what changed in our SLA this year and the incidents you should be aware of:\\n\\n[SLA changes: to be filled in]\\n\\n[Incidents: to be filled in]\\n\\nLet me know if you need anything more before the review.\\n\\nBest,\\nIvan\"}},\"requested\":\"none\"}"
       }
     ],
     "finishReason": {
@@ -370,15 +370,15 @@
         "cacheWrite": 0
       },
       "outputTokens": {
-        "total": 398,
-        "text": 177,
-        "reasoning": 221
+        "total": 425,
+        "text": 218,
+        "reasoning": 207
       },
       "raw": {
         "input_tokens": 3486,
-        "output_tokens": 398,
+        "output_tokens": 425,
         "output_tokens_details": {
-          "thinking_tokens": 221
+          "thinking_tokens": 207
         },
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,

@@ -4,7 +4,7 @@ Email t-fyi-1@e5: "Design review notes: onboarding flow"
 1 intake     sender class: internal
 2 injection  not suspected
 3 analyze    intent: fyi
-             summary: Lena shares notes from today's design review: keep the three-step onboarding, drop the welcome video, and she owns the copy changes, with no decisions needed from Ivan.
+             summary: Lena shares notes from the onboarding design review: keep the three-step flow, drop the welcome video, and she owns the copy changes, with no decisions needed from Ivan.
              proposal: mark_read {}
 4 floor      silent (proposed mark_read, requested none)
 5 learned    silent for mark_read/internal

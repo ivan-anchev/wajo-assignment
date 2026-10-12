@@ -349,13 +349,13 @@
         "text": "",
         "providerMetadata": {
           "anthropic": {
-            "signature": "CAQSoAgKEAgSGAI4AUIIdGhpbmtpbmcSDPcAGUDdhkiZj3GLKBoMSQdf4X1Qfym2GZ0vIjDAfyVo0HW01mnRrDR5epNBdDtEyRNPdF91Xy8FVomCe9MhxcnQ/Bm5fa6WdVEpJAsqvQd7TEPRBCiSRPJUxzvB+wrwcYWrUsXUt6gxpyIv9MQ3JuL3jvOmNaew1ux3LccCUpJSrBVKZaY2XikXdDW8yi4pG30jaMWSdbmWCd6MII+lvPEZ8iF3oaPwnKvueKii3GOTPc8XaIJDOxhDGVkjf7g3iE5puL0nFlKkekfbVMA5raYnDSrkn+IeTUeVBFe1aIypsPWaXWJKSjOXFxnU+Z5pFP1Kukz3a7v7gWTtU3cTVTZCuXdSd8QK3fkML+y6fjOjYxBivQKyx92RkYKQqu84pldnnC98CbiirQVGXCpin5SBUuzrNKtCy4P7BAO0VDFYqwkqRrtXn+VwUHcJLc8+GHsmNm1ul51m+hYPHRtmbhAYI1B14vA1/rizowHi6icotHlYIp3/L6HdDXp5XIkbpotn2Mzm2rI+7xRyTGyDDKsTnHTNQonhf0s4KZ9++nXJwLab1shZQbouInezL98dU6W1ZGtnyHd5sntrGC5TNs/eTjGu54hWA6Jm6PprbklTcwx1rKBVzGWtU+b6srzFZZQsD8JAiWAbWbC/ovBvupvQ2cnl6bpZoMhHLFQ0mwLGqEVuiy3QK/xOp+CyjyZgTrErL62uTKbpetGnbEunlxKbIR7q3YTnnuQXmZi+W8aR1F9MH8ZglgVklhRnlpvG7y6slheFBYXeAp4SxVFvFwMU2L2VTj5tw8sd2GhMEopBZgiFgFNhWw4c9k0RcpAoV2BdFOHBsZKvdzzO0y9uzYS4NXWn49Xz++GH1Je1AiXo3U6ovkrW95hb+EDESTDVw3gFJ3z6YGUCewGZVR2dU7IrBDOoOAeXTc70RUGMcKlnClj1ouXbIjxpNv5PRaIo2BEo5tw5eHowK6pPdJIQoWAUg/HQ5RXXCPiBkoLFvSAicXdbegnTD/j++LhysC3WJzLlkbB6Bu6/hNUNHBKIvLMoYX51mbS6hJGdUpUzmIMRxElc00wZtO1FW8uA6a3NH7gVDAHbqvxaQ3bBr7UnDvV85G9ued9cyr/j+NG40CZHBlUgwa7kMoyNhz+e6PQX5D29Vj6bjepUngihVk3hhpZmXhfZfVSwGrALRJAWtAr7OZTfZV88oJvyExY302veVVGHNYGlOwadrZKhvDo7ftO6WN9H0RdAd3Fy/uQikeUWhc/C2z5Yyyvcgu5Vdza3my1vii0bqvF/Tg4QcKO1xj5GXrmBLBfPN1ji2strV8/WqkGeiMf7r8A068D/QmgaxEn3vmn6MjjZypfXNbMWRbLYdSyAwUv7ws1gH4YYAQ=="
+            "signature": "CAQSqQoKEAgSGAI4AUIIdGhpbmtpbmcSDAQBuCqGRsBTaksj/RoMlfX9z3TzjVxnc+c9IjASUbb2T590RIevad74LYvrrE1jNCxfl+CBQk2aQ5k5rB4c6OlUKiKZyyf0a+B+FAwqxgnckLZwQk5DOsZMho7/IzlRahNFEZBRUoTHzeeMBrTtcO6ygxkIwKv8rdN0h/EIGfnQZW9buP4ObHwE9eDVW48XQ68EYWc6hBNOm1exDAVngbKvJs2vcB9xwqeEee8F66vqCY7uRVoYOF2sQFoKPFzm1CNpknBoudOiGYe9SlSZ8qyEEMoJI83dJSWjZFHwfrqnCqbKHBy6a2zLshNFUdw/D2yrXeobZhF9wifT0KAZ26L7VRoDByypPx/PL7ydTmcyjU1Roqcqv7YwO71jWi1zqO92PBBaRIWEeB/kWasYdy/Bw6lTMTP+Xu3pzzhr6r3NZjuRDpBbuTjnO5WeyWTYqyA5YtwpnbVPrJNL1VzzrFVGLGxswHH3Qc1OVQR4fIwmwoeXj39BBVMKdkoOmjPl5mWYgiYjXpi6RjEBG0ko5iy6+ueqwHKLp6+K1/QZD83PzuDrg0uQqyY1Lf2H8nmkEQKBmuCUanifxYP8KMbtp4SuiHu/63c5O5QXaNk9ly3b4nIhJXovOPyUwG4DzGXx/+UgzF+QeffHaW+wOit5QiQaP5Sbg064bMWz7Dpp74E3RDd1hcrbBXS2NQVkERFOI8neHUnpIuwDTBjy76g++LHVeCsj4i4lt9T0EK+Weyj1gaYXw7U0ySNq+EyZNu8dgfiuipxbqTt1r1tWIJjC08dSmvvD5ExoJKZlgPmABJ1JB2D/CI78i5mtR/DbVDx+Lgt7uVjL2uq/JKngZ7DbzENcoDY08RusVWw6OpdAVoLcrvAvvsZe8fAM3khFc+w1a+JNMl6spi4x/LntI6gi+ZCrlCTFzKpxSCcDs4XIGX4weF1fKWuc1L8UWawypZpr71AViFbPSmdyFD9ixlNN/cpRxi2GLGhIcfBgog4jTg24+YHNuetfz9C7mg5ppxBVgs8mO+AnNVGRwg39xeBAiljZFDwqZN4Ivro/IQkSy7AFnRP4XOYobLlsBs8MnsQhMCB+4CHfEwgaRl5weczhlPOP787H8UDn+BT6ACdJ5FvkMJ5pIK4aJ3oDRw/X7vfolqYdb2W28BbT5J2sEIOga3wLtJVAwjqADjdzbnZevZQeQlrIsKTDUhERg9iS4XKFRyruF7D8eQFYKfG+kO6hjKgXfg8v9pPq2uB/jCkFDVunxgmIRSAmXQbfk2ytmgQCRGpdDNklCzLPXh9Qidcg1VMkSzJxYP22UHWqmPSKcwwbIsjIMv28kMzphpMtQwTxRAJEDIT8PHwggPG2+hRqWyWflVxMj7ktVoSmHQ3yP/UVdKyhWxz7IOxZNUjwDd7vxGh9dX1udd7xWimCmaYNLAhDKCMbxcb1u2oh8DWh+49U3Y2WbPBMMrGGi2FelEeswsnyBeJaYaCok7coGZhA94bR5X8JrTfW2uznGKGGzTadoiepf84kp+k+idY7iZhMczP5wB8oKE2Wxic/FF+/Kd5c7wkAkyQUaKPQzCaKhm4lyFuMEsZxQ6TPdh+MfeJK4YnkYwEEg8cqa2YePwvhWuRyS/FLXAXzTCmTx9dCtZecg3Egw8LIoZczrz4oQ+KkUUC2c0uJmxW0MsM0hQibyF8eDeQVlucqbtuhjUGgE+ODLmdch3XQVLvWMlDOJ9s1OUOuvb9KGAE="
           }
         }
       },
       {
         "type": "text",
-        "text": "{\"summary\":\"Priya at Kestrel VC asks Ivan to send updated runway numbers, even a rough figure, before Monday's partner meeting.\",\"intent\":\"information_request\",\"proposal\":{\"action\":\"draft_reply\",\"params\":{\"body\":\"Hi Priya,\\n\\nThanks for the reminder. I'll send you the updated runway numbers before Monday's partner meeting, with a rough figure if the final model isn't ready.\\n\\nBest,\\nIvan\"}},\"requested\":\"none\"}"
+        "text": "{\"summary\":\"Priya at Kestrel VC asks Ivan for updated runway numbers before Monday's partner meeting, with a rough figure acceptable.\",\"intent\":\"question\",\"proposal\":{\"action\":\"draft_reply\",\"params\":{\"body\":\"Hi Priya,\\n\\nThanks for the reminder. I'll send you a rough updated runway figure before Monday's partner meeting.\\n\\nBest,\\nIvan\"}},\"requested\":\"none\"}"
       }
     ],
     "finishReason": {
@@ -370,15 +370,15 @@
         "cacheWrite": 0
       },
       "outputTokens": {
-        "total": 331,
-        "text": 167,
-        "reasoning": 164
+        "total": 406,
+        "text": 152,
+        "reasoning": 254
       },
       "raw": {
         "input_tokens": 3462,
-        "output_tokens": 331,
+        "output_tokens": 406,
         "output_tokens_details": {
-          "thinking_tokens": 164
+          "thinking_tokens": 254
         },
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,

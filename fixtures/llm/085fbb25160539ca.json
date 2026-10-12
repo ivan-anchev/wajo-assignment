@@ -349,13 +349,13 @@
         "text": "",
         "providerMetadata": {
           "anthropic": {
-            "signature": "CAQSuQoKEAgSGAI4AUIIdGhpbmtpbmcSDBHzWqCpcmtyOamO+BoMPnJejef0mfwAAq73IjDPW9MOJktsrVYac3QLbcW1beQaAIkYN6HqpU7e6NmbcuRxaghjb8H6TnYXMs5qurcq1gmCtZkSax7JtHnHUL++OgYT8xv3ufZdPl9IQ2t6g+v0VHnJAtuTOfk7vbbp4xLP9NA8dBBi5kDREbe0SPmG5TBvhR7bkFATyHW84rmHF1OpVVF6bWfHi3uWRDZyfsbnMeQ2wuubuofMA30qYGit0Y6y7MBxeipCdhSThwlNRcBxGS2ZX11Hvu0WKQYzaDEkFo+32n8ZIXJY1iyh4ELHwBFbpMnqFsyIWqrtx63gcRDy6PT9mAtw8Gvh8Hqrm8o50WWmRmJaIjHTGGQJLrnx6n2txkg8jJf/QXlDMrh26EGvQHes8nx0p7EQKCwZvufNwR/mzxhrA71pcSvkLgv16sdfoPHX/g/wYpRlWS4txXhG0gEQtdNhi+KEn1S0luxXNrNsSS9GQwOO3y4/HUNEpcGKYMD4e05/+kQPk5UPTgxNg/KcTaJQPoF/TtF7d2rqSsw4e9J6X4FS02ykyo8Er6HeFsKNiLyhD37SVw9uBfGJrYRQSsBuWIiygmXNSPdRYvGVwOUXqTKa3Z97pl7ek3DKf/vYCgaNzJIwvyqUf7tpeOJxqdZ2e/XJ7ZnY7Bx4lwuos9vtT0MMxf+C4H7O0u1YsoUHW/XyxGj9jKeH8hfGPz0mFRhwBf/Qb/KmQEDRWIRADrmUgK/W6rclOajyoXHM8UQrfgxv6+h2mBT82rX3qVu3bsUJyWLbNwvcP2d4ZpxMtF0nWR3r1jQ3SbSLFfImNmOKQYksimfIH7WsuD1hWMBOvqc895/60G+uO7qIbRBxnW0A9KdnTZ093eLoWERLEl4mpnzX2I0Fu6vDSR5fXljK+DYjZW/Wi+Otd6ODkcSRzZdBacvZehrvhI1OetT/XuNJ4oAIz4EicD5D402lAgjCZ83yJ4eigfnP+hmVk1gI9aaxcAC4jcC40iB89bE6zZChoaMpC5dQ1+zf7hERz+ePxKLZDtr0+9+BGNua+QWBk/a+lB8N/k55rlvlqxR4UADMa8Bljbdy/ke3MS3T26TRikqfvK5uj7MGHakH8wTPrCZC3P0ipCSQxuolyUKgO6BKhlsbQmK0RNlRQlbGWcLtX6k2URUiUXaCIO887HjIoPhqNUBMQwaMwvAJGiYlo3y+lqEcqkyEyvE1OhCh//JqDRSzT+cd37mwMX5WCy4sQQCjRZTTuae0sOYV3kfWxHXWWRNaVmSu9Q6C3DQoeAGc8Jj4BxjMJLLdI2gywwARZqnTJpSvrFEGCB/cbDMrM4g4dT1SECBrLc0Mb3eQ8IMvM35ykphQ2QuUicMEXl0pgLJkV8WZNZyjgqCyVr2IhXHaEG+nHTLo/iTdCwVmFGbXJwczJqElsGHF+zHNWtw7Df8WU4HZFw4uuPWrs16vUgq+dQR3LD7iKFgbjfpDbApb3vPltc9zzqVqD+ioQy5aB7C3r5YLe5Tvwi1+fwLOnS7ZS1iVvTirgSe2Te7FuowZjw07VIW8NDaX+U8IV+VjMuxYyqtS9XWrsheo1ximb51fVeO16DBvCuP/76llv+9fjwRQ3WjmbT/h7OjV1nF0xwY7Ga+L1UNaJ6r4Jl7AsPWCvjeg5+L03eJbDU4eiYr0O+LlBm7zEzOd5R7s2BleTWRvFmMMei1sh8JhE/3X5iHw/wYSLLTxYMcF6Q7Pc0Y68gqXOhgB"
+            "signature": "CAQSngkKEAgSGAI4AUIIdGhpbmtpbmcSDIUOxQMvN/ggf/ZhnBoM0ZuQ2MrSaWem2aSNIjBqjDwoCwCsHBwCQTQftiGWCks8eo+/gL0zk+XKTqH29ok6xLEiNAS4LN5bT6QXGlUquwjnVxf3Ndk6TTassL9IfQtme88b9LgrKnIwQp23qf5J/gDazOx3683laC11KwrufWMlEn6wd4Ibhh/xTHVT5xk39CQmdzkDDCNb9JY3aSFq64gWW9BbP24t0SuVW4XB4JNmpbZeSJOsUo1JopTBnNdmeef52W9Nv+N6khanQunZGDL/fuu/7RMR1Q8iOlLjfDh/oIxwSIdZMFR2jk8lc7M+bmPA78cDy7UHGjzfZFpgwVmlVdfppMGa7/G8RJQoFcj9yE+mns5T6rlqyKcLx2tLDd1jpn3lBelehjBLbFVDLEJnZLabFtjMAL22qXsyov/q2pwuv0NjHlSU2G5OsCWmcnRuM/B/ewua0sI2eVBGDgnH7bQv3dnnyyrOb8z4Jvkt33Ob1Z2a1F6Ivi1y+Cgy6UMkV1yZABXoYlZN4/BEE38Qh8RfQaLnZquNQ4QrCgDakvIAlqFkVn55y5fffffpJr6BG7BmvxH7MbQ0O72LGhouywC0+MKRIqe+KH3QfNJ8NKzEZmPkKm+gIyoDKS1iJtaDWLF9KtfM1H0BXJxCpT4iIMO+TimWDQZa/o7BhuF6ppYeRRrc3xMvVkS4EZkLivQRjoGtO929I6FCatwJz1fgqnOP3LaWa4KGFkWmtYLZ+wqTCIHwpPmj7tgKx+J+xzvIvO/V8f7tgftd7hH1hn9xeuDdIiKWqTjeQ3fU6AMeYybTEfnruIShv7RgZ7F55VtoGcYzgk2bGrGf0vzA3e+H5lfqDiXqBz5cD19AEdXBxd8oOHyG2DzD7eOdEvmc9ItWSPiWJ22ghXQIjxRZQyOySNv1NvOOoUp7ejoIjGU2eCPeE+OEQt//4n0w8flO9pAznAdcwAAdcxJ4vaSwzWKoUSBTdv6Sc8Q4CJLGTwt1ydjFAkFb9f7QXVoY/+V8JUnsdrj7S12KbJcz8SDyVvITFPygLDJBdkuEtZXmZfNCCR0oHYHrKXjQhoKQde/XgEgCRg678n1tyneA4Z7IfAKBtxzZk9XoACF/ZyqB+3ONsXXa4EFyO/2KaFVp/ZBBCictertq0ztQYg6P87C9es4QIZqfHsx6HIYwBoOTwnmxU/jJRBcmmpQzvhDByLkqNN89Q7xPbyUXVjduJXNNNQHsB1VcO7YO0wI2Dsak1gIlaDUb1S8VNik2/gHADLoI9XovJ2D1frEC1F1hyuBQn2mRe7QuqbdyILJyHu09Dt8COFHjn3uKZd6qkJkPLojWHTua7SLlrraiiwWVNHeQgnMvozAAgQaKjEdU/9C6xdKxS9JhMC5gQZJeI6P49td6SLW3hJOQIYPXCSpXsSMy7egkP1dYGgJEPDe/8m9tmUqW66BS+lMuxXFGA6oO26jZDQCLxFftBuhNlnJZkQCaUL9Wy058w6bJKeFoMGA3bH+wjaZV5DP4iv1q1eAUdcdIBwPbQdBp9DHWAA4YAQ=="
           }
         }
       },
       {
         "type": "text",
-        "text": "{\"summary\":\"Sam from leadforge.io, a first-time contact, pitches three ideas for filling Wajo's pipeline and asks for a short call on Tuesday.\",\"intent\":\"sales_pitch\",\"proposal\":{\"action\":\"archive\",\"params\":{}},\"requested\":\"none\"}"
+        "text": "{\"summary\":\"Sam from leadforge.io sends three unsolicited ideas for growing Wajo's pipeline and asks for a short call on Tuesday.\",\"intent\":\"meeting_request\",\"proposal\":{\"action\":\"archive\",\"params\":{}},\"requested\":\"none\"}"
       }
     ],
     "finishReason": {
@@ -370,15 +370,15 @@
         "cacheWrite": 0
       },
       "outputTokens": {
-        "total": 375,
-        "text": 96,
-        "reasoning": 279
+        "total": 314,
+        "text": 91,
+        "reasoning": 223
       },
       "raw": {
         "input_tokens": 3486,
-        "output_tokens": 375,
+        "output_tokens": 314,
         "output_tokens_details": {
-          "thinking_tokens": 279
+          "thinking_tokens": 223
         },
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,

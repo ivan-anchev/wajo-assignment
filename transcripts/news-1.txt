@@ -4,7 +4,7 @@ Email news-1@e5: "This Week in TypeScript #42"
 1 intake     sender class: newsletter
 2 injection  not suspected
 3 analyze    intent: newsletter
-             summary: TypeScript Weekly issue #42 covers the native compiler beta, a deep dive on satisfies, and tsconfig flags.
+             summary: A technical TypeScript weekly digest covering the native compiler beta, satisfies, and tsconfig flags.
              proposal: archive {}
 4 floor      silent (proposed archive, requested none)
 5 learned    silent for archive/newsletter

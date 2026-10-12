@@ -49,7 +49,7 @@
     "content": [
       {
         "type": "text",
-        "text": "{\"suspected\": false, \"evidence\": []}"
+        "text": "{\"suspected\":false,\"evidence\":[]}"
       }
     ],
     "finishReason": {
@@ -64,13 +64,13 @@
         "cacheWrite": 0
       },
       "outputTokens": {
-        "total": 17,
-        "text": 17,
+        "total": 18,
+        "text": 18,
         "reasoning": 0
       },
       "raw": {
         "input_tokens": 650,
-        "output_tokens": 17,
+        "output_tokens": 18,
         "output_tokens_details": {
           "thinking_tokens": 0
         },

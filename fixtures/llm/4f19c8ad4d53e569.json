@@ -346,7 +346,7 @@
     "content": [
       {
         "type": "text",
-        "text": "{\"summary\":\"A systems newsletter issue presents a long essay on crash-tolerant job queues, covering leases, idempotency keys, and exactly-once delivery.\",\"intent\":\"newsletter\",\"proposal\":{\"action\":\"archive\",\"params\":{}},\"requested\":\"none\"}"
+        "text": "{\"summary\":\"A systems newsletter issue offers a long read on crash-surviving job queues, covering leases, idempotency keys, and exactly-once delivery.\",\"intent\":\"newsletter\",\"proposal\":{\"action\":\"archive\",\"params\":{}},\"requested\":\"none\"}"
       }
     ],
     "finishReason": {
@@ -361,13 +361,13 @@
         "cacheWrite": 0
       },
       "outputTokens": {
-        "total": 92,
-        "text": 92,
+        "total": 90,
+        "text": 90,
         "reasoning": 0
       },
       "raw": {
         "input_tokens": 3479,
-        "output_tokens": 92,
+        "output_tokens": 90,
         "output_tokens_details": {
           "thinking_tokens": 0
         },

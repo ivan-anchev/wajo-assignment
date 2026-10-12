@@ -4,7 +4,7 @@ Email fyi-1@e5: "Retro moved to Atlas"
 1 intake     sender class: internal
 2 injection  not suspected
 3 analyze    intent: fyi
-             summary: Maya says today's 16:00 retro has moved to the Atlas room and asks Ivan to disregard her earlier email about the room.
+             summary: Maya tells Ivan that today's retro has moved to the Atlas room, same time at 16:00.
              proposal: mark_read {}
 4 floor      silent (proposed mark_read, requested none)
 5 learned    silent for mark_read/internal

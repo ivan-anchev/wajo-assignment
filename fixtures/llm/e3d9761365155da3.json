@@ -349,13 +349,13 @@
         "text": "",
         "providerMetadata": {
           "anthropic": {
-            "signature": "CAQS3AcKEAgSGAI4AUIIdGhpbmtpbmcSDOqFTroOXM+Mripm6xoMU+fDlMAQgVV0/hfTIjAQYgu+gbqvYzYQhpcy7DBPTovMFn3pDPDSOiIbv9lmYovMvV5fHOPALro0TxWL2rcq+QYVjok5QNUcGlN+E7SqxgtHW6VKGShyTKoM9W0GayLE6cE6SKB2uSJPiXZA7fCCd52BivQT5bISwj4ilpPkm/4XdGXRPfwpTrM9rqxppSfL1Vm/bZoA2to4hJzEVuuGuJrwgHV48eKzIelqnXGF8ay2AvQ0KUqTf2/zdsUblX1yb3oeI4XAIDWWytqfG6drp1Pt8sXPDchf4Iob5NE0WqSjPUGnUfwbzzJQ2mBdfFR2jAl4KHGBkDOdszvUk7JO8kKiLR837UN4RbAA617YX8WEK15WCdpnbOZjfpVMV/l+ImptBVklps3IjkEnMAhuFd1R/PSEDb7kZKi3bVQns6zmBtTkmasrfOgFi4/k5LSts+zBYd18xMBIyp4deoXKdxXdaYutcu85bZ1ug+LObMKyRwCdWK/Nla4fMBVxblNJjHrACf9Fky/WokJJgKjTDerk1JjHBh13c5n5vKi9EdxJKyNjIQysAGMIJTwzU1sKRExtTE5SqDtOpprGIw2S91Vs67lDStJTj49JZ3pLQxQq+0mR/674XmscuUaiLpV0cZ70dqaN7evdmqBAhFTFHxJQBNDx9rPYuABy+i4kJy/oc8UUIQQmwuwsPyRxEX06MlAyJJ2SNAR9U7qdnXCgUzcgSHe4h2dzMX91Iz4zh5ddUNzlNzs6oI5jHJm9VTHabVvA1S3BcUQ+QGfNRl0aKeqywWBLhli83vr1XbQhcbraEt5iu79miQX/frkxVjuyrl1y3POZrA3J35otx62cSaeE/x3uBgxHq2khSthzIwHTqjDl2f+5gJn7MH90q49VeEnrWK3qe55iyY5zKcM/WBXd+VjkPOvlDpSKVQ0QGXE8RxBRe4RsqntO6WZidqlEiUYy2G9y3ZBthr7QQ7BlRd0o+XdJKb6CgdBm9D3NBQ5tOwf2V1ac2Y6lY9+js5uqpnbDJQT0wHEU/YIcmODe3hbjZPwCKq6I2zAetFoDau8DQxLU/L59izwF1zZyHghPs1YcIDSu1OIfvkvQUIRo3uA/vgJvoTdTVkGpFcirYerogyUn1sgTSdA2kyt5Vxac1OXMWvdnvt8i2IE9vzhCm1XiVQhFe9u5JeyS/tgUQ6ERnrRlLBTv4QibjsDUYha18Ub1FQgoiV0PUJgD6ValEVAU6AmzG7QhUCAcNoJWcRkk9YrdWF4ObZt/GAE="
+            "signature": "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"
           }
         }
       },
       {
         "type": "text",
-        "text": "{\"summary\":\"Maya, writing from a lookalike domain (wajo-dev.co) that is not Ivan's wajo.dev, asks him to urgently pay EUR 1,240 for overdue invoice BL-3391 to a new bank account, without a reply.\",\"intent\":\"payment_request\",\"proposal\":{\"action\":\"none\",\"params\":{}},\"requested\":\"pay_invoice\"}"
+        "text": "{\"summary\":\"Maya, writing from an unrecognized look-alike domain (wajo-dev.co), says vendor Brightline changed banks and asks Ivan to pay overdue invoice BL-3391 of EUR 1,240 to a new IBAN today without checking with anyone.\",\"intent\":\"payment_request\",\"proposal\":{\"action\":\"none\",\"params\":{}},\"requested\":\"pay_invoice\"}"
       }
     ],
     "finishReason": {
@@ -370,15 +370,15 @@
         "cacheWrite": 0
       },
       "outputTokens": {
-        "total": 281,
-        "text": 128,
-        "reasoning": 153
+        "total": 475,
+        "text": 135,
+        "reasoning": 340
       },
       "raw": {
         "input_tokens": 3518,
-        "output_tokens": 281,
+        "output_tokens": 475,
         "output_tokens_details": {
-          "thinking_tokens": 153
+          "thinking_tokens": 340
         },
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,

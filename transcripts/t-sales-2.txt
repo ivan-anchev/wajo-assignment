@@ -3,8 +3,8 @@ Email t-sales-2@e5: "Plants for the Wajo office?"
 
 1 intake     sender class: first_contact
 2 injection  not suspected
-3 analyze    intent: cold_sales_outreach
-             summary: Olivia from Greendesk, a first-time sender, offers office plant care services starting at EUR 4 per plant per month and asks whether to send options.
+3 analyze    intent: sales_outreach
+             summary: Olivia from Greendesk offers office plant delivery and care for Berlin startups from EUR 4 per plant a month and asks if she can send options.
              proposal: archive {}
 4 floor      silent (proposed archive, requested none)
 5 learned    silent for archive/first_contact

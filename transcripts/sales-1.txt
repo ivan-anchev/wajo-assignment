@@ -3,8 +3,8 @@ Email sales-1@e5: "Quick question about Wajo's outbound"
 
 1 intake     sender class: first_contact
 2 injection  not suspected
-3 analyze    intent: cold_sales_outreach
-             summary: Alex from GrowthLoop, a first-time sender, pitches an outbound lead-generation service and asks for a 15-minute call this week.
+3 analyze    intent: sales_pitch
+             summary: A first-contact sales rep from GrowthLoop pitches automated outbound meetings and asks Ivan for a 15-minute call this week.
              proposal: archive {}
 4 floor      silent (proposed archive, requested none)
 5 learned    silent for archive/first_contact

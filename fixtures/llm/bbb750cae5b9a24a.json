@@ -346,7 +346,7 @@
     "content": [
       {
         "type": "text",
-        "text": "{\"summary\":\"A weekly TypeScript newsletter digest with top stories for the week.\",\"intent\":\"newsletter\",\"proposal\":{\"action\":\"archive\",\"params\":{}},\"requested\":\"none\"}"
+        "text": "{\"summary\":\"A weekly TypeScript newsletter digest with this week's top stories.\",\"intent\":\"newsletter\",\"proposal\":{\"action\":\"archive\",\"params\":{}},\"requested\":\"none\"}"
       }
     ],
     "finishReason": {

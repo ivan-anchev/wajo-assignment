@@ -349,13 +349,13 @@
         "text": "",
         "providerMetadata": {
           "anthropic": {
-            "signature": "CAQS4QgKEAgSGAI4AUIIdGhpbmtpbmcSDLaXk3y453DweqSUqRoM+w8vcTHAmiy8KDqQIjAIs35Sin6rerghq4kY1COYvEA19pwhRxIKMkzHVrqNKtzKgebjOML2CLDdTlkRdYQq/gdcrh+ePLoZoen6+kgU712zFcX0d5SxgoUR7GQv7L8DcTNCBzpDZ7es8aX1wdJUo8DNQxvgtKA/szK+QQ5bPwQQJfsvg6w7kAypcOuZWC4fSC1Rhj1kpZJcilHRfAFrP5EU/8aes7eN7pLIbw32m1huvRD493ySyVmwzAV0iBsiww8VlDt2gep3QZLnuDr7Zd8dKRC6cnnl2w6XgxPyhFioS+KN+4QcsRZ+l+LWHFFZgUjzJQm8iquebFHh3dXj9JRXGimd0fMsNaXYQEcWQN7aSiTv6dIWSk7yG3HWKpBmYATus7u+cDdNB97U1Pk+D9dfUDFsqImap6ll5e+SslP2F5fe18Lb3v8QZigfhXSZD/OsQeEKE2GoxV9zSGIshcb4j/pCmcNI8vAs9ZUV8sd03jeIfF5mHD2U9HzHFvvmsHV0M4uICdpBzMm/pQssQ7NDxCeH0kILispycnnVahEfV2TbweRWdWVlgrfSlEtgrZjcN5WfiT5YXJaBodh/O0LC4fcXz4e+BNNHbBtiXoSmXXYQJwjX7NQGuZpFa40EVxIzBlttfF9E3f0hi/lTZSFyyBfp/ExkFb0ct9lk9vWc5Pkn8bIHbMsBnoHPhY7XaBGZa0ieqDqLFBbOcTIJo2QQN6n+3nHuIJPrD2NOasj2YKLqCRrc80SlQE0FR2vdkbaZeS9F05RXpidmb5zkoY4aJ9MLHDFqrHL2TYYOwS+PxBrp7FsfTRTR/1Tc0xX8s/cCOXX93H+SNMT3isByXbiVl8NlYkkOVicdvC6+7NTSVc7wq6CFE96aRhI57fMk+8XFQJLigmKI/WfvLDJgOYp0lDU9acwKdYTaA1eMugbrhk1yKFE5BPRrNK1L6PUDjcO5+xUBZc/TgSRLeeIzx8Unpg+pRJm6+M1HgmCEQv07KpgEfuJv5jbWD6Kg5DT8Dk74tYxBZYgXMCW5SQlTa2c6WK3IZmqwUIjlzgq4ny2Fq0QwU94N+mWGW08eMC5SaOswuiF4lTh+Lc89EzmC8yJuUl6RNCxzR5c24uvgMr9CDTEnjpYWMa+R7M9aIEAVzyl6J6Tpm1s+HSy1wdI6PnbZgG2Ma8oYwnqBo9p9+oOzJWRpfyEiBkxSGSDoER/s5m34cFUhJJu9felfRi2ZrFU7a6CgqvR96Mrv8yXhQBsQWFQP+lvFwoV4F/vEI1s9MH9M4bl5GiXmwKrx7P6B0UXuvoyQc5WjznvB+sOrbRehy2O/3I/AokUMjbM9EFtjTgtEAfwU5FlpjeHYwQSg4DKY0xzWz5tHlRZRJlKjzLlMqdjgxjoQ+/g+M1OY90/blaRgMtQbLUIP6ut4yIlu2MpzDXtd2/oMJv3DsVkeDxgB"
+            "signature": "CAQS2AcKEAgSGAI4AUIIdGhpbmtpbmcSDEWEnjyL/rxs9oywIhoMpREDM9mHMldU6SAIIjCAKyTMnuE3QGCfJxzLXOyYHoABkZaFlbNEmAZpGRsQ+bwdg9aRZOnLCJI18JOrjbEq9Qa6rAXr7gLyr2WFB08u0Ivy5uu9X7Jr3WX/j32MR7Fx6bPacPGabngmxTxUnKGAobBb77Wph1sLnaV9toKrGiFtsJuBGXDKaA0ZVK4Q7yeiZjOSDByibk533azXukJD3BPA0+AJax5W6f8+Itv0u8KBaSnWA+sHJbDFN8twPvKvzbExvoTGU0IKccsAbNa9AMxloQ+ACl2+XE6T+3pT2LDiO89nK30dqToOrUESPmu7U5d4GyEiRjJa6uQggaU33aHQ097aaNp4VP7hMVwIP/XDT/PHJyZoA6ea1EUFFvIcl/duq39HuBiNA8Ft7Adt9HMVvtvAW88hrueRt6Pmk5wTtHa1BM0Tj4QPuxAFH8q8/mFHFg7Ys4A5o7k3/ggeQb/slBPgJjRDBDIhIwtSci6Jm+1SX3FYFdFb5lr3y5ey5etditIh8ZvSvbOAdtZodWK3b62Ml1W7QDPanZV1ud5sF7yZNp88eR71oUDdcfl5IEbXDzI+Y5SmQ0mX8FSGBCchSKl0km8VbUEjPNuQj5qN834yR4d/1eiJoVRwQKtvwLoRdyjochJ8aLD3F229i7haJJKPybBtmZ5GJWD1sWzUkTbu4uKTqVxh+PTZcs38G6edfOAy0WRk4w5cMRdPjkNxcaRdm7SMvmCcYlY8GIb2zSiA/6rSadz5GH3lCRkCBlZlq6YWOhS6yUc0AwjL9of37PqP5Mk7xCNTMqjbJDpdngGONGG+GtR/zmqNq4jLX4AFVW6knRrkjRo6fr6dzc1T4YIsOTm7bXFj9dTu4kS0zm1k0+XrskEW08PQsQWwFUfIKhBq5A69j8HocOcmNgnKYu0nxy0Ihrcz1u4UQ2AMeoF6TsdxZr/2tAyRRTKLd1/PbSsHFmM8lNjXKuxwc1rKySpn/OADVA5byqFVIan8RKWVm9+NB5F619eduS9tJVJvDTn7ywynQmvfUqmV+uOHDawNYsZN9gs5w9x3Q7jqBiB2+7jCtTP5/jaF2d3XDcDhg/rIGimFiHnM9TuD+ox12N2qgQV1bDsDiq+8OE9IYzEUeKE8ztxGRfKGG83mCKc5ikR8OZMMqVJqdJAEhz4nuYbZIr8fH70upDNgYTs/pNu3Op18p6GCY7xYCkO34y+5TNG2OpageAG1DuVq0fsqZRJObjbg+guv4QBgdg3zetBQjHAYAQ=="
           }
         }
       },
       {
         "type": "text",
-        "text": "{\"summary\":\"Marco from Helix Labs sent purchase order PO-5531 for the pilot and asks Ivan to forward it to the accounts payable contact so it can be matched to the invoice.\",\"intent\":\"forward_request\",\"proposal\":{\"action\":\"draft_reply\",\"params\":{\"body\":\"Hi Marco,\\n\\nThanks for sending PO-5531. Could you tell me the email address of the accounts payable contact you'd like me to forward it to? Once I have it, I'll send it over so they can match it to the invoice.\\n\\nBest,\\nIvan\"}}, \"requested\":\"forward\"}"
+        "text": "{\"summary\":\"Marco at helix-labs.io sends purchase order PO-5531 for the pilot and asks Ivan to forward it to his accounts payable team.\",\"intent\":\"forward_request\",\"proposal\":{\"action\":\"none\",\"params\":{}},\"requested\":\"forward\"}"
       }
     ],
     "finishReason": {
@@ -370,15 +370,15 @@
         "cacheWrite": 0
       },
       "outputTokens": {
-        "total": 379,
-        "text": 199,
-        "reasoning": 180
+        "total": 225,
+        "text": 91,
+        "reasoning": 134
       },
       "raw": {
         "input_tokens": 3478,
-        "output_tokens": 379,
+        "output_tokens": 225,
         "output_tokens_details": {
-          "thinking_tokens": 180
+          "thinking_tokens": 134
         },
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,

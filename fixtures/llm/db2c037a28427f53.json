@@ -346,7 +346,7 @@
     "content": [
       {
         "type": "text",
-        "text": "{\"summary\":\"DevTalks announces a new podcast episode about running Postgres with a ten-person team.\",\"intent\":\"newsletter\",\"proposal\":{\"action\":\"archive\",\"params\":{}},\"requested\":\"none\"}"
+        "text": "{\"summary\":\"DevTalks newsletter announces a new podcast episode on running Postgres with a ten-person team.\",\"intent\":\"newsletter\",\"proposal\":{\"action\":\"archive\",\"params\":{}},\"requested\":\"none\"}"
       }
     ],
     "finishReason": {
@@ -361,13 +361,13 @@
         "cacheWrite": 0
       },
       "outputTokens": {
-        "total": 71,
-        "text": 71,
+        "total": 75,
+        "text": 75,
         "reasoning": 0
       },
       "raw": {
         "input_tokens": 3483,
-        "output_tokens": 71,
+        "output_tokens": 75,
         "output_tokens_details": {
           "thinking_tokens": 0
         },

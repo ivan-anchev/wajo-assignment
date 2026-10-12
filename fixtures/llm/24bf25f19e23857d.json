@@ -346,7 +346,7 @@
     "content": [
       {
         "type": "text",
-        "text": "{\"summary\":\"Launchboard's daily newsletter lists today's top product launches, including an AI calendar, the Ferrite ORM 1.0 release, and Pagelight analytics.\",\"intent\":\"newsletter\",\"proposal\":{\"action\":\"archive\",\"params\":{}},\"requested\":\"none\"}"
+        "text": "{\"summary\":\"Launchboard's daily newsletter lists three new product launches: Cadence calendar, Ferrite ORM 1.0, and Pagelight analytics.\",\"intent\":\"newsletter\",\"proposal\":{\"action\":\"archive\",\"params\":{}},\"requested\":\"none\"}"
       }
     ],
     "finishReason": {
@@ -361,13 +361,13 @@
         "cacheWrite": 0
       },
       "outputTokens": {
-        "total": 98,
-        "text": 98,
+        "total": 94,
+        "text": 94,
         "reasoning": 0
       },
       "raw": {
         "input_tokens": 3506,
-        "output_tokens": 98,
+        "output_tokens": 94,
         "output_tokens_details": {
           "thinking_tokens": 0
         },

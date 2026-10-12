@@ -4,7 +4,7 @@ Email rcpt-1@e5: "Your Stackmetric receipt for October 2026"
 1 intake     sender class: first_contact
 2 injection  not suspected
 3 analyze    intent: receipt
-             summary: Stackmetric confirms a successful EUR 49.00 payment for its Pro plan (invoice #48213), with no action needed and renewal on November 7, 2026.
+             summary: Stackmetric confirms a EUR 49.00 payment for the Pro plan (invoice #48213), charged October 7, 2026, with no action needed.
              proposal: archive {}
 4 floor      silent (proposed archive, requested none)
 5 learned    silent for archive/first_contact

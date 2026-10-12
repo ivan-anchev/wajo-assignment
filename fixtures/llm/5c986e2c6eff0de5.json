@@ -349,13 +349,13 @@
         "text": "",
         "providerMetadata": {
           "anthropic": {
-            "signature": "CAQShwcKEAgSGAI4AUIIdGhpbmtpbmcSDOV4J621N5kOxSDsixoMup0f7mndSVIceHc0IjB5Nog8QzGKOpGQPUimBECHWHBedxIo+7c+gfFS/+0Fej0mB2WKKLYvRBe0EdXbh7EqpAZ0ww1B6+aDRFPi5twfYqgKbTUiS5jh1ZoI6URmnuWhjr2N2gEjsP99AG6yBdlKjKUhN1cH9PLqNRYpNH6q1XojiJ7+qOAkxL7smi1ARBU7Es4CMVS98k/+JzJB1lKhP3uZPXYA/0+t42t5J5SIebfLDm2XRN26mT6RryYyC3r+DN3nYkGc4Xk6LndzKNMHVI2BrmK/mzy7zvxIy536FFUVcSWnzs/p+AXIPMpalRmRZNDSMRXTO3t9xRQnAMwx/jucURh+PKjXDsF+UmLKK0GfI/fBJVwM7IUKn8DLPY1j4GaKCQZFohECnIaCkl0NWbV8/zhudrncD2JN+ugPDGvKy6M4b29pPCmuezAXm7SIyOSAt+WlmoSNBYdER77wO1Zm2piET6OF42MLKnUo5lEz4KeDXKE+6GqGeCB8YAHt56VWkAEJnZF7FaQGkC82Ra5yCnqYrv61/PwjsVZJFknKFh1E1vlr+X1uk6jt+x59yyltheR//9mZyJLzkpEROSa6tfQNOmALDucsWLd916VduOA8UWFNWAScwXs5CZmJjW9csrl0YNdVT9c5ODfLdkB3pd4rlNPx75EV5zc253Ug+VXyX2Cnc3mBlLX/3hfJJQFqZpfQmvahuxcJsYWx3Xza8ETmaTCUFwr8e2S4PXuEcpLuqoOUtnUgtQYw1gFWW4HwQJok65sFN9Lie3H4Uv795esm3NOMZUo+2QPWUlPIgqSLUFvOcsM283miI40H8m/IhA7hb7Tt+cL2iKQMv99j+EniIY5F0o7conRNLxIhq6ej3ONPM+DWHlsb9RAkGpHEM/geuxkN1iX635bGn1lwoCiChYtjLEzIZ4pVm2kqHh3skveH04ObjZmHKZrjWmPtdvqGRg2rVa61iueiFO9CgvCmL57GAu7tcYa8ykDWA6VxCTv2QPGOexWOUnnd5EJ4BroTd3hDFVF4sVcyvMBBumzWWY6N3heYg1lA+q8mPtfMLBAkxpB/J9I/yFGo2nAD3riJFJnSTg1KAOj1oQXuWIDH1Unaj8GjVFpRnfljA5uL/kPy5FF9ubeBHoOd/70ihFgYAQ=="
+            "signature": "CAQStwYKEAgSGAI4AUIIdGhpbmtpbmcSDDs/xxtJ4UDJNOg+rxoM2p4BTYpheTB/ZcK9IjAb9lkpCmNFqC+jpzZsenzHms+3349DMR7Fu7TIPta70pxeuBhw41cSdI9VtpVFHmAq1AUdq2Llshe/yn3YpGLGk/uSh90arlH6/DSIBKy7pibW1OdUAmLie6sHggvptM8UYhsHPRgEMG2HettBtFEFrMsW1/ZOAsQnWDpUHttMxqF8pe4z423ySXQb0La5hUBAMgwm/eVeTcrN5DMr++X+CPCb8XDhRgCNXCuFk0rQMEsZpqo7/yO15s0ngiszjseFdqR4NvNoFrFQJRgjUYSWjK38rO0a+H3Kxsw2VX+6U8MniNqy1OrtpVpkXKCnLCeFFMl5BAdZM0QkqnEr95MKro7j9jBKeGVjMNpqjv5xa8P+M6xF6210KUuiNvGEjUVcY4mDyPm8D3uq86Kba2xv0x0vmyQMgdCkMKfo1clNbkm8vKhuFjvYtjnMFiPa2S7IIfUIIHwJlgpYQ1CjYlnw64I6ezI8r5h0LJ0TJgdv4eci/o1qbINhrALqhACcGi1pUlOzyyEHEkygxMQJUeMWZXmuI3wdkjcpX5oTEd2Pehnsjkh1fYh3CKC5fs33V8xNup96Ri0CvIjZ8QaquBu30liHegUS5OWhf38K1z3P5M0TJc2wp3dLpPFq/hL1JNUgCp6iyhO0mo6/1dcC5emalYe7QOenq2oobijIf4EsrSrhNhUxdC0cl1dk5eL98iLoQmF+Y0yuoK+Iedxfm6tIutji2pL0bkGL38pQtLQGyFCyIorBG+3WZOXw+P4UGbEhVyVMF5dg6g9qnhMW7+YvonE6arYVvP9I0hYygApA7gTNvHXqTCi3wPYh/xckb9PbwQybmyiAj7w+aBVYPqHuSamM/CzeIlGSt4YO7RPbxmkqVndPEFiVdUQg5b+ZzO4wWvOp9Vsspgf8NZD/VOqvM5Qf2SSueqDkOjXq5SBsfo82dvS72BZkI6zgz5FsHFla5GLCMFKN1QgY6E6gbnQIl6JX1hLyA4gELT3Xi8UfBX7TDhkICTOHNuuczgMnbd21lShAspQfGAE="
           }
         }
       },
       {
         "type": "text",
-        "text": "{\"summary\":\"DomainHaven confirms the wajo.dev domain renewal for one year at $14.99 (invoice #771204), with no action needed and expiry now October 9, 2027.\",\"intent\":\"receipt\",\"proposal\":{\"action\":\"archive\",\"params\":{}},\"requested\":\"none\"}"
+        "text": "{\"summary\":\"DomainHaven sent a receipt confirming the $14.99 one-year renewal of wajo.dev, which now expires October 9, 2027, and says no action is needed.\",\"intent\":\"receipt\",\"proposal\":{\"action\":\"archive\",\"params\":{}},\"requested\":\"none\"}"
       }
     ],
     "finishReason": {
@@ -370,15 +370,15 @@
         "cacheWrite": 0
       },
       "outputTokens": {
-        "total": 212,
-        "text": 98,
-        "reasoning": 114
+        "total": 187,
+        "text": 97,
+        "reasoning": 90
       },
       "raw": {
         "input_tokens": 3556,
-        "output_tokens": 212,
+        "output_tokens": 187,
         "output_tokens_details": {
-          "thinking_tokens": 114
+          "thinking_tokens": 90
         },
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,

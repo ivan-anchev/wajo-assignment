@@ -349,13 +349,13 @@
         "text": "",
         "providerMetadata": {
           "anthropic": {
-            "signature": "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"
+            "signature": "CAQSogkKEAgSGAI4AUIIdGhpbmtpbmcSDAma1B+uGEcLxawhERoMUI/48TVo8vG3V0ipIjCi15Y59fDoR3KxKEjKqT3MWGJ+S13JzTugN4JmVy31Dhsj8e45t9taGRPr1MQGGt4qvwhhiUuSvTozc4zy9LutksKmTUbVMfgdiml+tUWiUT33d5v6DUI53fyJ4K2PSa+UHTbt2Dt8AP+VJWqEtg2i56bWlmYGjyUOLBK6Y0OQG8eNHk0n/8NEtOgFgyD3fBFQZnVYMuDzl72M3qfQ+eCLQ1tgOrR1FMmaAj+IeRKRWRBxbB7KcNIxt5vpVnFR2inrtu5FcGmZzqgWgzyGJbzt8DKkJ1KlcHM3fpR8hGLJZEPay1VINeMc2hxidLn7OXyWRVMz0Aye0Ngmz8y0DApelBkqtYC5iLCH0KUfyH4RS2ZrvkUJKwfko5/a3q+SL0cvNAnCEbH2eUZB9tFO/aHiH3hBrKTR0qdJ3EV4T3V2bB4tgUYaIVIMVAUaT7mbKh4UACTb3KdgSHt0BqOdv8p8mRVr3xArvg5UxSiCPZRJWkvwk/l8Z+17lHB+cOB4pQsFRSU0QAIx6BR81XbxTmXOAB2kQEistNpyF0yc+P9axQFHZms36Rml4Hbv4mezyN5LMSQL2IZ4E2ldPl8fTMFrjbsDYZPX4tbUXy8EdB4E5sRInJFZIOPsi5GdN3auI+88oNezZSeFFWUWsGM97vGCDsvpjKfM20ItWY9qW5DfToBJDa5djvClaB+UR7xgV9T3ttymxvIRXwMVstNXw3jUlqKg7whFHU1ZmGE5yeATKLp5zSXCwjYNB7KTSJi3dQs8/rJGXp1WpMXnBUhzufVWj3hWm4Va84FpdWdmPBBqVybMu5AueXkxjE5Aoi2H67sX1afpIwV9VWRE0AfCKqIBQIV8I2yJBXPtTlMHPmebekL3wwFLieHJY5QdBfMWdmc8tRikwNaYUNNpiWmC/P/UeBETPIIe4Af5T1MOTYQvZIYsXR6xg0Mi+59VvhjHAjw4Yr89S13Bd8ZhverK2aFO12LTsfL6pcSfRhB4NpyU3n4MR+TLqbW3PLKsRc71SVjjVOCP5M7KeM0aO5Oy6+1R7G8I2xUvyG7zhMcNLh3SGfbJDXO6cIDCewmiCeai0oi5d9P+94ZRqRkPEi/5DlZI9aO7AQDm65NQGTHnN7JH1aedl3bi2RvfthYOsaLhdY3JJVixHqdNoRVEUKCanSQGNFhAXgV69w1JTEkQQ1WZPqG4TVLTSMLMIJaSPeOJjCsz9gdgwR/R78fFvOcTNFLrqo8LtloJsYcWkk6haqpAtMAd6Cy6oqCxJ7qkemlEtxW1X5q/UGCk65gYT/R2I8zH3dQfmptiogCmzBeH6iKkehJgyvqKRsdWI6eifi4K/g8vVh91DG1owr2aRWSkO/cqk89fIXqudWXdIH/88+lmJEBzAJbKDGMhSXLgd/Edtb4vSB1iEqNn8H/CTzrsov9nCQEV7y9F+irTjRTBnQg1W4SWTJObPpHrBZARil9YdjP+grueGHYArBTEGMfJsM+XixiYVkmSZ42nXds42pswgxjmGAE="
           }
         }
       },
       {
         "type": "text",
-        "text": "{\"summary\":\"QuillSoft, an unknown sender, says the Team plan renews October 25 and asks for a USD 490.00 wire transfer to bank details given in the email.\",\"intent\":\"payment_request\",\"proposal\":{\"action\":\"none\",\"params\":{}},\"requested\":\"pay_invoice\"}"
+        "text": "{\"summary\":\"QuillSoft, a first-time sender, asks Ivan to wire USD 490.00 for the Team plan renewal on October 25, quoting reference QS-77120.\",\"intent\":\"invoice\",\"proposal\":{\"action\":\"pay_invoice\",\"params\":{\"amount\":490,\"currency\":\"USD\",\"payee\":\"QuillSoft\"}},\"requested\":\"pay_invoice\"}"
       }
     ],
     "finishReason": {
@@ -370,15 +370,15 @@
         "cacheWrite": 0
       },
       "outputTokens": {
-        "total": 493,
-        "text": 99,
-        "reasoning": 394
+        "total": 343,
+        "text": 131,
+        "reasoning": 212
       },
       "raw": {
         "input_tokens": 3519,
-        "output_tokens": 493,
+        "output_tokens": 343,
         "output_tokens_details": {
-          "thinking_tokens": 394
+          "thinking_tokens": 212
         },
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,
