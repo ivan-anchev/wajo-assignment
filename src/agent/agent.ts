@@ -19,7 +19,7 @@ import {
   type ItemResponse,
   type Level,
 } from "../domain/policy.ts";
-import type { Decision } from "../db/decisions.ts";
+import type { Decision, NewDecision } from "../db/decisions.ts";
 import type { Execution } from "../db/executions.ts";
 import type { Item, ItemStatus } from "../db/items.ts";
 import type { Store, Transcript } from "../db/store.ts";
@@ -188,7 +188,7 @@ export class Agent {
     });
   }
 
-  private recordAndAct(email: Email, decided: Omit<Decision, "id" | "createdAt">): Transcript {
+  private recordAndAct(email: Email, decided: NewDecision): Transcript {
     return this.store.transaction(() => {
       this.store.emails.insert(email);
       const decision = this.store.decisions.insert(decided);

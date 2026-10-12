@@ -15,6 +15,8 @@ export type Decision = {
   createdAt: string;
 };
 
+export type NewDecision = Omit<Decision, "id" | "createdAt">;
+
 type DecisionRow = Omit<Decision, "analysis" | "injection" | "payment"> & {
   analysis: string | null;
   injection: string;
@@ -27,7 +29,7 @@ const COLUMNS =
 export class Decisions {
   constructor(private readonly db: Db) {}
 
-  insert(decision: Omit<Decision, "id" | "createdAt">): Decision {
+  insert(decision: NewDecision): Decision {
     const row = this.db
       .prepare<[object], DecisionRow>(
         `INSERT INTO decisions (email_id, analysis, injection, payment, floor, learned, pin, level)
