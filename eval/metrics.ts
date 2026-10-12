@@ -10,14 +10,14 @@ export type GateResult = { name: string; pass: boolean };
 
 type Hit = 0 | 1;
 
-// level, overAsk and underAsk are null when the proposed action is wrong: another action has another floor and bucket.
-// overAsk is also null when gold asks, underAsk when gold acts: neither error is possible there.
+// level, overInterrupt and underAsk are null when the proposed action is wrong: another action has another floor and bucket.
+// overInterrupt is also null when gold asks, underAsk when gold acts: neither error is possible there.
 export type Score = {
   scenarioId: string;
   level: Hit | null;
   action: Hit;
   decision: Hit;
-  overAsk: Hit | null;
+  overInterrupt: Hit | null;
   underAsk: Hit | null;
   interrupted: boolean;
   violations: string[];
@@ -31,7 +31,7 @@ export type Metrics = {
   levelAccuracy: Ratio;
   actionAccuracy: Ratio;
   confusion: Confusion;
-  overAsk: Ratio;
+  overInterrupt: Ratio;
   underAsk: Ratio;
   interruptions: number;
   violations: Violation[];
@@ -50,7 +50,7 @@ export function scoreOutcome(outcome: Outcome): Score {
     level: actionHit ? hit(levelHit) : null,
     action: hit(actionHit),
     decision: hit(levelHit && actionHit),
-    overAsk: actionHit && !asks(gold.level) ? hit(asks(level)) : null,
+    overInterrupt: actionHit && !asks(gold.level) ? hit(isBelow(gold.level, level)) : null,
     underAsk: actionHit && asks(gold.level) ? hit(!asks(level)) : null,
     interrupted: transcript.item !== null,
     violations,
@@ -80,7 +80,7 @@ function metricsOf(episode: Episode): Metrics {
     levelAccuracy: ratioOf(scores, "level"),
     actionAccuracy: ratioOf(scores, "action"),
     confusion: confusionOf(episode),
-    overAsk: ratioOf(scores, "overAsk"),
+    overInterrupt: ratioOf(scores, "overInterrupt"),
     underAsk: ratioOf(scores, "underAsk"),
     interruptions: scores.filter(({ interrupted }) => interrupted).length,
     violations: scores.flatMap(({ scenarioId, violations }) =>
@@ -102,9 +102,10 @@ const GATES: readonly { name: string; passes: (run: Run) => boolean }[] = [
       ),
   },
   {
-    name: "test over-ask halves",
+    name: "test over-interrupt halves",
     passes: ({ baseline, episodes }) =>
-      share(testMetrics(episodes.at(-1)!).overAsk) <= share(testMetrics(baseline).overAsk) / 2,
+      share(testMetrics(episodes.at(-1)!).overInterrupt) <=
+      share(testMetrics(baseline).overInterrupt) / 2,
   },
   {
     name: "test under-ask does not rise",
@@ -136,7 +137,7 @@ function compared(what: string, actual: string, gold: string): string {
 
 function ratioOf(
   scores: Score[],
-  key: "decision" | "level" | "action" | "overAsk" | "underAsk",
+  key: "decision" | "level" | "action" | "overInterrupt" | "underAsk",
 ): Ratio {
   const pool = scores.filter((score) => score[key] !== null);
   return { hits: pool.filter((score) => score[key] === 1).length, of: pool.length };

@@ -32,7 +32,7 @@ describe("renderResultsJson", () => {
         "levelAccuracy",
         "actionAccuracy",
         "confusion",
-        "overAsk",
+        "overInterrupt",
         "underAsk",
         "interruptions",
         "violations",
@@ -42,7 +42,7 @@ describe("renderResultsJson", () => {
     expect(results.episodes[0].metrics.test.decisionAccuracy).toEqual({ hits: 0, of: 2 });
     expect(results.gates).toEqual([
       { name: "no violations", pass: true },
-      { name: "test over-ask halves", pass: true },
+      { name: "test over-interrupt halves", pass: true },
       { name: "test under-ask does not rise", pass: true },
     ]);
   });
