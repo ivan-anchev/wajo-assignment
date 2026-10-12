@@ -48,20 +48,12 @@ describe("oracle on an ask", () => {
       extractions: 0,
     },
     {
-      name: "approves a gold proposal that already carries the corrected params",
-      scenario: scenarioWith("send_reply", { params: { body: "Sounds good." } }),
+      name: "approves the gold action whatever params the correction names",
+      scenario: scenarioWith("send_reply", { params: { body: "Thanks!" } }),
       status: "approved",
       feedback: "approve",
       executed: SEND_REPLY,
       extractions: 0,
-    },
-    {
-      name: "edits the gold action's params when they differ",
-      scenario: scenarioWith("send_reply", { params: { body: "Thanks!" } }),
-      status: "approved",
-      feedback: "edit",
-      executed: { action: "send_reply", params: { body: "Thanks!" } },
-      extractions: 1,
     },
     {
       name: "edits a wrong action to gold with the corrected params",

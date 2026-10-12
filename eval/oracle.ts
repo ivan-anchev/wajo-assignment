@@ -45,7 +45,7 @@ export function replyTo(
 
 function replyToAsk(proposal: Proposal, scenario: Scenario): Reply {
   const { gold, correction } = scenario;
-  if (proposal.action === gold.action && carries(proposal, correctedParams(scenario))) {
+  if (proposal.action === gold.action) {
     return { response: "approve" };
   }
   if (correction && "reason" in correction) {
@@ -59,10 +59,6 @@ function replyToAsk(proposal: Proposal, scenario: Scenario): Reply {
 
 function goldEdit(scenario: Scenario): ProposalEdit {
   return { action: scenario.gold.action, ...correctedParams(scenario) };
-}
-
-function carries(proposal: Proposal, params: Proposal["params"]): boolean {
-  return Object.entries(params).every(([key, value]) => proposal.params[key] === value);
 }
 
 // A proposal whose gold is inert is rejected: editing to an inert action would execute nothing
