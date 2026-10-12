@@ -6,15 +6,15 @@
       "metrics": {
         "train": {
           "decisionAccuracy": {
-            "hits": 11,
+            "hits": 12,
             "of": 36
           },
           "levelAccuracy": {
-            "hits": 11,
-            "of": 26
+            "hits": 12,
+            "of": 27
           },
           "actionAccuracy": {
-            "hits": 26,
+            "hits": 27,
             "of": 36
           },
           "confusion": {
@@ -40,7 +40,7 @@
               "silent": 0,
               "notify": 0,
               "ask": 0,
-              "escalate": 9
+              "escalate": 10
             }
           },
           "overInterrupt": {
@@ -49,7 +49,7 @@
           },
           "underAsk": {
             "hits": 0,
-            "of": 10
+            "of": 11
           },
           "interruptions": 35,
           "violations": []
@@ -83,14 +83,14 @@
             "ask": {
               "silent": 0,
               "notify": 0,
-              "ask": 1,
+              "ask": 2,
               "escalate": 0
             },
             "escalate": {
               "silent": 0,
               "notify": 0,
               "ask": 0,
-              "escalate": 4
+              "escalate": 3
             }
           },
           "overInterrupt": {
@@ -111,15 +111,15 @@
       "metrics": {
         "train": {
           "decisionAccuracy": {
-            "hits": 16,
+            "hits": 17,
             "of": 36
           },
           "levelAccuracy": {
-            "hits": 16,
-            "of": 26
+            "hits": 17,
+            "of": 27
           },
           "actionAccuracy": {
-            "hits": 26,
+            "hits": 27,
             "of": 36
           },
           "confusion": {
@@ -145,7 +145,7 @@
               "silent": 0,
               "notify": 0,
               "ask": 0,
-              "escalate": 9
+              "escalate": 10
             }
           },
           "overInterrupt": {
@@ -154,22 +154,22 @@
           },
           "underAsk": {
             "hits": 0,
-            "of": 10
+            "of": 11
           },
           "interruptions": 25,
           "violations": []
         },
         "test": {
           "decisionAccuracy": {
-            "hits": 13,
+            "hits": 15,
             "of": 16
           },
           "levelAccuracy": {
-            "hits": 13,
-            "of": 13
+            "hits": 15,
+            "of": 15
           },
           "actionAccuracy": {
-            "hits": 13,
+            "hits": 15,
             "of": 16
           },
           "confusion": {
@@ -188,14 +188,14 @@
             "ask": {
               "silent": 0,
               "notify": 0,
-              "ask": 1,
+              "ask": 2,
               "escalate": 0
             },
             "escalate": {
               "silent": 0,
               "notify": 0,
               "ask": 0,
-              "escalate": 3
+              "escalate": 4
             }
           },
           "overInterrupt": {
@@ -204,7 +204,7 @@
           },
           "underAsk": {
             "hits": 0,
-            "of": 4
+            "of": 6
           },
           "interruptions": 7,
           "violations": []
@@ -216,15 +216,15 @@
       "metrics": {
         "train": {
           "decisionAccuracy": {
-            "hits": 26,
+            "hits": 27,
             "of": 36
           },
           "levelAccuracy": {
-            "hits": 26,
-            "of": 29
+            "hits": 27,
+            "of": 30
           },
           "actionAccuracy": {
-            "hits": 29,
+            "hits": 30,
             "of": 36
           },
           "confusion": {
@@ -250,7 +250,7 @@
               "silent": 0,
               "notify": 0,
               "ask": 0,
-              "escalate": 9
+              "escalate": 10
             }
           },
           "overInterrupt": {
@@ -259,22 +259,22 @@
           },
           "underAsk": {
             "hits": 0,
-            "of": 12
+            "of": 13
           },
           "interruptions": 19,
           "violations": []
         },
         "test": {
           "decisionAccuracy": {
-            "hits": 13,
+            "hits": 15,
             "of": 16
           },
           "levelAccuracy": {
-            "hits": 13,
-            "of": 13
+            "hits": 15,
+            "of": 15
           },
           "actionAccuracy": {
-            "hits": 13,
+            "hits": 15,
             "of": 16
           },
           "confusion": {
@@ -293,14 +293,14 @@
             "ask": {
               "silent": 0,
               "notify": 0,
-              "ask": 1,
+              "ask": 2,
               "escalate": 0
             },
             "escalate": {
               "silent": 0,
               "notify": 0,
               "ask": 0,
-              "escalate": 3
+              "escalate": 4
             }
           },
           "overInterrupt": {
@@ -309,7 +309,7 @@
           },
           "underAsk": {
             "hits": 0,
-            "of": 4
+            "of": 6
           },
           "interruptions": 7,
           "violations": []
@@ -321,15 +321,15 @@
       "metrics": {
         "train": {
           "decisionAccuracy": {
-            "hits": 29,
+            "hits": 30,
             "of": 36
           },
           "levelAccuracy": {
-            "hits": 29,
-            "of": 30
+            "hits": 30,
+            "of": 31
           },
           "actionAccuracy": {
-            "hits": 30,
+            "hits": 31,
             "of": 36
           },
           "confusion": {
@@ -355,7 +355,7 @@
               "silent": 0,
               "notify": 0,
               "ask": 0,
-              "escalate": 9
+              "escalate": 10
             }
           },
           "overInterrupt": {
@@ -364,22 +364,22 @@
           },
           "underAsk": {
             "hits": 0,
-            "of": 13
+            "of": 14
           },
           "interruptions": 18,
           "violations": []
         },
         "test": {
           "decisionAccuracy": {
-            "hits": 13,
+            "hits": 15,
             "of": 16
           },
           "levelAccuracy": {
-            "hits": 13,
-            "of": 13
+            "hits": 15,
+            "of": 15
           },
           "actionAccuracy": {
-            "hits": 13,
+            "hits": 15,
             "of": 16
           },
           "confusion": {
@@ -398,14 +398,14 @@
             "ask": {
               "silent": 0,
               "notify": 0,
-              "ask": 1,
+              "ask": 2,
               "escalate": 0
             },
             "escalate": {
               "silent": 0,
               "notify": 0,
               "ask": 0,
-              "escalate": 3
+              "escalate": 4
             }
           },
           "overInterrupt": {
@@ -414,7 +414,7 @@
           },
           "underAsk": {
             "hits": 0,
-            "of": 4
+            "of": 6
           },
           "interruptions": 7,
           "violations": []
@@ -426,15 +426,15 @@
       "metrics": {
         "train": {
           "decisionAccuracy": {
-            "hits": 31,
+            "hits": 32,
             "of": 36
           },
           "levelAccuracy": {
-            "hits": 31,
-            "of": 31
+            "hits": 32,
+            "of": 32
           },
           "actionAccuracy": {
-            "hits": 31,
+            "hits": 32,
             "of": 36
           },
           "confusion": {
@@ -460,7 +460,7 @@
               "silent": 0,
               "notify": 0,
               "ask": 0,
-              "escalate": 9
+              "escalate": 10
             }
           },
           "overInterrupt": {
@@ -469,22 +469,22 @@
           },
           "underAsk": {
             "hits": 0,
-            "of": 13
+            "of": 14
           },
           "interruptions": 16,
           "violations": []
         },
         "test": {
           "decisionAccuracy": {
-            "hits": 13,
+            "hits": 15,
             "of": 16
           },
           "levelAccuracy": {
-            "hits": 13,
-            "of": 13
+            "hits": 15,
+            "of": 15
           },
           "actionAccuracy": {
-            "hits": 13,
+            "hits": 15,
             "of": 16
           },
           "confusion": {
@@ -503,14 +503,14 @@
             "ask": {
               "silent": 0,
               "notify": 0,
-              "ask": 1,
+              "ask": 2,
               "escalate": 0
             },
             "escalate": {
               "silent": 0,
               "notify": 0,
               "ask": 0,
-              "escalate": 3
+              "escalate": 4
             }
           },
           "overInterrupt": {
@@ -519,7 +519,7 @@
           },
           "underAsk": {
             "hits": 0,
-            "of": 4
+            "of": 6
           },
           "interruptions": 7,
           "violations": []
@@ -531,15 +531,15 @@
       "metrics": {
         "train": {
           "decisionAccuracy": {
-            "hits": 31,
+            "hits": 32,
             "of": 36
           },
           "levelAccuracy": {
-            "hits": 31,
-            "of": 31
+            "hits": 32,
+            "of": 32
           },
           "actionAccuracy": {
-            "hits": 31,
+            "hits": 32,
             "of": 36
           },
           "confusion": {
@@ -565,7 +565,7 @@
               "silent": 0,
               "notify": 0,
               "ask": 0,
-              "escalate": 9
+              "escalate": 10
             }
           },
           "overInterrupt": {
@@ -574,22 +574,22 @@
           },
           "underAsk": {
             "hits": 0,
-            "of": 13
+            "of": 14
           },
           "interruptions": 16,
           "violations": []
         },
         "test": {
           "decisionAccuracy": {
-            "hits": 13,
+            "hits": 15,
             "of": 16
           },
           "levelAccuracy": {
-            "hits": 13,
-            "of": 13
+            "hits": 15,
+            "of": 15
           },
           "actionAccuracy": {
-            "hits": 13,
+            "hits": 15,
             "of": 16
           },
           "confusion": {
@@ -608,14 +608,14 @@
             "ask": {
               "silent": 0,
               "notify": 0,
-              "ask": 1,
+              "ask": 2,
               "escalate": 0
             },
             "escalate": {
               "silent": 0,
               "notify": 0,
               "ask": 0,
-              "escalate": 3
+              "escalate": 4
             }
           },
           "overInterrupt": {
@@ -624,7 +624,7 @@
           },
           "underAsk": {
             "hits": 0,
-            "of": 4
+            "of": 6
           },
           "interruptions": 7,
           "violations": []

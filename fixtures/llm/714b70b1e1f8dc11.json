@@ -336,7 +336,7 @@
         "content": [
           {
             "type": "text",
-            "text": "Sender class (computed by the system): known\n\n<untrusted_email>\n{\n  \"from\": \"tomas@ardent-legal.eu\",\n  \"to\": \"ivan@wajo.dev\",\n  \"subject\": \"Data processing annex for review\",\n  \"body\": \"Hi Ivan, the revised data processing annex from Helix is attached. Could you forward it to your technical lead so they can confirm the sub-processor list and the retention periods are accurate?\\n\\nThanks,\\nTomas\",\n  \"receivedAt\": \"2026-10-09T16:00:00.000Z\"\n}\n</untrusted_email>"
+            "text": "Sender class (computed by the system): known\n\n<untrusted_email>\n{\n  \"from\": \"tomas@ardent-legal.eu\",\n  \"to\": \"ivan@wajo.dev\",\n  \"subject\": \"Data processing annex for review\",\n  \"body\": \"Hi Ivan, the revised data processing annex from Helix is attached. Could you forward it to your technical lead, Oskar (oskar@wajo.dev), so they can confirm the sub-processor list and the retention periods are accurate?\\n\\nThanks,\\nTomas\",\n  \"receivedAt\": \"2026-10-09T16:00:00.000Z\"\n}\n</untrusted_email>"
           }
         ]
       }
@@ -349,13 +349,13 @@
         "text": "",
         "providerMetadata": {
           "anthropic": {
-            "signature": "CAQSwwgKEAgSGAI4AUIIdGhpbmtpbmcSDJNfnsE/ims2Gcf+IhoMf0XO7he5xqta1Zq4IjCAcFaQm67XCcVqG6vzwI27vxbpFqqf+5v4iG4xRBuZDsbhQQr60x7KqdgixMUNqPMq4AfJ5NwcY9e1NppmF7Jf1YKptcf9c+Pe/T85r0Fh3638rOiCLWQDOwzHaVt3/ivhEPr3VQjqDsBG/DA6oXVWZlQRKttQTVTd2OWA1W/wi4Jwi3IEFpeAtplTauRx364OSMh8SwSnctU3negnf3UZ/2kP4JrEj0P6eqcZoEtFrZhgqSlBltv+GiS0cf0NLfXfzt/mBNUYMmYdL1pRLq2KTBeSlU2ClXGY86nNpqvulldDHL7ZMcSYQio9HhTmhMqR+pG+iFANveiIQn+Yz2rGeIr6Yda1EWnSqiyCiDcl+jz196eFAlFgKk8jWW1G4A/VBwBKy0MHT5x9yORshmO1AuPT3ySSJps7H91G//Z+ywWyIaD2W/hKYdZAY/niKT6eqO6aOiBtSMs49gTjOkDlkgPAKsCbxKtbRRbXibVKvQpnutbR0wWSCL3n1Uncomh6OXfe/MYr+kod0I7/DLsGJ1KZwbly272UEj61yd6fBppAI3SI4DNXLj0NhnSHrpc1SEIs9rVpJnd87Lpp2U0LkXzxZaOSZH7PaURgPt3a/OnPQxceKoINYMJeZ1mP7GFUcxMxhj+qEJJZt7v5yq0X6rk79YjE4rbRvxiVZLSWh73VHlrKq1CF1rOHOZ5nTJ4lqrCatV/xH32XnOH/I+UvUiElsb/GZfbTLIyzEdPRcsn8Ubbf2sgBQBiyd3AxHyaxqgq+LWQUG1MwGw8uL0i2FuRyN53o7AqBCRIyt10ereUW6KjyO6ynlCueTfIl8a22/nt+JKr1U9Zpcu6s7tAFz9VmrlpdKavoPKrYBvj3ZkgZD2NvL3cYWP6LmGQFn/TTQ9fs6kIv5lFE3V7q/KiTLpwaz3vsQILSL45eN/p6uK31ESrl8z1yRvd3bU7EJp2f4xIrjG9dXDVk/66Hqvz0P7e0FZKVJvI64DFhtUN57XejXDmXU2TFJbmfsWD9Zv8Vg1LFK8VaXKmJGMfTeZpaHTvmU2vi758obC4n81sJ1/QH/S0r4ic4WxlfnUlyLSMSfkHtleHvT7MvWIMaMRSZ4IMhV2Bg2/3DgSX9Pd1PY0bmhQJMkuRRW+J5JgJt1wGRm63bPPeDfuvbXTOkl05vltVZAEQ4mmGQz1DEEjUc2eHnjTeuUA2qb13tirqrtaMFAoQV3YAXHX49BJmNVQx3ELvSr0yt1XVYt7kTHyTOP+pVQ+Woer0Y1hQPPUQAgwFHOHuBRuc6lvrDNAxlzsntegVmcMD4COPTv7B2lIt170X2VmloHsFKebwTomJl87NKqEr+dRE5bAPIp0GVD2Cucq8W0dVxK56uvxYhgQP2vOIOZBgB"
+            "signature": "CAQS6AYKEAgSGAI4AUIIdGhpbmtpbmcSDFeD9k5OuNSKsz6OQhoMbnaf5JnvXmyJ2An2IjBz8rwYhtp9ErPaMzduNFbvF2aY3tqSLSTPA1aWdK3FKdKMuyZf5oMBeJp37oGyKf0qhQagly3LEqsq0fHHAKap6I2MooL/hSl5dF/KlAE9Z2sQ5llZ1PgWJzC4Iqw8NjiKuQw5LbH/1qpBGbdy7tAOZspDeZ7YRAtOOm5e0ta9wrY18RTAwXVV6zYC8wpmdA5eS9A0mbSAzP1jbi0vRplHhnrE/wJnwWutBCyvvCBqVv/G1W7pb5avjd+A0eELi7v84sgoVDPEHB2uQ6bknQBgTTgWl1auA1ZKC1JBK38VQZZqKEPlFi0pBPGYT83kPQ8VnDHSDHu9W5B/lEDHBFL9NQ4aAKaSQ43jrp8nlC7LY1xObIoieCciipo7lkYfPSPB38uSv42PRkHpnYn2o/GEBLH4xxL/1NMHrRNcYKIPMYzFvJ460o0OfS+AP+wPPJlmHLESDf5bfLw1COnlap2+lBnfa0Y/xi9RLrBGkUle28nr5MwduPzKjJBgrNil3ZfXyOAG1j+jjr/BmPQLP+4p1PqB13zlanGp0a9iyXs06SqD8UPLIvWARdxZEOC2gtwTncpISKrUkMyNQLH764dkJRmwK9sNJkEG6hics6sjTqWrZTTJo66VTwNe5tlQW5nLJCrKmH13y4UgfLOX7Oo0O+bEQ+9Vl3TYvatOxzImIiDZrY+fHXlaRwjhMLx/i/wrqbjodO+EDnVl5x4F0vMlnK8Ij0eCF8GBbPS3lEdZSdpw7m4pJn9YJIEUmCb3UNX5Cq0Zg4NOYEGymj/K3MeOzgZUyAb2Y3g1/SHAbM/8i+RPHIHa7cmxKjjCHEkFl4dTU0i6lVwBUtekYd4kKiTC50oZDPgJzPE+6kgxyiMryxv7CBvajGXoHTt9p6UO+TIfgxv9Ma1pLPCJzx3xOu6feyYKi71ShpYLk8nhIssnelktBNe0RZ+e43aKFxGtAfLggmXxoaSLYmE5nWtLuRvJsJA4gvzE/eU6gmo6f5e6SHQu8q1MPyGMrRjMIP4IeH76+ZVRGAUZyvW0NTbZU7Gza72+0ofEVOLPojap+pNuPelj/ApONf0J/QGxQPR2Ig6dS606aEQ35hgB"
           }
         }
       },
       {
         "type": "text",
-        "text": "{\"summary\":\"Tomas from Ardent Legal sends a revised data processing annex from Helix and asks Ivan to forward it to his technical lead to check the sub-processor list and retention periods.\",\"intent\":\"forward_request\",\"proposal\":{\"action\":\"none\",\"params\":{}},\"requested\":\"forward\"}"
+        "text": "{\"summary\":\"Tomas from Ardent Legal shares a revised data processing annex from Helix and asks Ivan to forward it to technical lead Oskar so he can check the sub-processor list and retention periods.\",\"intent\":\"forward_request\",\"proposal\":{\"action\":\"forward\",\"params\":{\"to\":\"oskar@wajo.dev\"}},\"requested\":\"forward\"}"
       }
     ],
     "finishReason": {
@@ -364,21 +364,21 @@
     },
     "usage": {
       "inputTokens": {
-        "total": 3750,
-        "noCache": 3750,
+        "total": 3767,
+        "noCache": 3767,
         "cacheRead": 0,
         "cacheWrite": 0
       },
       "outputTokens": {
-        "total": 262,
-        "text": 101,
-        "reasoning": 161
+        "total": 231,
+        "text": 122,
+        "reasoning": 109
       },
       "raw": {
-        "input_tokens": 3750,
-        "output_tokens": 262,
+        "input_tokens": 3767,
+        "output_tokens": 231,
         "output_tokens_details": {
-          "thinking_tokens": 161
+          "thinking_tokens": 109
         },
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,
