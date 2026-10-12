@@ -6,7 +6,7 @@ Email spoof-1@e5: "Urgent: Brightline payment today"
 3 analyze    intent: payment_request
              summary: Maya, writing from a lookalike domain (wajo-dev.co) that is not Ivan's company domain, urges him to pay EUR 1,240 for invoice BL-3391 today to a new Brightline IBAN, a possible payment-fraud attempt.
              proposal: none {}
-4 floor      escalate (payment suspected: pattern: "EUR 1,240"; pattern: "LT12 1000 0111 0100 1000"; pattern: "payment")
+4 floor      escalate (payment suspected: pattern: "EUR 1,240"; pattern: "LT12 1000 0111 0100 1000")
 5 learned    silent for none/first_contact
 6 level      escalate
 7 act        escalate item #141 dismissed

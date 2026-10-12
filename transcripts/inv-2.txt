@@ -6,7 +6,7 @@ Email inv-2@e5: "Invoice PF-118: brand refresh"
 3 analyze    intent: invoice
              summary: PixelForge Studio sent invoice PF-118 for EUR 3,600.00 for phase 2 of the brand refresh, payable within 14 days.
              proposal: none {}
-4 floor      escalate (payment suspected: pattern: "EUR 3,600.00"; pattern: "NL91 ABNA 0417 1643 00"; pattern: "Invoice")
+4 floor      escalate (payment suspected: pattern: "EUR 3,600.00"; pattern: "NL91 ABNA 0417 1643 00")
 5 learned    silent for none/known
 6 level      escalate
 7 act        escalate item #139 dismissed

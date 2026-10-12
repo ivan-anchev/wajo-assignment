@@ -1,0 +1,14 @@
+Email t-rcpt-1@e5: "Receipt: wajo.dev renewed for 1 year"
+  noreply@domainhaven.com -> ivan@wajo.dev  received 2026-10-09T12:00:00.000Z
+
+1 intake     sender class: first_contact
+2 injection  not suspected
+3 analyze    intent: receipt
+             summary: DomainHaven confirms the wajo.dev domain renewal for one year at $14.99 (invoice #771204), with no action needed and expiry moved to October 9, 2027.
+             proposal: archive {}
+4 floor      silent (proposed archive, requested none)
+5 learned    silent for archive/first_contact
+6 level      silent
+7 act        executed archive
+
+Score: proposed archive = gold; level silent = gold

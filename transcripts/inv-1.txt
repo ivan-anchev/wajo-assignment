@@ -6,7 +6,7 @@ Email inv-1@e5: "Invoice BL-3391: September hosting"
 3 analyze    intent: invoice
              summary: Brightline Cloud billing sent invoice BL-3391 for EUR 1,240.00 in September hosting, due October 20, 2026.
              proposal: snooze {"until":"2026-10-19T08:00:00Z"}
-4 floor      escalate (payment suspected: pattern: "EUR 1,240.00"; pattern: "DE44 5001 0517 5407 3249 31"; pattern: "Invoice")
+4 floor      escalate (payment suspected: pattern: "EUR 1,240.00"; pattern: "DE44 5001 0517 5407 3249 31")
 5 learned    ask for snooze/known
 6 level      escalate
 7 act        escalate item #135 dismissed

@@ -6,7 +6,7 @@ Email inv-3@e5: "QuillSoft annual subscription: payment due"
 3 analyze    intent: invoice
              summary: QuillSoft Accounts, a first-contact sender, asks Ivan to wire USD 490.00 for a Team plan renewal on October 25, quoting reference QS-77120 to bank details given in the email.
              proposal: none {}
-4 floor      escalate (payment suspected: pattern: "USD 490.00"; pattern: "payment")
+4 floor      escalate (payment suspected: pattern: "USD 490.00"; pattern: "wire")
 5 learned    silent for none/first_contact
 6 level      escalate
 7 act        escalate item #143 dismissed
