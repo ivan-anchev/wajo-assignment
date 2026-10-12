@@ -52,7 +52,7 @@
         "text": "",
         "providerMetadata": {
           "anthropic": {
-            "signature": "CAQSkgcKEAgSGAI4AUIIdGhpbmtpbmcSDKUfOW0S3sihWsuphRoMQMCCv7gK/WG/l5/pIjA6q3myg7KMQqLrgzfSmLmrP7MCGai82rBWvIp1yJuqBRL3M2NK92A43ZrHf3QkSawqrwbaBXqKQFWt6iFipieaQh+urUdqFcjjpr00n54fo0rOnTFd3YfioKyw2PHUdwpROOwEpFMbZlngaeKr0WmkzfltXi1EKSJBDdle8lu2tUGGwcXpirxgVGOrBapLmMDd03sKMRHcn06I9M3KaAS5HBOC/j9eHfF5nL8rXWFEmFMkSiftw54qHjlH5XPhIEUCZgY4D+RM6cOo+n1GCK1i3UavXMN9Uo0/J4ikgXaZB7UJSaVi/HYa75v76EK1e5Tuo4Qf2ONmxHIFdxK3B5PKUE2/5sdJRfpCqkME6EjlbvMsfuoYRyV6rHH/Tk0Rml1dlq+H24lLRTEuQjsAnSjbsXCtOBkM6F7jlklYD4spKqo11yiMTUC1wkUREw9hu5KpTqDnwQ0vPTjxI1RxjaYVPJxuPdJjwXr0lWk20f4GCyfjOXY/0omU+OKcx+EzGcym2GVLpoxck1T4T8HXtQdvgavK82v0RdvfH7xtxXSmNDndfx8c5SkaiPIlzEmWarF8x9PP+RtZuVdEV3QtNfAKSMLV54pu9g8KpBd1yJnmEZI5GsGbczxQ7WQfN/Sc6juNQvcYnB+mcdlArBaRzcnh1IgX52tVt+Ht9wPiMfXlP4RUjBnrYAj0TGTHn9rTXf2iqFJ/QfkT9yBBhJC2Vn8BBhD+pzxn4TUlY2UMX5kpS0ywImMKE39YOlIajY0rV0o5rOCXHoUePrhFwr6/KtFbal5n3hkmZeh4oJYDXrWbhIPYDUISMC9npPJQdXvaqRsYUPwW33TqbyStH8ADyJgLysHCoJopgOqJcwHIaYUfEVE6ZbuAS6eJRqf4QE9syd/KiBMZePk0XCtCjK6fQfe8uMj75ooSGkKnUgM/V/bQysR1/L55EqYu4Wdxy2qimOn4GkkLpJo0fBFVPfUkgznWgAJv+NH4fpCzmPQK7qTK/XM/kRiGar3MitcV8tXiVj7fz3nIc0ZRb/itoSdL5MOy0Qpx+X7/391ynpQUUk7c+ZjVgJoe6639quJoq9pWVQBkHEbUhJsObkHXdUTSKAU9v8eVNvFPTHMiBvTGh0qyB2m1i9BAWA+n1hPK0u7JM82ukhgB"
+            "signature": "CAQSigYKEAgSGAI4AUIIdGhpbmtpbmcSDNaqd8dJJLLWilOjvRoMsbiqwVCP/s/GVvDNIjATCv/U0S32/lksHA7FMLkTlNFDIlGO/thgK3tfRzRIGtlRao7APtgCmLfEZjQP+YsqpwVXElfePQKgLO+4xyRqaFT179VjSTVfEeSBi8Bm7QDcH9QUIEvz7rfn2+S7HZ6kXJi/8lLiyhThfiV2ppG9iV65wSS43iLXb+apV771SAgdnDVRgSVCQ5uj3E0K5B5zRzzHsffQ5OBpNtUoF0H5y7KnwAHpYKckDmsW3GiihBI7VgG6Ve3lNeO6d4nPp+h79Zw5PXrHfLNVjqjclNwKpnvBDI3608TntC6JIZkTFFTRe/wfRhOJYOOOJittLErH9EQ1B6K8PyZ1bh3LRfBAJBuhR7NO3GK0udQUp+OOTTofa4oU6s+2QUCFbdAueTMNNDklwQxnswa0EXy78QGvd39Oj4xNjnc5/+DXsVCHWNoTHeWdkIDBYPDZnEXz2E/7h6hT/RMnNc+Y+9KcggC2m6NlmBbDxsZb6mCHsLeefk+v30K0ov1FYUDUm84L43sKgT5MsaJKYnui38fX3n0EnRU0/zKcta0IxAmNwmPpwUpj9J9vAm8ser9DFaQJ16ON/W51NPCHRHfBDt/4XE6iQrlQIkXPKKl2Mf3zuGFZjuslDYWIZPYi5MnSdEK/V9ts4JruVL4WhiUAEdyyy3vtqoAgZokNcU5AKlExNefHu1U3AWH8vqG+DnEQ+iJ+zDGv8XJAupXfllC/bTDFC85ShKT3p8ijGP8h48eHY0LrB1W/Ygeq/pgbr9Cl3zd68qHJ9FLVIB1ApzKNQ61usBwCqfG283IZBlx+Xt4gJC8TYb+ITHfODDtlHZb+HlU6Clt45UgraJdyCBMi/D4K87JQreu5J65JOyphOcREKfw0A8QVnHFPiM/5hnPOGCmIaH/X2ElsMk+Zk5pv9vaH+f7Lzj23Tp6vgBEqrxcY+0PqYDteme4OAU+c8MzNjACUcw0rA4z7xq8sv8M6GAE="
           }
         }
       },
@@ -73,15 +73,15 @@
         "cacheWrite": 0
       },
       "outputTokens": {
-        "total": 123,
+        "total": 83,
         "text": 17,
-        "reasoning": 106
+        "reasoning": 66
       },
       "raw": {
         "input_tokens": 687,
-        "output_tokens": 123,
+        "output_tokens": 83,
         "output_tokens_details": {
-          "thinking_tokens": 106
+          "thinking_tokens": 66
         },
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,

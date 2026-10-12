@@ -4,11 +4,11 @@ Email t-news-1@e5: "Weekend fares from Berlin from EUR 39"
 1 intake     sender class: newsletter
 2 injection  not suspected
 3 analyze    intent: promotion
-             summary: Flyaway Travel promotes weekend one-way fares from Berlin to Lisbon, Split and Kraków starting at EUR 39.
-             proposal: archive {}
-4 floor      silent (proposed archive, requested none)
-5 learned    silent for archive/newsletter
-6 level      silent
-7 act        executed archive
+             summary: Flyaway Travel is advertising weekend one-way fares from Berlin to Lisbon, Split and Kraków from EUR 39.
+             proposal: unsubscribe {}
+4 floor      ask (proposed unsubscribe, requested none)
+5 learned    notify for unsubscribe/newsletter
+6 level      ask
+7 act        opened ask item #151 [approve, edit, reject]
 
-Score: proposed archive, gold unsubscribe; level silent, gold ask
+Score: proposed unsubscribe = gold; level ask = gold

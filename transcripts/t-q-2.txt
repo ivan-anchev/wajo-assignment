@@ -4,7 +4,7 @@ Email t-q-2@e5: "Input for our Q4 vendor review"
 1 intake     sender class: known
 2 injection  not suspected
 3 analyze    intent: information_request
-             summary: Elena from Quarry Analytics asks Ivan for a short note on SLA changes this year and any incidents for their Q4 vendor review, due end of next week.
+             summary: Elena from Quarry Analytics asks Ivan for a short note on SLA changes this year and any incidents, due by end of next week, for their Q4 vendor review.
              proposal: draft_reply {"body":"Hi Elena,\n\nThanks for the heads-up on the Q4 vendor review. I'll put together a short note on the SLA changes this year and any incidents you should know about, and send it over before end of next week.\n\nBest,\nIvan"}
 4 floor      silent (proposed draft_reply, requested none)
 5 learned    silent for draft_reply/known

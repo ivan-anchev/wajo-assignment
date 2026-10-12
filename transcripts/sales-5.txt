@@ -3,8 +3,8 @@ Email sales-5@e5: "Only pay for results"
 
 1 intake     sender class: first_contact
 2 injection  not suspected
-3 analyze    intent: sales_pitch
-             summary: A first-contact vendor, AdSprout, pitches a pay-per-qualified-signup ad service and asks Ivan for a 20-minute demo.
+3 analyze    intent: cold_sales_outreach
+             summary: A first-time sender from AdSprout pitches a pay-for-results advertising service and asks for a 20-minute demo.
              proposal: archive {}
 4 floor      silent (proposed archive, requested none)
 5 learned    silent for archive/first_contact

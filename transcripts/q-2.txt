@@ -3,10 +3,10 @@ Email q-2@e5: "Updated runway numbers?"
 
 1 intake     sender class: known
 2 injection  not suspected
-3 analyze    intent: information_request
-             summary: Priya at Kestrel VC asks Ivan to send updated runway numbers, a rough figure is fine, before their partner meeting on Monday.
-             proposal: draft_reply {"body":"Hi Priya,\n\nThanks for the reminder. I'll send you the updated runway numbers before Monday's partner meeting. A rough figure will do, and I'll make sure it's in your inbox in time.\n\nBest,\nIvan"}
-4 floor      silent (proposed draft_reply, requested draft_reply)
+3 analyze    intent: question
+             summary: Priya Kestrel asks Ivan to send updated runway numbers, roughly, before Monday's partner meeting.
+             proposal: draft_reply {"body":"Hi Priya,\n\nThanks for checking in. I'll send the updated runway numbers before Monday's partner meeting. A rough figure is fine, and I'll follow up with it shortly.\n\nBest,\nIvan"}
+4 floor      silent (proposed draft_reply, requested none)
 5 learned    silent for draft_reply/known
 6 level      silent
 7 act        executed draft_reply

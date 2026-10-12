@@ -48,8 +48,17 @@
   "answer": {
     "content": [
       {
+        "type": "reasoning",
+        "text": "",
+        "providerMetadata": {
+          "anthropic": {
+            "signature": "CAQSqggKEAgSGAI4AUIIdGhpbmtpbmcSDPPKrFFGxS6be0QJChoMxOkMWjzxubr75HScIjBwo5CmcyzvH+fYUcRIjGjqlu3MncKz5SWH9D+If29QJunxbD2gGOsuYU++XCH2hfcqxwdY5KhcNtQmFgQ96oN3xIQZqNyyhXh7qSTt+JI3fQpL2RSaXwwJxFKxUR2awnQFrReG5EBzNkPOpTSHu3LFkwBXUz7UECCGuz1pOiGWGcykW5MPhw5Zz6v4bnrwhD5xui9uBk9hxXsoETtuWdX4NCRaRP7WtgfIbhRggHF9mvUcl+K04QrFIKdi5w96GqNXq/l8WTpTQKKwrC9umOfdlsGJfDrQNDsTLjFHoo0wwNAmqg0VFBIRE3g2/Tq79M+icQZ0V6E0HWyVDxUwFwWzae1Llf1407wcpFd+PEWnJjecvQ7IthoqQLXu9+cF/C8pGL+2q2Vn/3mJSkryzciaWvpmTOdtxF08I3JpwD2gQOx2u1tuRgmv3zGHEKxkZmFyLVfZzmC8ZT0CBemFpepFjHAZvFPbEFRhEXhxGZfJhZp/ZRFJv+9yFUo6dJ5c/tvzVHL3mN4L998KFGtyr65YKT+QgDuZaplA8XaOwykZG8ldtrKbAycd8vuZ0CU6XA1YBhOzAd18dwGQRZKY/4MU2faloqJrQQyjZbd1I/RV0dqlyI3kAUTkLn32r7Kq/knmSMqM4ctRpXJCvf8NiYwrH5woVJACkT0jinwMjoDM/TVSNcU6n62rJbm74klbYgna745YXJ0zMaZHQvq9NNHUwnQvBiwaX5lvuIpVaCmH973CBmDsCJdWTpFVQWgHJCfj0uGl+PiAO9VuSr9R0DKI3PgC0KeAPjSTmRdvBHaqdnodXmJmr6vQN2KabCQkxMHSHnJFkclCLphB/+0X4GGJ/4T2CSkP4nJmDVLxboa9kRYSBdbxB0sr0HIPDLr+wYx4Ns4BkIR0MnhGz9iipub1ydQxAk+fiPTYz7tKX4BVZ/k4qeZiZk2rZeHd4LuHCJKutZ5alT4mgTwckqKOvgjMx65svnexprBbo97WHt7GOHplig06rhy8vB9F9LGQ4SYukTZ/XUmxU+H9Lng2qjCo6sDP9emTzktY1JMHsiOf6tGNW8jTZ7YhRiLwUVZQAXdbOXGEiacvX879eJKdiFX/74fe/0Vy3vYjiRwMdHY220oMzS9g4HjtyRd6DDYwH9/F2VPE5gVa5kW1aeHXyWOZ3wj2fQg/VCTOctUVoFSuycK0nF0BDiTyHxykRC324OCxB5drTEyLKiH3s13f5l2z2GECfAfZW7Ap7BcwnHtiuHJQ31r1o1mDNIfR7m0JWM3euPZhrJLnwXrfIQRLm8/iA9rCExNqaHeXp6yaRcvt9CR3WCu+Qvg1dVIBvM/zSPPcWznhRzVqgdEZGAE="
+          }
+        }
+      },
+      {
         "type": "text",
-        "text": "{\"suspected\": false, \"evidence\": []}"
+        "text": "{\"suspected\":false,\"evidence\":[]}"
       }
     ],
     "finishReason": {
@@ -64,15 +73,15 @@
         "cacheWrite": 0
       },
       "outputTokens": {
-        "total": 17,
-        "text": 17,
-        "reasoning": 0
+        "total": 179,
+        "text": 18,
+        "reasoning": 161
       },
       "raw": {
         "input_tokens": 690,
-        "output_tokens": 17,
+        "output_tokens": 179,
         "output_tokens_details": {
-          "thinking_tokens": 0
+          "thinking_tokens": 161
         },
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,

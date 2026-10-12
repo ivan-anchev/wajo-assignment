@@ -4,7 +4,7 @@ Email news-5@e5: "What's new in Linearly: October"
 1 intake     sender class: newsletter
 2 injection  not suspected
 3 analyze    intent: newsletter
-             summary: Linearly's monthly product update lists keyboard triage, faster search, and a refreshed mobile app.
+             summary: Linearly's October product update newsletter announces keyboard triage, faster search, and a refreshed mobile app.
              proposal: archive {}
 4 floor      silent (proposed archive, requested none)
 5 learned    silent for archive/newsletter

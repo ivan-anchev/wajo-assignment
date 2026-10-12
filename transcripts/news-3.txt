@@ -4,12 +4,12 @@ Email news-3@e5: "48 hours only: 50% off outerwear"
 1 intake     sender class: newsletter
 2 injection  not suspected
 3 analyze    intent: promotion
-             summary: Urban Threads announces a 48-hour sale with 50% off outerwear.
+             summary: Urban Threads is promoting a 50% off outerwear sale running until Friday midnight.
              proposal: unsubscribe {}
 4 floor      ask (proposed unsubscribe, requested none)
 5 learned    notify for unsubscribe/newsletter
 6 level      ask
-7 act        executed unsubscribe, ask item #136 approved
+7 act        executed unsubscribe, ask item #141 approved
 8 response   approved unsubscribe {}; feedback approve for unsubscribe/newsletter
 
 Score: proposed unsubscribe = gold; level ask = gold

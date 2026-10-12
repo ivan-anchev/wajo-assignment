@@ -3,13 +3,13 @@ Email inv-3@e5: "QuillSoft annual subscription: payment due"
 
 1 intake     sender class: first_contact
 2 injection  not suspected
-3 analyze    intent: invoice
-             summary: QuillSoft Accounts, a first-contact sender, asks Ivan to wire USD 490.00 for a Team plan renewal on October 25, quoting reference QS-77120 to bank details given in the email.
+3 analyze    intent: payment_request
+             summary: QuillSoft, a first-time sender, asks Ivan to wire USD 490.00 to a bank account for a Team plan renewal on October 25, quoting reference QS-77120.
              proposal: none {}
 4 floor      escalate (payment suspected: pattern: "USD 490.00"; pattern: "wire")
 5 learned    silent for none/first_contact
 6 level      escalate
-7 act        escalate item #143 dismissed
+7 act        escalate item #148 dismissed
 8 response   dismissed none {}; no feedback (escalation)
 
 Score: proposed none, gold pay_invoice; level escalate = gold
