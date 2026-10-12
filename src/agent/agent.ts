@@ -29,7 +29,7 @@ import { analyze } from "./analyze.ts";
 import { checkInjection } from "./check-injection.ts";
 import { checkPayment } from "./check-payment.ts";
 import { Learner, type BucketStanding } from "./learner.ts";
-import { PreferenceMemory } from "./preferences.ts";
+import { extractPreferences, PreferenceMemory } from "./preferences.ts";
 
 export class Refusal extends Error {}
 
@@ -53,7 +53,7 @@ export class Agent {
     this.store = config.store;
     this.model = config.model;
     this.learner = new Learner(config.store);
-    this.memory = new PreferenceMemory(config);
+    this.memory = new PreferenceMemory(config.store.preferences);
   }
 
   async run(source: InboxSource): Promise<Transcript[]> {
@@ -87,7 +87,12 @@ export class Agent {
   async edit(itemId: number, changes: ProposalEdit): Promise<ResponseResult> {
     const item = this.openItemAcceptingEdit(itemId, changes);
     const edited = proposalAfterEdit(item.proposal, changes);
-    const preferences = await this.memory.extractAfterEdit(item.decisionId, changes);
+    const preferences = await extractPreferences(
+      this.model,
+      this.transcriptOf(item),
+      { kind: "edit", changes },
+      this.memory.text(),
+    );
 
     return this.respondAndNotePreferences(preferences, () =>
       this.respondToItem(
@@ -101,9 +106,11 @@ export class Agent {
 
   async reject(itemId: number, reason?: string): Promise<ResponseResult> {
     const preferences = reason
-      ? await this.memory.extractAfterReason(
-          this.openItemAccepting(itemId, "reject").decisionId,
-          reason,
+      ? await extractPreferences(
+          this.model,
+          this.transcriptOf(this.openItemAccepting(itemId, "reject")),
+          { kind: "reject", reason },
+          this.memory.text(),
         )
       : null;
 
@@ -131,7 +138,12 @@ export class Agent {
   async correct(decisionId: number, changes: ProposalEdit): Promise<ResponseResult> {
     const transcript = this.uncorrectedDecision(decisionId);
     const corrected = proposalAfterEdit(proposalOf(transcript.decision.analysis), changes);
-    const preferences = await this.memory.extractAfterCorrection(decisionId, changes);
+    const preferences = await extractPreferences(
+      this.model,
+      transcript,
+      { kind: "correct", changes },
+      this.memory.text(),
+    );
 
     return this.respondAndNotePreferences(preferences, () => {
       const promotion = this.undoCorrected(transcript, corrected);
@@ -296,6 +308,10 @@ export class Agent {
     );
 
     return item;
+  }
+
+  private transcriptOf(item: Item): Transcript {
+    return this.store.reads.transcript(this.store.decisions.get(item.decisionId));
   }
 
   private executeApprovedProposal(item: Item, decision: Decision, proposal: Proposal): void {
