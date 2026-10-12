@@ -98,9 +98,13 @@ describe("oracle on an ask", () => {
   ])("$name", async ({ scenario, status, feedback, executed, extractions }) => {
     const llm = modelProposing(SEND_REPLY, { preferences: ["Keep it short."] });
     const app = new App({ store, model: llm });
-    await app.run(INBOX);
+    await app.intake.run(INBOX);
 
-    const { transcript } = (await answer(app, scenario, app.inbox()[0]!))!;
+    const { transcript } = (await answer(
+      app.responses,
+      scenario,
+      app.reads.openTranscripts()[0]!,
+    ))!;
 
     expect(transcript.item!.status).toBe(status);
     expect(transcript.feedback!.kind).toBe(feedback);
@@ -108,7 +112,7 @@ describe("oracle on an ask", () => {
       executed ? [executed] : [],
     );
     expect(requestsNamed(llm, "preferences")).toHaveLength(extractions);
-    expect(app.prefs()).toBe(extractions ? "Keep it short." : "");
+    expect(app.reads.preferences()).toBe(extractions ? "Keep it short." : "");
   });
 });
 
@@ -155,7 +159,7 @@ describe("oracle on a notify", () => {
   ])("$name", async ({ scenario, status, feedback, undone, extractions }) => {
     const { llm, app, delivered } = await notifyItem();
 
-    const { transcript } = (await answer(app, scenario, delivered))!;
+    const { transcript } = (await answer(app.responses, scenario, delivered))!;
 
     expect(transcript.item!.status).toBe(status);
     expect(transcript.feedback!.kind).toBe(feedback);
@@ -168,7 +172,11 @@ describe("oracle on an escalation", () => {
   it("dismisses it even when the proposal matches gold, and teaches nothing", async () => {
     const app = await agentProposing(store, PAY_INVOICE);
 
-    const { transcript } = (await answer(app, scenarioWith("pay_invoice"), app.inbox()[0]!))!;
+    const { transcript } = (await answer(
+      app.responses,
+      scenarioWith("pay_invoice"),
+      app.reads.openTranscripts()[0]!,
+    ))!;
 
     expect(transcript.item!.status).toBe("dismissed");
     expect(transcript.feedback).toBeNull();
@@ -180,7 +188,7 @@ describe("oracle on a silent decision", () => {
   async function silentNone() {
     const llm = modelProposing(NONE, { preferences: ["Keep it short."] });
     const app = new App({ store, model: llm });
-    const [silent] = await app.run(INBOX);
+    const [silent] = await app.intake.run(INBOX);
     expect(silent).toMatchObject({ decision: { level: "silent" }, item: null });
     return { llm, app, silent: silent! };
   }
@@ -188,7 +196,7 @@ describe("oracle on a silent decision", () => {
   it("leaves a silent decision alone when its action matches gold", async () => {
     const { llm, app, silent } = await silentNone();
 
-    expect(await answer(app, scenarioWith("none"), silent)).toBeNull();
+    expect(await answer(app.responses, scenarioWith("none"), silent)).toBeNull();
     expect(requestsNamed(llm, "preferences")).toHaveLength(0);
   });
 
@@ -196,7 +204,7 @@ describe("oracle on a silent decision", () => {
     const { llm, app, silent } = await silentNone();
 
     const { transcript } = (await answer(
-      app,
+      app.responses,
       scenarioWith("label", { params: { label: "reading" } }),
       silent,
     ))!;
@@ -204,14 +212,16 @@ describe("oracle on a silent decision", () => {
     expect(transcript.executions).toEqual([expect.objectContaining({ proposal: NONE })]);
     expect(transcript.feedback!.kind).toBe("redirect");
     expect(requestsNamed(llm, "preferences")[0]).toMatch(/action.*label.*reading/);
-    expect(app.prefs()).toBe("Keep it short.");
+    expect(app.reads.preferences()).toBe("Keep it short.");
   });
 
   it("leaves a wrong silent decision alone when gold takes params it cannot supply", async () => {
     const { llm, app, silent } = await silentNone();
 
-    expect(await answer(app, scenarioWith("draft_reply"), silent)).toBeNull();
+    expect(await answer(app.responses, scenarioWith("draft_reply"), silent)).toBeNull();
     expect(requestsNamed(llm, "preferences")).toHaveLength(0);
-    expect(app.transcript(silent.email.id)!.executions).toMatchObject([{ undoneAt: null }]);
+    expect(app.reads.findTranscript(silent.email.id)!.executions).toMatchObject([
+      { undoneAt: null },
+    ]);
   });
 });

@@ -1,5 +1,5 @@
-import type { ResponseResult } from "../app/app.ts";
-import type { BucketStanding } from "../agent/learner.ts";
+import type { BucketStanding } from "../app/buckets.ts";
+import type { ResponseResult } from "../app/responses.ts";
 import type { Decision } from "../db/decisions.ts";
 import type { Execution } from "../db/executions.ts";
 import type { Feedback } from "../db/feedback.ts";

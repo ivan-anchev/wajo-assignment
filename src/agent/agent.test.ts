@@ -29,7 +29,7 @@ const appWith = (llm: LanguageModel) => new App({ store, model: llm });
 describe("run", () => {
   it("judges then analyzes each demo email, deciding in arrival order", async () => {
     const llm = observedReplayModel();
-    const transcripts = await appWith(llm).run(INBOX);
+    const transcripts = await appWith(llm).intake.run(INBOX);
 
     expect(requestOrder(llm)).toEqual(
       Array.from({ length: 3 }, () => ["injection_verdict", "analysis"]).flat(),
@@ -72,7 +72,7 @@ describe("run", () => {
 
   it("escalates every injection email unanalyzed and executes nothing", async () => {
     const llm = observedReplayModel();
-    const transcripts = await appWith(llm).run(injectionInbox());
+    const transcripts = await appWith(llm).intake.run(injectionInbox());
 
     expect(requestsNamed(llm, "injection_verdict")).toHaveLength(8);
     expect(requestsNamed(llm, "analysis")).toEqual([]);
@@ -110,7 +110,7 @@ describe("run", () => {
         },
         injection_verdict: { suspected: false, evidence: [] },
       }),
-    ).run(INBOX);
+    ).intake.run(INBOX);
 
     expect(first).toMatchObject({
       decision: { level: "notify" },
@@ -134,24 +134,24 @@ describe("run", () => {
     });
     const failing = appWith(judgeDown);
 
-    await expect(failing.run(INBOX)).rejects.toThrow("judge unavailable");
-    expect(failing.transcript("001")).toBeNull();
+    await expect(failing.intake.run(INBOX)).rejects.toThrow("judge unavailable");
+    expect(failing.reads.findTranscript("001")).toBeNull();
 
-    const retried = await appWith(replayModel()).run(INBOX);
+    const retried = await appWith(replayModel()).intake.run(INBOX);
     expect(retried.map((t) => t.email.id)).toEqual(["001", "002", "003"]);
   });
 
   it("processes nothing on a second run", async () => {
     const app = appWith(replayModel());
-    await app.run(INBOX);
+    await app.intake.run(INBOX);
 
-    expect(await app.run(INBOX)).toEqual([]);
+    expect(await app.intake.run(INBOX)).toEqual([]);
   });
 
   it("never writes feedback, whatever it decides", async () => {
     const app = appWith(replayModel());
-    await app.run(INBOX);
-    await app.run(injectionInbox());
+    await app.intake.run(INBOX);
+    await app.intake.run(injectionInbox());
 
     expect(feedbackCount(store)).toBe(0);
   });
@@ -160,29 +160,29 @@ describe("run", () => {
 describe("transcript", () => {
   it("returns the same transcripts run produced", async () => {
     const app = appWith(replayModel());
-    const transcripts = await app.run(INBOX);
+    const transcripts = await app.intake.run(INBOX);
 
-    expect(transcripts.map((t) => app.transcript(t.email.id))).toStrictEqual(transcripts);
+    expect(transcripts.map((t) => app.reads.findTranscript(t.email.id))).toStrictEqual(transcripts);
   });
 
   it("returns null for an unknown email id", () => {
-    expect(appWith(replayModel()).transcript("does-not-exist")).toBeNull();
+    expect(appWith(replayModel()).reads.findTranscript("does-not-exist")).toBeNull();
   });
 });
 
 describe("log", () => {
   it("returns every decision in decision order, silent ones included", async () => {
     const app = appWith(replayModel());
-    const transcripts = await app.run(INBOX);
+    const transcripts = await app.intake.run(INBOX);
 
-    expect(app.log(20)).toStrictEqual(transcripts);
+    expect(app.reads.recentTranscripts(20)).toStrictEqual(transcripts);
   });
 
   it("keeps only the last `limit` decisions", async () => {
     const app = appWith(replayModel());
-    await app.run(INBOX);
+    await app.intake.run(INBOX);
 
-    expect(app.log(2).map((t) => [t.decision.id, t.email.id])).toEqual([
+    expect(app.reads.recentTranscripts(2).map((t) => [t.decision.id, t.email.id])).toEqual([
       [2, "002"],
       [3, "003"],
     ]);
@@ -195,19 +195,19 @@ describe("requested-action floor (§6)", () => {
     async (proposal) => {
       const app = await agentProposing(store, proposal, "pay_invoice");
 
-      expect(app.transcript("001")).toMatchObject({
+      expect(app.reads.findTranscript("001")).toMatchObject({
         decision: { floor: "escalate", level: "escalate" },
         item: { kind: "escalate", allowedResponses: ["dismiss"] },
         executions: [],
       });
-      expect(app.dismiss(1).transcript.feedback).toBeNull();
+      expect(app.responses.dismiss(1).transcript.feedback).toBeNull();
     },
   );
 
   it("never lowers the floor of the proposal", async () => {
     const app = await agentProposing(store, SEND_REPLY, "none");
 
-    expect(app.transcript("001")!.decision).toMatchObject({ floor: "ask", level: "ask" });
+    expect(app.reads.findTranscript("001")!.decision).toMatchObject({ floor: "ask", level: "ask" });
   });
 
   it("escalates an email carrying an IBAN and an amount even when nothing is proposed or requested", async () => {
@@ -218,9 +218,9 @@ describe("requested-action floor (§6)", () => {
     };
     const app = new App({ store, model: modelProposing(LABEL, { requested: "none" }) });
 
-    await app.run(writeInbox([invoice], INBOX.contactsPath));
+    await app.intake.run(writeInbox([invoice], INBOX.contactsPath));
 
-    expect(app.transcript("001")).toMatchObject({
+    expect(app.reads.findTranscript("001")).toMatchObject({
       decision: { payment: { suspected: true }, floor: "escalate", level: "escalate" },
       item: { kind: "escalate" },
       executions: [],
@@ -232,15 +232,15 @@ describe("requested-action floor (§6)", () => {
       injection_verdict: { suspected: true, evidence: ["ignore previous instructions"] },
     });
     const app = appWith(llm);
-    await app.run(INBOX);
+    await app.intake.run(INBOX);
 
     expect(requestsNamed(llm, "analysis")).toEqual([]);
-    expect(app.transcript("001")).toMatchObject({
+    expect(app.reads.findTranscript("001")).toMatchObject({
       decision: { analysis: null, floor: "escalate", level: "escalate" },
       item: { kind: "escalate" },
       executions: [],
     });
-    app.dismiss(1);
+    app.responses.dismiss(1);
     expect(feedbackCount(store)).toBe(0);
   });
 });

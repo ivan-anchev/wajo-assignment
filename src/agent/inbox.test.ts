@@ -14,7 +14,7 @@ describe("inbox", () => {
   it("lists every open ask with the responses its kind allows, oldest first", async () => {
     const app = await agentProposing(store, SEND_REPLY);
 
-    const inbox = app.inbox();
+    const inbox = app.reads.openTranscripts();
 
     expect(inbox.map((t) => t.email.id)).toEqual(["001", "002", "003"]);
     expect(inbox.map((t) => t.item)).toMatchObject(
@@ -29,10 +29,10 @@ describe("inbox", () => {
 
   it("lists escalations with dismiss as the only response", async () => {
     const app = new App({ store, model: replayModel() });
-    await app.run(injectionInbox());
+    await app.intake.run(injectionInbox());
 
     expect(
-      app.inbox().map((t) => ({
+      app.reads.openTranscripts().map((t) => ({
         kind: t.item?.kind,
         allowedResponses: t.item?.allowedResponses,
         suspected: t.decision.injection.suspected,
@@ -49,14 +49,14 @@ describe("inbox", () => {
   it("drops an item once it is resolved", async () => {
     const app = await agentProposing(store, SEND_REPLY);
 
-    app.approve(1);
+    app.responses.approve(1);
 
-    expect(app.inbox().map((t) => t.item!.id)).toEqual([2, 3]);
+    expect(app.reads.openTranscripts().map((t) => t.item!.id)).toEqual([2, 3]);
   });
 
   it("is empty when every decision was silent", async () => {
     const app = await agentProposing(store, NONE);
 
-    expect(app.inbox()).toEqual([]);
+    expect(app.reads.openTranscripts()).toEqual([]);
   });
 });

@@ -1,7 +1,7 @@
 import type { LanguageModel } from "ai";
 import { fileURLToPath } from "node:url";
 import { App } from "../src/app/app.ts";
-import type { Transcript } from "../src/db/reads.ts";
+import type { Reads, Transcript } from "../src/db/reads.ts";
 import { Store } from "../src/db/store.ts";
 import { byArrival, writeInbox } from "../src/inbox/inbox.ts";
 import type { Scenario } from "./scenarios.ts";
@@ -26,7 +26,7 @@ export async function runEpisodes(
   for (let n = 1; n <= count; n++) {
     episodes.push(await runEpisode(app, scenarios, `e${n}`));
   }
-  return { baseline, episodes, preferences: app.prefs() };
+  return { baseline, episodes, preferences: app.reads.preferences() };
 }
 
 export function labelledEpisodes({ baseline, episodes }: Run): LabelledEpisode[] {
@@ -43,8 +43,8 @@ export function outcomesIn(episode: Episode, split: Scenario["split"]): Episode 
 // Decides every scenario of both splits on a fresh database and answers nothing, so nothing is learned.
 async function runBaseline(llm: LanguageModel, scenarios: readonly Scenario[]): Promise<Episode> {
   const app = new App({ store: Store.open(":memory:"), model: llm });
-  await app.run(writeInbox(emailsOf(scenarios, BASELINE), CONTACTS));
-  return outcomesOf(app, scenarios, BASELINE);
+  await app.intake.run(writeInbox(emailsOf(scenarios, BASELINE), CONTACTS));
+  return outcomesOf(app.reads, scenarios, BASELINE);
 }
 
 // Prequential on train: each email is decided, then answered, before the next one arrives.
@@ -53,19 +53,19 @@ async function runEpisode(app: App, scenarios: readonly Scenario[], tag: string)
   for (const scenario of scenariosIn(scenarios, "train").toSorted(byArrival)) {
     await deliverAndAnswer(app, scenario, tag);
   }
-  await app.run(writeInbox(emailsOf(scenariosIn(scenarios, "test"), tag), CONTACTS));
-  return outcomesOf(app, scenarios, tag);
+  await app.intake.run(writeInbox(emailsOf(scenariosIn(scenarios, "test"), tag), CONTACTS));
+  return outcomesOf(app.reads, scenarios, tag);
 }
 
 async function deliverAndAnswer(app: App, scenario: Scenario, tag: string): Promise<void> {
-  const [transcript] = await app.run(writeInbox(emailsOf([scenario], tag), CONTACTS));
-  await answer(app, scenario, transcript!);
+  const [transcript] = await app.intake.run(writeInbox(emailsOf([scenario], tag), CONTACTS));
+  await answer(app.responses, scenario, transcript!);
 }
 
-function outcomesOf(app: App, scenarios: readonly Scenario[], tag: string): Episode {
+function outcomesOf(reads: Reads, scenarios: readonly Scenario[], tag: string): Episode {
   return scenarios.map((scenario) => ({
     scenario,
-    transcript: app.transcript(emailIdOf(scenario, tag))!,
+    transcript: reads.findTranscript(emailIdOf(scenario, tag))!,
   }));
 }
 

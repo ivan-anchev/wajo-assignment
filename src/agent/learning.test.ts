@@ -3,7 +3,8 @@ import { renderPromotion } from "../cli/render.ts";
 import { Store } from "../db/store.ts";
 import type { Level } from "../domain/policy.ts";
 import { mockModel, replayModel } from "../llm/test-models.ts";
-import { App, type ResponseResult } from "../app/app.ts";
+import { App } from "../app/app.ts";
+import type { ResponseResult } from "../app/responses.ts";
 import { ARCHIVE, LABEL, MARK_READ, NONE, SEND_REPLY, newsletterInbox } from "./test-agents.ts";
 
 let store: Store;
@@ -35,7 +36,7 @@ async function respondTwice(respond: (itemId: number) => ResponseResult) {
 
 describe("learning (§7.1)", () => {
   it("climbs archive/newsletter from notify to silent, announcing the step once", async () => {
-    expect(await respondTwice((id) => app.dismiss(id))).toEqual({
+    expect(await respondTwice((id) => app.responses.dismiss(id))).toEqual({
       levels: ["notify", "notify"],
       promotions: [null, NOTIFY_TO_SILENT],
     });
@@ -47,9 +48,9 @@ describe("learning (§7.1)", () => {
   });
 
   it("climbs back from ask to notify after an undo, announcing the step once", async () => {
-    expect(app.undo((await deliver(ARCHIVE)).item!.id).promotion).toBeNull();
+    expect(app.responses.undo((await deliver(ARCHIVE)).item!.id).promotion).toBeNull();
 
-    expect(await respondTwice((id) => app.approve(id))).toEqual({
+    expect(await respondTwice((id) => app.responses.approve(id))).toEqual({
       levels: ["ask", "ask"],
       promotions: [null, ASK_TO_NOTIFY],
     });
@@ -57,27 +58,27 @@ describe("learning (§7.1)", () => {
   });
 
   it("steps back one rung on undo at silent and on reject at notify, without announcing", async () => {
-    await respondTwice((id) => app.dismiss(id));
+    await respondTwice((id) => app.responses.dismiss(id));
 
-    app.pin("archive", "newsletter", "notify");
+    app.buckets.pin("archive", "newsletter", "notify");
     const atSilent = await deliver(ARCHIVE);
     expect(atSilent.decision).toMatchObject({ learned: "silent", level: "notify" });
-    expect(app.undo(atSilent.item!.id).promotion).toBeNull();
+    expect(app.responses.undo(atSilent.item!.id).promotion).toBeNull();
     expect(store.emails.getState(atSilent.email.id).archivedAt).toBeNull();
 
-    app.pin("archive", "newsletter", "ask");
+    app.buckets.pin("archive", "newsletter", "ask");
     const atNotify = await deliver(ARCHIVE);
     expect(atNotify.decision).toMatchObject({ learned: "notify", level: "ask" });
-    expect((await app.reject(atNotify.item!.id)).promotion).toBeNull();
+    expect((await app.responses.reject(atNotify.item!.id)).promotion).toBeNull();
 
-    app.unpin("archive", "newsletter");
+    app.buckets.unpin("archive", "newsletter");
     expect((await deliver(ARCHIVE)).decision).toMatchObject({ learned: "ask", level: "ask" });
   });
 
   it("still asks for send_reply after 10 approves and never announces (invariant 2)", async () => {
     const promotions: (string | null)[] = [];
     for (let n = 0; n < 10; n++) {
-      promotions.push(app.approve((await deliver(SEND_REPLY)).item!.id).promotion);
+      promotions.push(app.responses.approve((await deliver(SEND_REPLY)).item!.id).promotion);
     }
 
     expect(promotions).toEqual(Array.from({ length: 10 }, () => null));
@@ -89,14 +90,14 @@ describe("learning (§7.1)", () => {
   });
 
   it("ignores an approve while the bucket is at notify", async () => {
-    app.dismiss((await deliver(ARCHIVE)).item!.id);
+    app.responses.dismiss((await deliver(ARCHIVE)).item!.id);
 
-    app.pin("archive", "newsletter", "ask");
+    app.buckets.pin("archive", "newsletter", "ask");
     const pinned = await deliver(ARCHIVE);
     expect(pinned.decision).toMatchObject({ learned: "notify", level: "ask" });
-    expect(app.approve(pinned.item!.id).promotion).toBeNull();
-    app.unpin("archive", "newsletter");
-    app.dismiss((await deliver(ARCHIVE)).item!.id);
+    expect(app.responses.approve(pinned.item!.id).promotion).toBeNull();
+    app.buckets.unpin("archive", "newsletter");
+    app.responses.dismiss((await deliver(ARCHIVE)).item!.id);
 
     expect((await deliver(ARCHIVE)).decision.level).toBe("silent");
   });
@@ -113,38 +114,40 @@ describe("learning (§7.1)", () => {
   });
 
   it("an edit to another action neither promotes nor resets the streak, then approvals still promote", async () => {
-    app.undo((await deliver(ARCHIVE)).item!.id);
-    app.approve((await deliver(ARCHIVE)).item!.id);
+    app.responses.undo((await deliver(ARCHIVE)).item!.id);
+    app.responses.approve((await deliver(ARCHIVE)).item!.id);
     const second = await deliver(ARCHIVE);
 
     const responder = new App({ store, model: mockModel({ preferences: { preferences: [] } }) });
-    const { transcript, promotion } = await responder.edit(second.item!.id, {
+    const { transcript, promotion } = await responder.responses.edit(second.item!.id, {
       action: "mark_read",
     });
 
     expect(promotion).toBeNull();
     expect(transcript.feedback).toMatchObject({ action: "archive", kind: "redirect" });
-    expect(renderPromotion(app.approve((await deliver(ARCHIVE)).item!.id))).toBe(ASK_TO_NOTIFY);
+    expect(renderPromotion(app.responses.approve((await deliver(ARCHIVE)).item!.id))).toBe(
+      ASK_TO_NOTIFY,
+    );
     expect((await deliver(ARCHIVE)).decision).toMatchObject({ learned: "notify", level: "notify" });
     expect((await deliver(MARK_READ)).decision.learned).toBe("notify");
   });
 
   it("a param-only edit resets the streak", async () => {
-    app.undo((await deliver(LABEL)).item!.id);
-    app.approve((await deliver(LABEL)).item!.id);
+    app.responses.undo((await deliver(LABEL)).item!.id);
+    app.responses.approve((await deliver(LABEL)).item!.id);
     const second = await deliver(LABEL);
 
     const responder = new App({ store, model: mockModel({ preferences: { preferences: [] } }) });
-    const { transcript } = await responder.edit(second.item!.id, { label: "receipts" });
+    const { transcript } = await responder.responses.edit(second.item!.id, { label: "receipts" });
 
     expect(transcript.feedback).toMatchObject({ action: "label", kind: "edit" });
-    expect(app.approve((await deliver(LABEL)).item!.id).promotion).toBeNull();
+    expect(app.responses.approve((await deliver(LABEL)).item!.id).promotion).toBeNull();
   });
 
   it("words mark_read as proper English", async () => {
     const promotions: (string | null)[] = [];
     for (let n = 0; n < 2; n++) {
-      promotions.push(renderPromotion(app.dismiss((await deliver(MARK_READ)).item!.id)));
+      promotions.push(renderPromotion(app.responses.dismiss((await deliver(MARK_READ)).item!.id)));
     }
 
     expect(promotions).toEqual([

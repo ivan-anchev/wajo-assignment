@@ -34,7 +34,7 @@ program
   .description("Process every new email in the inbox and print one decision per email")
   .addOption(liveOption())
   .action(async ({ live }: { live: boolean }) => {
-    const transcripts = await openApp({ live }).run({
+    const transcripts = await openApp({ live }).intake.run({
       inboxDir: config.inboxDir,
       contactsPath: config.contactsPath,
     });
@@ -48,7 +48,7 @@ program
   .argument("<emailId>", "id of a processed email")
   .description("Show the decision chain for one email")
   .action((emailId: string) => {
-    const transcript = openApp({ live: false }).transcript(emailId);
+    const transcript = openApp({ live: false }).reads.findTranscript(emailId);
     if (!transcript) {
       console.error(`No transcript for email "${emailId}".`);
       process.exitCode = 1;
@@ -61,7 +61,7 @@ program
   .command("inbox")
   .description("List open asks, notifications, and escalations with the responses each takes")
   .action(() => {
-    const transcripts = openApp({ live: false }).inbox();
+    const transcripts = openApp({ live: false }).reads.openTranscripts();
     console.log(
       transcripts.length ? transcripts.map(renderInboxLine).join("\n") : "Inbox is empty.",
     );
@@ -74,7 +74,7 @@ program
   .description("List the most recent decisions, silent ones included, oldest first")
   .option("--limit <n>", "how many decisions to list", positiveInteger("a count such as 20"), 20)
   .action(({ limit }: { limit: number }) => {
-    const transcripts = openApp({ live: false }).log(limit);
+    const transcripts = openApp({ live: false }).reads.recentTranscripts(limit);
     console.log(
       transcripts.length ? transcripts.map(renderDecisionLine).join("\n") : "No decisions yet.",
     );
@@ -84,7 +84,7 @@ program
   .command("prefs")
   .description("Print the preference lines learned from edits and reject reasons")
   .action(() => {
-    console.log(openApp({ live: false }).prefs() || "No preferences learned yet.");
+    console.log(openApp({ live: false }).reads.preferences() || "No preferences learned yet.");
   });
 
 addPinCommands(program, openApp);

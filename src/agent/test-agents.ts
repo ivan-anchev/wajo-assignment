@@ -42,7 +42,7 @@ export async function agentProposing(
   requested: ActionName = "none",
 ) {
   const app = new App({ store, model: modelProposing(proposal, { requested }) });
-  await app.run(INBOX);
+  await app.intake.run(INBOX);
   return app;
 }
 
@@ -55,7 +55,10 @@ export function newsletterInbox(
   return async (proposal, analysis) => {
     const id = `n${++delivered}`;
     writeFileSync(join(inboxDir, `${id}.json`), JSON.stringify({ ...newsletter, id }));
-    const [transcript] = await new App({ store, model: modelProposing(proposal, analysis) }).run({
+    const [transcript] = await new App({
+      store,
+      model: modelProposing(proposal, analysis),
+    }).intake.run({
       inboxDir,
       contactsPath: CONTACTS,
     });

@@ -17,7 +17,7 @@ export function addPinCommands(program: Command, openApp: OpenApp): void {
     .addArgument(senderClassArg)
     .addArgument(levelArg)
     .action((action: ActionName, senderClass: SenderClass, level: Level) => {
-      console.log(renderStanding(openApp({ live: false }).pin(action, senderClass, level)));
+      console.log(renderStanding(openApp({ live: false }).buckets.pin(action, senderClass, level)));
     });
 
   program
@@ -26,6 +26,6 @@ export function addPinCommands(program: Command, openApp: OpenApp): void {
     .addArgument(actionArg)
     .addArgument(senderClassArg)
     .action((action: ActionName, senderClass: SenderClass) => {
-      console.log(renderStanding(openApp({ live: false }).unpin(action, senderClass)));
+      console.log(renderStanding(openApp({ live: false }).buckets.unpin(action, senderClass)));
     });
 }

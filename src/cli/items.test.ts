@@ -27,7 +27,7 @@ describe("agent edit --set", () => {
   it("keeps a value that is not JSON as a string", async () => {
     await edit("action=label", "label=reading list");
 
-    expect(app().transcript("001")!.item!.proposal).toEqual({
+    expect(app().reads.findTranscript("001")!.item!.proposal).toEqual({
       action: "label",
       params: { label: "reading list" },
     });
