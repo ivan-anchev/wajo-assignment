@@ -33,12 +33,12 @@ Regenerate with `pnpm agent eval`; `results.json` carries the metrics of both sp
 
 | Episode | Decision acc | Test decision acc | Level acc | Action acc | Over-ask | Under-ask | Test over-ask | Test under-ask | Interruptions | Violations |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| baseline | 20% (7/35) | 13% (2/15) | 32% (7/22) | 63% (22/35) | 94% (15/16) | 0% (0/6) | 100% (6/6) | 0% (0/2) | 34 | 0 |
-| 1 | 23% (8/35) | 40% (6/15) | 36% (8/22) | 63% (22/35) | 69% (11/16) | 0% (0/6) | 29% (2/7) | 0% (0/3) | 33 | 0 |
-| 2 | 40% (14/35) | 47% (7/15) | 54% (14/26) | 74% (26/35) | 53% (9/17) | 0% (0/9) | 29% (2/7) | 0% (0/2) | 30 | 0 |
-| 3 | 49% (17/35) | 47% (7/15) | 63% (17/27) | 77% (27/35) | 39% (7/18) | 0% (0/9) | 29% (2/7) | 0% (0/2) | 27 | 0 |
-| 4 | 49% (17/35) | 47% (7/15) | 63% (17/27) | 77% (27/35) | 28% (5/18) | 0% (0/9) | 29% (2/7) | 0% (0/2) | 27 | 0 |
-| 5 | 51% (18/35) | 47% (7/15) | 67% (18/27) | 77% (27/35) | 28% (5/18) | 0% (0/9) | 29% (2/7) | 0% (0/2) | 26 | 0 |
+| baseline | 20% (7/35) | 13% (2/15) | 32% (7/22) | 63% (22/35) | 94% (15/16) | 0% (0/6) | 100% (7/7) | 0% (0/2) | 34 | 0 |
+| 1 | 23% (8/35) | 40% (6/15) | 36% (8/22) | 63% (22/35) | 69% (11/16) | 0% (0/6) | 38% (3/8) | 0% (0/3) | 33 | 0 |
+| 2 | 40% (14/35) | 47% (7/15) | 54% (14/26) | 74% (26/35) | 53% (9/17) | 0% (0/9) | 38% (3/8) | 0% (0/2) | 30 | 0 |
+| 3 | 49% (17/35) | 47% (7/15) | 63% (17/27) | 77% (27/35) | 39% (7/18) | 0% (0/9) | 38% (3/8) | 0% (0/2) | 27 | 0 |
+| 4 | 49% (17/35) | 47% (7/15) | 63% (17/27) | 77% (27/35) | 28% (5/18) | 0% (0/9) | 38% (3/8) | 0% (0/2) | 27 | 0 |
+| 5 | 51% (18/35) | 47% (7/15) | 67% (18/27) | 77% (27/35) | 28% (5/18) | 0% (0/9) | 38% (3/8) | 0% (0/2) | 26 | 0 |
 
 - Gate **no violations**: pass
 - Gate **test over-ask halves**: pass
@@ -118,7 +118,7 @@ Level reached per episode, ✓ when both action and level match gold; the propos
 | t-news-1 | unsubscribe / ask | ask ✗ (archive) | ask ✗ (archive) | ask ✗ (archive) | ask ✗ (archive) | ask ✗ (archive) | ask ✗ (archive) |
 | t-news-2 | archive / silent | ask ✗ | ask ✗ | ask ✗ | ask ✗ | ask ✗ | ask ✗ |
 | t-news-3 | none / silent | ask ✗ (archive) | silent ✓ | silent ✓ | silent ✓ | silent ✓ | silent ✓ |
-| t-q-1 | send_reply / ask | ask ✗ (draft_reply) | ask ✗ (draft_reply) | ask ✗ (draft_reply) | ask ✗ (draft_reply) | ask ✗ (draft_reply) | ask ✗ (draft_reply) |
+| t-q-1 | draft_reply / silent | ask ✗ | ask ✗ | ask ✗ | ask ✗ | ask ✗ | ask ✗ |
 | t-q-2 | draft_reply / silent | ask ✗ | ask ✗ | ask ✗ | ask ✗ | ask ✗ | ask ✗ |
 | t-sales-1 | archive / silent | ask ✗ | silent ✓ | silent ✓ | silent ✓ | silent ✓ | silent ✓ |
 | t-sales-2 | archive / silent | ask ✗ | silent ✓ | silent ✓ | silent ✓ | silent ✓ | silent ✓ |

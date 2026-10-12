@@ -11,4 +11,4 @@ Email t-q-1@e5: "Who signs the Helix amendment?"
 6 level      ask
 7 act        opened ask item #188 [approve, edit, reject]
 
-Score: proposed draft_reply, gold send_reply; level ask = gold
+Score: proposed draft_reply = gold; level ask, gold silent

@@ -10,12 +10,7 @@
   "category": "known_question",
   "split": "test",
   "gold": {
-    "action": "send_reply",
-    "level": "ask"
-  },
-  "correction": {
-    "params": {
-      "body": "Hi Tomas, I will sign it myself. Please send the envelope to ivan@wajo.dev."
-    }
+    "action": "draft_reply",
+    "level": "silent"
   }
 }

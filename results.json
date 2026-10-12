@@ -61,17 +61,17 @@
           },
           "levelAccuracy": {
             "hits": 2,
-            "of": 8
+            "of": 9
           },
           "actionAccuracy": {
-            "hits": 8,
+            "hits": 9,
             "of": 15
           },
           "confusion": {
             "silent": {
               "silent": 0,
               "notify": 0,
-              "ask": 6,
+              "ask": 7,
               "escalate": 0
             },
             "notify": {
@@ -94,8 +94,8 @@
             }
           },
           "overAsk": {
-            "hits": 6,
-            "of": 6
+            "hits": 7,
+            "of": 7
           },
           "underAsk": {
             "hits": 0,
@@ -166,17 +166,17 @@
           },
           "levelAccuracy": {
             "hits": 6,
-            "of": 10
+            "of": 11
           },
           "actionAccuracy": {
-            "hits": 10,
+            "hits": 11,
             "of": 15
           },
           "confusion": {
             "silent": {
               "silent": 3,
               "notify": 2,
-              "ask": 2,
+              "ask": 3,
               "escalate": 0
             },
             "notify": {
@@ -199,8 +199,8 @@
             }
           },
           "overAsk": {
-            "hits": 2,
-            "of": 7
+            "hits": 3,
+            "of": 8
           },
           "underAsk": {
             "hits": 0,
@@ -271,17 +271,17 @@
           },
           "levelAccuracy": {
             "hits": 7,
-            "of": 9
+            "of": 10
           },
           "actionAccuracy": {
-            "hits": 9,
+            "hits": 10,
             "of": 15
           },
           "confusion": {
             "silent": {
               "silent": 5,
               "notify": 0,
-              "ask": 2,
+              "ask": 3,
               "escalate": 0
             },
             "notify": {
@@ -304,8 +304,8 @@
             }
           },
           "overAsk": {
-            "hits": 2,
-            "of": 7
+            "hits": 3,
+            "of": 8
           },
           "underAsk": {
             "hits": 0,
@@ -376,17 +376,17 @@
           },
           "levelAccuracy": {
             "hits": 7,
-            "of": 9
+            "of": 10
           },
           "actionAccuracy": {
-            "hits": 9,
+            "hits": 10,
             "of": 15
           },
           "confusion": {
             "silent": {
               "silent": 5,
               "notify": 0,
-              "ask": 2,
+              "ask": 3,
               "escalate": 0
             },
             "notify": {
@@ -409,8 +409,8 @@
             }
           },
           "overAsk": {
-            "hits": 2,
-            "of": 7
+            "hits": 3,
+            "of": 8
           },
           "underAsk": {
             "hits": 0,
@@ -481,17 +481,17 @@
           },
           "levelAccuracy": {
             "hits": 7,
-            "of": 9
+            "of": 10
           },
           "actionAccuracy": {
-            "hits": 9,
+            "hits": 10,
             "of": 15
           },
           "confusion": {
             "silent": {
               "silent": 5,
               "notify": 0,
-              "ask": 2,
+              "ask": 3,
               "escalate": 0
             },
             "notify": {
@@ -514,8 +514,8 @@
             }
           },
           "overAsk": {
-            "hits": 2,
-            "of": 7
+            "hits": 3,
+            "of": 8
           },
           "underAsk": {
             "hits": 0,
@@ -586,17 +586,17 @@
           },
           "levelAccuracy": {
             "hits": 7,
-            "of": 9
+            "of": 10
           },
           "actionAccuracy": {
-            "hits": 9,
+            "hits": 10,
             "of": 15
           },
           "confusion": {
             "silent": {
               "silent": 5,
               "notify": 0,
-              "ask": 2,
+              "ask": 3,
               "escalate": 0
             },
             "notify": {
@@ -619,8 +619,8 @@
             }
           },
           "overAsk": {
-            "hits": 2,
-            "of": 7
+            "hits": 3,
+            "of": 8
           },
           "underAsk": {
             "hits": 0,
