@@ -22,9 +22,9 @@ CREATE TABLE IF NOT EXISTS decisions (
   email_id    TEXT NOT NULL UNIQUE REFERENCES emails(id),
   analysis    TEXT,
   injection   TEXT NOT NULL,
+  payment     TEXT NOT NULL,
   floor       TEXT NOT NULL,
   learned     TEXT NOT NULL,
-  brake       INTEGER NOT NULL,
   pin         TEXT,
   level       TEXT NOT NULL,
   created_at  TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))
@@ -60,7 +60,7 @@ CREATE TABLE IF NOT EXISTS drafts (
 );
 
 -- decision_id is UNIQUE: one decision yields at most one feedback row, whether it came from
--- the decision's item or from reverting a silent execution.
+-- the decision's item or from correcting a silent decision.
 CREATE TABLE IF NOT EXISTS feedback (
   id            INTEGER PRIMARY KEY AUTOINCREMENT,
   decision_id   INTEGER NOT NULL UNIQUE REFERENCES decisions(id),

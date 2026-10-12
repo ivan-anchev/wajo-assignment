@@ -106,7 +106,7 @@ describe("edit", () => {
   it("asks on a promoted bucket when the email requests an ask-floor action, executing only on approval or edit", async () => {
     const deliver = newsletterInbox(store);
     const agent = new Agent({ store, model: modelProposing(ARCHIVE) });
-    for (let n = 0; n < 3; n++) {
+    for (let n = 0; n < 2; n++) {
       agent.approve((await deliver(ARCHIVE)).item!.id);
     }
     const asked = await deliver(ARCHIVE, { requested: "forward" });
@@ -131,7 +131,7 @@ describe("edit", () => {
     const agent = await agentProposing(store, SEND_REPLY);
     const before = agent.transcript("001");
 
-    await expect(agent.edit(1, changes)).rejects.toThrow(/Invalid edit for item #1/);
+    await expect(agent.edit(1, changes)).rejects.toThrow(/Invalid edit/);
     expect(agent.transcript("001")).toEqual(before);
     expect(feedbackCount(store)).toBe(0);
   });
@@ -248,11 +248,11 @@ describe("notify items", () => {
   });
 });
 
-// Three approved archives move archive/newsletter to notify, so the fourth is executed and notified.
+// Two approved archives move archive/newsletter to notify, so the third is executed and notified.
 async function notifiedArchive() {
   const deliver = newsletterInbox(store);
   const agent = new Agent({ store, model: replayModel() });
-  for (let n = 0; n < 3; n++) {
+  for (let n = 0; n < 2; n++) {
     agent.approve((await deliver(ARCHIVE)).item!.id);
   }
   const notified = await deliver(ARCHIVE);

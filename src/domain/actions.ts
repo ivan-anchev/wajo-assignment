@@ -10,7 +10,7 @@ type Action<N extends string = string, S extends z.ZodObject = z.ZodObject> = {
   description: string;
   riskClass: RiskClass;
   params: S;
-  // Executes nothing, so policy never learns or brakes it.
+  // Executes nothing, so policy never learns it.
   inert?: true;
   // Sync because effects run inside a better-sqlite3 transaction, which rejects async callbacks.
   execute(params: z.infer<S>, ctx: ActionContext): void;
@@ -29,7 +29,8 @@ const noEffect = () => {};
 export const ACTIONS = [
   defineAction({
     name: "none",
-    description: "Take no action on the email",
+    description:
+      "Leave the email untouched and unread in the inbox; only when the user must read it themselves",
     riskClass: "reversible",
     inert: true,
     params: noParams,

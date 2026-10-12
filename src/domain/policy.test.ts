@@ -7,7 +7,7 @@ import {
   levelFor,
   promotion,
   type Analysis,
-  type ItemResponse,
+  type FeedbackKind,
   type Level,
 } from "./policy.ts";
 
@@ -26,129 +26,126 @@ const EXPECTED_FLOOR: Record<ActionName, Level> = {
   pay_invoice: "escalate",
 };
 
+const CLEAN = { suspected: false, evidence: [] };
+const TRIPPED = { suspected: true, evidence: ["pattern: x"] };
+
 describe("floor", () => {
   it.each(ACTIONS)("$name floors at its risk-class level", ({ name }) => {
-    expect(floor([name], false)).toBe(EXPECTED_FLOOR[name]);
+    expect(floor([name], [])).toBe(EXPECTED_FLOOR[name]);
   });
 
   it.each(ACTIONS)("$name escalates when injection is suspected", ({ name }) => {
-    expect(floor([name, "none"], true)).toBe("escalate");
+    expect(floor([name, "none"], [TRIPPED, CLEAN])).toBe("escalate");
+  });
+
+  it.each(ACTIONS)("$name escalates when payment is suspected", ({ name }) => {
+    expect(floor([name, "none"], [CLEAN, TRIPPED])).toBe("escalate");
   });
 
   it("takes the strictest of the proposed and requested actions, in either order", () => {
-    expect(floor(["label", "pay_invoice"], false)).toBe("escalate");
-    expect(floor(["pay_invoice", "label"], false)).toBe("escalate");
-    expect(floor(["send_reply", "none"], false)).toBe("ask");
+    expect(floor(["label", "pay_invoice"], [])).toBe("escalate");
+    expect(floor(["pay_invoice", "label"], [])).toBe("escalate");
+    expect(floor(["send_reply", "none"], [])).toBe("ask");
   });
 });
+const RESPONSES: FeedbackKind[] = ["approve", "edit", "redirect", "reject", "dismiss", "undo"];
 
-const CLEAN = { suspected: false, evidence: [] };
-const RESPONSES: ItemResponse[] = ["approve", "edit", "reject", "dismiss", "undo"];
-
-const learned = (...history: ItemResponse[]) =>
-  levelFor(analysisOf("archive"), CLEAN, history, null).learned;
-const thrice = (response: ItemResponse) => [response, response, response];
+const learned = (...history: FeedbackKind[]) =>
+  levelFor(analysisOf("archive"), [], history, null).learned;
+const twice = (response: FeedbackKind) => [response, response];
 
 describe("learned level (§7.1)", () => {
-  it.each<[string, ItemResponse[], Level]>([
+  it.each<[string, FeedbackKind[], Level]>([
     ["starts at ask", [], "ask"],
-    ["needs three consecutive positives", ["approve", "approve"], "ask"],
-    ["moves to notify after three approves", thrice("approve"), "notify"],
-    ["resets the streak on edit", ["approve", "edit", "approve", "approve"], "ask"],
-    ["resets the streak on reject", ["approve", "approve", "reject", "approve"], "ask"],
+    ["needs two consecutive positives", ["approve"], "ask"],
+    ["moves to notify after two approves", twice("approve"), "notify"],
+    ["needs two dismisses at notify", [...twice("approve"), "dismiss"], "notify"],
+    ["resets the streak on edit", ["approve", "edit", "approve"], "ask"],
+    ["resets the streak on reject", ["approve", "reject", "approve"], "ask"],
     ["keeps ask on a reject at cold start", ["reject"], "ask"],
     [
-      "moves to silent after three dismisses at notify",
-      [...thrice("approve"), ...thrice("dismiss")],
+      "moves to silent after two dismisses at notify",
+      [...twice("approve"), ...twice("dismiss")],
       "silent",
     ],
-    ["ignores dismisses at ask", [...thrice("dismiss"), "approve"], "ask"],
+    ["ignores dismisses at ask", [...twice("dismiss"), "approve"], "ask"],
     [
       "ignores approves at notify, without resetting",
-      [...thrice("approve"), "dismiss", "approve", "dismiss", "dismiss"],
+      [...twice("approve"), "dismiss", "approve", "dismiss"],
       "silent",
     ],
     [
       "steps silent back to notify on undo",
-      [...thrice("approve"), ...thrice("dismiss"), "undo"],
+      [...twice("approve"), ...twice("dismiss"), "undo"],
       "notify",
     ],
     [
       "ignores dismisses at silent",
-      [...thrice("approve"), ...thrice("dismiss"), "dismiss"],
+      [...twice("approve"), ...twice("dismiss"), "dismiss"],
       "silent",
     ],
-    ["steps notify back to ask on reject", [...thrice("approve"), "reject"], "ask"],
-    ["steps notify back to ask on edit", [...thrice("approve"), "edit"], "ask"],
-    [
-      "needs a fresh streak after a step back",
-      [...thrice("approve"), "reject", "approve", "approve"],
-      "ask",
-    ],
+    ["steps notify back to ask on reject", [...twice("approve"), "reject"], "ask"],
+    ["steps notify back to ask on edit", [...twice("approve"), "edit"], "ask"],
+    ["needs a fresh streak after a step back", [...twice("approve"), "reject", "approve"], "ask"],
   ])("%s", (_, history, expected) => {
     expect(learned(...history)).toBe(expected);
+  });
+
+  it("an edit to another action leaves the standing unchanged", () => {
+    expect(learned("approve", "redirect", "approve")).toBe("notify");
+    expect(learned(...twice("approve"), "redirect")).toBe("notify");
+    expect(learned(...twice("approve"), "dismiss", "redirect", "dismiss")).toBe("silent");
+  });
+
+  it("a param-only edit is still a negative", () => {
+    expect(learned("approve", "edit", "approve")).toBe("ask");
+    expect(learned(...twice("approve"), "edit")).toBe("ask");
   });
 });
 
 describe("levelFor", () => {
-  it("brakes below 0.6 by one rung", () => {
-    expect(levelFor(analysisOf("archive", 0.59), CLEAN, thrice("approve"), null)).toEqual({
-      floor: "silent",
-      learned: "notify",
-      brake: true,
-      level: "ask",
-    });
-  });
-
-  it("does not brake at exactly 0.6", () => {
-    expect(levelFor(analysisOf("archive", 0.6), CLEAN, thrice("approve"), null).brake).toBe(false);
-  });
-
-  it("caps the brake at ask", () => {
-    expect(levelFor(analysisOf("archive", 0.1), CLEAN, [], null).level).toBe("ask");
-  });
-
   it("raises the floor to the requested action, never lowers it", () => {
-    const promoted = [...thrice("approve"), ...thrice("dismiss")];
+    const promoted = [...twice("approve"), ...twice("dismiss")];
 
-    expect(levelFor(analysisOf("label", 0.9, "pay_invoice"), CLEAN, promoted, null)).toMatchObject({
+    expect(levelFor(analysisOf("label", "pay_invoice"), [], promoted, null)).toMatchObject({
       floor: "escalate",
       level: "escalate",
     });
-    expect(levelFor(analysisOf("archive", 0.9, "send_reply"), CLEAN, promoted, null)).toMatchObject(
-      { floor: "ask", level: "ask" },
-    );
-    expect(levelFor(analysisOf("send_reply", 0.9, "none"), CLEAN, promoted, null)).toMatchObject({
+    expect(levelFor(analysisOf("archive", "send_reply"), [], promoted, null)).toMatchObject({
+      floor: "ask",
+      level: "ask",
+    });
+    expect(levelFor(analysisOf("send_reply"), [], promoted, null)).toMatchObject({
       floor: "ask",
       level: "ask",
     });
   });
 
   it("holds an inert proposal at the requested floor", () => {
-    expect(levelFor(analysisOf("none", 0.9, "pay_invoice"), CLEAN, [], null)).toMatchObject({
+    expect(levelFor(analysisOf("none", "pay_invoice"), [], [], null)).toMatchObject({
       floor: "escalate",
       level: "escalate",
     });
   });
 
-  it("never learns or brakes an inert action", () => {
-    expect(levelFor(analysisOf("none", 0.1), CLEAN, ["reject"], null)).toEqual({
+  it("never learns an inert action", () => {
+    expect(levelFor(analysisOf("none"), [], ["reject"], null)).toEqual({
       floor: "silent",
       learned: "silent",
-      brake: false,
       level: "silent",
     });
-    expect(levelFor(analysisOf("none", 0.1), CLEAN, ["reject"], "ask").level).toBe("ask");
+    expect(levelFor(analysisOf("none"), [], ["reject"], "ask").level).toBe("ask");
   });
 
-  it.each<[Level | null, number, Level]>([
-    ["silent", 0.9, "notify"],
-    ["escalate", 0.5, "escalate"],
-    [null, 0.9, "notify"],
-  ])("joins pin %s with learned and brake", (pin, confidence, level) => {
-    expect(
-      levelFor(analysisOf("archive", confidence), CLEAN, thrice("approve"), pin),
-    ).toMatchObject({ learned: "notify", level });
+  it.each<[Level | null, Level]>([
+    ["silent", "notify"],
+    ["escalate", "escalate"],
+    [null, "notify"],
+  ])("joins pin %s with learned", (pin, level) => {
+    expect(levelFor(analysisOf("archive"), [], twice("approve"), pin)).toMatchObject({
+      learned: "notify",
+      level,
+    });
   });
 
   it("never decides below the floor, for any feedback history or pin (invariants 1 and 4)", () => {
@@ -156,13 +153,11 @@ describe("levelFor", () => {
     for (const pin of [null, ...LEVELS]) {
       for (const history of historiesUpTo(4)) {
         for (const { name } of ACTIONS) {
-          for (const confidence of [0.3, 0.9]) {
-            for (const suspected of [false, true]) {
-              const injection = { suspected, evidence: [] };
-              const decided = levelFor(analysisOf(name, confidence), injection, history, pin);
-              if (isBelow(decided.level, decided.floor)) {
-                violations.push({ name, confidence, suspected, history, pin });
-              }
+          for (const suspected of [false, true]) {
+            const injection = { suspected, evidence: [] };
+            const decided = levelFor(analysisOf(name), [injection], history, pin);
+            if (isBelow(decided.level, decided.floor)) {
+              violations.push({ name, suspected, history, pin });
             }
           }
         }
@@ -174,43 +169,33 @@ describe("levelFor", () => {
 
 describe("promotion (§7.2)", () => {
   it("fires only on the response that crosses the threshold", () => {
-    expect(promotion("archive", ["approve"], "approve", null)).toBeNull();
-    expect(promotion("archive", ["approve", "approve"], "approve", null)).toBe("ask");
-    expect(promotion("archive", thrice("approve"), "approve", null)).toBeNull();
+    expect(promotion("archive", [], "approve", null)).toBeNull();
+    expect(promotion("archive", ["approve"], "approve", null)).toBe("ask");
+    expect(promotion("archive", twice("approve"), "approve", null)).toBeNull();
   });
 
   it("is not announced when the floor hides it", () => {
-    expect(promotion("send_reply", ["approve", "approve"], "approve", null)).toBeNull();
+    expect(promotion("send_reply", ["approve"], "approve", null)).toBeNull();
   });
 
   it("is never a demotion", () => {
     expect(
-      promotion("archive", [...thrice("approve"), ...thrice("dismiss")], "undo", null),
+      promotion("archive", [...twice("approve"), ...twice("dismiss")], "undo", null),
     ).toBeNull();
   });
 
   it("is not announced while a pin holds the bucket at or above the old level", () => {
-    expect(promotion("archive", ["approve", "approve"], "approve", "ask")).toBeNull();
-    expect(promotion("archive", ["approve", "approve"], "approve", "notify")).toBe("ask");
+    expect(promotion("archive", ["approve"], "approve", "ask")).toBeNull();
+    expect(promotion("archive", ["approve"], "approve", "notify")).toBe("ask");
   });
 });
 
-function analysisOf(
-  action: ActionName,
-  confidence = 0.9,
-  requested: ActionName = "none",
-): Analysis {
-  return {
-    summary: "s",
-    intent: "i",
-    proposal: { action, params: {} },
-    requested,
-    confidence,
-  };
+function analysisOf(action: ActionName, requested: ActionName = "none"): Analysis {
+  return { summary: "s", intent: "i", proposal: { action, params: {} }, requested };
 }
 
-function historiesUpTo(maxLength: number): ItemResponse[][] {
-  let layer: ItemResponse[][] = [[]];
+function historiesUpTo(maxLength: number): FeedbackKind[][] {
+  let layer: FeedbackKind[][] = [[]];
   const all = [...layer];
   for (let n = 0; n < maxLength; n++) {
     layer = layer.flatMap((history) => RESPONSES.map((response) => [...history, response]));

@@ -6,7 +6,7 @@ import {
   promotion,
   proposalOf,
   standingLevel,
-  type ItemResponse,
+  type FeedbackKind,
   type Level,
 } from "../domain/policy.ts";
 import type { SenderClass } from "../inbox/inbox.ts";
@@ -36,7 +36,7 @@ export class Learner {
   recordResponse(
     decision: Decision,
     senderClass: SenderClass,
-    response: ItemResponse,
+    response: FeedbackKind,
   ): string | null {
     const feedback = {
       decisionId: decision.id,
@@ -65,7 +65,7 @@ export class Learner {
   bucket(
     action: ActionName,
     senderClass: SenderClass,
-  ): { history: ItemResponse[]; pin: Level | null } {
+  ): { history: FeedbackKind[]; pin: Level | null } {
     return {
       history: this.store.feedback.listByBucket(action, senderClass),
       pin: this.store.pins.find(action, senderClass),

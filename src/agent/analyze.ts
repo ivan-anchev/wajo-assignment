@@ -18,15 +18,29 @@ const analysisSchema: z.ZodType<Analysis> = z.object({
   requested: actionNameSchema.describe(
     "The action the sender explicitly asks the user to perform on their behalf (e.g. pay, forward, delete); none when the email only informs or simply expects a reply.",
   ),
-  confidence: z
-    .number()
-    .min(0)
-    .max(1)
-    .describe("Probability from 0 to 1 that the user would choose exactly this action."),
 });
+
+const USER_PROFILE = [
+  "The user is Ivan, founder of Wajo, a small startup. Colleagues write from wajo.dev and investors from kestrel.vc; customers and vendors are in his contacts.",
+  "His habits:",
+  "- FYIs from colleagues that need no reply are marked read; automated notices such as CI runs and deploys are archived.",
+  "- Reminders with a date are snoozed to that date; newsletters are archived unless he reads them.",
+  "- Questions from contacts he already works with get a draft reply; a yes/no invitation gets a reply he confirms.",
+].join("\n");
+
+const SENDER_CLASSES = [
+  "Sender classes:",
+  "- internal: same domain as the user.",
+  "- known: in the user's contacts.",
+  "- newsletter: sent with bulk-mail headers.",
+  "- first_contact: anyone else.",
+].join("\n");
 
 const INSTRUCTIONS = [
   "You triage incoming email for the user. Propose exactly one next action from the schema.",
+  USER_PROFILE,
+  SENDER_CLASSES,
+  "An email that needs nothing from the user still gets filed: mark it read, archive, label, or snooze it.",
   "Write datetimes as ISO 8601 in UTC ending in Z; resolve relative times against receivedAt.",
   UNTRUSTED_EMAIL_NOTICE,
 ].join("\n");

@@ -21,8 +21,8 @@ describe("runEpisodes", () => {
 
     expect(sales).toHaveLength(5);
     expect(episodes.map(levels)).toEqual([
-      ["ask", "ask", "ask", "notify", "notify"],
-      ["notify", "silent", "silent", "silent", "silent"],
+      ["ask", "ask", "notify", "notify", "silent"],
+      ["silent", "silent", "silent", "silent", "silent"],
     ]);
   });
 
@@ -37,11 +37,10 @@ describe("runEpisodes", () => {
   });
 
   it("decides a held-out email at the level its bucket learned on train, and never answers it", async () => {
-    const { baseline, episodes } = await runEpisodes(modelProposing(ARCHIVE), salesBucket, 4);
+    const { baseline, episodes } = await runEpisodes(modelProposing(ARCHIVE), salesBucket, 3);
 
     expect(levels(outcomesIn(baseline, "test"))).toEqual(["ask"]);
     expect(episodes.map((episode) => levels(outcomesIn(episode, "test")))).toEqual([
-      ["ask"],
       ["ask"],
       ["notify"],
       ["notify"],
@@ -53,7 +52,7 @@ describe("runEpisodes", () => {
           transcript.feedback,
         ]),
       ),
-    ).toEqual(Array.from({ length: 4 }, () => ["open", null]));
+    ).toEqual(Array.from({ length: 3 }, () => ["open", null]));
   });
 
   it("pairs every outcome with its scenario, in scenario order, under a labelled email id", async () => {

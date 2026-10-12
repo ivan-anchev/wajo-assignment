@@ -2,6 +2,7 @@ import type { LanguageModel } from "ai";
 import { beforeEach, describe, expect, it } from "vitest";
 import { Agent } from "./agent.ts";
 import { Store } from "../db/store.ts";
+import { readInbox, writeInbox } from "../inbox/inbox.ts";
 import { mockModel, observedReplayModel, replayModel } from "../llm/test-models.ts";
 import {
   agentProposing,
@@ -10,6 +11,7 @@ import {
   INBOX,
   injectionInbox,
   LABEL,
+  modelProposing,
   NONE,
   requestOrder,
   requestsNamed,
@@ -45,10 +47,10 @@ describe("run", () => {
       [
         [
           "001",
-          "none",
+          "mark_read",
           false,
-          "silent",
-          "silent",
+          "ask",
+          "ask",
         ],
         [
           "002",
@@ -105,7 +107,6 @@ describe("run", () => {
           intent: "fyi",
           proposal: ARCHIVE,
           requested: "none",
-          confidence: 0.9,
         },
         injection_verdict: { suspected: false, evidence: [] },
       }),
@@ -126,7 +127,6 @@ describe("run", () => {
         intent: "fyi",
         proposal: { action: "archive", params: {} },
         requested: "none",
-        confidence: 0.9,
       },
       injection_verdict: new Error("judge unavailable"),
     });
@@ -206,6 +206,23 @@ describe("requested-action floor (§6)", () => {
     const agent = await agentProposing(store, SEND_REPLY, "none");
 
     expect(agent.transcript("001")!.decision).toMatchObject({ floor: "ask", level: "ask" });
+  });
+
+  it("escalates an email carrying an IBAN and an amount even when nothing is proposed or requested", async () => {
+    const [demo] = readInbox(INBOX);
+    const invoice = {
+      ...demo!,
+      body: "Amount due: EUR 1,240.00. IBAN DE44 5001 0517 5407 3249 31.",
+    };
+    const agent = new Agent({ store, model: modelProposing(LABEL, { requested: "none" }) });
+
+    await agent.run(writeInbox([invoice], INBOX.contactsPath));
+
+    expect(agent.transcript("001")).toMatchObject({
+      decision: { payment: { suspected: true }, floor: "escalate", level: "escalate" },
+      item: { kind: "escalate" },
+      executions: [],
+    });
   });
 
   it("escalates on a suspicious verdict without analyzing the email or writing feedback", async () => {

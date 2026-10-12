@@ -1,7 +1,8 @@
 import { generateText, Output, type LanguageModel } from "ai";
 import { z } from "zod";
-import type { InjectionVerdict } from "../domain/policy.ts";
+import type { Verdict } from "../domain/policy.ts";
 import type { Email } from "../inbox/inbox.ts";
+import { matchPatterns } from "./match-patterns.ts";
 import { UNTRUSTED_EMAIL_NOTICE, untrustedEmail } from "./untrusted-email.ts";
 
 // Tripwires for phrasing aimed at an AI; the judge covers paraphrase.
@@ -13,7 +14,7 @@ const INJECTION_PATTERNS = [
   /\b(AI (assistants?|agents?)|assistants?) (processing|handling|reading|summari[sz]ing|triaging) (\S+ ){0,2}?(e-?mails?|inbox|mailbox|mail|messages|digest):/i,
 ];
 
-const judgeSchema: z.ZodType<InjectionVerdict> = z.object({
+const judgeSchema: z.ZodType<Verdict> = z.object({
   suspected: z.boolean(),
   evidence: z
     .array(z.string())
@@ -30,27 +31,14 @@ const JUDGE_INSTRUCTIONS = [
   UNTRUSTED_EMAIL_NOTICE,
 ].join(" ");
 
-export async function checkInjection(llm: LanguageModel, email: Email): Promise<InjectionVerdict> {
-  const signals = [matchPatterns(email), await askJudge(llm, email)];
+export async function checkInjection(llm: LanguageModel, email: Email): Promise<Verdict> {
+  const signals = [matchPatterns(INJECTION_PATTERNS, email), await askJudge(llm, email)];
   const fired = signals.filter((verdict) => verdict.suspected);
 
   return { suspected: fired.length > 0, evidence: fired.flatMap((verdict) => verdict.evidence) };
 }
 
-function matchPatterns({ subject, body }: Email): InjectionVerdict {
-  const text = normalizeForMatching(`${subject}\n${body}`);
-  const evidence = INJECTION_PATTERNS.flatMap((pattern) => text.match(pattern)?.[0] ?? []);
-  return {
-    suspected: evidence.length > 0,
-    evidence: evidence.map((match) => `pattern: ${JSON.stringify(match)}`),
-  };
-}
-
-function normalizeForMatching(text: string): string {
-  return text.replace(/\s+/g, " ").replace(/[‘’]/g, "'");
-}
-
-async function askJudge(llm: LanguageModel, email: Email): Promise<InjectionVerdict> {
+async function askJudge(llm: LanguageModel, email: Email): Promise<Verdict> {
   const { output } = await generateText({
     model: llm,
     instructions: JUDGE_INSTRUCTIONS,

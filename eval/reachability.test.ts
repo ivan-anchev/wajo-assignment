@@ -22,12 +22,12 @@ describe("gold levels", () => {
 
 function levelsUnderOracle(scenario: Scenario): Level[] {
   const proposal = goldProposal(scenario);
-  const analysis = { summary: "", intent: "", proposal, requested: "none", confidence: 1 } as const;
+  const analysis = { summary: "", intent: "", proposal, requested: "none" } as const;
   const injection = { suspected: scenario.category === "injection", evidence: [] };
   const history: ItemResponse[] = [];
   const levels: Level[] = [];
   for (let round = 0; round < ROUNDS; round++) {
-    const { level } = levelFor(analysis, injection, history, null);
+    const { level } = levelFor(analysis, [injection], history, null);
     levels.push(level);
     history.push(...feedbackAt(level, proposal, scenario));
   }

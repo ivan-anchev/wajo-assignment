@@ -5,16 +5,18 @@ export type Level = (typeof LEVELS)[number];
 export type LearnedLevel = Exclude<Level, "escalate">;
 
 export type ItemResponse = "approve" | "edit" | "reject" | "dismiss" | "undo";
+// What the ladder learns from. A `redirect` is an edit that changed the action: the proposal was
+// wrong, which says nothing about the level the proposed action deserves.
+export type FeedbackKind = ItemResponse | "redirect";
 
 export type Analysis = {
   summary: string;
   intent: string;
   proposal: Proposal;
   requested: ActionName;
-  confidence: number;
 };
 
-export type InjectionVerdict = { suspected: boolean; evidence: string[] };
+export type Verdict = { suspected: boolean; evidence: string[] };
 
 type Standing = { rung: LearnedLevel; streak: number };
 
@@ -27,7 +29,7 @@ const FLOOR_BY_RISK: Record<RiskClass, Level> = {
 
 const LADDER: Record<
   LearnedLevel,
-  { positives: readonly ItemResponse[]; up: LearnedLevel; down: LearnedLevel }
+  { positives: readonly FeedbackKind[]; up: LearnedLevel; down: LearnedLevel }
 > = {
   silent: { positives: [], up: "notify", down: "silent" },
   notify: { positives: ["dismiss"], up: "ask", down: "silent" },
@@ -35,17 +37,18 @@ const LADDER: Record<
 };
 
 const COLD_START: LearnedLevel = "ask";
-const NEGATIVES: readonly ItemResponse[] = ["reject", "undo", "edit"];
-const STREAK_TO_PROMOTE = 3;
-const BRAKE_BELOW = 0.6;
+const NEGATIVES: readonly FeedbackKind[] = ["reject", "undo", "edit"];
+const STREAK_TO_PROMOTE = 2;
 
 const NOTHING: Proposal = { action: "none", params: {} };
 
 export function floor(
   [first, ...rest]: readonly [ActionName, ...ActionName[]],
-  injectionSuspected: boolean,
+  tripwires: readonly Verdict[],
 ): Level {
-  return injectionSuspected ? "escalate" : maxLevel(riskFloor(first), ...rest.map(riskFloor));
+  return tripwires.some((tripwire) => tripwire.suspected)
+    ? "escalate"
+    : maxLevel(riskFloor(first), ...rest.map(riskFloor));
 }
 
 export function proposalOf(analysis: Analysis | null): Proposal {
@@ -58,37 +61,32 @@ export function requestOf(analysis: Analysis | null): ActionName {
 
 export function levelFor(
   analysis: Analysis | null,
-  injection: InjectionVerdict,
-  history: readonly ItemResponse[],
+  tripwires: readonly Verdict[],
+  history: readonly FeedbackKind[],
   pin: Level | null,
-): { floor: Level; learned: LearnedLevel; brake: boolean; level: Level } {
-  const floorLevel = floor([proposalOf(analysis).action, requestOf(analysis)], injection.suspected);
+): { floor: Level; learned: LearnedLevel; level: Level } {
+  const floorLevel = floor([proposalOf(analysis).action, requestOf(analysis)], tripwires);
   if (!analysis || actionFor(analysis.proposal.action).inert) {
     return {
       floor: floorLevel,
       learned: "silent",
-      brake: false,
       level: maxLevel(floorLevel, pin ?? "silent"),
     };
   }
   const learned = learnedLevel(history);
-  const brake = analysis.confidence < BRAKE_BELOW;
-  return {
-    floor: floorLevel,
-    learned,
-    brake,
-    level: maxLevel(floorLevel, pin ?? "silent", brake ? LADDER[learned].up : learned),
-  };
+
+  return { floor: floorLevel, learned, level: maxLevel(floorLevel, pin ?? "silent", learned) };
 }
 
 export function promotion(
   action: ActionName,
-  history: readonly ItemResponse[],
-  response: ItemResponse,
+  history: readonly FeedbackKind[],
+  response: FeedbackKind,
   pin: Level | null,
 ): Level | null {
   const from = standingLevel(action, history, pin);
   const to = standingLevel(action, [...history, response], pin);
+
   return isBelow(to, from) ? from : null;
 }
 
@@ -98,21 +96,21 @@ export function isBelow(level: Level, other: Level): boolean {
 
 export function standingLevel(
   action: ActionName,
-  history: readonly ItemResponse[],
+  history: readonly FeedbackKind[],
   pin: Level | null,
 ): Level {
-  return maxLevel(floor([action], false), pin ?? "silent", learnedLevel(history));
+  return maxLevel(floor([action], []), pin ?? "silent", learnedLevel(history));
 }
 
 function riskFloor(action: ActionName): Level {
   return FLOOR_BY_RISK[actionFor(action).riskClass];
 }
 
-function learnedLevel(history: readonly ItemResponse[]): LearnedLevel {
+function learnedLevel(history: readonly FeedbackKind[]): LearnedLevel {
   return history.reduce(climb, { rung: COLD_START, streak: 0 }).rung;
 }
 
-function climb({ rung, streak }: Standing, response: ItemResponse): Standing {
+function climb({ rung, streak }: Standing, response: FeedbackKind): Standing {
   if (NEGATIVES.includes(response)) {
     return { rung: LADDER[rung].up, streak: 0 };
   }

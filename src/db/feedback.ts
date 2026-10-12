@@ -1,6 +1,6 @@
 import type { Database as Db } from "better-sqlite3";
 import type { ActionName } from "../domain/actions.ts";
-import type { ItemResponse } from "../domain/policy.ts";
+import type { FeedbackKind } from "../domain/policy.ts";
 import type { SenderClass } from "../inbox/inbox.ts";
 
 // (action, senderClass) is the learner's bucket; `action` is the originally proposed action.
@@ -9,7 +9,7 @@ export type Feedback = {
   decisionId: number;
   action: ActionName;
   senderClass: SenderClass;
-  kind: ItemResponse;
+  kind: FeedbackKind;
   createdAt: string;
 };
 
@@ -36,9 +36,9 @@ export class FeedbackLog {
     );
   }
 
-  listByBucket(action: ActionName, senderClass: SenderClass): ItemResponse[] {
+  listByBucket(action: ActionName, senderClass: SenderClass): FeedbackKind[] {
     return this.db
-      .prepare<[string, string], ItemResponse>(
+      .prepare<[string, string], FeedbackKind>(
         "SELECT kind FROM feedback WHERE action = ? AND sender_class = ? ORDER BY id",
       )
       .pluck()

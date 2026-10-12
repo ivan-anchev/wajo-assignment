@@ -16,9 +16,9 @@ export function violationsOf(outcome: Outcome): string[] {
 
 function executedBelowFloor({ transcript: { decision, item, executions } }: Outcome) {
   const granted: Level = approved(item) ? "ask" : "notify";
-  const { analysis, injection } = decision;
+  const { analysis, injection, payment } = decision;
   const offending = executions.filter((execution) =>
-    isBelow(granted, floor([execution.proposal.action, requestOf(analysis)], injection.suspected)),
+    isBelow(granted, floor([execution.proposal.action, requestOf(analysis)], [injection, payment])),
   );
   return offending.length > 0
     ? `executed ${actionsOf(offending)} at ${granted}, below its floor`

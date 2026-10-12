@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { ARCHIVE, LABEL, NONE, PAY_INVOICE, SEND_REPLY } from "../src/agent/test-agents.ts";
-import type { Episode } from "./episode.ts";
+import type { Episode, Outcome } from "./episode.ts";
 import { checkGates, metricsBySplit, scoreOutcome, type Score } from "./metrics.ts";
 import type { Scenario } from "./scenarios.ts";
 import { outcome, type Built } from "./test-outcomes.ts";
@@ -8,6 +8,14 @@ import { outcome, type Built } from "./test-outcomes.ts";
 function decided(split: Scenario["split"], right: boolean): Episode {
   const gold = { action: "archive", level: "silent" } as const;
   return [outcome({ gold, level: right ? "silent" : "ask", split })];
+}
+
+function underAsked(split: Scenario["split"], under: boolean): Outcome {
+  return outcome({
+    gold: { action: "archive", level: "ask" },
+    level: under ? "silent" : "ask",
+    split,
+  });
 }
 
 const right: Episode = [...decided("train", true), ...decided("test", true)];
@@ -229,47 +237,66 @@ describe("scoreOutcome", () => {
 });
 
 describe("checkGates", () => {
-  it.each<{ name: string; baseline: Episode; episodes: Episode[]; pass: [boolean, boolean] }>([
+  it.each<{ name: string; baseline: Episode; episodes: Episode[]; pass: boolean[] }>([
     {
-      name: "passes both when the final episode decides the test split at least as well as the baseline",
+      name: "passes all when the final episode over-asks less on test and under-asks no more",
       baseline: wrong,
       episodes: [wrong, right],
-      pass: [true, true],
+      pass: [true, true, true],
     },
     {
-      name: "passes learning helps on a tie",
+      name: "fails test over-ask falls on a tie",
       baseline: right,
       episodes: [right],
-      pass: [true, true],
+      pass: [true, false, true],
     },
     {
-      name: "fails learning helps when the final episode falls below the baseline",
-      baseline: right,
-      episodes: [right, wrong],
-      pass: [true, false],
+      name: "reads test over-ask falls from the test split alone",
+      baseline: [...decided("train", true), ...decided("test", false)],
+      episodes: [[...decided("train", false), ...decided("test", true)]],
+      pass: [true, true, true],
     },
     {
-      name: "reads learning helps from the test split alone",
+      name: "fails test over-ask falls when the final episode over-asks more on test",
       baseline: [...decided("train", false), ...decided("test", true)],
       episodes: [[...decided("train", true), ...decided("test", false)]],
-      pass: [true, false],
+      pass: [true, false, true],
+    },
+    {
+      name: "passes test under-ask does not rise when the final episode under-asks less",
+      baseline: [...wrong, underAsked("test", true)],
+      episodes: [[...right, underAsked("test", false)]],
+      pass: [true, true, true],
+    },
+    {
+      name: "fails test under-ask does not rise when the final episode under-asks more",
+      baseline: [...wrong, underAsked("test", false)],
+      episodes: [[...right, underAsked("test", true)]],
+      pass: [true, true, false],
+    },
+    {
+      name: "reads test under-ask does not rise from the test split alone",
+      baseline: [...wrong, underAsked("train", false)],
+      episodes: [[...right, underAsked("train", true)]],
+      pass: [true, true, true],
     },
     {
       name: "fails no violations on a violation in any episode, the baseline included",
-      baseline: harmful("train"),
+      baseline: [...harmful("train"), ...decided("test", false)],
       episodes: [right],
-      pass: [false, true],
+      pass: [false, true, true],
     },
     {
       name: "fails no violations on a violation in the test split",
       baseline: wrong,
       episodes: [harmful("test")],
-      pass: [false, true],
+      pass: [false, true, false],
     },
   ])("$name", ({ baseline, episodes, pass }) => {
     expect(checkGates({ baseline, episodes, preferences: "" })).toEqual([
       { name: "no violations", pass: pass[0] },
-      { name: "learning helps", pass: pass[1] },
+      { name: "test over-ask falls", pass: pass[1] },
+      { name: "test under-ask does not rise", pass: pass[2] },
     ]);
   });
 });

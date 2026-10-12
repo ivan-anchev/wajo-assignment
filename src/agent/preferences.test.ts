@@ -10,6 +10,7 @@ import {
   PAY_INVOICE_EDIT,
   requestsNamed,
   SEND_REPLY,
+  SUMMARY,
 } from "./test-agents.ts";
 
 const IGOR = "Replies to Igor are informal, no sign-off.";
@@ -115,7 +116,7 @@ describe("preferences (§7.4)", () => {
     expect(agent.prefs()).toBe(`${IGOR}\n${NEWSLETTERS}\nInvoices from Acme are paid by Dana.`);
   });
 
-  it("shows the extractor the edit but never the email body or subject", async () => {
+  it("shows the extractor the edit, summary and intent but never the email body or subject", async () => {
     const { llm, agent } = await askedToReply();
 
     await agent.edit(1, { body: "hey, sounds good" });
@@ -123,6 +124,8 @@ describe("preferences (§7.4)", () => {
     const [request] = requestsNamed(llm, "preferences");
     expect(request).toContain("hey, sounds good");
     expect(request).toContain("<untrusted_context>");
+    expect(request).toContain(SUMMARY);
+    expect(request).toContain('\\"intent\\": \\"reply\\"');
     expect(request).not.toContain("Standup moved");
     expect(request).not.toContain("Same room");
   });

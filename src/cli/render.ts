@@ -6,7 +6,7 @@ import type { Feedback } from "../db/feedback.ts";
 import type { Item } from "../db/items.ts";
 import type { Transcript } from "../db/store.ts";
 import type { Proposal } from "../domain/actions.ts";
-import { proposalOf, requestOf, type InjectionVerdict } from "../domain/policy.ts";
+import { proposalOf, requestOf, type Verdict } from "../domain/policy.ts";
 import type { Email } from "../inbox/inbox.ts";
 
 export function renderDecisionLine({ email, decision, item, executions }: Transcript): string {
@@ -63,24 +63,27 @@ export function renderTranscript({
     `2 injection  ${injection.suspected ? `SUSPECTED (${injection.evidence.join("; ")})` : "not suspected"}`,
     ...(analysis
       ? [
-          `3 analyze    intent: ${analysis.intent}  confidence: ${analysis.confidence}`,
+          `3 analyze    intent: ${analysis.intent}`,
           `             summary: ${analysis.summary}`,
           `             proposal: ${describeProposal(analysis.proposal)}`,
         ]
       : [`3 analyze    skipped: injection suspected`]),
     `4 floor      ${decision.floor} (${describeFloorCause(decision)})`,
     `5 learned    ${describeLearned(email, decision)}`,
-    `6 brake      ${decision.brake ? "fired: low confidence, one rung up (capped at ask)" : "not fired"}`,
-    `7 level      ${decision.level}`,
-    `8 act        ${describeOutcome(item, executions)}`,
+    `6 level      ${decision.level}`,
+    `7 act        ${describeOutcome(item, executions)}`,
     ...responseStep(item, feedback),
   ].join("\n");
 }
 
-function describeFloorCause({ analysis, injection }: Decision): string {
-  return injection.suspected
-    ? "injection suspected"
-    : `proposed ${proposalOf(analysis).action}, requested ${requestOf(analysis)}`;
+function describeFloorCause({ analysis, injection, payment }: Decision): string {
+  if (injection.suspected) {
+    return "injection suspected";
+  }
+  if (payment.suspected) {
+    return `payment suspected: ${payment.evidence.join("; ")}`;
+  }
+  return `proposed ${proposalOf(analysis).action}, requested ${requestOf(analysis)}`;
 }
 
 function describeLearned({ senderClass }: Email, { analysis, learned, pin }: Decision): string {
@@ -91,7 +94,7 @@ function describeLearned({ senderClass }: Email, { analysis, learned, pin }: Dec
   return `${learned} for ${analysis.proposal.action}/${senderClass}${pinned}`;
 }
 
-function notAnalyzed({ evidence }: InjectionVerdict): string {
+function notAnalyzed({ evidence }: Verdict): string {
   return `injection suspected; not analyzed (${evidence.join("; ")})`;
 }
 
@@ -108,13 +111,13 @@ function describeItem(item: Item): string {
     : `${item.kind} item #${item.id} ${item.status}`;
 }
 
-// A silent decision has no item; its only response is a revert, which writes feedback.
+// A silent decision has no item; its only response is a correction, which writes feedback.
 function responseStep(item: Item | null, feedback: Feedback | null): string[] {
   if (item && item.status !== "open") {
     const learned = feedback ? describeFeedback(feedback) : "no feedback (escalation)";
-    return [`9 response   ${item.status} ${describeProposal(item.proposal)}; ${learned}`];
+    return [`8 response   ${item.status} ${describeProposal(item.proposal)}; ${learned}`];
   }
-  return !item && feedback ? [`9 response   reverted; ${describeFeedback(feedback)}`] : [];
+  return !item && feedback ? [`8 response   corrected; ${describeFeedback(feedback)}`] : [];
 }
 
 function describeFeedback({ kind, action, senderClass }: Feedback): string {

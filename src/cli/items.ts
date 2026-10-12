@@ -4,6 +4,9 @@ import type { ProposalEdit } from "../domain/actions.ts";
 import { liveOption, positiveInteger, type OpenAgent } from "./options.ts";
 import { renderResponse } from "./render.ts";
 
+const SET_HELP =
+  "param to change, repeatable; action=<name> switches the action. Values parse as JSON when they can; quote to keep text, e.g. label='\"2024\"'";
+
 type ItemOptions = { set: ProposalEdit; reason?: string; live?: boolean };
 
 type Respond = (
@@ -29,11 +32,7 @@ export function addItemCommands(program: Command, openAgent: OpenAgent): void {
   itemCommand("edit", "Change an ask's proposal, then approve it", (agent, id, { set }) =>
     agent.edit(id, set),
   )
-    .requiredOption(
-      "--set <key=value>",
-      "param to change, repeatable; action=<name> switches the action. Values parse as JSON when they can; quote to keep text, e.g. label='\"2024\"'",
-      collectPair,
-    )
+    .requiredOption("--set <key=value>", SET_HELP, collectPair)
     .addOption(liveOption());
   itemCommand(
     "reject",
@@ -48,15 +47,20 @@ export function addItemCommands(program: Command, openAgent: OpenAgent): void {
   );
 
   program
-    .command("revert")
+    .command("correct")
     .argument(
       "<decisionId>",
       "decision id from `agent log`",
       positiveInteger("a decision id such as 7"),
     )
-    .description("Revert a silent action and step its bucket back to notify")
-    .action((decisionId: number) => {
-      console.log(renderResponse(openAgent({ live: false }).revert(decisionId)));
+    .description(
+      "Say what a silent decision should have done: undoes its action and teaches, never executes",
+    )
+    .requiredOption("--set <key=value>", SET_HELP, collectPair)
+    .addOption(liveOption())
+    .action(async (decisionId: number, { set, live }: ItemOptions) => {
+      const agent = openAgent({ live: live ?? false });
+      console.log(renderResponse(await agent.correct(decisionId, set)));
     });
 }
 

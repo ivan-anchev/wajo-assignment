@@ -61,10 +61,8 @@ async function runEpisode(
 }
 
 async function deliverAndAnswer(agent: Agent, scenario: Scenario, tag: string): Promise<void> {
-  const { item } = (await agent.run(writeInbox(emailsOf([scenario], tag), CONTACTS)))[0]!;
-  if (item) {
-    await answer(agent, scenario, item);
-  }
+  const [transcript] = await agent.run(writeInbox(emailsOf([scenario], tag), CONTACTS));
+  await answer(agent, scenario, transcript!);
 }
 
 function outcomesOf(agent: Agent, scenarios: readonly Scenario[], tag: string): Episode {

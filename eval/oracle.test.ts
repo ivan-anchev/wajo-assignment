@@ -6,6 +6,7 @@ import {
   INBOX,
   modelProposing,
   newsletterInbox,
+  NONE,
   PAY_INVOICE,
   requestsNamed,
   SEND_REPLY,
@@ -66,7 +67,7 @@ describe("oracle on an ask", () => {
       name: "edits a wrong action to gold with the corrected params",
       scenario: scenarioWith("label", { params: { label: "reading" } }),
       status: "approved",
-      feedback: "edit",
+      feedback: "redirect",
       executed: { action: "label", params: { label: "reading" } },
       extractions: 1,
     },
@@ -74,7 +75,7 @@ describe("oracle on an ask", () => {
       name: "edits a wrong action to a gold action that takes no params",
       scenario: scenarioWith("archive"),
       status: "approved",
-      feedback: "edit",
+      feedback: "redirect",
       executed: ARCHIVE,
       extractions: 1,
     },
@@ -107,7 +108,7 @@ describe("oracle on an ask", () => {
     const agent = new Agent({ store, model: llm });
     await agent.run(INBOX);
 
-    const { transcript } = await answer(agent, scenario, agent.inbox()[0]!.item!);
+    const { transcript } = (await answer(agent, scenario, agent.inbox()[0]!))!;
 
     expect(transcript.item!.status).toBe(status);
     expect(transcript.feedback!.kind).toBe(feedback);
@@ -123,19 +124,19 @@ describe("oracle on a notify", () => {
   async function notifyItem() {
     const deliver = newsletterInbox(store);
     const agent = new Agent({ store, model: modelProposing(ARCHIVE) });
-    for (let n = 0; n < 3; n++) {
+    for (let n = 0; n < 2; n++) {
       agent.approve((await deliver(ARCHIVE)).item!.id);
     }
-    return { agent, item: (await deliver(ARCHIVE)).item! };
+    return { agent, delivered: await deliver(ARCHIVE) };
   }
 
   it.each([
     { gold: "archive", status: "dismissed", undone: false },
     { gold: "label", status: "undone", undone: true },
   ] as const)("answers $status when gold is $gold", async ({ gold, status, undone }) => {
-    const { agent, item } = await notifyItem();
+    const { agent, delivered } = await notifyItem();
 
-    const { transcript } = await answer(agent, scenarioWith(gold), item);
+    const { transcript } = (await answer(agent, scenarioWith(gold), delivered))!;
 
     expect(transcript.item!.status).toBe(status);
     expect(transcript.executions[0]!.undoneAt !== null).toBe(undone);
@@ -146,14 +147,41 @@ describe("oracle on an escalation", () => {
   it("dismisses it even when the proposal matches gold, and teaches nothing", async () => {
     const agent = await agentProposing(store, PAY_INVOICE);
 
-    const { transcript } = await answer(
-      agent,
-      scenarioWith("pay_invoice"),
-      agent.inbox()[0]!.item!,
-    );
+    const { transcript } = (await answer(agent, scenarioWith("pay_invoice"), agent.inbox()[0]!))!;
 
     expect(transcript.item!.status).toBe("dismissed");
     expect(transcript.feedback).toBeNull();
     expect(transcript.executions).toEqual([]);
+  });
+});
+
+describe("oracle on a silent decision", () => {
+  async function silentNone() {
+    const llm = modelProposing(NONE, { preferences: ["Keep it short."] });
+    const agent = new Agent({ store, model: llm });
+    const [silent] = await agent.run(INBOX);
+    expect(silent).toMatchObject({ decision: { level: "silent" }, item: null });
+    return { llm, agent, silent: silent! };
+  }
+
+  it("leaves a silent decision alone when its action matches gold", async () => {
+    const { llm, agent, silent } = await silentNone();
+
+    expect(await answer(agent, scenarioWith("none"), silent)).toBeNull();
+    expect(requestsNamed(llm, "preferences")).toHaveLength(0);
+  });
+
+  it("corrects a silent decision to gold with the corrected params, executing nothing", async () => {
+    const { llm, agent, silent } = await silentNone();
+
+    const { transcript } = (await answer(
+      agent,
+      scenarioWith("label", { params: { label: "reading" } }),
+      silent,
+    ))!;
+
+    expect(transcript.executions).toEqual([expect.objectContaining({ proposal: NONE })]);
+    expect(requestsNamed(llm, "preferences")[0]).toMatch(/action.*label.*reading/);
+    expect(agent.prefs()).toBe("Keep it short.");
   });
 });

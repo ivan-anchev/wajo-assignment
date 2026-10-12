@@ -1,28 +1,28 @@
 import type { Database as Db } from "better-sqlite3";
-import type { Analysis, InjectionVerdict, LearnedLevel, Level } from "../domain/policy.ts";
+import type { Analysis, LearnedLevel, Level, Verdict } from "../domain/policy.ts";
 
 export type Decision = {
   id: number;
   emailId: string;
   // Null when the judge suspected an injection: a suspected email is never analyzed.
   analysis: Analysis | null;
-  injection: InjectionVerdict;
+  injection: Verdict;
+  payment: Verdict;
   floor: Level;
   learned: LearnedLevel;
-  brake: boolean;
   pin: Level | null;
   level: Level;
   createdAt: string;
 };
 
-type DecisionRow = Omit<Decision, "analysis" | "injection" | "brake"> & {
+type DecisionRow = Omit<Decision, "analysis" | "injection" | "payment"> & {
   analysis: string | null;
   injection: string;
-  brake: 0 | 1;
+  payment: string;
 };
 
 const COLUMNS =
-  "id, email_id AS emailId, analysis, injection, floor, learned, brake, pin, level, created_at AS createdAt";
+  "id, email_id AS emailId, analysis, injection, payment, floor, learned, pin, level, created_at AS createdAt";
 
 export class Decisions {
   constructor(private readonly db: Db) {}
@@ -30,14 +30,14 @@ export class Decisions {
   insert(decision: Omit<Decision, "id" | "createdAt">): Decision {
     const row = this.db
       .prepare<[object], DecisionRow>(
-        `INSERT INTO decisions (email_id, analysis, injection, floor, learned, brake, pin, level)
-         VALUES (@emailId, @analysis, @injection, @floor, @learned, @brake, @pin, @level) RETURNING ${COLUMNS}`,
+        `INSERT INTO decisions (email_id, analysis, injection, payment, floor, learned, pin, level)
+         VALUES (@emailId, @analysis, @injection, @payment, @floor, @learned, @pin, @level) RETURNING ${COLUMNS}`,
       )
       .get({
         ...decision,
         analysis: decision.analysis && JSON.stringify(decision.analysis),
         injection: JSON.stringify(decision.injection),
-        brake: decision.brake ? 1 : 0,
+        payment: JSON.stringify(decision.payment),
       })!;
     return toDecision(row);
   }
@@ -87,6 +87,6 @@ function toDecision(row: DecisionRow): Decision {
     ...row,
     analysis: row.analysis && JSON.parse(row.analysis),
     injection: JSON.parse(row.injection),
-    brake: row.brake === 1,
+    payment: JSON.parse(row.payment),
   };
 }

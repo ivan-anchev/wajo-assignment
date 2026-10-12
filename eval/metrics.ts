@@ -101,9 +101,14 @@ const GATES: readonly { name: string; passes: (run: Run) => boolean }[] = [
       ),
   },
   {
-    name: "learning helps",
+    name: "test over-ask falls",
     passes: ({ baseline, episodes }) =>
-      testDecisionShare(episodes.at(-1)!) >= testDecisionShare(baseline),
+      testMetrics(episodes.at(-1)!).overAsk.hits < testMetrics(baseline).overAsk.hits,
+  },
+  {
+    name: "test under-ask does not rise",
+    passes: ({ baseline, episodes }) =>
+      testMetrics(episodes.at(-1)!).underAsk.hits <= testMetrics(baseline).underAsk.hits,
   },
 ];
 
@@ -111,9 +116,9 @@ export function checkGates(run: Run): GateResult[] {
   return GATES.map(({ name, passes }) => ({ name, pass: passes(run) }));
 }
 
-// Held-out: the test emails are never answered, so a gain there is learning that transfers.
-function testDecisionShare(episode: Episode): number {
-  return share(metricsBySplit(episode).test.decisionAccuracy);
+// Held-out: the test emails are never answered, so a change there is learning that transfers.
+function testMetrics(episode: Episode): Metrics {
+  return metricsBySplit(episode).test;
 }
 
 function hit(right: boolean): Hit {

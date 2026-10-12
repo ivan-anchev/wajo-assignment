@@ -18,7 +18,7 @@ beforeEach(() => {
 });
 
 async function learnNotify() {
-  for (let n = 0; n < 3; n++) {
+  for (let n = 0; n < 2; n++) {
     agent.approve((await deliver(ARCHIVE)).item!.id);
   }
 }
@@ -40,15 +40,14 @@ describe("pins (§7.3)", () => {
     });
   });
 
-  it("never lowers learned plus brake", async () => {
+  it("never lowers the learned level", async () => {
     await learnNotify();
-    agent.pin("archive", "newsletter", "notify");
+    agent.pin("archive", "newsletter", "silent");
 
-    expect((await deliver(ARCHIVE, { confidence: 0.5 })).decision).toMatchObject({
+    expect((await deliver(ARCHIVE)).decision).toMatchObject({
       learned: "notify",
-      brake: true,
-      pin: "notify",
-      level: "ask",
+      pin: "silent",
+      level: "notify",
     });
   });
 
@@ -62,11 +61,11 @@ describe("pins (§7.3)", () => {
   it("lets learning climb behind it, unannounced, and unpin reports the learned level", async () => {
     agent.pin("archive", "newsletter", "ask");
     const promotions: (string | null)[] = [];
-    for (let n = 0; n < 3; n++) {
+    for (let n = 0; n < 2; n++) {
       promotions.push(agent.approve((await deliver(ARCHIVE)).item!.id).promotion);
     }
 
-    expect(promotions).toEqual([null, null, null]);
+    expect(promotions).toEqual([null, null]);
     expect(agent.unpin("archive", "newsletter")).toMatchObject({ pin: null, level: "notify" });
     expect((await deliver(ARCHIVE)).decision).toMatchObject({ pin: null, level: "notify" });
   });

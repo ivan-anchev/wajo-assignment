@@ -15,6 +15,7 @@ import {
   levelFor,
   proposalOf,
   requestOf,
+  type FeedbackKind,
   type ItemResponse,
   type Level,
 } from "../domain/policy.ts";
@@ -25,6 +26,7 @@ import type { Store, Transcript } from "../db/store.ts";
 import { readInbox, type Email, type InboxSource, type SenderClass } from "../inbox/inbox.ts";
 import { analyze } from "./analyze.ts";
 import { checkInjection } from "./check-injection.ts";
+import { checkPayment } from "./check-payment.ts";
 import { Learner, type BucketStanding } from "./learner.ts";
 import { PreferenceMemory } from "./preferences.ts";
 
@@ -82,21 +84,26 @@ export class Agent {
   }
 
   async edit(itemId: number, changes: ProposalEdit): Promise<ResponseResult> {
-    const preferences = await this.memory.extractAfterEdit(
-      this.openItemAcceptingEdit(itemId, changes),
-      changes,
-    );
+    const item = this.openItemAcceptingEdit(itemId, changes);
+    const edited = proposalAfterEdit(item.proposal, changes);
+    const preferences = await this.memory.extractAfterEdit(item.decisionId, changes);
 
     return this.respondAndNotePreferences(preferences, () =>
-      this.respondToItem(itemId, "edit", (item, decision) =>
-        this.executeApprovedProposal(item, decision, proposalAfterEdit(item, changes)),
+      this.respondToItem(
+        itemId,
+        "edit",
+        (current, decision) => this.executeApprovedProposal(current, decision, edited),
+        editFeedback(item.proposal, edited),
       ),
     );
   }
 
   async reject(itemId: number, reason?: string): Promise<ResponseResult> {
     const preferences = reason
-      ? await this.memory.extractAfterReason(this.openItemAccepting(itemId, "reject"), reason)
+      ? await this.memory.extractAfterReason(
+          this.openItemAccepting(itemId, "reject").decisionId,
+          reason,
+        )
       : null;
 
     return this.respondAndNotePreferences(preferences, () =>
@@ -116,15 +123,19 @@ export class Agent {
     return this.respondToItem(itemId, "dismiss", (item) => this.closeItem(item, "dismissed"));
   }
 
-  revert(decisionId: number): ResponseResult {
-    return this.store.transaction(() => {
-      const { decision, email, execution } = this.revertableExecutionOf(decisionId);
+  // A silent decision has no item to answer; the user corrects it after the fact. The correction
+  // undoes what ran and teaches like an undo, but never executes the corrected proposal.
+  async correct(decisionId: number, changes: ProposalEdit): Promise<ResponseResult> {
+    const transcript = this.uncorrectedSilentDecision(decisionId, changes);
+    const preferences = await this.memory.extractAfterCorrection(decisionId, changes);
 
-      this.undoExecution(decision, execution);
-
-      const promotion = this.learner.recordResponse(decision, email.senderClass, "undo");
-
-      return { transcript: this.store.transcript(decision), promotion, preference: null };
+    return this.respondAndNotePreferences(preferences, () => {
+      const promotion = this.undoSilentExecution(transcript);
+      return {
+        transcript: this.store.transcript(transcript.decision),
+        promotion,
+        preference: null,
+      };
     });
   }
 
@@ -154,6 +165,7 @@ export class Agent {
     const { email } = event;
     // Guard first: a suspected email never reaches the analysis prompt, so nothing it steered is stored.
     const injection = await checkInjection(this.model, email);
+    const payment = checkPayment(email);
     const analysis = injection.suspected
       ? null
       : await analyze(this.model, email, this.memory.text());
@@ -167,8 +179,9 @@ export class Agent {
       emailId: email.id,
       analysis,
       injection,
+      payment,
       pin,
-      ...levelFor(analysis, injection, history, pin),
+      ...levelFor(analysis, [injection, payment], history, pin),
     });
   }
 
@@ -231,6 +244,7 @@ export class Agent {
     itemId: number,
     response: ItemResponse,
     takeEffect: (item: Item, decision: Decision) => void,
+    feedback: FeedbackKind = response,
   ): ResponseResult {
     return this.store.transaction(() => {
       const item = this.openItemAccepting(itemId, response);
@@ -242,7 +256,7 @@ export class Agent {
       const promotion =
         item.kind === "escalate"
           ? null
-          : this.learner.recordResponse(decision, senderClass, response);
+          : this.learner.recordResponse(decision, senderClass, feedback);
 
       return { transcript: this.store.transcript(decision), promotion, preference: null };
     });
@@ -274,7 +288,7 @@ export class Agent {
 
     refuseIfFloorEscalates(
       this.store.decisions.get(item.decisionId),
-      proposalAfterEdit(item, changes),
+      proposalAfterEdit(item.proposal, changes),
     );
 
     return item;
@@ -296,7 +310,8 @@ export class Agent {
     this.store.items.update(item.id, { status, proposal });
   }
 
-  private revertableExecutionOf(decisionId: number): Transcript & { execution: Execution } {
+  // Every refusal `correct` can raise, checked without writing anything.
+  private uncorrectedSilentDecision(decisionId: number, changes: ProposalEdit): Transcript {
     const decision = this.store.decisions.find(decisionId);
     if (!decision) {
       throw new Refusal(`There is no decision #${decisionId}.`);
@@ -310,39 +325,49 @@ export class Agent {
       );
     }
 
-    const [execution] = transcript.executions;
-    if (!execution || actionFor(execution.proposal.action).inert) {
-      throw new Refusal(`Decision #${decisionId} executed nothing to revert.`);
+    if (transcript.feedback) {
+      throw new Refusal(`Decision #${decisionId} is already corrected.`);
     }
 
-    if (execution.undoneAt) {
-      throw new Refusal(`Decision #${decisionId} is already undone.`);
-    }
+    proposalAfterEdit(proposalOf(decision.analysis), changes);
 
-    return { ...transcript, execution };
+    return transcript;
+  }
+
+  private undoSilentExecution({ decision, email, executions }: Transcript): string | null {
+    this.undoExecution(decision, executions[0]!);
+
+    return this.learner.recordResponse(decision, email.senderClass, "undo");
   }
 }
 
-function proposalAfterEdit(item: Item, changes: ProposalEdit): Proposal {
-  const { action = item.proposal.action, ...params } = changes;
-  const base = action === item.proposal.action ? item.proposal.params : {};
+function proposalAfterEdit(proposal: Proposal, changes: ProposalEdit): Proposal {
+  const { action = proposal.action, ...params } = changes;
+  const base = action === proposal.action ? proposal.params : {};
   const parsed = proposalSchema.safeParse({ action, params: { ...base, ...params } });
 
   if (!parsed.success) {
-    throw new Refusal(`Invalid edit for item #${item.id}: ${z.prettifyError(parsed.error)}`);
+    throw new Refusal(`Invalid edit: ${z.prettifyError(parsed.error)}`);
   }
 
   return parsed.data;
 }
 
-function refuseIfFloorEscalates({ analysis, injection }: Decision, proposal: Proposal): void {
-  if (floor([proposal.action, requestOf(analysis)], injection.suspected) === "escalate") {
+function editFeedback(proposed: Proposal, edited: Proposal): FeedbackKind {
+  return edited.action === proposed.action ? "edit" : "redirect";
+}
+
+function refuseIfFloorEscalates(
+  { analysis, injection, payment }: Decision,
+  proposal: Proposal,
+): void {
+  if (floor([proposal.action, requestOf(analysis)], [injection, payment]) === "escalate") {
     throw new Refusal(`${proposal.action} must be escalated; nothing was executed.`);
   }
 }
 
 function refusePinBelowFloor(action: ActionName, level: Level): void {
-  const least = floor([action], false);
+  const least = floor([action], []);
 
   if (isBelow(level, least)) {
     throw new Refusal(

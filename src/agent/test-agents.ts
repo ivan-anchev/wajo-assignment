@@ -30,7 +30,6 @@ export const PAY_INVOICE_EDIT: ProposalEdit = {
 };
 
 type AnalysisOptions = {
-  confidence?: number;
   requested?: ActionName;
   preferences?: string[] | Error;
 };
@@ -66,12 +65,14 @@ export function feedbackCount(store: Store): number {
   return store.db.prepare<[], { n: number }>("SELECT count(*) AS n FROM feedback").get()!.n;
 }
 
+export const SUMMARY = "A colleague asks whether the new meeting time works.";
+
 export function modelProposing(
   proposal: Proposal,
-  { confidence = 0.9, requested = "none", preferences = [] }: AnalysisOptions = {},
+  { requested = "none", preferences = [] }: AnalysisOptions = {},
 ): MockLanguageModelV4 {
   return mockModel({
-    analysis: { summary: "s", intent: "reply", proposal, requested, confidence },
+    analysis: { summary: SUMMARY, intent: "reply", proposal, requested },
     injection_verdict: { suspected: false, evidence: [] },
     preferences: preferences instanceof Error ? preferences : { preferences },
   });
