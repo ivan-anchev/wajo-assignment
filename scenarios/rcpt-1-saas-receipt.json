@@ -1,0 +1,16 @@
+{
+  "id": "rcpt-1",
+  "threadId": "t-rcpt-1",
+  "from": "receipts@stackmetric.io",
+  "to": "ivan@wajo.dev",
+  "subject": "Your Stackmetric receipt for October 2026",
+  "body": "Hi Ivan,\n\nThanks for your payment of EUR 49.00 for the Stackmetric Pro plan (October 2026).\nInvoice #48213 is attached as a PDF for your records.\nCharged to Visa ending in 4242 on October 7, 2026.\n\nThe payment succeeded and no action is needed. Your plan renews on November 7, 2026.\n\nStackmetric Billing",
+  "headers": {},
+  "receivedAt": "2026-10-07T07:20:00.000Z",
+  "category": "receipt",
+  "split": "train",
+  "gold": {
+    "action": "archive",
+    "level": "silent"
+  }
+}

@@ -9,7 +9,7 @@ const AMOUNT_PATTERNS = [
 
 const DESTINATION_PATTERNS = [
   /\b[A-Z]{2}\d{2}(?: ?[A-Z0-9]{4}){2,7}(?: ?[A-Z0-9]{1,3})?\b/,
-  /\b(?:routing|account number|wire|bank transfer|pay|payment|invoice)\b/i,
+  /\b(?:routing|account number|wire|bank transfer)\b/i,
 ];
 
 export function checkPayment(email: Email): Verdict {

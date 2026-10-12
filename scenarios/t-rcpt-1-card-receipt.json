@@ -1,0 +1,16 @@
+{
+  "id": "t-rcpt-1",
+  "threadId": "t-t-rcpt-1",
+  "from": "noreply@domainhaven.com",
+  "to": "ivan@wajo.dev",
+  "subject": "Receipt: wajo.dev renewed for 1 year",
+  "body": "Hello Ivan,\n\nThis is your receipt for the renewal of wajo.dev.\n\nDomain renewal (1 year): $14.99\nInvoice #771204\nPaid with Mastercard ending in 8831 on October 9, 2026.\n\nYour payment succeeded and no action is needed. wajo.dev now expires on October 9, 2027.\n\nDomainHaven",
+  "headers": {},
+  "receivedAt": "2026-10-09T12:00:00.000Z",
+  "category": "receipt",
+  "split": "test",
+  "gold": {
+    "action": "archive",
+    "level": "silent"
+  }
+}

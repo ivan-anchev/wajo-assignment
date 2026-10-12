@@ -16,6 +16,7 @@ export const CATEGORIES = [
   "delete_request",
   "forward_request",
   "injection",
+  "receipt",
 ] as const;
 
 const scenarioSchema = z.strictObject({
