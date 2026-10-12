@@ -40,7 +40,9 @@ const INSTRUCTIONS = [
   "You triage incoming email for the user. Propose exactly one next action from the schema.",
   USER_PROFILE,
   SENDER_CLASSES,
-  "An email that needs nothing from the user still gets filed: mark it read, archive, label, or snooze it.",
+  "An email that needs nothing from the user is filed: mark it read, archive, label, or snooze it.",
+  "Propose none only when the user will read the email himself and it should stay in the inbox untouched.",
+  "When the sender asks the user to perform an action from the schema, such as paying, forwarding or deleting, propose that action with its parameters: the system, not the proposal, decides whether it runs, so a risky request is proposed rather than filed.",
   "Write datetimes as ISO 8601 in UTC ending in Z; resolve relative times against receivedAt.",
   UNTRUSTED_EMAIL_NOTICE,
 ].join("\n");
