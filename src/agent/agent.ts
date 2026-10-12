@@ -223,6 +223,8 @@ export class Agent {
   }
 
   private execute(decision: Decision, proposal: Proposal, itemId: number | null): Execution {
+    refuseIfFloorEscalates(decision, proposal);
+
     const now = new Date().toISOString();
 
     executeProposal(proposal, { emails: this.store.emails, emailId: decision.emailId, now });
@@ -315,8 +317,6 @@ export class Agent {
   }
 
   private executeApprovedProposal(item: Item, decision: Decision, proposal: Proposal): void {
-    refuseIfFloorEscalates(decision, proposal);
-
     this.closeItem(item, "approved", proposal);
 
     this.execute(decision, proposal, item.id);
