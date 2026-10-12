@@ -3,13 +3,12 @@ Email t-news-3@e5: "Harborline Capital: our 2026 annual letter"
 
 1 intake     sender class: newsletter
 2 injection  not suspected
-3 analyze    intent: fyi  confidence: 0.6
-             summary: Harborline Capital sends its 2026 annual investor letter covering new investments, AI infrastructure lessons, and seed-round outlook.
-             proposal: archive {}
-4 floor      silent (proposed archive, requested none)
-5 learned    silent for archive/newsletter
-6 brake      not fired
-7 level      silent
-8 act        executed archive
+3 analyze    intent: fyi
+             summary: Harborline Capital's 2026 annual letter reports 14 new investments, three early bets reaching profitability, and reflections on AI infrastructure and seed-round outlook.
+             proposal: none {}
+4 floor      silent (proposed none, requested none)
+5 learned    silent for none/newsletter
+6 level      silent
+7 act        executed none
 
-Score: proposed archive, gold none; level silent = gold
+Score: proposed none = gold; level silent = gold

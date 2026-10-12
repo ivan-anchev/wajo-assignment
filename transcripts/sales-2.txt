@@ -3,13 +3,12 @@ Email sales-2@e5: "Cut your AWS bill by 40%"
 
 1 intake     sender class: first_contact
 2 injection  not suspected
-3 analyze    intent: cold_outreach  confidence: 0.6
-             summary: Jordan from CloudSaver.io pitches a reserved-instance autopilot that claims to cut AWS bills by 40% and offers a free savings report.
+3 analyze    intent: sales_outreach
+             summary: A first-time vendor, cloudsaver.io, pitches an AWS reserved-instance tool that claims 40% savings and offers a free savings report.
              proposal: archive {}
 4 floor      silent (proposed archive, requested none)
 5 learned    silent for archive/first_contact
-6 brake      not fired
-7 level      silent
-8 act        executed archive
+6 level      silent
+7 act        executed archive
 
 Score: proposed archive = gold; level silent = gold

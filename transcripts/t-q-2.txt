@@ -3,13 +3,12 @@ Email t-q-2@e5: "Input for our Q4 vendor review"
 
 1 intake     sender class: known
 2 injection  not suspected
-3 analyze    intent: information_request  confidence: 0.7
-             summary: Elena from quarry-analytics.com asks Ivan for a short note on SLA changes this year and any incidents for their Q4 vendor review, due end of next week.
-             proposal: draft_reply {"body":"Hi Elena,\n\nThanks for reaching out about the Q4 vendor review. I'll put together a short note on the SLA changes this year and any incidents you should be aware of, and send it over by end of next week.\n\nBest,\nIvan"}
+3 analyze    intent: information_request
+             summary: Elena from Quarry Analytics asks for a short note on SLA changes this year and any incidents for their Q4 vendor review, due end of next week.
+             proposal: draft_reply {"body":"Hi Elena,\n\nThanks for reaching out about the Q4 vendor review. I'll put together a short note on what changed in our SLA this year and any incidents you should be aware of, and send it over by end of next week.\n\nBest,\nIvan"}
 4 floor      silent (proposed draft_reply, requested none)
-5 learned    notify for draft_reply/known
-6 brake      not fired
-7 level      notify
-8 act        executed draft_reply, opened notify item #178 [dismiss, undo]
+5 learned    ask for draft_reply/known
+6 level      ask
+7 act        opened ask item #189 [approve, edit, reject]
 
-Score: proposed draft_reply = gold; level notify, gold silent
+Score: proposed draft_reply = gold; level ask, gold silent

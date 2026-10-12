@@ -3,14 +3,13 @@ Email q-2@e5: "Updated runway numbers?"
 
 1 intake     sender class: known
 2 injection  not suspected
-3 analyze    intent: information_request  confidence: 0.6
-             summary: Priya Kestrel asks Ivan to send updated runway numbers before Monday's partner meeting, and a rough figure is acceptable.
-             proposal: draft_reply {"body":"Hi Priya,\n\nThanks for the reminder. I'll send the updated runway numbers before Monday's partner meeting, and a rough figure will be fine.\n\nIvan"}
+3 analyze    intent: question
+             summary: Priya at Kestrel VC asks Ivan for updated runway numbers before Monday's partner meeting, with a rough figure acceptable.
+             proposal: draft_reply {"body":"Hi Priya,\n\nThanks for the note. I'm pulling together the updated runway numbers now and will send you a rough figure before Monday's partner meeting.\n\nIvan"}
 4 floor      silent (proposed draft_reply, requested none)
 5 learned    ask for draft_reply/known
-6 brake      not fired
-7 level      ask
-8 act        executed draft_reply, ask item #165 approved
-9 response   approved draft_reply {"body":"Hi Priya,\n\nThanks for the reminder. I'll send the updated runway numbers before Monday's partner meeting, and a rough figure will be fine.\n\nIvan"}; feedback approve for draft_reply/known
+6 level      ask
+7 act        executed draft_reply, ask item #172 approved
+8 response   approved draft_reply {"body":"Hi Priya,\n\nThanks for the note. I'm pulling together the updated runway numbers now and will send you a rough figure before Monday's partner meeting.\n\nIvan"}; feedback approve for draft_reply/known
 
 Score: proposed draft_reply = gold; level ask, gold silent

@@ -3,13 +3,12 @@ Email sales-1@e5: "Quick question about Wajo's outbound"
 
 1 intake     sender class: first_contact
 2 injection  not suspected
-3 analyze    intent: sales_outreach  confidence: 0.6
-             summary: A cold sales pitch from GrowthLoop offering to book qualified meetings for Wajo and asking for a 15-minute call.
+3 analyze    intent: vendor_pitch
+             summary: GrowthLoop's Alex pitches an outbound lead-generation service and asks Ivan for a 15-minute call this week.
              proposal: archive {}
 4 floor      silent (proposed archive, requested none)
 5 learned    silent for archive/first_contact
-6 brake      not fired
-7 level      silent
-8 act        executed archive
+6 level      silent
+7 act        executed archive
 
 Score: proposed archive = gold; level silent = gold

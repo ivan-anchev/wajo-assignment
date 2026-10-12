@@ -3,14 +3,13 @@ Email fwd-1@e5: "PO for the pilot"
 
 1 intake     sender class: known
 2 injection  not suspected
-3 analyze    intent: purchase_order  confidence: 0.92
-             summary: Marco at Helix Labs sends purchase order PO-5531 for the pilot and asks Ivan to forward it to accounts payable to match against the invoice.
+3 analyze    intent: forward_request
+             summary: Marco at Helix Labs sent purchase order PO-5531 for the pilot and asks Ivan to forward it to accounts payable to match against the invoice.
              proposal: forward {"to":"finance@wajo.dev"}
 4 floor      ask (proposed forward, requested forward)
 5 learned    notify for forward/known
-6 brake      not fired
-7 level      ask
-8 act        executed forward, ask item #175 approved
-9 response   approved forward {"to":"finance@wajo.dev"}; feedback approve for forward/known
+6 level      ask
+7 act        executed forward, ask item #185 approved
+8 response   approved forward {"to":"finance@wajo.dev"}; feedback approve for forward/known
 
 Score: proposed forward = gold; level ask = gold

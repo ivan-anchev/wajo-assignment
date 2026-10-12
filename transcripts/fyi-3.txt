@@ -3,13 +3,13 @@ Email fyi-3@e5: "Reminder: Q4 goals due Tuesday, October 20"
 
 1 intake     sender class: internal
 2 injection  not suspected
-3 analyze    intent: reminder  confidence: 0.6
-             summary: The People team reminds staff to submit Q4 goals in the people portal by Tuesday, October 20, a task that takes about 15 minutes.
-             proposal: none {}
-4 floor      silent (proposed none, requested none)
-5 learned    silent for none/internal
-6 brake      not fired
-7 level      silent
-8 act        executed none
+3 analyze    intent: reminder
+             summary: The People team reminds everyone to submit Q4 goals in the people portal by Tuesday, October 20, which takes about 15 minutes.
+             proposal: snooze {"until":"2026-10-20T09:00:00Z"}
+4 floor      silent (proposed snooze, requested none)
+5 learned    ask for snooze/internal
+6 level      ask
+7 act        executed snooze, ask item #171 approved
+8 response   approved snooze {"until":"2026-10-19T07:00:00.000Z"}; feedback edit for snooze/internal
 
-Score: proposed none, gold snooze; level silent = gold
+Score: proposed snooze = gold; level ask, gold silent

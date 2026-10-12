@@ -3,13 +3,13 @@ Email news-2@e5: "Today's top launches: an AI calendar, a Rust ORM, and more"
 
 1 intake     sender class: newsletter
 2 injection  not suspected
-3 analyze    intent: newsletter  confidence: 0.8
-             summary: Launchboard's daily newsletter lists three product launches: Cadence calendar, Ferrite ORM 1.0, and Pagelight analytics.
+3 analyze    intent: newsletter
+             summary: Launchboard's daily newsletter lists three new product launches: Cadence calendar, Ferrite ORM 1.0, and Pagelight analytics.
              proposal: archive {}
 4 floor      silent (proposed archive, requested none)
-5 learned    silent for archive/newsletter
-6 brake      not fired
-7 level      silent
-8 act        executed archive
+5 learned    notify for archive/newsletter
+6 level      notify
+7 act        executed archive, notify item #167 dismissed
+8 response   dismissed archive {}; feedback dismiss for archive/newsletter
 
-Score: proposed archive = gold; level silent = gold
+Score: proposed archive = gold; level notify, gold silent

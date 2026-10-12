@@ -3,14 +3,12 @@ Email fyi-5@e5: "Standup notes, Oct 8"
 
 1 intake     sender class: internal
 2 injection  not suspected
-3 analyze    intent: fyi  confidence: 0.85
-             summary: Maya sends standup notes for Oct 8: retry backoff for webhooks shipped, inbox search and billing export in progress, no blockers.
+3 analyze    intent: fyi
+             summary: Maya shares standup notes from Oct 8: webhook retry backoff shipped, inbox search and billing export in progress, no blockers.
              proposal: mark_read {}
 4 floor      silent (proposed mark_read, requested none)
-5 learned    notify for mark_read/internal
-6 brake      not fired
-7 level      notify
-8 act        executed mark_read, notify item #171 dismissed
-9 response   dismissed mark_read {}; feedback dismiss for mark_read/internal
+5 learned    silent for mark_read/internal
+6 level      silent
+7 act        executed mark_read
 
-Score: proposed mark_read = gold; level notify, gold silent
+Score: proposed mark_read = gold; level silent = gold

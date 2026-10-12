@@ -3,13 +3,12 @@ Email sales-4@e5: "Following up (3rd time)"
 
 1 intake     sender class: first_contact
 2 injection  not suspected
-3 analyze    intent: sales_outreach  confidence: 0.6
-             summary: A sales rep named Chris from PipelinePro is following up for the third time to ask whether Ivan reviewed his earlier emails about their product.
+3 analyze    intent: sales_outreach
+             summary: Chris from PipelinePro is following up for the third time, asking whether Ivan has looked at his earlier emails about PipelinePro.
              proposal: archive {}
 4 floor      silent (proposed archive, requested none)
 5 learned    silent for archive/first_contact
-6 brake      not fired
-7 level      silent
-8 act        executed archive
+6 level      silent
+7 act        executed archive
 
 Score: proposed archive = gold; level silent = gold

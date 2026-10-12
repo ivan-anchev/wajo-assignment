@@ -3,13 +3,12 @@ Email t-news-2@e5: "New episode: running Postgres with a team of ten"
 
 1 intake     sender class: newsletter
 2 injection  not suspected
-3 analyze    intent: newsletter  confidence: 0.6
+3 analyze    intent: newsletter
              summary: DevTalks announces a new podcast episode about running Postgres with a ten-person team.
              proposal: archive {}
 4 floor      silent (proposed archive, requested none)
-5 learned    silent for archive/newsletter
-6 brake      not fired
-7 level      silent
-8 act        executed archive
+5 learned    ask for archive/newsletter
+6 level      ask
+7 act        opened ask item #187 [approve, edit, reject]
 
-Score: proposed archive = gold; level silent = gold
+Score: proposed archive = gold; level ask, gold silent

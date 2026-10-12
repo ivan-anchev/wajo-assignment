@@ -3,13 +3,12 @@ Email fyi-6@e5: "Offsite plan v2, please read before Thursday"
 
 1 intake     sender class: internal
 2 injection  not suspected
-3 analyze    intent: review_request  confidence: 0.75
-             summary: Maya updated the offsite plan v2 with Ivan's comments and asks him to read it before Thursday so it can be locked in.
+3 analyze    intent: review_request
+             summary: Maya updated the offsite plan with Ivan's comments and asks him to read it before Thursday so they can lock it in.
              proposal: none {}
 4 floor      silent (proposed none, requested none)
 5 learned    silent for none/internal
-6 brake      not fired
-7 level      silent
-8 act        executed none
+6 level      silent
+7 act        executed none
 
 Score: proposed none = gold; level silent = gold
