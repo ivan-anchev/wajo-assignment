@@ -1,10 +1,12 @@
 import { Command } from "commander";
 import { existsSync } from "node:fs";
+import { setTimeout as sleep } from "node:timers/promises";
 import { ACTIONS } from "../domain/actions.ts";
 import { evaluate } from "../../eval/eval.ts";
 import { App } from "../app/app.ts";
 import { Refusal } from "../app/refusal.ts";
 import { Store } from "../db/store.ts";
+import type { InboxSource } from "../inbox/inbox.ts";
 import { DEFAULT_MODEL, languageModelFrom } from "../llm/llm.ts";
 import { addItemCommands } from "./items.ts";
 import { liveOption, positiveInteger, type OpenApp } from "./options.ts";
@@ -25,6 +27,8 @@ const config = {
 const openApp: OpenApp = ({ live }) =>
   new App({ store: Store.open(config.dbPath), model: languageModelFrom(config.model, { live }) });
 
+const inbox: InboxSource = { inboxDir: config.inboxDir, contactsPath: config.contactsPath };
+
 const program = new Command("agent")
   .description("Inbox agent: learns when to act, notify, ask, or escalate")
   .addHelpText("after", `\nActions:\n${ACTIONS.map((a) => `  ${describeAction(a)}`).join("\n")}`);
@@ -34,13 +38,31 @@ program
   .description("Process every new email in the inbox and print one decision per email")
   .addOption(liveOption())
   .action(async ({ live }: { live: boolean }) => {
-    const transcripts = await openApp({ live }).intake.run({
-      inboxDir: config.inboxDir,
-      contactsPath: config.contactsPath,
-    });
+    const transcripts = await openApp({ live }).intake.run(inbox);
     console.log(
       transcripts.length ? transcripts.map(renderDecisionLine).join("\n") : "No new emails.",
     );
+  });
+
+program
+  .command("watch")
+  .description("Keep running and process new emails as they arrive in the inbox")
+  .option(
+    "--every <seconds>",
+    "seconds between inbox checks",
+    positiveInteger("a count such as 5"),
+    5,
+  )
+  .addOption(liveOption())
+  .action(async ({ every, live }: { every: number; live: boolean }) => {
+    const { intake } = openApp({ live });
+    for (;;) {
+      const transcripts = await intake.run(inbox);
+      if (transcripts.length) {
+        console.log(transcripts.map(renderDecisionLine).join("\n"));
+      }
+      await sleep(every * 1000);
+    }
   });
 
 program
