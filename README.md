@@ -8,38 +8,36 @@ so it asks less over time. A safety floor in code never moves. `DESIGN.md` has t
 No API key is needed unless a command says `--live`: every other model call replays from
 `fixtures/llm/`.
 
-## Install
+## Setup
 
-Install Node 24 from [https://nodejs.org](https://nodejs.org), or with `nvm install 24` or `fnm install 24`.
+Install Node 24 from [https://nodejs.org](https://nodejs.org), or with `nvm install 24` or `fnm install 24`
 
 Enable pnpm and install deps
-
 ```sh
 corepack enable
 pnpm install
 ```
 
-(Optional) Create the local config. Only `--live` reads it; every other command runs without it:
+(Optional) Create the local config. Only `--live` reads it, every other command runs without it:
 
 ```sh
 cp .env.example .env
 ```
 
-Out of the box the project uses the Anthropic provider, which recorded every fixture, so another
-`MODEL` needs `--live` and that provider's API key.
+Out of the box the project uses Anthropic provider with fixtures precorded. A `--live` run needs `ANTHROPIC_API_KEY` set in env.
 
 ## Demo
 
 ```sh
-pnpm tui          # replays recorded model answers; no API key needed
+pnpm tui          # replays recorded model answers under fixtures/llm, no API key needed
 pnpm tui --live   # calls the model, needs .env and an API key
 ```
 
-Press `n` to deliver and process the next scenario email (or `N` to dump the full inbox) from `scenarios/`
+![The TUI after 33 emails: Inbox on the left, Activity and Learning on the right](docs/tui.png)
+
+Press `n` to deliver and process the next scenario email (or `N` to dump the full inbox) from `scenarios/`.
 
 Press `x` to reset inbox and db.
-
-![The TUI after 33 emails: Inbox on the left, Activity and Learning on the right](docs/tui.png)
 
 **Inbox** lists per-email results from the agent that need you:
 
@@ -60,7 +58,7 @@ pnpm check          # typecheck, lint, format check, tests
 pnpm agent eval     # plays every scenario; writes RESULTS.md, results.json, transcripts/
 ```
 
-`RESULTS.md` is the output of the committed eval run: the metrics per episode and the gates. The
+[`RESULTS.md`](https://github.com/ivan-anchev/wajo-assignment/blob/main/RESULTS.md) is the output of the committed eval run: the metrics per episode and the gates. The
 model answers it replayed are committed in `fixtures/llm/` for ease of review, so the same run can
 be repeated offline, and `transcripts/` can be read without running anything.
 
@@ -84,8 +82,7 @@ pnpm agent --help                # all commands and the action registry
 ## Replay
 
 Each model request is hashed. Its answer is read from `fixtures/llm/<hash>.json`. Without
-`--live`, a missing fixture is an error that names the file. The fixtures are committed, so the
-TUI, the CLI, the tests, and the eval all run offline and give the same answers every time.
+`--live`. The fixtures are committed, so the TUI, the CLI, the tests, and the eval all run offline and give the same answers every time.
 
 ## Re-record
 
@@ -94,12 +91,6 @@ Run the eval live. It records new fixtures and regenerates the results:
 
 ```sh
  pnpm agent eval --live
-```
-
-Record the sample inbox again, since its fixtures are read by the tests:
-
-```sh
-rm agent.db && pnpm agent run --live
 ```
 
 Each live run draws new samples from the model, so a number can move by a scenario or two with no
