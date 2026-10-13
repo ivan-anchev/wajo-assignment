@@ -32,7 +32,7 @@ Out of the box the project uses the Anthropic provider, which recorded every fix
 
 ```sh
 pnpm tui          # replays recorded model answers; no API key needed
-pnpm tui --live   # calls the model; needs .env, see Re-record
+pnpm tui --live   # calls the model, needs .env and an API key
 ```
 
 Press `n` to deliver and process the next scenario email (or `N` to dump the full inbox) from `scenarios/`
