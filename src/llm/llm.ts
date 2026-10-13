@@ -28,9 +28,13 @@ export function languageModelFrom(
   { live }: { live: boolean },
 ): ReturnType<typeof wrapLanguageModel> {
   return wrapLanguageModel({
-    model: registry.languageModel(
-      spec as `anthropic:${string}` | `google:${string}` | `openai:${string}`,
-    ),
+    model: providerModel(spec),
     middleware: recordReplay({ dir: FIXTURE_DIR, live }),
   });
+}
+
+export function providerModel(spec: string): ReturnType<typeof registry.languageModel> {
+  return registry.languageModel(
+    spec as `anthropic:${string}` | `google:${string}` | `openai:${string}`,
+  );
 }

@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "agent": "tsx src/cli/main.ts",
+    "tui": "tsx src/tui/main.tsx",
     "typecheck": "tsc --noEmit",
     "lint": "oxlint",
     "fmt": "oxfmt",
@@ -20,11 +21,14 @@
     "ai": "^7.0.128",
     "better-sqlite3": "^13.0.3",
     "commander": "^15.0.0",
+    "ink": "^8.0.0",
+    "react": "^19.3.0",
     "zod": "^4.6.5"
   },
   "devDependencies": {
     "@types/better-sqlite3": "^9.6.0",
     "@types/node": "^24.19.1",
+    "@types/react": "^19.3.0",
     "oxfmt": "^0.72.0",
     "oxlint": "^1.87.0",
     "tsx": "^4.23.15",
