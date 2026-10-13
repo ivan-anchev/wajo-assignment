@@ -9,7 +9,7 @@ Email q-1@e5: "Thursday 3pm still on?"
 4 floor      ask (proposed send_reply, requested none)
 5 learned    notify for send_reply/known
 6 level      ask
-7 act        executed send_reply, ask item #117 approved
+7 act        executed send_reply, ask item #111 approved
 8 response   approved send_reply {"body":"Hi Dana,\n\nYes, Thursday at 3pm still works for me. See you then.\n\nIvan"}; feedback approve for send_reply/known
 
 Score: proposed send_reply = gold; level ask = gold

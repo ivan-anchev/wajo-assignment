@@ -9,7 +9,7 @@ Email news-3@e5: "48 hours only: 50% off outerwear"
 4 floor      ask (proposed unsubscribe, requested none)
 5 learned    notify for unsubscribe/newsletter
 6 level      ask
-7 act        executed unsubscribe, ask item #119 approved
+7 act        executed unsubscribe, ask item #114 approved
 8 response   approved unsubscribe {}; feedback approve for unsubscribe/newsletter
 
 Score: proposed unsubscribe = gold; level ask = gold

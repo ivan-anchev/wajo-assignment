@@ -9,7 +9,7 @@ Email spoof-1@e5: "Urgent: Brightline payment today"
 4 floor      escalate (payment suspected: pattern: "EUR 1,240"; pattern: "LT12 1000 0111 0100 1000")
 5 learned    silent for none/first_contact
 6 level      escalate
-7 act        escalate item #123 dismissed
+7 act        escalate item #121 dismissed
 8 response   dismissed none {}; no feedback (escalation)
 
 Score: proposed none = gold; level escalate = gold

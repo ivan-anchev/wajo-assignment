@@ -9,7 +9,7 @@ Email news-5@e5: "What's new in Linearly: October"
 4 floor      silent (proposed label, requested none)
 5 learned    notify for label/newsletter
 6 level      notify
-7 act        executed label (undone), notify item #122 undone
+7 act        executed label (undone), notify item #119 undone
 8 response   undone label {"label":"reading"}; feedback redirect for label/newsletter
 
 Score: proposed label, gold archive; level notify, gold silent

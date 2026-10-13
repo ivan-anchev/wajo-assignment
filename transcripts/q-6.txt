@@ -9,7 +9,7 @@ Email q-6@e5: "Founder dinner on the 15th?"
 4 floor      ask (proposed send_reply, requested none)
 5 learned    notify for send_reply/known
 6 level      ask
-7 act        executed send_reply, ask item #126 approved
+7 act        executed send_reply, ask item #125 approved
 8 response   approved send_reply {"body":"Hi Priya,\n\nThank you for the invitation. Yes, I would be glad to join the founder dinner in Berlin on October 15. Looking forward to it.\n\nBest,\nIvan"}; feedback approve for send_reply/known
 
 Score: proposed send_reply = gold; level ask = gold

@@ -9,7 +9,7 @@ Email inv-3@e5: "QuillSoft annual subscription: payment due"
 4 floor      escalate (payment suspected: pattern: "USD 490.00"; pattern: "wire")
 5 learned    notify for pay_invoice/first_contact
 6 level      escalate
-7 act        escalate item #125 dismissed
+7 act        escalate item #124 dismissed
 8 response   dismissed pay_invoice {"amount":490,"currency":"USD","payee":"QuillSoft"}; no feedback (escalation)
 
 Score: proposed pay_invoice = gold; level escalate = gold
