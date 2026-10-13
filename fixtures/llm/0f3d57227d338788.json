@@ -52,7 +52,7 @@
         "text": "",
         "providerMetadata": {
           "anthropic": {
-            "signature": "CAQSmAYKEAgSGAI4AUIIdGhpbmtpbmcSDKaWXmO8wuna+HzcehoMh+OUVPqO86jDVF2MIjBLtGiE6DUBzzY6v7Q8fKSiYNsGYNMKly3KpNQ4K3kP9wKfxndgodmp8xV/hHEbO3YqtQXdLMZ4myoBSungevHRsT4ZdjCS98G/4ShEj6APsvNaLMxLIkhStxWDp7xLGTKhR1yRutUxlNuAqr7ZQSeJz2YKp+3I418KbuAQCE3DXyX8T9UhLWDOGakgeHEnY0vK0xX/47orRkEaqwJ6bdd8dKgKUOm/5UINg3BiOEi++okOYpBeNtBUiX2TgYezv13XS/E/Yr6lVEum/MOW/fO3lTXnGbwQXr0CqI0qSAtDpLURpuq55MFUpVJph7+WUBskGefKaGH7usWX/3aDN1RKOMx7R2rm05FKJhXd5zrXORZ8Y9UNpL3bTk0UPpycugOi3r54s1msa3AFKeHRhDeVCTq95p+d6mgDMFrnOCNHjUS0+jaitLobszcd/1Z00gxxQKN6HrFuAlzBvBem65Fv9eLZqebv97tPuQaVcru6TIQ1FeS+mXiwz9w9Lr0dD5ZhLDrbsOttQ5P2sY3hBSPRF6RJGktV4/GUwytYSVfCmP3Qh8/rv8+YhmMqeii6rGAEUQjuKa3fde7h/J7fM87uIN/HSbFOLQJfnN52OABbN/N5Fhdbd0+QExW3hCnsHwQbbyFHXYoNjxB49LD6ZcLVeUAC7KzsISgl3udGi+x/8ySN5iWCnejii1jkwQRm6j7+NNbmqg1fpvHP+r9KHdf8tvC/nbWSkVcP/fMv8eIz+ApGryy2UjoTwzSHMt8SEDY3flBM0LqTgFirVLsXhqd3ZlXw5EyydYuo8tzMQR2dzMwgJW+iD/LqwIm1tlhVFQBJH7dL4dpLW2wiraC3aYmQWWbMklum4jRe6awbQmdAVGAlK2zvmhKAzsQpYpWz5VCP0+8tGJvyGlYZs4UhdmZYEsZ/xeZQsj4fW8t/pXyHMEUa3K35zaJ1C9aJjR2bkZ04k1bWi4CiqgSyUek9Ksg7fq9hpRRpK4cYAQ=="
+            "signature": "CAQS6wYKEAgSGAI4AUIIdGhpbmtpbmcSDBgGTdUWeihLMd6jYRoMf9Ls8cldKNk7iptdIjA4j/i/xBTK3xvUZpjmjQLodFLc9R4LJZOPbAahKfwLNv8E80j0UYWyjcSCqc5UN30qiAY40OYQ5iKWpiWIgIGsauw6VQ9ODOYRF44pdznMVujqcp0RhVa17aY2aEbfSDN0e3CY/uTTg1cQyO9jwDft52MmUB2SQJCCVxPrpBuTVbGDURTetMapq/1IBLk6rvnBY8Nen4z8Rrkx5JTs5JOkZRvRadzWpXzvBGpEk/qS+a5dSyeimKHjCYQKh2lNtRxs5CAI0CtElUx23XbwJ9RsJrHhDYVBThL75fiLdfvMlKFm2cFkRf/0DiE8iV8XYHhPgMmpDV/EF70Vm5zWTgLmy1pjPC3sdzaJYmWv4XF382mbUgHm8zKwVJQILKoVvbXvHVd5qIdwnB1kR3iBHBctVJ4idUEAUyEah+aVE3sYr70VLT4+TGf/BhC1w0derDS6TXXKE7/cZsFbmO/4rC9J+4ozCt8/TmonnzU4Z65PCugjj936Z5Ms29+Z61hqwq4WIhkTuoulirsUvxVPXVUVPh2NN6jfZQ0ol+o5QeQUGBJ16xIGZbwmFc1bMBLIZ3gZ9QGDsWNNUuu0Atz46iMXX7q6SpAGF8z1vVLUC041e/zaXYtk0D85s/fwpGRIfRZ+ih9hypQT2wUJ08e9OAtVuAMBWel7UPQIYy9EKWh6KLmgfUFeZycRdvX8xvCoUUDeJoQbVUsZyTofa+M9nhGQ4KxSjx351tB9o1buGR5JyFvsUz/S8WjDcoH0uFGW6nL8a2xDBjiKh7bi1+DhYP/AfNoOinJ5GakvgBJ8ccBg0HgoTQDhNb989JU6cfO0cah0/wQSxlVt3p9apnxHnMn0YRmAsflg1VPbtiGTJFG575Cv6hnUZVYSqkF3myj8UMLq4w0utPacyBE2Wm+Uf5NMCu9bZstGKznzA48TAGecwCD8wPXL/pae/WvcyFNUVlHI4oU5+YLkpI3ZoHA65dGIz0KbqI9s2lGi9ZGwS/MNpWRNOE8rSzuC+lLcicHGI95HpLw7TLFmJ1Wo05v9/1rqslSDlIorhvQKdFiVxArFo9bmtgY43mhfRwjOgNj6BcIhM4Ds0XuH562b8RgB"
           }
         }
       },
@@ -73,15 +73,15 @@
         "cacheWrite": 0
       },
       "outputTokens": {
-        "total": 87,
+        "total": 114,
         "text": 17,
-        "reasoning": 70
+        "reasoning": 97
       },
       "raw": {
         "input_tokens": 687,
-        "output_tokens": 87,
+        "output_tokens": 114,
         "output_tokens_details": {
-          "thinking_tokens": 70
+          "thinking_tokens": 97
         },
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,

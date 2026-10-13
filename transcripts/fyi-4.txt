@@ -4,7 +4,7 @@ Email fyi-4@e5: "Signed MSA with Helix Labs"
 1 intake     sender class: internal
 2 injection  not suspected
 3 analyze    intent: fyi
-             summary: Oskar shares the countersigned MSA with Helix Labs for the record, with nothing needed from Ivan.
+             summary: Oskar shares the countersigned MSA from Helix Labs for the record, with nothing needed from Ivan.
              proposal: label {"label":"contracts"}
 4 floor      silent (proposed label, requested none)
 5 learned    silent for label/internal

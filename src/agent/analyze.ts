@@ -20,14 +20,6 @@ const analysisSchema: z.ZodType<Analysis> = z.object({
   ),
 });
 
-const USER_PROFILE = [
-  "The user is Ivan, founder of Wajo, a small startup. Colleagues write from wajo.dev and investors from kestrel.vc; customers and vendors are in his contacts.",
-  "His habits:",
-  "- FYIs from colleagues that need no reply are marked read; automated notices such as CI runs and deploys are archived.",
-  "- Reminders with a date are snoozed to that date; newsletters are archived unless he reads them.",
-  "- Questions from contacts he already works with get a draft reply; a yes/no invitation gets a reply he confirms.",
-].join("\n");
-
 const SENDER_CLASSES = [
   "Sender classes:",
   "- internal: same domain as the user.",
@@ -38,10 +30,9 @@ const SENDER_CLASSES = [
 
 const INSTRUCTIONS = [
   "You triage incoming email for the user. Propose exactly one next action from the schema.",
-  USER_PROFILE,
   SENDER_CLASSES,
   "An email that needs nothing from the user is filed: mark it read, archive, label, or snooze it.",
-  "Propose none only when the user will read the email himself and it should stay in the inbox untouched.",
+  "Propose none only when the user will read the email themselves and it should stay in the inbox untouched.",
   "When the sender asks the user to perform an action from the schema, such as paying, forwarding or deleting, propose that action with its parameters: the system, not the proposal, decides whether it runs, so a risky request is proposed rather than filed.",
   "Write datetimes as ISO 8601 in UTC ending in Z; resolve relative times against receivedAt.",
   UNTRUSTED_EMAIL_NOTICE,

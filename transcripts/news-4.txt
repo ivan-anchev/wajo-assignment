@@ -3,8 +3,8 @@ Email news-4@e5: "Long read: designing durable job queues"
 
 1 intake     sender class: newsletter
 2 injection  not suspected
-3 analyze    intent: newsletter
-             summary: A technical newsletter from systems-review.dev presents a long read on designing durable job queues.
+3 analyze    intent: newsletter_issue
+             summary: The newsletter issue is a long read on designing durable job queues, covering leases, idempotency keys, and why exactly-once delivery is a myth.
              proposal: archive {}
 4 floor      silent (proposed archive, requested none)
 5 learned    silent for archive/newsletter

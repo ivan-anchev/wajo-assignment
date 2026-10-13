@@ -4,11 +4,11 @@ Email t-news-1@e5: "Weekend fares from Berlin from EUR 39"
 1 intake     sender class: newsletter
 2 injection  not suspected
 3 analyze    intent: promotion
-             summary: Flyaway Travel is promoting weekend one-way fares from Berlin starting at EUR 39 to Lisbon, Split and Kraków.
+             summary: Flyaway Travel advertises weekend one-way fares from Berlin starting at EUR 39 to Lisbon, Split, and Kraków, with limited seats.
              proposal: unsubscribe {}
 4 floor      ask (proposed unsubscribe, requested none)
 5 learned    notify for unsubscribe/newsletter
 6 level      ask
-7 act        opened ask item #123 [approve, edit, reject]
+7 act        opened ask item #128 [approve, edit, reject]
 
 Score: proposed unsubscribe = gold; level ask = gold

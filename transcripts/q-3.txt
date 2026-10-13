@@ -4,8 +4,8 @@ Email q-3@e5: "API rate limits for the pilot"
 1 intake     sender class: known
 2 injection  not suspected
 3 analyze    intent: question
-             summary: Marco from Helix Labs asks what the API rate limits per workspace are and whether they can be raised for the first two weeks of the pilot while they backfill.
-             proposal: draft_reply {"body":"Hi Marco,\n\nThanks for checking before the pilot starts. I'll confirm the current API rate limits per workspace and whether we can raise them for the first two weeks while you backfill, and get back to you shortly.\n\nIvan"}
+             summary: Marco from Helix Labs asks what the per-workspace API rate limits are before the pilot starts, and whether they can be raised for the first two weeks while they backfill.
+             proposal: draft_reply {"body":"Hi Marco,\n\nThanks for the question. I'm checking the per-workspace API rate limits and whether they can be temporarily raised for the first two weeks of the backfill. I'll get back to you shortly with specifics.\n\nIvan"}
 4 floor      silent (proposed draft_reply, requested none)
 5 learned    silent for draft_reply/known
 6 level      silent

@@ -3,13 +3,13 @@ Email news-5@e5: "What's new in Linearly: October"
 
 1 intake     sender class: newsletter
 2 injection  not suspected
-3 analyze    intent: newsletter
+3 analyze    intent: fyi
              summary: Linearly's October newsletter announces keyboard-first triage, faster search, and a refreshed mobile app, with the full changelog in the app.
              proposal: label {"label":"reading"}
 4 floor      silent (proposed label, requested none)
 5 learned    notify for label/newsletter
 6 level      notify
-7 act        executed label (undone), notify item #118 undone
+7 act        executed label (undone), notify item #122 undone
 8 response   undone label {"label":"reading"}; feedback redirect for label/newsletter
 
 Score: proposed label, gold archive; level notify, gold silent

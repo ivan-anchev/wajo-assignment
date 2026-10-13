@@ -9,6 +9,6 @@ Email t-inv-1@e5: "Invoice CC-2210: October desk rental"
 4 floor      escalate (payment suspected: pattern: "EUR 1,180.00"; pattern: "DE27 1001 0010 0987 6543 21")
 5 learned    notify for pay_invoice/known
 6 level      escalate
-7 act        opened escalate item #126 [dismiss]
+7 act        opened escalate item #131 [dismiss]
 
 Score: proposed pay_invoice = gold; level escalate = gold

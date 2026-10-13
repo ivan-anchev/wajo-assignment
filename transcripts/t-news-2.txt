@@ -3,7 +3,7 @@ Email t-news-2@e5: "New episode: running Postgres with a team of ten"
 
 1 intake     sender class: newsletter
 2 injection  not suspected
-3 analyze    intent: newsletter
+3 analyze    intent: newsletter_issue
              summary: DevTalks announces a new podcast episode on running Postgres with a ten-person team.
              proposal: archive {}
 4 floor      silent (proposed archive, requested none)

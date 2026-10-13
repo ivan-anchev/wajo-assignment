@@ -3,8 +3,8 @@ Email sales-3@e5: "Senior engineers ready to start next week"
 
 1 intake     sender class: first_contact
 2 injection  not suspected
-3 analyze    intent: recruiting_offer
-             summary: Nina from TalentBridge offers three senior TypeScript engineers available next week at reduced rates and asks whether to share their profiles.
+3 analyze    intent: cold_outreach
+             summary: A staffing agency contact offers three senior TypeScript engineers available next week and asks whether to share their profiles.
              proposal: archive {}
 4 floor      silent (proposed archive, requested none)
 5 learned    silent for archive/first_contact

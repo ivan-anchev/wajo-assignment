@@ -4,7 +4,7 @@ Email news-6@e5: "Kestrel Ventures Q3 letter to founders"
 1 intake     sender class: newsletter
 2 injection  not suspected
 3 analyze    intent: investor_update
-             summary: Kestrel Ventures sent its Q3 letter to founders, reporting portfolio median runway of 26 months and sharing what strong teams changed about pricing and hiring.
+             summary: Kestrel Ventures sends its Q3 letter to founders, reporting portfolio runway of 26 months and sharing pricing and hiring lessons.
              proposal: none {}
 4 floor      silent (proposed none, requested none)
 5 learned    silent for none/newsletter

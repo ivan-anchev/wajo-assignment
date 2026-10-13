@@ -46,9 +46,6 @@ const INTRO = [
   "whose floor is ask or escalate never runs before the user answers, whatever its bucket has",
   "learned.",
   "",
-  "The analysis prompt carries a short user profile, so baseline action accuracy already includes",
-  "what the profile teaches; the learned preferences build on it.",
-  "",
   "Regenerate with `pnpm agent eval`; `results.json` carries the metrics of both splits and the gates.",
 ].join("\n");
 

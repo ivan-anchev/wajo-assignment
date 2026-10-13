@@ -3,13 +3,13 @@ Email q-1@e5: "Thursday 3pm still on?"
 
 1 intake     sender class: known
 2 injection  not suspected
-3 analyze    intent: meeting_confirmation_request
-             summary: Dana from Northwind asks whether the Thursday 3pm meeting is still on and offers to move it if Ivan's week is busy.
-             proposal: send_reply {"body":"Hi Dana,\n\nYes, still on for Thursday at 3pm. See you then.\n\nIvan"}
+3 analyze    intent: schedule_confirmation
+             summary: Dana from Northwind asks Ivan to confirm whether their Thursday 3pm meeting is still on, and offers to move it.
+             proposal: send_reply {"body":"Hi Dana,\n\nYes, Thursday at 3pm still works for me. See you then.\n\nIvan"}
 4 floor      ask (proposed send_reply, requested none)
 5 learned    notify for send_reply/known
 6 level      ask
-7 act        executed send_reply, ask item #113 approved
-8 response   approved send_reply {"body":"Hi Dana,\n\nYes, still on for Thursday at 3pm. See you then.\n\nIvan"}; feedback approve for send_reply/known
+7 act        executed send_reply, ask item #117 approved
+8 response   approved send_reply {"body":"Hi Dana,\n\nYes, Thursday at 3pm still works for me. See you then.\n\nIvan"}; feedback approve for send_reply/known
 
 Score: proposed send_reply = gold; level ask = gold

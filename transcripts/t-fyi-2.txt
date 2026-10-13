@@ -4,11 +4,11 @@ Email t-fyi-2@e5: "Recap: Northwind check-in call"
 1 intake     sender class: internal
 2 injection  not suspected
 3 analyze    intent: fyi
-             summary: Nadia, a colleague, recaps a Northwind check-in: they are happy with the pilot, want SSO in Q1, and Dana will send renewal paperwork next month, with nothing needed from Ivan.
-             proposal: mark_read {}
-4 floor      silent (proposed mark_read, requested none)
-5 learned    silent for mark_read/internal
+             summary: Nadia recaps a Northwind check-in: they like the pilot, want SSO in Q1, and Dana will send renewal paperwork next month, with nothing needed from Ivan.
+             proposal: archive {}
+4 floor      silent (proposed archive, requested none)
+5 learned    silent for archive/internal
 6 level      silent
-7 act        executed mark_read
+7 act        executed archive
 
-Score: proposed mark_read = gold; level silent = gold
+Score: proposed archive, gold mark_read; level silent = gold

@@ -4,7 +4,7 @@ Email sales-4@e5: "Following up (3rd time)"
 1 intake     sender class: first_contact
 2 injection  not suspected
 3 analyze    intent: sales_outreach
-             summary: Chris from PipelinePro is sending a third follow-up asking whether Ivan looked at his earlier emails about PipelinePro.
+             summary: Chris from PipelinePro is sending a third follow-up asking whether Ivan has looked at his previous two emails about PipelinePro.
              proposal: archive {}
 4 floor      silent (proposed archive, requested none)
 5 learned    silent for archive/first_contact

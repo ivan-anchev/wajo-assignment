@@ -4,7 +4,7 @@ Email fyi-6@e5: "Offsite plan v2, please read before Thursday"
 1 intake     sender class: internal
 2 injection  not suspected
 3 analyze    intent: review_request
-             summary: Maya has updated the offsite plan with Ivan's comments and asks him to read it before Thursday so it can be locked in.
+             summary: Maya updated the offsite plan with the user's comments and asks them to read it before Thursday so it can be locked in.
              proposal: none {}
 4 floor      silent (proposed none, requested none)
 5 learned    silent for none/internal

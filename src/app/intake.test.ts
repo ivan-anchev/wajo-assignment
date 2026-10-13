@@ -46,7 +46,7 @@ describe("run", () => {
       [
         [
           "001",
-          "mark_read",
+          "archive",
           false,
           "notify",
           "notify",
@@ -60,10 +60,10 @@ describe("run", () => {
         ],
         [
           "003",
-          "draft_reply",
+          "none",
           false,
-          "notify",
-          "notify",
+          "silent",
+          "silent",
         ],
       ]
     `);

@@ -4,11 +4,11 @@ Email t-q-1@e5: "Who signs the Helix amendment?"
 1 intake     sender class: known
 2 injection  not suspected
 3 analyze    intent: question
-             summary: Tomas Ardent-Legal asks whether Ivan or Oskar should sign the Helix MSA amendment for Wajo, so he can set up the e-signature envelope.
-             proposal: draft_reply {"body":"Hi Tomas,\n\nThanks for checking. I'll confirm who signs the Helix MSA amendment on Wajo's side and get back to you shortly.\n\nBest,\nIvan"}
-4 floor      silent (proposed draft_reply, requested none)
-5 learned    silent for draft_reply/known
+             summary: Tomas from Ardent Legal asks whether Ivan or Oskar should sign the Helix MSA amendment for Wajo, so he can set up the e-signature envelope.
+             proposal: none {}
+4 floor      silent (proposed none, requested none)
+5 learned    silent for none/known
 6 level      silent
-7 act        executed draft_reply
+7 act        executed none
 
-Score: proposed draft_reply = gold; level silent = gold
+Score: proposed none, gold draft_reply; level silent = gold

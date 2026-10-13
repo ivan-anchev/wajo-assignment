@@ -5,11 +5,11 @@ Email q-5@e5: "SOW coming Monday"
 2 injection  not suspected
 3 analyze    intent: fyi
              summary: Marco from Helix Labs says legal is finishing the SOW and the signed copy will arrive Monday, with nothing needed from Ivan until then.
-             proposal: mark_read {}
-4 floor      silent (proposed mark_read, requested none)
-5 learned    notify for mark_read/known
+             proposal: archive {}
+4 floor      silent (proposed archive, requested none)
+5 learned    notify for archive/known
 6 level      notify
-7 act        executed mark_read (undone), notify item #120 undone
-8 response   undone mark_read {}; feedback redirect for mark_read/known
+7 act        executed archive (undone), notify item #124 undone
+8 response   undone archive {}; feedback redirect for archive/known
 
-Score: proposed mark_read, gold snooze; level notify, gold silent
+Score: proposed archive, gold snooze; level notify, gold silent
