@@ -11,6 +11,19 @@ import { Reads } from "./reads.ts";
 
 const SCHEMA = readFileSync(new URL("./schema.sql", import.meta.url), "utf8");
 
+// Children before parents for the foreign keys; clearing sqlite_sequence restarts ids at 1.
+const RESET = `
+  DELETE FROM drafts;
+  DELETE FROM executions;
+  DELETE FROM feedback;
+  DELETE FROM items;
+  DELETE FROM decisions;
+  DELETE FROM emails;
+  DELETE FROM pins;
+  UPDATE preferences SET text = '';
+  DELETE FROM sqlite_sequence;
+`;
+
 export class Store {
   readonly emails: Mailbox;
   readonly decisions: Decisions;
@@ -37,6 +50,11 @@ export class Store {
     this.pins = new Pins(db);
     this.preferences = new Preferences(db);
     this.reads = new Reads(this);
+  }
+
+  // Back to a cold start: no mail, decisions, answers, pins or preferences.
+  reset(): void {
+    this.transaction(() => this.db.exec(RESET));
   }
 
   transaction<T>(work: () => T): T {
