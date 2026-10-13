@@ -1,4 +1,4 @@
-import { mkdtempSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
+import { mkdtempSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { z } from "zod";
@@ -36,10 +36,36 @@ export function writeInbox(emails: readonly EmailFile[], contactsPath: string): 
   const inboxDir = mkdtempSync(join(tmpdir(), "inbox-"));
 
   for (const email of emails) {
-    writeFileSync(join(inboxDir, `${email.id}.json`), JSON.stringify(email));
+    writeEmail(inboxDir, email);
   }
 
   return { inboxDir, contactsPath };
+}
+
+export function undelivered(fromDir: string, inboxDir: string): EmailFile[] {
+  const delivered = new Set(readJsonFiles(inboxDir, emailFileSchema).map((email) => email.id));
+  return readJsonFiles(fromDir, emailFileSchema)
+    .toSorted(byArrival)
+    .filter((email) => !delivered.has(email.id));
+}
+
+export function deliverNext(fromDir: string, inboxDir: string): EmailFile | null {
+  const [next] = undelivered(fromDir, inboxDir);
+
+  if (next) {
+    writeEmail(inboxDir, next);
+  }
+  return next ?? null;
+}
+
+export function emptyInbox(inboxDir: string): void {
+  for (const file of readdirSync(inboxDir).filter((name) => name.endsWith(".json"))) {
+    rmSync(join(inboxDir, file));
+  }
+}
+
+function writeEmail(dir: string, email: EmailFile): void {
+  writeFileSync(join(dir, `${email.id}.json`), JSON.stringify(email));
 }
 
 export function readJsonFile<S extends z.ZodType>(path: string, schema: S): z.infer<S> {
