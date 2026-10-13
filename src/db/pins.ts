@@ -17,6 +17,14 @@ export class Pins {
     );
   }
 
+  list(): { action: ActionName; senderClass: SenderClass }[] {
+    return this.db
+      .prepare<[], { action: ActionName; senderClass: SenderClass }>(
+        "SELECT action, sender_class AS senderClass FROM pins ORDER BY action, sender_class",
+      )
+      .all();
+  }
+
   upsert(action: ActionName, senderClass: SenderClass, level: Level): void {
     this.db
       .prepare(

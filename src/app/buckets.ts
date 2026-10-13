@@ -1,13 +1,24 @@
 import type { Learner } from "../agent/learner.ts";
 import type { Pins } from "../db/pins.ts";
 import { actionFor, type ActionName } from "../domain/actions.ts";
-import { floor, isBelow, standingLevel, type Level } from "../domain/policy.ts";
+import {
+  floor,
+  isBelow,
+  learnedStanding,
+  standingLevel,
+  type LearnedLevel,
+  type Level,
+} from "../domain/policy.ts";
 import type { SenderClass } from "../inbox/inbox.ts";
 import { Refusal } from "./refusal.ts";
 
 export type BucketStanding = {
   action: ActionName;
   senderClass: SenderClass;
+  floor: Level;
+  learned: LearnedLevel;
+  // Positive answers in a row on the learned rung; STREAK_TO_PROMOTE of them lower it.
+  streak: number;
   pin: Level | null;
   level: Level;
 };
@@ -29,16 +40,32 @@ export class Buckets {
     return this.standing(action, senderClass);
   }
 
+  standings(): BucketStanding[] {
+    return this.learner
+      .buckets()
+      .filter(({ action }) => !actionFor(action).inert)
+      .map(({ action, senderClass }) => this.standing(action, senderClass));
+  }
+
   unpin(action: ActionName, senderClass: SenderClass): BucketStanding {
     this.pins.delete(action, senderClass);
 
     return this.standing(action, senderClass);
   }
 
-  private standing(action: ActionName, senderClass: SenderClass): BucketStanding {
+  standing(action: ActionName, senderClass: SenderClass): BucketStanding {
     const { history, pin } = this.learner.bucket(action, senderClass);
+    const { rung, streak } = learnedStanding(history);
 
-    return { action, senderClass, pin, level: standingLevel(action, history, pin) };
+    return {
+      action,
+      senderClass,
+      floor: floor([action], []),
+      learned: rung,
+      streak,
+      pin,
+      level: standingLevel(action, history, pin),
+    };
   }
 }
 

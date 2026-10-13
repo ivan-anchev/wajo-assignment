@@ -24,6 +24,9 @@ describe("pins (§7.3)", () => {
     expect(app.buckets.pin("archive", "newsletter", "ask")).toEqual({
       action: "archive",
       senderClass: "newsletter",
+      floor: "silent",
+      learned: "notify",
+      streak: 0,
       pin: "ask",
       level: "ask",
     });
@@ -94,8 +97,27 @@ describe("pins (§7.3)", () => {
     expect(app.buckets.unpin("archive", "newsletter")).toEqual({
       action: "archive",
       senderClass: "newsletter",
+      floor: "silent",
+      learned: "notify",
+      streak: 0,
       pin: null,
       level: "notify",
     });
+  });
+});
+
+describe("standings", () => {
+  it("lists every bucket with feedback or a pin, with its streak toward the next rung", async () => {
+    app.buckets.pin("mark_read", "known", "ask");
+    app.responses.dismiss((await deliver(ARCHIVE)).item!.id);
+
+    expect(app.buckets.standings()).toEqual([
+      expect.objectContaining({ action: "archive", learned: "notify", streak: 1, level: "notify" }),
+      expect.objectContaining({ action: "mark_read", senderClass: "known", pin: "ask" }),
+    ]);
+
+    app.responses.dismiss((await deliver(ARCHIVE)).item!.id);
+
+    expect(app.buckets.standings()[0]).toMatchObject({ learned: "silent", streak: 0 });
   });
 });

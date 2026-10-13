@@ -18,7 +18,7 @@ export type Analysis = {
 
 export type Verdict = { suspected: boolean; evidence: string[] };
 
-type Standing = { rung: LearnedLevel; streak: number };
+export type Standing = { rung: LearnedLevel; streak: number };
 
 const FLOOR_BY_RISK: Record<RiskClass, Level> = {
   reversible: "silent",
@@ -38,7 +38,7 @@ const LADDER: Record<
 
 const COLD_START: LearnedLevel = "notify";
 const NEGATIVES: readonly FeedbackKind[] = ["reject", "undo", "edit"];
-const STREAK_TO_PROMOTE = 2;
+export const STREAK_TO_PROMOTE = 2;
 
 const NOTHING: Proposal = { action: "none", params: {} };
 
@@ -106,8 +106,12 @@ function riskFloor(action: ActionName): Level {
   return FLOOR_BY_RISK[actionFor(action).riskClass];
 }
 
+export function learnedStanding(history: readonly FeedbackKind[]): Standing {
+  return history.reduce(climb, { rung: COLD_START, streak: 0 });
+}
+
 function learnedLevel(history: readonly FeedbackKind[]): LearnedLevel {
-  return history.reduce(climb, { rung: COLD_START, streak: 0 }).rung;
+  return learnedStanding(history).rung;
 }
 
 function climb({ rung, streak }: Standing, response: FeedbackKind): Standing {

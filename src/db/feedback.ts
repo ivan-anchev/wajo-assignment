@@ -36,6 +36,14 @@ export class FeedbackLog {
     );
   }
 
+  listBuckets(): { action: ActionName; senderClass: SenderClass }[] {
+    return this.db
+      .prepare<[], { action: ActionName; senderClass: SenderClass }>(
+        "SELECT DISTINCT action, sender_class AS senderClass FROM feedback ORDER BY action, sender_class",
+      )
+      .all();
+  }
+
   listByBucket(action: ActionName, senderClass: SenderClass): FeedbackKind[] {
     return this.db
       .prepare<[string, string], FeedbackKind>(

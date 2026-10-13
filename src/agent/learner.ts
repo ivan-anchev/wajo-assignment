@@ -8,6 +8,17 @@ import type { SenderClass } from "../inbox/inbox.ts";
 export class Learner {
   constructor(private readonly tables: { feedback: FeedbackLog; pins: Pins }) {}
 
+  // Every bucket with a history or a pin, each once.
+  buckets(): { action: ActionName; senderClass: SenderClass }[] {
+    const all = [...this.tables.feedback.listBuckets(), ...this.tables.pins.list()];
+    return all.filter(
+      (bucket, index) =>
+        all.findIndex(
+          (other) => other.action === bucket.action && other.senderClass === bucket.senderClass,
+        ) === index,
+    );
+  }
+
   bucket(
     action: ActionName,
     senderClass: SenderClass,
